@@ -1,6 +1,6 @@
 package de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.web;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.markup.html.WebPage;
@@ -21,6 +21,11 @@ public class HomePage
 
     public HomePage()
     {
+        this(new ArrayList<Slogan>());
+    }
+
+    public HomePage(final List<Slogan> slogans)
+    {
         add(new Label("message", ""));
 
         add(new ProductDomainForm("productDomainForm"));
@@ -30,7 +35,6 @@ public class HomePage
         add(new GamesForm("games-form"));
         add(new SoftDrinksForm("soft-form"));
 
-        final List<Slogan> slogans = Arrays.asList(new Slogan("Testslogan"));
         add(new ListView<Slogan>("slogans", slogans)
         {
 

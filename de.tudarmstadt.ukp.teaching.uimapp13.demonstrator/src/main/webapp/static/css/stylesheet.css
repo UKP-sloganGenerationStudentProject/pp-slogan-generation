@@ -1,5 +1,3 @@
-@CHARSET "UTF-8";
-
 body {
 	font-family: sans-serif;
 }
@@ -30,7 +28,20 @@ form {
 	padding: 5px;
 }
 
+:required {
+	box-shadow: none; /* Firefox (tested v6) adds red shadow by default */
+}
+
 #results {
 	padding-top: 15px;
 	clear: both;
+}
+
+#footer {
+	width: 100%;
+	height: 30px;
+	clear: both;
+	background-color: #000066;
+	color: white;
+	margin-bottom: 5px;
 }
