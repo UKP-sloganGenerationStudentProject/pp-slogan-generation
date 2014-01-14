@@ -21,55 +21,72 @@
 			<h2>Beauty Products</h2>
 			<label for="beauty-numSlogans">Number of slogans:</label> <input
 				name="beautyForm" type="text">
+			<button wicket:id="beauty-submit">Generate slogans</button>
 		</form>
 		<form class="domainSpecificForm" wicket:id="cars-form" id="cars-form">
 			<h2>Cars</h2>
 			<label for="cars-numSlogans">Number of slogans:</label> <input
 				name="cars-numSlogans" type="text">
+			<button wicket:id="cars-submit">Generate slogans</button>
 		</form>
 		<form class="domainSpecificForm" wicket:id="games-form"
 			id="games-form">
 			<h2>Games</h2>
 			<div id="column1">
 				<div class="labelContainer">
-					<label for="games-numSlogans">Number of slogans:</label><br /> <input
-						name="games-numSlogans" type="text">
+					<label for="games-numSlogans">Number of slogans:</label><br />
+					<!--  -->
+					<input wicket:id="games-numSlogans" name="games-numSlogans"
+						type="text">
 				</div>
 				<div class="labelContainer">
-					<label for="games-gameName">Game name:</label> <br /> <input
-						name="games-gameName" type="text">
+					<label for="games-gameName">Game name:</label> <br />
+					<!--  -->
+					<input wicket:id="games-gameName" name="games-gameName" type="text">
 				</div>
 				<div class="labelContainer">
 					<label for="games-minWordsForGeneration">Min. words for
 						generation:</label> <br />
-					<input name="games-minWordsForGeneration" type="text">
+					<!--  -->
+					<input wicket:id="games-minWordsForGeneration"
+						name="games-minWordsForGeneration" type="text">
 				</div>
 				<div class="labelContainer">
 					<label for="games-maxSynsetDepth">Max. synset depth:</label> <br />
-					<input name="games-maxSynsetDepth" type="text">
+					<!--  -->
+					<input wicket:id="games-maxSynsetDepth" name="games-maxSynsetDepth"
+						type="text">
 				</div>
 				<div class="labelContainer">
-					<label for="games-maxWordList">Max. word list:</label> <br /> <input
-						name="games-maxWordList" type="text">
+					<label for="games-maxWordList">Max. word list:</label> <br />
+					<!--  -->
+					<input wicket:id="games-maxWordList" name="games-maxWordList"
+						type="text">
 				</div>
 				<div class="labelContainer">
-					<label for="games-emotion">Emotion:</label><br /> <select
-						id="games-emotion" name="games-emotion" wicket:id="games-emotion"></select>
+					<label for="games-emotion">Emotion:</label><br />
+					<!--  -->
+					<select id="games-emotion" name="games-emotion"
+						wicket:id="games-emotion"></select>
 				</div>
 			</div>
 			<div id="column2">
 				<label for="games-featureWords">Feature words:</label>
-				<textarea name="games-featureWords" rows="20" cols="40"></textarea>
+				<textarea wicket:id="games-featureWords" name="games-featureWords"
+					rows="20" cols="40"></textarea>
 			</div>
 			<div id="column3">
 				<label for="games-alienWords">Alien words:</label>
-				<textarea name="games-alienWords" rows="20" cols="40"></textarea>
+				<textarea wicket:id="games-alienWords" name="games-alienWords"
+					rows="20" cols="40"></textarea>
 			</div>
+			<button wicket:id="games-submit">Generate slogans</button>
 		</form>
 		<form class="domainSpecificForm" wicket:id="soft-form" id="soft-form">
 			<h2>Soft Drinks</h2>
 			<label for="soft-numSlogans">Number of slogans:</label> <input
 				name="soft-numSlogans" type="text">
+			<button wicket:id="soft-submit">Generate slogans</button>
 		</form>
 	</div>
 	<div id="results">
@@ -77,6 +94,9 @@
 		<ul wicket:id="slogans">
 			<li><span wicket:id="sloganText"></span></li>
 		</ul>
+	</div>
+	<div id="footer">
+	&copy; Content: &mdash; Web application: Roland Kluge
 	</div>
 </body>
 </html>
