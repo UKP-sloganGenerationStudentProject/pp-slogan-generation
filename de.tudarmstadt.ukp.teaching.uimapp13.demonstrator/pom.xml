@@ -17,7 +17,15 @@
     <dependency>
     	<groupId>org.apache.wicket</groupId>
     	<artifactId>wicket-core</artifactId>
-    	<version>1.5.8</version>
+    	<version>${org.apache.wicket.version}</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.apache.wicket</groupId>
+    	<artifactId>wicket-extensions</artifactId>
+    	<version>${org.apache.wicket.version}</version>
     </dependency>
   </dependencies>
+  <properties>
+  	<org.apache.wicket.version>1.5.8</org.apache.wicket.version>
+  </properties>
 </project>
