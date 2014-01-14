@@ -6,6 +6,9 @@ import org.apache.wicket.protocol.http.WebApplication;
 public class DemonstratorApplication
     extends WebApplication
 {
+    public DemonstratorApplication()
+    {
+    }
 
     @Override
     public Class<? extends Page> getHomePage()

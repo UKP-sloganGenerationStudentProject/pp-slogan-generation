@@ -1,0 +1,36 @@
+@CHARSET "UTF-8";
+
+body {
+	font-family: sans-serif;
+}
+
+h2,h1 {
+	color: grey;
+}
+
+form h2 {
+	margin-top: 0px;
+}
+
+.domainSpecificForm {
+	display: none;
+}
+
+#games-form #column1,#games-form #column2,#games-form #column3 {
+	width: 33%;
+	float: left;
+}
+
+form {
+	border: solid #DDDDDD 2px;
+	border-radius: 5px;
+	float: left;
+	clear: both;
+	margin-top: 10px;
+	padding: 5px;
+}
+
+#results {
+	padding-top: 15px;
+	clear: both;
+}
