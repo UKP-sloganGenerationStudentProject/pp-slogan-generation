@@ -39,11 +39,31 @@ public class Config {
 	 * Stylistic device weights for stylistic device choosing
 	 */
 	private Map<StylisticDevice, Double> sdweights;
+	/**
+	 * Feature words for generation
+	 */
 	private Set<String> featureList;
+	/**
+	 * Alien feature words for metapher generation
+	 */
 	private Set<String> alienFeatureList;
+	/**
+	 * Minimal word list size from which words are choosen randomly. Low value leads to very similar slogans, high value might have lower semantic value or may not generate at all
+	 */
 	private int minWordlistForGeneration;
+	/**
+	 * Max synset depth is an indicator of how great the semantic distance of words for generation might be to the feature words.
+	 */
 	private int maxSynsetDepth;
+	/**
+	 * Uby config data
+	 * ATTENTION: The uby url has to be different then for example an JDBC url, please see Uby documentation
+	 */
 	private DbConfig ubyConfig;
+	/**
+	 * JDBC config data for custom database
+	 * ATTENTION: Url has to be a valid jdbc url, which is different from uby urls
+	 */
 	private DbConfig customDbConfig;
 	
 	public Config(String gameName, Long randomSeed, Integer sloganCount, Emotion emotion, Map<Pattern, Double> patternweights,

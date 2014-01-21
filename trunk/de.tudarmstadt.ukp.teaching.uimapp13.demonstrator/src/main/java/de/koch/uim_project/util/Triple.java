@@ -1,5 +1,13 @@
 package de.koch.uim_project.util;
 
+/**
+ * Generic data container for three values
+ * @author Frerik Koch
+ *
+ * @param <First>
+ * @param <Second>
+ * @param <Third>
+ */
 public class Triple<First, Second, Third> {
 
 	private First first;

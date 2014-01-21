@@ -1,7 +1,7 @@
 package de.koch.uim_project.util;
 
 /**
- * This class is to validate a config object.
+ * This class is to validate a {@link Config} object.
  * @author Frerik Koch
  *
  */
@@ -21,6 +21,6 @@ public class ConfigValidator {
 	}
 	
 	public boolean validate(Config config){
-		return true; //TODO
+		return true; //TODO Implement!
 	}
 }
