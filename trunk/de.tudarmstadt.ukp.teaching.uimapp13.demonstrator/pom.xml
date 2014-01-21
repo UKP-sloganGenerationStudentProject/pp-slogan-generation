@@ -7,6 +7,30 @@
   <build>
     <finalName>slogan-demonstrator</finalName>
   </build>
+  <repositories>
+    <repository>
+      <id>ukp-oss-snapshots</id>
+      <url>http://zoidberg.ukp.informatik.tu-darmstadt.de/artifactory/public-snapshots</url>    
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>ukp-oss</id>
+      <url>http://zoidberg.ukp.informatik.tu-darmstadt.de/artifactory/public-releases</url>    
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+        <checksumPolicy>warn</checksumPolicy>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -24,8 +48,93 @@
     	<artifactId>wicket-extensions</artifactId>
     	<version>${org.apache.wicket.version}</version>
     </dependency>
+    <dependency>
+    	<groupId>mysql</groupId>
+    	<artifactId>mysql-connector-java</artifactId>
+    	<version>5.1.25</version>
+    </dependency>
+    <dependency>
+    	<groupId>log4j</groupId>
+    	<artifactId>log4j</artifactId>
+    	<version>1.2.17</version>
+    </dependency>
+    <dependency>
+    	<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+    	<artifactId>
+    		de.tudarmstadt.ukp.dkpro.core.treetagger-asl
+    	</artifactId>
+    </dependency>
+    <dependency>
+    	<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+    	<artifactId>
+    		de.tudarmstadt.ukp.dkpro.core.opennlp-asl
+    	</artifactId>
+    </dependency>
+    <dependency>
+    	<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+    	<artifactId>
+    		de.tudarmstadt.ukp.dkpro.core.stanfordnlp-gpl
+    	</artifactId>
+    </dependency>
+    <dependency>
+    	<groupId>de.tudarmstadt.ukp.uby</groupId>
+    	<artifactId>de.tudarmstadt.ukp.uby.uima-asl</artifactId>
+    	<version>0.4.0</version>
+    </dependency>
+    <dependency>
+    	<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+    	<artifactId>
+    		de.tudarmstadt.ukp.dkpro.core.frequency-asl
+    	</artifactId>
+    </dependency>
+    <dependency>
+    	<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+    	<artifactId>
+    		de.tudarmstadt.ukp.dkpro.core.stopwordremover-asl
+    	</artifactId>
+    </dependency>
+    <dependency>
+    	<groupId>org.apache.pdfbox</groupId>
+    	<artifactId>pdfbox</artifactId>
+    	<version>1.8.2</version>
+    </dependency>
+    <dependency>
+    	<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+    	<artifactId>
+    		de.tudarmstadt.ukp.dkpro.core.api.frequency-asl
+    	</artifactId>
+    </dependency>
   </dependencies>
   <properties>
   	<org.apache.wicket.version>1.5.8</org.apache.wicket.version>
+  	<maven.compiler.source>1.7</maven.compiler.source>
+  	<maven.compiler.target>1.7</maven.compiler.target>
   </properties>
+  <dependencyManagement>
+  	<dependencies>
+  		<dependency>
+  			<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+  			<artifactId>de.tudarmstadt.ukp.dkpro.core-asl</artifactId>
+  			<version>1.5.0</version>
+  			<type>pom</type>
+  			<scope>import</scope>
+  		</dependency>
+  		<dependency>
+  			<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+  			<artifactId>de.tudarmstadt.ukp.dkpro.core-gpl</artifactId>
+  			<version>1.5.0</version>
+  			<type>pom</type>
+  			<scope>import</scope>
+  		</dependency>
+  		<dependency>
+  			<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+  			<artifactId>
+  				de.tudarmstadt.ukp.dkpro.core.treetagger-asl
+  			</artifactId>
+  			<version>1.5.0</version>
+  			<type>pom</type>
+  			<scope>import</scope>
+  		</dependency>
+  	</dependencies>
+  </dependencyManagement>
 </project>
