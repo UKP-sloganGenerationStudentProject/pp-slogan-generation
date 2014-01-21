@@ -21,21 +21,21 @@ public class HomePage
 
     public HomePage()
     {
-        this(new ArrayList<Slogan>());
+        this(new ArrayList<Slogan>(), "");
     }
 
-    public HomePage(final List<Slogan> slogans)
+    public HomePage(final List<Slogan> slogans, final String statusMessage)
     {
-        add(new Label("message", ""));
+        this.add(new Label("message", statusMessage));
 
-        add(new ProductDomainForm("productDomainForm"));
+        this.add(new ProductDomainForm("productDomainForm"));
 
-        add(new BeautyForm("beauty-form"));
-        add(new CarsForm("cars-form"));
-        add(new GamesForm("games-form"));
-        add(new SoftDrinksForm("soft-form"));
+        this.add(new BeautyForm("beauty-form"));
+        this.add(new CarsForm("cars-form"));
+        this.add(new GamesForm("games-form"));
+        this.add(new SoftDrinksForm("soft-form"));
 
-        add(new ListView<Slogan>("slogans", slogans)
+        this.add(new ListView<Slogan>("slogans", slogans)
         {
 
             private static final long serialVersionUID = 1L;
