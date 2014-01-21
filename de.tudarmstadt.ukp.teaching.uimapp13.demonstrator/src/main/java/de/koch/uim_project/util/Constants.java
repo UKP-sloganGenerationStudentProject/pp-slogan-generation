@@ -1,7 +1,7 @@
 package de.koch.uim_project.util;
 
 /**
- * This class gathers all constants used by the project. Grouping is done by
+ * This class gathers constants used by the project. Grouping is done by
  * subclasses.
  * 
  * @author Frerik Koch
@@ -43,11 +43,11 @@ public class Constants {
 		 * 
 		 */
 		public static final class CUSTOM_DATABASE {
-			
+
 			public static final String DEFAULT_DB_USER = "root";
 			public static final String DEFAULT_DB_PASS = "root";
 			public static final String DEFAULT_DB_URL = "jdbc:mysql://localhost:3306/uim_projekt";
-			
+
 		}
 	}
 

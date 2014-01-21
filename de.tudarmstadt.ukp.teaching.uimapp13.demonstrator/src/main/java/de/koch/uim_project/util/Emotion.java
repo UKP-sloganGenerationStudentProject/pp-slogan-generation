@@ -1,5 +1,10 @@
 package de.koch.uim_project.util;
 
+/**
+ * Enum for all emotions which are recored in custom database with their ID used in database
+ * @author Frerik Koch
+ *
+ */
 public enum Emotion {
 	ANGER(3), ANTICIPATION(4), DISGUST(5), FEAR(6), JOY(7), NEGATIVE(2), POSITIVE(1), SADNESS(8), SURPRISE(9), TRUST(10);
 
