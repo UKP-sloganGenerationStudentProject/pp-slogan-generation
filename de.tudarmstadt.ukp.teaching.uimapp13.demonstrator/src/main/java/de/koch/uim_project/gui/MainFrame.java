@@ -150,11 +150,11 @@ public class MainFrame
         this.getConfigPanel().getStylisticDeviceWeightPanel().getSdAlliteration().getTextField()
                 .setText(config.getSdweights().get(StylisticDevice.Alliteration).toString());
         this.getConfigPanel().getStylisticDeviceWeightPanel().getSdMetaphor().getTextField()
-                .setText(config.getSdweights().get(StylisticDevice.Metapher).toString());
+                .setText(config.getSdweights().get(StylisticDevice.Metaphor).toString());
         this.getConfigPanel().getStylisticDeviceWeightPanel().getSdNone().getTextField()
                 .setText(config.getSdweights().get(StylisticDevice.None).toString());
         this.getConfigPanel().getStylisticDeviceWeightPanel().getSdOxymeron().getTextField()
-                .setText(config.getSdweights().get(StylisticDevice.Oxymeron).toString());
+                .setText(config.getSdweights().get(StylisticDevice.Oxymoron).toString());
         this.getConfigPanel().getStylisticDeviceWeightPanel().getSdParallelism().getTextField()
                 .setText(config.getSdweights().get(StylisticDevice.Parallelism).toString());
 
@@ -189,11 +189,11 @@ public class MainFrame
                 Double.parseDouble(this.getConfigPanel().getStylisticDeviceWeightPanel()
                         .getSdAlliteration().getTextField().getText()));
         sdWeights.put(
-                StylisticDevice.Metapher,
+                StylisticDevice.Metaphor,
                 Double.parseDouble(this.getConfigPanel().getStylisticDeviceWeightPanel()
                         .getSdMetaphor().getTextField().getText()));
         sdWeights.put(
-                StylisticDevice.Oxymeron,
+                StylisticDevice.Oxymoron,
                 Double.parseDouble(this.getConfigPanel().getStylisticDeviceWeightPanel()
                         .getSdOxymeron().getTextField().getText()));
         sdWeights.put(

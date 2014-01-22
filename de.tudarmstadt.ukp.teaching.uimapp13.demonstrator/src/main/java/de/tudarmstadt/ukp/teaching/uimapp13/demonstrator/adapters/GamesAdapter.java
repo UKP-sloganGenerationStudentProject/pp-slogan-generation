@@ -98,8 +98,8 @@ public class GamesAdapter
     {
         final HashMap<StylisticDevice, Double> map = new HashMap<StylisticDevice, Double>();
         map.put(StylisticDevice.Alliteration, list.get(0));
-        map.put(StylisticDevice.Metapher, list.get(1));
-        map.put(StylisticDevice.Oxymeron, list.get(2));
+        map.put(StylisticDevice.Metaphor, list.get(1));
+        map.put(StylisticDevice.Oxymoron, list.get(2));
         map.put(StylisticDevice.Parallelism, list.get(3));
         map.put(StylisticDevice.None, list.get(4));
         return map;

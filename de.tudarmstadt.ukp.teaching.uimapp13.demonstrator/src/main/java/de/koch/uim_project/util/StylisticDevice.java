@@ -7,5 +7,5 @@ package de.koch.uim_project.util;
  * 
  */
 public enum StylisticDevice {
-	Metapher, Oxymeron, Alliteration, Parallelism, None;
+	Metaphor, Oxymoron, Alliteration, Parallelism, None;
 }

@@ -53,7 +53,7 @@ public class PatternJJNNJJNN extends AbstractPattern {
 		switch (stylisticDevice) {
 		case Parallelism:
 			return generateParallelism();
-		case Oxymeron:
+		case Oxymoron:
 			return generateOxymeron();
 		case None:
 			return generateNoStylisticDevice();
@@ -296,7 +296,7 @@ public class PatternJJNNJJNN extends AbstractPattern {
 	 */
 	@Override
 	public StylisticDevice[] getPossibleStylisticDevices() {
-		return new StylisticDevice[] { StylisticDevice.None, StylisticDevice.Parallelism, StylisticDevice.Oxymeron };
+		return new StylisticDevice[] { StylisticDevice.None, StylisticDevice.Parallelism, StylisticDevice.Oxymoron };
 	}
 
 	/*
