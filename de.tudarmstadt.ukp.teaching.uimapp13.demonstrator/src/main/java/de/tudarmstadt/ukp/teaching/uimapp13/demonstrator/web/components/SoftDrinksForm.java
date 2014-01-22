@@ -29,6 +29,6 @@ public class SoftDrinksForm
         final HashMap<String, Object> parameters = new HashMap<String, Object>();
 
         final List<Slogan> slogans = adapter.generateSlogans(parameters);
-        this.setResponsePage(new HomePage(slogans));
+        this.setResponsePage(new HomePage(slogans, ""));
     }
 }

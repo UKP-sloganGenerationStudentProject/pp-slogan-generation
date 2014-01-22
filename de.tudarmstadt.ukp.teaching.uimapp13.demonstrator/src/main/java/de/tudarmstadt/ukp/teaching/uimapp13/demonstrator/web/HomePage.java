@@ -9,6 +9,7 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.model.Slogan;
+import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.web.components.BeautyForm;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.web.components.CarsForm;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.web.components.GamesForm;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.web.components.ProductDomainForm;
