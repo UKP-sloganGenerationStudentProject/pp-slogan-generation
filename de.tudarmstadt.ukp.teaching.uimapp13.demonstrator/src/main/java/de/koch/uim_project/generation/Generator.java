@@ -70,7 +70,7 @@ public class Generator {
 		patternToGenerate = choosePattern();
 		sdToGenerate = chooseSD(patternToGenerate.getPossibleStylisticDevices());
 		result = patternToGenerate.generateSlogan(sdToGenerate);
-		Main.writeToConsole("Created slogan with Pattern: " + patternToGenerate);
+		Main.writeToConsole("Created: " + patternToGenerate + " With: "+sdToGenerate);
 
 		return result;
 	}
@@ -86,6 +86,7 @@ public class Generator {
 		for(StylisticDevice sd : possibleStylisticDevices){
 			normalizedSD.put( sd, config.getSdweights().get(sd));
 		}
+		normalizedSD = normalizeWeights(normalizedSD);
 		Double count = 0.0;
 		for(StylisticDevice sdNorm : normalizedSD.keySet()){
 			count += normalizedSD.get(sdNorm);
