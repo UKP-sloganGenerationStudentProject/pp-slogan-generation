@@ -104,8 +104,8 @@ public class PatternJJNN extends AbstractPattern {
 		} catch (NoMorGenerationPossibleException e) {
 			
 			//generate from emotion less lists but prefer emotion fitting words
-			noun = RandomUtil.randomWord(gen.getRnd(), nouns, config.getEmotion()).getLemma();
-			adj = RandomUtil.randomWord(gen.getRnd(), adjs, config.getEmotion()).getLemma();
+			noun = RandomUtil.randomWordPreferEmotion(gen.getRnd(), nouns, nounsEmo).getLemma();
+			adj = RandomUtil.randomWordPreferEmotion(gen.getRnd(), adjs, adjsEmo).getLemma();
 
 		}
 

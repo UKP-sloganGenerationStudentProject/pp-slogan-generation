@@ -95,8 +95,8 @@ public class PatternNNVVN extends AbstractPattern {
 		
 		}catch(NoMorGenerationPossibleException e){
 			//create slogan from emotion less word lists but prefer emotion full words
-			nounResult = RandomUtil.randomWord(gen.getRnd(), nouns, config.getEmotion()).getLemma();
-			verbResult = VerbConjugator.getInstance().getVVNForm(RandomUtil.randomWord(gen.getRnd(), verbs,config.getEmotion()));
+			nounResult = RandomUtil.randomWordPreferEmotion(gen.getRnd(), nouns, nounsEmo).getLemma();
+			verbResult = VerbConjugator.getInstance().getVVNForm(RandomUtil.randomWordPreferEmotion(gen.getRnd(), verbs,verbsEmo));
 			return "(a)" + nounResult + " " + verbResult;
 		}
 		

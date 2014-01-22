@@ -23,7 +23,7 @@ public class EmotionFilter implements IFilterSet, IFilterWord {
 	
 	@Override
 	public boolean filterWord(Word word) {
-		return (word.getEmotions().size() > 0 && word.getEmotions().contains(emotion) || word.isFeature());
+		return (word.getEmotions().size() > 0 && word.getEmotions().contains(emotion));
 	}
 
 	@Override
