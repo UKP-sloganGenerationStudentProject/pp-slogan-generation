@@ -4,7 +4,6 @@ import static de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.configuration.De
 import static de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.configuration.DemonstratorConfig.CUSTOM_DB_USER;
 import static de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.configuration.DemonstratorConfig.KOCH_DB_URL;
 import static de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.configuration.DemonstratorConfig.UBY_PASSWORD;
-import static de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.configuration.DemonstratorConfig.UBY_URL_JDBC;
 import static de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.configuration.DemonstratorConfig.UBY_USER;
 
 import java.util.ArrayList;
@@ -23,6 +22,7 @@ import de.koch.uim_project.util.DbConfig;
 import de.koch.uim_project.util.Emotion;
 import de.koch.uim_project.util.Pattern;
 import de.koch.uim_project.util.StylisticDevice;
+import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.configuration.DemonstratorConfig;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.model.Slogan;
 
 public class GamesAdapter
@@ -55,8 +55,9 @@ public class GamesAdapter
     public List<Slogan> generateSlogans(final Map<String, Object> parameters)
         throws Exception
     {
-        final DbConfig customDbConfig = new DbConfig(UBY_URL_JDBC, UBY_USER, UBY_PASSWORD);
-        final DbConfig ubyConfig = new DbConfig(KOCH_DB_URL, CUSTOM_DB_USER, CUSTOM_DB_PASSWORD);
+        final DbConfig ubyConfig = new DbConfig(DemonstratorConfig.UBY_URL, UBY_USER, UBY_PASSWORD);
+        final DbConfig customDbConfig = new DbConfig(KOCH_DB_URL, CUSTOM_DB_USER,
+                CUSTOM_DB_PASSWORD);
 
         final String gameName = (String) parameters.get(GAME_NAME);
         final Long randomSeed = (Long) parameters.get(RANDOM_SEED);
@@ -83,6 +84,8 @@ public class GamesAdapter
         LoggerFactory.getLogger(this.getClass()).info("Generating slogans...");
         final ArrayList<Slogan> slogans = new ArrayList<Slogan>();
         for (int i = 0; i < sloganCount; ++i) {
+            LoggerFactory.getLogger(this.getClass()).info(
+                    String.format("Slogan %d/%d...", i + 1, sloganCount));
             final Slogan slogan = new Slogan(generator.generateSlogan());
             slogans.add(slogan);
         }
@@ -98,7 +101,7 @@ public class GamesAdapter
         map.put(StylisticDevice.Metapher, list.get(1));
         map.put(StylisticDevice.Oxymeron, list.get(2));
         map.put(StylisticDevice.Parallelism, list.get(3));
-        map.put(StylisticDevice.Parallelism, list.get(4));
+        map.put(StylisticDevice.None, list.get(4));
         return map;
     }
 
