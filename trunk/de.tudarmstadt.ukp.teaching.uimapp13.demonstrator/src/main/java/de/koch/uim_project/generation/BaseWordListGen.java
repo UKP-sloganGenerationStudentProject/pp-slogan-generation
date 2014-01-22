@@ -37,7 +37,7 @@ public class BaseWordListGen {
 		
 		private Set<Word> generateMore() throws DbException, NoMorGenerationPossibleException {
 			
-			if(this.getWordCount() < config.getMaxWordListLength() && this.wordLists.size() > config.getMaxSynsetDepth()){
+			if(this.getWordCount() > config.getMaxWordListLength() && this.wordLists.size() > config.getMaxSynsetDepth()){
 				throw new NoMorGenerationPossibleException();
 			}
 			Set<Word> result = new HashSet<Word>();
