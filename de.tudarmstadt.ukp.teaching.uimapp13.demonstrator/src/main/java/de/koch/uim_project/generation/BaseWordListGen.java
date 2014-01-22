@@ -37,7 +37,7 @@ public class BaseWordListGen {
 		
 		private Set<Word> generateMore() throws DbException, NoMorGenerationPossibleException {
 			
-			if(this.wordLists.size() > config.getMaxSynsetDepth()){
+			if(this.getWordCount() < config.getMaxWordListLength() && this.wordLists.size() > config.getMaxSynsetDepth()){
 				throw new NoMorGenerationPossibleException();
 			}
 			Set<Word> result = new HashSet<Word>();
@@ -58,6 +58,14 @@ public class BaseWordListGen {
 			return result;
 		}
 		
+		private int getWordCount() {
+			int result = 0;
+			for(Set<Word> set : this.wordLists){
+				result += set.size();
+			}
+			return result;
+		}
+
 		public Set<Word> getMore(int synsetDepth) throws DbException, NoMorGenerationPossibleException{
 			if(wordLists.size() <= synsetDepth){
 				return generateMore();

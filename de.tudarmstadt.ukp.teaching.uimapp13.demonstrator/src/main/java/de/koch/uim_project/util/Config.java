@@ -55,6 +55,12 @@ public class Config
      * Max synset depth is an indicator of how great the semantic distance of words for generation might be to the feature words.
      */
     private int maxSynsetDepth;
+    
+    /**
+     * This limits the word generation to a given word maximum. 
+     * This parameter can be used to limit execution time.
+     */
+    private int maxWordListLength;
     /**
      * Uby config data
      * ATTENTION: The uby url has to be different then for example an JDBC url, please see Uby documentation
@@ -70,7 +76,7 @@ public class Config
             final Emotion emotion, final Map<Pattern, Double> patternweights,
             final Map<StylisticDevice, Double> sdweights, final Set<String> featureList,
             final Set<String> alienFeatureList, final int minWordlistForGeneration,
-            final int maxSynsetDepth, final DbConfig ubyConfig, final DbConfig customDbConfig)
+            final int maxSynsetDepth,final int maxWordListLength, final DbConfig ubyConfig, final DbConfig customDbConfig)
     {
         super();
         this.gameName = gameName;
@@ -83,6 +89,7 @@ public class Config
         this.alienFeatureList = alienFeatureList;
         this.minWordlistForGeneration = minWordlistForGeneration;
         this.maxSynsetDepth = maxSynsetDepth;
+        this.maxWordListLength = maxWordListLength;
         this.ubyConfig = ubyConfig;
         this.customDbConfig = customDbConfig;
     }
@@ -137,7 +144,11 @@ public class Config
         return this.maxSynsetDepth;
     }
 
-    public DbConfig getUbyConfig()
+    public int getMaxWordListLength() {
+		return maxWordListLength;
+	}
+
+	public DbConfig getUbyConfig()
     {
         return this.ubyConfig;
     }
@@ -172,12 +183,13 @@ public class Config
 
         final int minWordlistForGeneration = 10;
         final int maxSynsetDepth = 4;
+        final int maxWordsInBasicList = 1500;
 
         final Set<String> featureList = getDefaultFeatureList();
         final Set<String> alienFeatureList = getDefaultAlienFeatureList();
 
         return new Config(name, randomSeed, sloganCount, emotion, patternWeights, sdWeights,
-                featureList, alienFeatureList, minWordlistForGeneration, maxSynsetDepth, ubyConfig,
+                featureList, alienFeatureList, minWordlistForGeneration, maxSynsetDepth,maxWordsInBasicList, ubyConfig,
                 config);
     }
 

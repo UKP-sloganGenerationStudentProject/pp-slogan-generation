@@ -137,6 +137,7 @@ public class MainFrame
                 .setText("" + config.getMinWordlistForGeneration());
         this.getConfigPanel().getBasicConfigPanel().getMaxSynsetDepth().getTextField()
                 .setText("" + config.getMaxSynsetDepth());
+        this.getConfigPanel().getBasicConfigPanel().getMaxWordListLength().getTextField().setText(""+config.getMaxWordListLength());
 
         this.getConfigPanel().getPatternWeightPanel().getPatternJJNN().getTextField()
                 .setText(config.getPatternweights().get(Pattern.JJNN).toString());
@@ -227,9 +228,11 @@ public class MainFrame
                 .getBasicConfigPanel().getMinWordListForGeneration().getTextField().getText());
         final int maxSynsetDepth = Integer.parseInt(this.getConfigPanel().getBasicConfigPanel()
                 .getMaxSynsetDepth().getTextField().getText());
+        final int maxWordListLength = Integer.parseInt(this.getConfigPanel().getBasicConfigPanel()
+                .getMaxWordListLength().getTextField().getText());
 
         return new Config(gameName, randomSeed, sloganCount, emotion, patternWeights, sdWeights,
-                featureList, alienFeatureList, minWordlistForGeneration, maxSynsetDepth, ubyConfig,
+                featureList, alienFeatureList, minWordlistForGeneration, maxSynsetDepth,maxWordListLength, ubyConfig,
                 customDb);
     }
 
