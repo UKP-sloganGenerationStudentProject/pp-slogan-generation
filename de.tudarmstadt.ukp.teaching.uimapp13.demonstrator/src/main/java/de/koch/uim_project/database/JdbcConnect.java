@@ -16,13 +16,13 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import de.koch.uim_project.util.Constants;
 import de.koch.uim_project.util.DbConfig;
 import de.koch.uim_project.util.Emotion;
 
 /**
- * This class handles the connection to the custom database. For performance
- * reasons one global database connection is held ATTENTION: Threading may yield
- * problems with one global connection
+ * This class handles the connection to the custom database. 
+ * Each instance has its own connection which is hold for the life time of the instance for performance reasons
  * 
  * @author Frerik Koch
  * 
@@ -34,6 +34,12 @@ public class JdbcConnect {
 	private static final int MAX_CONDITIONS_QUERY = 50;
 	private String dbUser, dbPass, dbUrl;
 
+	/**
+	 * Constructor for creating a new {@link JdbcConnect}
+	 * ATTENTION: the url in the given {@link DbConfig} has to be a valid jdbc url see {@link Constants.DATABASE.CUSTOM_DATABASE} for examples
+	 * @param customDbConfig
+	 * @throws DbException
+	 */
 	public JdbcConnect(DbConfig customDbConfig) throws DbException {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();

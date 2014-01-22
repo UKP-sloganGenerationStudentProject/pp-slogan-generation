@@ -6,6 +6,12 @@ import de.koch.uim_project.database.DbException;
 import de.koch.uim_project.util.Config;
 import de.koch.uim_project.util.Pattern;
 
+/**
+ * {@link PatternFactory} allows convenient instantiation of {@link AbstractPattern} subclasses
+ * It implements the factory pattern
+ * @author Frerik Koch
+ *
+ */
 public class PatternFactory {
 
 	private static PatternFactory instance;
@@ -21,6 +27,15 @@ public class PatternFactory {
 		return instance;
 	}
 
+	/**
+	 * Instantiates a pattern with given parameters
+	 * @param pattern {@link Pattern} to initialize
+	 * @param config {@link Config} for generation
+	 * @param gen {@link Generator} requesting an instantiation
+	 * @return Instantiated subclass of {@link AbstractPattern}
+	 * @throws DbException
+	 * @throws PatternNotInitializeableException
+	 */
 	public AbstractPattern createPattern(Pattern pattern,Config config,Generator gen) throws DbException, PatternNotInitializeableException {
 		switch (pattern) {
 		case JJNN:

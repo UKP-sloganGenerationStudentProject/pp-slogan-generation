@@ -7,6 +7,11 @@ import de.koch.uim_project.util.Emotion;
 import de.tudarmstadt.ukp.lmf.model.core.LexicalEntry;
 import de.tudarmstadt.ukp.lmf.model.enums.EPartOfSpeech;
 
+/**
+ * This class represents a word.
+ * @author Frerik Koch
+ *
+ */
 public class Word {
 
 	private String lemma;
@@ -59,6 +64,13 @@ public class Word {
 		return lemma.hashCode() + pos.hashCode();
 	}
 
+	/**
+	 * This class generates a {@link Word} instance from a given {@link LexicalEntry}.
+	 * It ensures that the verb has POS verb/noun/adjective has no null values and has no empty lemma.
+	 * If one condition does not hold: <code>null</code> is returned
+	 * @param entry Entry to generate {@link Word} from
+	 * @return Generated {@link Word} or <code>null</code>
+	 */
 	public static Word fromLexicalEntry(LexicalEntry entry) {
 		if (entry.getLemmaForm() != null
 				&& !entry.getLemmaForm().matches("\\s")

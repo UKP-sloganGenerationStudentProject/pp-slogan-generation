@@ -10,6 +10,7 @@ import de.koch.uim_project.util.Config;
 import de.koch.uim_project.analyse.FeatureListConverter;
 import de.koch.uim_project.analyse.UbyAnalyser;
 import de.koch.uim_project.database.DbException;
+import de.tudarmstadt.ukp.lmf.model.enums.EPartOfSpeech;
 import de.tudarmstadt.ukp.lmf.model.semantics.Synset;
 
 
@@ -27,9 +28,13 @@ public class BaseWordListGen {
 			this.config = config;
 			this.gen = gen;
 			if(useEmotion){
-				wordLists.add(gen.getCustomDb().getEmotionBatch(FeatureListConverter.getInstance().transformFeatureList(config.getFeatureList(),gen.getUby())));	
+				wordLists.add(gen.getCustomDb().getEmotionBatch(FeatureListConverter.getInstance().transformFeatureList(config.getFeatureList(),gen.getUby())));
+				
 			}else{
 				wordLists.add(FeatureListConverter.getInstance().transformFeatureList(config.getFeatureList(),gen.getUby()));
+			}
+			if(!config.getGameName().matches("\\s*") && !config.getGameName().equals("No Name") ){
+				wordLists.get(0).add((new Word(config.getGameName(),EPartOfSpeech.noun,true)));
 			}
 			visitedSynsets = new HashSet<Synset>();
 

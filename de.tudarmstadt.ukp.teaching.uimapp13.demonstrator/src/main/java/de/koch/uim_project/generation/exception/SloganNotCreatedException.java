@@ -1,5 +1,12 @@
 package de.koch.uim_project.generation.exception;
 
+import de.koch.uim_project.generation.Generator;
+
+/**
+ * This exception is thrown if the {@link Generator} is unable to create a slogan with given parameters
+ * @author Frerik Koch
+ *
+ */
 public class SloganNotCreatedException extends Exception {
 
 	/**

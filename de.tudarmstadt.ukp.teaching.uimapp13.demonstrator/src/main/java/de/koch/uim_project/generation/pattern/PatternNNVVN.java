@@ -1,5 +1,8 @@
 package de.koch.uim_project.generation.pattern;
 
+import java.util.Set;
+
+import de.koch.uim_project.database.DbException;
 import de.koch.uim_project.generation.BaseWordListGen;
 import de.koch.uim_project.generation.Generator;
 import de.koch.uim_project.generation.RandomUtil;
@@ -10,25 +13,25 @@ import de.koch.uim_project.generation.exception.SloganNotCreatedException;
 import de.koch.uim_project.generation.filter.CombinedSetFilter;
 import de.koch.uim_project.generation.filter.EmotionFilter;
 import de.koch.uim_project.generation.filter.PosFilter;
-
-import java.util.Set;
-
-import org.apache.log4j.Logger;
-
 import de.koch.uim_project.util.Config;
 import de.koch.uim_project.util.Pattern;
 import de.koch.uim_project.util.StylisticDevice;
-import de.koch.uim_project.database.DbException;
 import de.tudarmstadt.ukp.lmf.model.enums.EPartOfSpeech;
 
+/**
+ * This class represents the pattern "NN VVN"
+ * @author Frerik Koch
+ *
+ */
 public class PatternNNVVN extends AbstractPattern {
-
-	private Logger log = Logger.getRootLogger();
 	
 	public PatternNNVVN(Config config, Generator gen) {
 		super(config, gen);
 	}
 
+	/* (non-Javadoc)
+	 * @see de.koch.uim_project.generation.pattern.AbstractPattern#generateSlogan(de.koch.uim_project.util.StylisticDevice)
+	 */
 	@Override
 	public String generateSlogan(StylisticDevice stylisticDevice) throws DbException, SloganNotCreatedException {
 		switch (stylisticDevice) {
@@ -39,6 +42,12 @@ public class PatternNNVVN extends AbstractPattern {
 		}
 	}
 
+	/**
+	 * This method generates a slogan with no {@link StylisticDevice}
+	 * @return Generated slogan
+	 * @throws DbException
+	 * @throws SloganNotCreatedException
+	 */
 	private String generateSdNone() throws DbException, SloganNotCreatedException {
 		int synsetDepth = 0;
 		BaseWordListGen wordGen = gen.getGlobalWordListGen();
@@ -46,16 +55,16 @@ public class PatternNNVVN extends AbstractPattern {
 		Set<Word>  verbs, nouns, verbsEmo, nounsEmo;
 		String  verbResult,nounResult;
 
-		
+		//Init filters
 		PosFilter nounFilter = new PosFilter(EPartOfSpeech.noun);
 		PosFilter verbFilter = new PosFilter(EPartOfSpeech.verb);
 		EmotionFilter emoFilter = new EmotionFilter(config.getEmotion());
 		CombinedSetFilter nounEmo = new CombinedSetFilter(nounFilter, emoFilter);
 		CombinedSetFilter verbEmo = new CombinedSetFilter(verbFilter,emoFilter);
 
+		//Init word lists
 		nouns = nounFilter.filterSet(wordGen.getInitialSet());
 		verbs = verbFilter.filterSet(wordGen.getInitialSet());
-	
 		nounsEmo = emoFilter.filterSet(nouns);
 		verbsEmo = verbFilter.filterSet(verbs);
 		
@@ -65,13 +74,14 @@ public class PatternNNVVN extends AbstractPattern {
 			synsetDepth++;
 			
 			if(nouns.size() < config.getMinWordlistForGeneration() || verbs.size() < config.getMinWordlistForGeneration() ){
+				//Increase all word lists
 				nouns.addAll(nounFilter.filterSet(wordGen.getMore(synsetDepth)));
 				verbs.addAll(verbFilter.filterSet(wordGen.getMore(synsetDepth)));
-				
 				verbsEmo.addAll(emoFilter.filterSet(verbs));
 				nounsEmo.addAll(emoFilter.filterSet(nouns));
 				
 			}else{
+				//Increase only emotion full word lists
 				verbsEmo.addAll(verbEmo.filterSet(wordGen.getMore(synsetDepth)));
 				nounsEmo.addAll(nounEmo.filterSet(wordGen.getMore(synsetDepth)));
 				
@@ -79,12 +89,12 @@ public class PatternNNVVN extends AbstractPattern {
 			
 		}
 		
+		//Create slogan from emotion full word lists
 		nounResult = RandomUtil.randomWord(gen.getRnd(), nounsEmo).getLemma();
 		verbResult = VerbConjugator.getInstance().getVVNForm(RandomUtil.randomWord(gen.getRnd(), verbsEmo));
 		
 		}catch(NoMorGenerationPossibleException e){
-			log.warn("Not enough Emotion words for Pattern JJNNVVN. Falling back to prefering emotion words");
-			
+			//create slogan from emotion less word lists but prefer emotion full words
 			nounResult = RandomUtil.randomWord(gen.getRnd(), nouns, config.getEmotion()).getLemma();
 			verbResult = VerbConjugator.getInstance().getVVNForm(RandomUtil.randomWord(gen.getRnd(), verbs,config.getEmotion()));
 			return "(a)" + nounResult + " " + verbResult;
@@ -93,11 +103,17 @@ public class PatternNNVVN extends AbstractPattern {
 		return  "(a)" + nounResult + " " + verbResult;
 	}
 
+	/* (non-Javadoc)
+	 * @see de.koch.uim_project.generation.pattern.AbstractPattern#getPossibleStylisticDevices()
+	 */
 	@Override
 	public StylisticDevice[] getPossibleStylisticDevices() {
 		return new StylisticDevice[] { StylisticDevice.None };
 	}
 
+	/* (non-Javadoc)
+	 * @see de.koch.uim_project.generation.pattern.AbstractPattern#getPatternType()
+	 */
 	@Override
 	public Pattern getPatternType() {
 		return Pattern.NNVVN;

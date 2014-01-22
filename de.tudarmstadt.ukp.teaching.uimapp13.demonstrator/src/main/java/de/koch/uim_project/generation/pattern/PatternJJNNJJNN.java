@@ -63,14 +63,13 @@ public class PatternJJNNJJNN extends AbstractPattern {
 	}
 
 	/**
-	 * This method tries to generate a slogan with the stylistic device
+	 * This method tries to generate a slogan with the {@link StylisticDevice}
 	 * oxymeron. This is done by choosing the first noun and searching for
 	 * possible oxymerons for the second noun. The Algorithm uses a hit or miss
-	 * strategy since it can't be guarenteed that an oxymeron is found. It
-	 * depends on the feature words (user input) and on the choosen first noun.
-	 * the oxymeron word is choosen from the same word list as the other words.
-	 * It would be possible to choose any word but then there would be no
-	 * semantic coherencie at all.
+	 * strategy since it can't be guaranteed that an oxymeron is found. It
+	 * depends on the feature words (user input) and on the chosen first noun.
+	 * the oxymeron word is chosen from the same word list as the other words.
+	 * Any word is chosen as fallback solution.
 	 * 
 	 * @return Slogan with stylistic device oxymeron
 	 * @throws DbException
@@ -81,12 +80,14 @@ public class PatternJJNNJJNN extends AbstractPattern {
 		Word adj1Result, adj2Result, noun1Result, noun2Result;
 		BaseWordListGen wordGen = gen.getGlobalWordListGen();
 
+		//Init filters
 		PosFilter nounFilter = new PosFilter(EPartOfSpeech.noun);
 		PosFilter adjFilter = new PosFilter(EPartOfSpeech.adjective);
 		EmotionFilter emoFilter = new EmotionFilter(config.getEmotion());
 		CombinedSetFilter nounEmo = new CombinedSetFilter(nounFilter, emoFilter);
 		CombinedSetFilter adjEmo = new CombinedSetFilter(adjFilter, emoFilter);
 
+		//Init word lists
 		Set<Word> adjs = adjFilter.filterSet(wordGen.getInitialSet());
 		Set<Word> nouns = nounFilter.filterSet(wordGen.getInitialSet());
 		Set<Word> adjsEmo = emoFilter.filterSet(adjs);
@@ -95,53 +96,75 @@ public class PatternJJNNJJNN extends AbstractPattern {
 		try {
 			while (nounsEmo.size() <= config.getMinWordlistForGeneration() || adjsEmo.size() <= config.getMinWordlistForGeneration()) {
 				synsetDepth++;
-
+		
 				if (nouns.size() <= config.getMinWordlistForGeneration() || adjs.size() <= config.getMinWordlistForGeneration()) {
+					//Increase all word lists
 					nouns.addAll(nounFilter.filterSet(wordGen.getMore(synsetDepth)));
 					adjs.addAll(adjFilter.filterSet(wordGen.getMore(synsetDepth)));
 					nounsEmo.addAll(emoFilter.filterSet(nouns));
 					adjsEmo.addAll(emoFilter.filterSet(adjs));
 				} else {
+					//Increase emotion full lists
 					nounsEmo.addAll(nounEmo.filterSet(wordGen.getMore(synsetDepth)));
 					adjsEmo.addAll(adjEmo.filterSet(wordGen.getMore(synsetDepth)));
 				}
 
 			}
-
+			
+			//Choose words from emotion full lists
 			adj1Result = RandomUtil.randomWord(gen.getRnd(), adjsEmo);
-			adj2Result = searchOxymeron(adj1Result, true);
+			adj2Result = searchOxymeronNoun(adj1Result, true);
 			noun1Result = RandomUtil.randomWord(gen.getRnd(), nounsEmo);
 			noun2Result = RandomUtil.randomWord(gen.getRnd(), nounsEmo);
 
 		} catch (NoMorGenerationPossibleException e) {
+			//Choose words from emotion less lists but prefer emotion full words
 			adj1Result = RandomUtil.randomWord(gen.getRnd(), adjs, config.getEmotion());
 			noun1Result = RandomUtil.randomWord(gen.getRnd(), nouns, config.getEmotion());
 			noun2Result = RandomUtil.randomWord(gen.getRnd(), nouns, config.getEmotion());
-			adj2Result = searchOxymeron(adj1Result, true);
+			adj2Result = searchOxymeronNoun(adj1Result, true);
 		}
 
 		return generateResultString(adj1Result, noun1Result, adj2Result, noun2Result);
 	}
 
-	private Word searchOxymeron(Word toSearchFor, boolean useEmotion) throws SloganNotCreatedException, DbException {
+	/**
+	 * Helper method to search for fitting oxymerons
+	 * @param toSearchFor {@link Word} to search oxymerons for
+	 * @param useEmotion <code>true</code>: try to filter by emotion
+	 * @return Oxymeron toSearchFor
+	 * @throws SloganNotCreatedException
+	 * @throws DbException
+	 */
+	private Word searchOxymeronNoun(Word toSearchFor, boolean useEmotion) throws SloganNotCreatedException, DbException {
 		int synsetDepth = 0;
 		BaseWordListGen wordGen = gen.getGlobalWordListGen();
-
+		
+		//Init filters
 		PosFilter nounFilter = new PosFilter(EPartOfSpeech.noun);
 		EmotionFilter emoFilter = new EmotionFilter(config.getEmotion());
 		CombinedSetFilter nounEmo = new CombinedSetFilter(nounFilter, emoFilter);
 
+		//Init parameters
 		List<String> relNames = new ArrayList<String>();
 		List<ERelTypeSemantics> relTypes = new ArrayList<ERelTypeSemantics>();
 		relNames.add("antonym");
 		relTypes.add(ERelTypeSemantics.complementary);
+		
+		//Get oxymerons from uby
 		Set<Word> oxymerons = UbyAnalyser.getInstance().getRelatedWordsSense(toSearchFor, relNames, relTypes, gen.getUby());
+		
+		//No oxymeron found
 		if (oxymerons.size() < 1) {
 			throw new SloganNotCreatedException("No oxymerons found");
 		}
+		
+		//One oxymeron found: return it directly
 		if (oxymerons.size() == 1) {
 			return oxymerons.iterator().next();
 		}
+		
+		//Multiple oxymerons: try to find one with correct properties
 		Set<Word> result = nounFilter.filterSet(wordGen.getInitialSet());
 		result.retainAll(oxymerons);
 		Set<Word> resultEmo = emoFilter.filterSet(result);
@@ -180,12 +203,14 @@ public class PatternJJNNJJNN extends AbstractPattern {
 		Word adj1, adj2, noun1, noun2;
 		int synsetDepth = 0;
 
+		//Init filters
 		PosFilter nounFilter = new PosFilter(EPartOfSpeech.noun);
 		PosFilter adjFilter = new PosFilter(EPartOfSpeech.adjective);
 		EmotionFilter emoFilter = new EmotionFilter(config.getEmotion());
 		CombinedSetFilter emoAndNoun = new CombinedSetFilter(nounFilter, emoFilter);
 		CombinedSetFilter emoAndAdj = new CombinedSetFilter(adjFilter, emoFilter);
 
+		//Init word lists
 		Set<Word> nouns = nounFilter.filterSet(wordGen.getInitialSet());
 		Set<Word> adjs = adjFilter.filterSet(wordGen.getInitialSet());
 		Set<Word> nounsEmo = emoFilter.filterSet(nouns);
@@ -194,25 +219,29 @@ public class PatternJJNNJJNN extends AbstractPattern {
 		try {
 			while (nounsEmo.size() < config.getMinWordlistForGeneration() || adjsEmo.size() < config.getMinWordlistForGeneration()) {
 				synsetDepth++;
-
+				
 				if (nouns.size() < config.getMinWordlistForGeneration() || adjs.size() < config.getMinWordlistForGeneration()) {
+					//increase all word lists
 					nouns.addAll(nounFilter.filterSet(wordGen.getMore(synsetDepth)));
 					adjs.addAll(adjFilter.filterSet(wordGen.getMore(synsetDepth)));
 					nounsEmo.addAll(emoFilter.filterSet(nouns));
 					adjs.addAll(emoFilter.filterSet(adjs));
 				} else {
+					//increase only emotion full word lists
 					nounsEmo.addAll(emoAndNoun.filterSet(wordGen.getMore(synsetDepth)));
 					adjsEmo.addAll(emoAndAdj.filterSet(wordGen.getMore(synsetDepth)));
 				}
 
 			}
 
+			//create slogan from emotion full word lists
 			adj1 = RandomUtil.randomWord(gen.getRnd(), adjsEmo);
 			adj2 = RandomUtil.randomWord(gen.getRnd(), adjsEmo);
 			noun1 = RandomUtil.randomWord(gen.getRnd(), nounsEmo);
 			noun2 = RandomUtil.randomWord(gen.getRnd(), nounsEmo);
 
 		} catch (NoMorGenerationPossibleException e) {
+			//create slogan from emotion less word lists but prefer emotion full words
 			adj1 = RandomUtil.randomWord(gen.getRnd(), adjs, config.getEmotion());
 			adj2 = RandomUtil.randomWord(gen.getRnd(), adjs, config.getEmotion());
 			noun1 = RandomUtil.randomWord(gen.getRnd(), nouns, config.getEmotion());
@@ -236,12 +265,14 @@ public class PatternJJNNJJNN extends AbstractPattern {
 		int synsetDepth = 0;
 		BaseWordListGen wordGen = gen.getGlobalWordListGen();
 
+		//Init filters
 		PosFilter adjFilter = new PosFilter(EPartOfSpeech.adjective);
 		PosFilter nounFilter = new PosFilter(EPartOfSpeech.noun);
 		EmotionFilter emoFilter = new EmotionFilter(config.getEmotion());
 		CombinedSetFilter nounAndEmo = new CombinedSetFilter(nounFilter, emoFilter);
 		CombinedSetFilter adjAndEmo = new CombinedSetFilter(adjFilter, emoFilter);
 
+		//Init word lists
 		Set<Word> adjs = adjFilter.filterSet(wordGen.getInitialSet());
 		Set<Word> nouns = nounFilter.filterSet(wordGen.getInitialSet());
 		Set<Word> nounsEmo = emoFilter.filterSet(nouns);
@@ -252,22 +283,26 @@ public class PatternJJNNJJNN extends AbstractPattern {
 
 				synsetDepth++;
 				if (nouns.size() < config.getMinWordlistForGeneration() || adjs.size() < config.getMinWordlistForGeneration()) {
+					//Increase all word lists
 					nouns.addAll(nounFilter.filterSet(wordGen.getMore(synsetDepth)));
 					adjs.addAll(adjFilter.filterSet(wordGen.getMore(synsetDepth)));
 					nounsEmo.addAll(emoFilter.filterSet(nouns));
 					adjsEmo.addAll(emoFilter.filterSet(adjs));
 				} else {
+					//Increase only emotion full word lists
 					nounsEmo.addAll(nounAndEmo.filterSet(wordGen.getMore(synsetDepth)));
 					adjsEmo.addAll(adjAndEmo.filterSet(wordGen.getMore(synsetDepth)));
 				}
 
 			}
 
+			//Generate slogan from emotion full word lists
 			adj = RandomUtil.randomWord(gen.getRnd(), adjsEmo);
 			noun1 = RandomUtil.randomWord(gen.getRnd(), nounsEmo);
 			noun2 = RandomUtil.randomWord(gen.getRnd(), nounsEmo);
 
 		} catch (NoMorGenerationPossibleException e) {
+			//create slogan from emotion less word lists but prefer emotion full words
 			adj = RandomUtil.randomWord(gen.getRnd(), adjs, config.getEmotion());
 			noun1 = RandomUtil.randomWord(gen.getRnd(), nouns, config.getEmotion());
 			noun2 = RandomUtil.randomWord(gen.getRnd(), nouns, config.getEmotion());

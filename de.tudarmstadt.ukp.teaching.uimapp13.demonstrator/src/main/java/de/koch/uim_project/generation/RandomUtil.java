@@ -38,4 +38,29 @@ public class RandomUtil {
 		}
 	}
 	
+	/**
+	 * This method chooses a word randomly from a given list of emotion less words and a given list of emotion full words.
+	 * The probability that a emotion full word is chosen is 4 times higher (results in 5 times if the word is still in the emotion less table)
+	 * ATTENTION: Experiment not used momentarily
+	 * @param rnd
+	 * @param emotionLess
+	 * @param emotionFull
+	 * @return
+	 */
+	public static Word randomWordPreferEmotion(Random rnd, Set<Word> emotionLess, Set<Word> emotionFull){
+		List<Word> words;
+		int pEmoFull = emotionFull.size();
+		int pEmoLess = emotionLess.size();
+		pEmoFull = pEmoFull * 4;
+		int chosenWord = rnd.nextInt(pEmoFull+pEmoLess);
+		if(chosenWord < pEmoLess){
+			words = new ArrayList<Word>(emotionLess);
+			return words.get(chosenWord);
+		}else{
+			words = new ArrayList<Word>(emotionFull);
+			return words.get(chosenWord%emotionFull.size());
+		}
+		
+	}
+	
 }
