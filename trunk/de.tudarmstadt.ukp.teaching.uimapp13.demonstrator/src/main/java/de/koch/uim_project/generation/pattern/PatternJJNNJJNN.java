@@ -119,9 +119,9 @@ public class PatternJJNNJJNN extends AbstractPattern {
 
 		} catch (NoMorGenerationPossibleException e) {
 			//Choose words from emotion less lists but prefer emotion full words
-			adj1Result = RandomUtil.randomWord(gen.getRnd(), adjs, config.getEmotion());
-			noun1Result = RandomUtil.randomWord(gen.getRnd(), nouns, config.getEmotion());
-			noun2Result = RandomUtil.randomWord(gen.getRnd(), nouns, config.getEmotion());
+			adj1Result = RandomUtil.randomWordPreferEmotion(gen.getRnd(), adjs, adjsEmo);
+			noun1Result = RandomUtil.randomWordPreferEmotion(gen.getRnd(), nouns, nounsEmo);
+			noun2Result = RandomUtil.randomWordPreferEmotion(gen.getRnd(), nouns, nounsEmo);
 			adj2Result = searchOxymeronNoun(adj1Result, true);
 		}
 
@@ -242,10 +242,10 @@ public class PatternJJNNJJNN extends AbstractPattern {
 
 		} catch (NoMorGenerationPossibleException e) {
 			//create slogan from emotion less word lists but prefer emotion full words
-			adj1 = RandomUtil.randomWord(gen.getRnd(), adjs, config.getEmotion());
-			adj2 = RandomUtil.randomWord(gen.getRnd(), adjs, config.getEmotion());
-			noun1 = RandomUtil.randomWord(gen.getRnd(), nouns, config.getEmotion());
-			noun2 = RandomUtil.randomWord(gen.getRnd(), nouns, config.getEmotion());
+			adj1 = RandomUtil.randomWordPreferEmotion(gen.getRnd(), adjs, adjsEmo);
+			adj2 = RandomUtil.randomWordPreferEmotion(gen.getRnd(), adjs, adjsEmo);
+			noun1 = RandomUtil.randomWordPreferEmotion(gen.getRnd(), nouns, nounsEmo);
+			noun2 = RandomUtil.randomWordPreferEmotion(gen.getRnd(), nouns, nounsEmo);
 
 		}
 
@@ -303,9 +303,9 @@ public class PatternJJNNJJNN extends AbstractPattern {
 
 		} catch (NoMorGenerationPossibleException e) {
 			//create slogan from emotion less word lists but prefer emotion full words
-			adj = RandomUtil.randomWord(gen.getRnd(), adjs, config.getEmotion());
-			noun1 = RandomUtil.randomWord(gen.getRnd(), nouns, config.getEmotion());
-			noun2 = RandomUtil.randomWord(gen.getRnd(), nouns, config.getEmotion());
+			adj = RandomUtil.randomWordPreferEmotion(gen.getRnd(), adjs, adjsEmo);
+			noun1 = RandomUtil.randomWordPreferEmotion(gen.getRnd(), nouns, nounsEmo);
+			noun2 = RandomUtil.randomWordPreferEmotion(gen.getRnd(), nouns, nounsEmo);
 		}
 
 		return generateResultString(adj, noun1, adj, noun2);

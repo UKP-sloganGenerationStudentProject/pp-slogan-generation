@@ -150,20 +150,20 @@ public class PatternVBVBVB extends AbstractPattern {
 
 			}
 			//Generate slogan from emotion full word list
-			verbResults[0] = RandomUtil.randomWord(gen.getRnd(), verbsEmo, null).getLemma();
+			verbResults[0] = RandomUtil.randomWord(gen.getRnd(), verbsEmo).getLemma();
 			StartLetterFilter letFil = new StartLetterFilter(verbResults[0].charAt(0));
 			Set<Word> letFilVerbsEmo = letFil.filterSet(verbsEmo);
 			for (int i = 1; i < verbResults.length; i++) {
-				verbResults[i] = RandomUtil.randomWord(gen.getRnd(), letFilVerbsEmo, null).getLemma();
+				verbResults[i] = RandomUtil.randomWord(gen.getRnd(), letFilVerbsEmo).getLemma();
 			}
 			
 		} catch (NoMorGenerationPossibleException e) {
 			//Generate slogan from emotion less word list
-			verbResults[0] = RandomUtil.randomWord(gen.getRnd(), verbs, config.getEmotion()).getLemma();
+			verbResults[0] = RandomUtil.randomWordPreferEmotion(gen.getRnd(), verbs, verbsEmo).getLemma();
 			StartLetterFilter letFil = new StartLetterFilter(verbResults[0].charAt(0));
 			Set<Word> letFilVerbs = letFil.filterSet(verbs);
 			for (int i = 1; i < verbResults.length; i++) {
-				verbResults[i] = RandomUtil.randomWord(gen.getRnd(), letFilVerbs, config.getEmotion()).getLemma();
+				verbResults[i] = RandomUtil.randomWordPreferEmotion(gen.getRnd(), letFilVerbs, verbsEmo).getLemma();
 			}
 		}
 
