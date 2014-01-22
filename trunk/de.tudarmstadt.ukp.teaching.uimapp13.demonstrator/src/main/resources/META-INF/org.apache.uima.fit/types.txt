@@ -1,0 +1,1 @@
+classpath*:de/tudarmstadt/ukp/experiments/mft/uimapp_cosmetics/types/typeSystemDescriptor.xml
