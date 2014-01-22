@@ -41,7 +41,6 @@ public class RandomUtil {
 	/**
 	 * This method chooses a word randomly from a given list of emotion less words and a given list of emotion full words.
 	 * The probability that a emotion full word is chosen is 2 times higher (results in 3 times if the word is still in the emotion less table)
-	 * ATTENTION: Experiment not used momentarily
 	 * @param rnd
 	 * @param emotionLess
 	 * @param emotionFull
