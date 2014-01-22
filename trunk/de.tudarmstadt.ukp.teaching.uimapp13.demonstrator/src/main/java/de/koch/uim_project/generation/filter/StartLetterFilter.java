@@ -7,6 +7,7 @@ import de.koch.uim_project.generation.Word;
 
 /**
  * This class is a filter for the stylistic device Alliteration.
+ * It filters {@link Word}s for a given start letter.
  * 
  * @author Frerik Koch
  * 
@@ -25,6 +26,9 @@ public class StartLetterFilter implements IFilterWord,IFilterSet {
 		this.startLetter = startLetter;
 	}
 
+	/* (non-Javadoc)
+	 * @see de.koch.uim_project.generation.filter.IFilterWord#filterWord(de.koch.uim_project.generation.Word)
+	 */
 	@Override
 	public boolean filterWord(Word word) {
 		return (word.getLemma().startsWith(Character.toString(startLetter)));
@@ -44,6 +48,9 @@ public class StartLetterFilter implements IFilterWord,IFilterSet {
 		return "StartLetterFilter [startLetter=" + startLetter + "]";
 	}
 
+	/* (non-Javadoc)
+	 * @see de.koch.uim_project.generation.filter.IFilterSet#filterSet(java.util.Set)
+	 */
 	@Override
 	public Set<Word> filterSet(Set<Word> words) {
 		Set<Word> result = new HashSet<Word>();

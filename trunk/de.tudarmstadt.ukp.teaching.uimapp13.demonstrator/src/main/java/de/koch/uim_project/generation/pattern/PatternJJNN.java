@@ -1,5 +1,8 @@
 package de.koch.uim_project.generation.pattern;
 
+import java.util.Set;
+
+import de.koch.uim_project.database.DbException;
 import de.koch.uim_project.generation.BaseWordListGen;
 import de.koch.uim_project.generation.Generator;
 import de.koch.uim_project.generation.RandomUtil;
@@ -10,25 +13,25 @@ import de.koch.uim_project.generation.exception.SloganNotCreatedException;
 import de.koch.uim_project.generation.filter.CombinedSetFilter;
 import de.koch.uim_project.generation.filter.EmotionFilter;
 import de.koch.uim_project.generation.filter.PosFilter;
-
-import java.util.Set;
-
-import org.apache.log4j.Logger;
-
 import de.koch.uim_project.util.Config;
 import de.koch.uim_project.util.Pattern;
 import de.koch.uim_project.util.StylisticDevice;
-import de.koch.uim_project.database.DbException;
 import de.tudarmstadt.ukp.lmf.model.enums.EPartOfSpeech;
 
+/**
+ * This class represents the Pattern "JJ NN" 
+ * @author Frerik Koch
+ *
+ */
 public class PatternJJNN extends AbstractPattern {
-
-	private Logger log = Logger.getRootLogger();
 
 	public PatternJJNN(Config config, Generator gen) throws PatternNotInitializeableException {
 		super(config, gen);
 	}
 
+	/* (non-Javadoc)
+	 * @see de.koch.uim_project.generation.pattern.AbstractPattern#generateSlogan(de.koch.uim_project.util.StylisticDevice)
+	 */
 	@Override
 	public String generateSlogan(StylisticDevice stylisticDevice) throws DbException, SloganNotCreatedException {
 		String result;
@@ -42,6 +45,12 @@ public class PatternJJNN extends AbstractPattern {
 		return result;
 	}
 
+	/**
+	 * This method generates a slogan without {@link StylisticDevice}
+	 * @return Generated slogan
+	 * @throws DbException
+	 * @throws SloganNotCreatedException
+	 */
 	private String generateNoStylisticDevice() throws DbException, SloganNotCreatedException {
 		int synsetDepth = 0;
 		
@@ -53,39 +62,48 @@ public class PatternJJNN extends AbstractPattern {
 		Set<Word> nouns;
 		Set<Word> adjs;
 
+		//Init filters
 		EmotionFilter emoFilter = new EmotionFilter(config.getEmotion());
 		PosFilter nounFilter = new PosFilter(EPartOfSpeech.noun);
 		PosFilter adjFilter = new PosFilter(EPartOfSpeech.adjective);
 		CombinedSetFilter emoNounFil = new CombinedSetFilter(nounFilter, emoFilter);
 		CombinedSetFilter emoAdjFil = new CombinedSetFilter(adjFilter, emoFilter);
 
+		//Init wordLists
 		nouns = nounFilter.filterSet(wordGen.getInitialSet());
 		adjs = adjFilter.filterSet(wordGen.getInitialSet());
 		nounsEmo = emoFilter.filterSet(nouns);
 		adjsEmo = emoFilter.filterSet(adjs);
 
 		try {
+			//Try to increase word lists
 			while (nounsEmo.size() < config.getMinWordlistForGeneration() || adjsEmo.size() < config.getMinWordlistForGeneration()) {
 
 				synsetDepth++;
 				Set<Word> more = wordGen.getMore(synsetDepth);
+				
+				//increase emotion less lists and emotion full lists
 				if (nouns.size() < config.getMinWordlistForGeneration() || adjs.size() < config.getMinWordlistForGeneration()) {
 					nouns.addAll(nounFilter.filterSet(more));
 					adjs.addAll(adjFilter.filterSet(more));
 					nounsEmo.addAll(emoFilter.filterSet(nouns));
 					adjsEmo.addAll(emoFilter.filterSet(adjs));
+					
+				//increase emotion full lists	
 				} else {
 					nounsEmo.addAll(emoNounFil.filterSet(more));
 					adjsEmo.addAll(emoAdjFil.filterSet(more));
 				}
 
 			}
-
+			
+			//generate from emotion lists
 			noun = RandomUtil.randomWord(gen.getRnd(), nounsEmo, null).getLemma();
 			adj = RandomUtil.randomWord(gen.getRnd(), adjsEmo, null).getLemma();
 
 		} catch (NoMorGenerationPossibleException e) {
-			log.warn("Not enough Emotion words for Pattern JJNN. Falling back to prefering emotion words");
+			
+			//generate from emotion less lists but prefer emotion fitting words
 			noun = RandomUtil.randomWord(gen.getRnd(), nouns, config.getEmotion()).getLemma();
 			adj = RandomUtil.randomWord(gen.getRnd(), adjs, config.getEmotion()).getLemma();
 
@@ -94,11 +112,17 @@ public class PatternJJNN extends AbstractPattern {
 		return adj + " " + noun;
 	}
 
+	/* (non-Javadoc)
+	 * @see de.koch.uim_project.generation.pattern.AbstractPattern#getPossibleStylisticDevices()
+	 */
 	@Override
 	public StylisticDevice[] getPossibleStylisticDevices() {
 		return new StylisticDevice[] { StylisticDevice.None };
 	}
 
+	/* (non-Javadoc)
+	 * @see de.koch.uim_project.generation.pattern.AbstractPattern#getPatternType()
+	 */
 	@Override
 	public Pattern getPatternType() {
 		return Pattern.JJNN;

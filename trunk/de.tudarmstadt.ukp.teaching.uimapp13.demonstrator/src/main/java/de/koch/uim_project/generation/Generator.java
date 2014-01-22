@@ -21,6 +21,12 @@ import de.koch.uim_project.database.JdbcConnect;
 import de.koch.uim_project.database.UbyConnect;
 import de.tudarmstadt.ukp.lmf.api.Uby;
 
+/**
+ * This class is the entry point to the generation package.
+ * {@link Generator} manages slogan generation
+ * @author Frerik Koch
+ *
+ */
 public class Generator {
 
 	private Config config;
@@ -31,13 +37,24 @@ public class Generator {
 	private JdbcConnect customDb;
 	private Uby uby;
 
+	/**
+	 * Initializes a new {@link Generator} with the given {@link Config}
+	 * @param config Config for the generation of this {@link Generator}
+	 * @throws DbException
+	 */
 	public Generator(Config config) throws DbException {
+		//Init fields
 		this.config = config;
 		this.customDb = new JdbcConnect(config.getCustomDbConfig());
 		this.uby = UbyConnect.getUbyInstance(config.getUbyConfig());
 		
+		//Init random
 		rnd = new Random(config.getRandomSeed());
+		
+		//Init word list generator
 		this.globalWordListGen = new BaseWordListGen(true, config,this);
+		
+		//Normalize pattern weights
 		Map<Pattern,Double> normalizedPatternWeights = normalizeWeights(config.getPatternweights());
 		for (Pattern pattern : Pattern.values()) {
 			try {
@@ -62,6 +79,12 @@ public class Generator {
 		return rnd;
 	}
 
+	/**
+	 * Generates one slogan. Pattern and {@link StylisticDevice} are chosen randomly according to given weights
+	 * @return Generated slogan
+	 * @throws DbException
+	 * @throws SloganNotCreatedException
+	 */
 	public String generateSlogan() throws DbException, SloganNotCreatedException {
 		String result;
 		AbstractPattern patternToGenerate;

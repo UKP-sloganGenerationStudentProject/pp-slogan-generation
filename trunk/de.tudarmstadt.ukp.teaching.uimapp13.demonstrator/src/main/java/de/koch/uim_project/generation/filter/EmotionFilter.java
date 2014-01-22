@@ -7,6 +7,11 @@ import java.util.Set;
 
 import de.koch.uim_project.util.Emotion;
 
+/**
+ * This filter filters a word on its {@link Emotion}s. If the given emotion is in the {@link Emotion} set of the word, the word is accepted
+ * @author Frerik Koch
+ *
+ */
 public class EmotionFilter implements IFilterSet, IFilterWord {
 
 	
@@ -18,7 +23,7 @@ public class EmotionFilter implements IFilterSet, IFilterWord {
 	
 	@Override
 	public boolean filterWord(Word word) {
-		return (word.getEmotions().size() > 0 && word.getEmotions().contains(emotion)) || word.isFeature();
+		return (word.getEmotions().size() > 0 && word.getEmotions().contains(emotion) || word.isFeature());
 	}
 
 	@Override

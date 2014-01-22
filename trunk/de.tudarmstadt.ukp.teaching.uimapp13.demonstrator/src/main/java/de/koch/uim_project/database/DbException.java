@@ -2,10 +2,12 @@ package de.koch.uim_project.database;
 
 /**
  * Database related Exceptions
+ * Those can not be handled in most cases since they usually show a configuration error
  * 
  * @author Frerik Koch
  * 
  */
+
 public class DbException extends Exception {
 
 	/**

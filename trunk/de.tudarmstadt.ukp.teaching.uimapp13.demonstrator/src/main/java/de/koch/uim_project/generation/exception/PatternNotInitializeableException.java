@@ -3,8 +3,7 @@ package de.koch.uim_project.generation.exception;
 import de.koch.uim_project.util.Pattern;
 
 /**
- * Thrown if a pattern is not initializable. This will mostly happen because of
- * configuration witch leads to a very small basic word list
+ * Thrown if a pattern is not initializable. This is thrown if initilization of a pattern fails
  * 
  * @author Frerik Koch
  * 

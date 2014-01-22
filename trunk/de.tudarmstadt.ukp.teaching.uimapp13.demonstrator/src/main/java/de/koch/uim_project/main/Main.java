@@ -25,7 +25,7 @@ import de.koch.uim_project.database.DbException;
 public class Main {
 
 	
-	private static MainFrame mainWindow = MainFrame.getInstance();
+	private static MainFrame mainWindow = null;
 	private static Logger log = Logger.getRootLogger();
 
 	public static void generateSlogans() {
@@ -52,22 +52,31 @@ public class Main {
 	}
 
 	public static synchronized void  clearSlogans() {
-		mainWindow.getSloganPanel().getListmodel().removeAllElements();
+		if(mainWindow != null){
+			mainWindow.getSloganPanel().getListmodel().removeAllElements();
+		}
 	}
 
 	public static synchronized void writeToSlogans(String slogan) {
+		if(mainWindow != null){
 		mainWindow.getSloganPanel().getListmodel().addElement(slogan);
+		}
 	}
 
 	public static synchronized void clearConsole() {
+		if(mainWindow != null){
 		mainWindow.getConsolePanel().getListmodel().removeAllElements();
+		}
 	}
 
 	public static synchronized void writeToConsole(String toWrite) {
+		if(mainWindow != null){
 		mainWindow.getConsolePanel().getListmodel().addElement(toWrite);
+		}
 	}
 
 	public static void main(String[] args) throws DbException, UIMAException, IOException, AnalyseException, FileWriterUimException {
+		mainWindow = MainFrame.getInstance();
 		mainWindow.setDefaultValues();
 		mainWindow.setVisible(true);
 	}

@@ -8,6 +8,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * The {@link CombinedSetFilter} applies multiple {@link IFilterWord} in one iteration.
+ * This allows for greater performance because only one iteration is necessary regardless of the number of {@link IFilterWord}
+ * @author Frerik Koch
+ *
+ */
 public class CombinedSetFilter implements IFilterSet{
 
 	private List<IFilterWord> filters = new ArrayList<IFilterWord>();
@@ -20,6 +26,12 @@ public class CombinedSetFilter implements IFilterSet{
 		this.filters = Arrays.asList(filters);
 	}
 
+	/* 
+	 * Applies all filters to a word before accepting or rejecting it.
+	 * If one filter rejects it the word is rejected
+	 * (non-Javadoc)
+	 * @see de.koch.uim_project.generation.filter.IFilterSet#filterSet(java.util.Set)
+	 */
 	@Override
 	public Set<Word> filterSet(Set<Word> words) {
 		Set<Word> result = new HashSet<Word>();
