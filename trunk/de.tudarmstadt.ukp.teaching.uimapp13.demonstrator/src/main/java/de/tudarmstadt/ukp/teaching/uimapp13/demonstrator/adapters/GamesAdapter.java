@@ -76,10 +76,12 @@ public class GamesAdapter
         final Integer minWordsForGeneration = (Integer) parameters
                 .get(MIN_WORD_LIST_FOR_GENERATION);
         final Integer maxSynsetDepth = (Integer) parameters.get(MAX_SYNSET_DEPTH);
+        
+        final Integer maxWordListLength = (Integer) parameters.get(MAX_WORD_LIST_LENGTH);
 
         final Generator generator = new Generator(new Config(gameName, randomSeed, sloganCount,
                 emotion, patternWeights, styleDevWeights, features, alienFeatures,
-                minWordsForGeneration, maxSynsetDepth, ubyConfig, customDbConfig));
+                minWordsForGeneration, maxSynsetDepth,maxWordListLength, ubyConfig, customDbConfig));
 
         LoggerFactory.getLogger(this.getClass()).info("Generating slogans...");
         final ArrayList<Slogan> slogans = new ArrayList<Slogan>();

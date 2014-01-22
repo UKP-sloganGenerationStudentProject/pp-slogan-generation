@@ -13,6 +13,7 @@ public class BasicConfigPanel extends JPanel {
 	private LabeledInputPanel randomSeed = new LabeledInputPanel("Random Seed", true);
 	private LabeledInputPanel minWordListForGeneration = new LabeledInputPanel("Minimal word list for generation",true);
 	private LabeledInputPanel maxSynsetDepth = new LabeledInputPanel("Maximal Synset search depth", true);
+	private LabeledInputPanel maxWordListLength = new LabeledInputPanel("Maximum count of generated words",true);
 
 	/**
 	 * Eclipse generated serial
@@ -27,12 +28,14 @@ public class BasicConfigPanel extends JPanel {
 		randomSeed.setPreferredSize(new Dimension(500, 20));
 		minWordListForGeneration.setPreferredSize(new Dimension(500, 20));
 		maxSynsetDepth.setPreferredSize(new Dimension(500, 20));
+		maxWordListLength.setPreferredSize(new Dimension(500, 20));
 		add(gameName);
 		add(sloganCount);
 		add(emotion);
 		add(randomSeed);
 		add(minWordListForGeneration);
 		add(maxSynsetDepth);
+		add(maxWordListLength);
 	}
 
 	public LabeledInputPanel getGameName() {
@@ -57,6 +60,10 @@ public class BasicConfigPanel extends JPanel {
 
 	public LabeledInputPanel getMaxSynsetDepth() {
 		return maxSynsetDepth;
+	}
+
+	public LabeledInputPanel getMaxWordListLength() {
+		return maxWordListLength;
 	}
 	
 	
