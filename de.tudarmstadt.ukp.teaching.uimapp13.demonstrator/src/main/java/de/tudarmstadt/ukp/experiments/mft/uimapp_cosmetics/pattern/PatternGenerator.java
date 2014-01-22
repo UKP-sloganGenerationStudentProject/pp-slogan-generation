@@ -1,14 +1,21 @@
 package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern;
 
+import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngineDescription;
+import static org.apache.uima.fit.factory.CollectionReaderFactory.createReaderDescription;
+import static org.apache.uima.fit.factory.ExternalResourceFactory.createExternalResourceDescription;
+import static org.apache.uima.fit.util.JCasUtil.select;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.uima.analysis_engine.AnalysisEngineDescription;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.collection.CollectionReaderDescription;
 import org.apache.uima.fit.pipeline.JCasIterable;
 import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
-import org.apache.wicket.util.file.File;
-import org.apache.wicket.util.lang.Arrays;
-import org.apache.xpath.operations.String;
 
 import com.googlecode.jweb1t.JWeb1TSearcher;
 
