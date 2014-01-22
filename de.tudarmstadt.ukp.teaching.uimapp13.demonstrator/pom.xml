@@ -49,7 +49,7 @@
 			<artifactId>simplenlg</artifactId>
 			<version>4.4.2</version>
 			<scope>system</scope>
-        <systemPath>${project.basedir}/libs/simplenlg/simplenlg/4.4.2/simplenlg-4.4.2.jar</systemPath>
+			<systemPath>${project.basedir}/libs/simplenlg/simplenlg/4.4.2/simplenlg-4.4.2.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -87,6 +87,13 @@
 			<artifactId>
     		de.tudarmstadt.ukp.dkpro.core.opennlp-asl
     	</artifactId>
+			<dependency>
+				<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+				<artifactId>
+					de.tudarmstadt.ukp.dkpro.core.io.text-asl
+				</artifactId>
+				<version>1.5.0</version>
+			</dependency>
 		</dependency>
 		<dependency>
 			<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
@@ -112,9 +119,39 @@
     	</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.uima</groupId>
+			<artifactId>uimaj-core</artifactId>
+			<version>2.4.2</version>
+
+		</dependency>
+		<dependency>
+			<groupId>de.tudarmstadt.ukp.uby</groupId>
+			<artifactId>de.tudarmstadt.ukp.uby.lmf.api-asl</artifactId>
+			<version>0.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+			<artifactId>
+  			de.tudarmstadt.ukp.dkpro.core.clearnlp-asl
+  		</artifactId>
+			<version>1.5.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.pdfbox</groupId>
 			<artifactId>pdfbox</artifactId>
 			<version>1.8.2</version>
+		</dependency>
+		<dependency>
+			<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+			<artifactId>
+  			de.tudarmstadt.ukp.dkpro.core.matetools-gpl
+  		</artifactId>
+			<version>1.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>de.tudarmstadt.ukp.uby</groupId>
+			<artifactId>de.tudarmstadt.ukp.uby.lmf.model-asl</artifactId>
+			<version>0.4.0</version>
 		</dependency>
 		<dependency>
 			<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
@@ -126,6 +163,30 @@
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>15.0</version>
+		</dependency>
+		<dependency>
+			<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+			<artifactId>
+            de.tudarmstadt.ukp.dkpro.core.tokit-asl
+        </artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+			<artifactId>de.tudarmstadt.ukp.dkpro.core.treetagger-bin</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+			<artifactId>de.tudarmstadt.ukp.dkpro.core.io.web1t-asl</artifactId>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+			<artifactId>de.tudarmstadt.ukp.dkpro.core.treetagger-model-en</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
+			<artifactId>de.tudarmstadt.ukp.dkpro.core.treetagger-model-de</artifactId>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
