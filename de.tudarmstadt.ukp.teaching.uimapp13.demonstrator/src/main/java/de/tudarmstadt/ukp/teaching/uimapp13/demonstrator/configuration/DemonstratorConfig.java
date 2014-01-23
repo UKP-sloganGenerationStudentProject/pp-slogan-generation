@@ -8,6 +8,7 @@ public final class DemonstratorConfig
     }
 
     public static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    public static final String JDBC_DRIVER_NAME = "mysql";
 
     public static final String UBY_URL = "localhost/uby_medium_0_3_0";
     public static final String UBY_PASSWORD = "uby";

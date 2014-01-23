@@ -7,12 +7,12 @@ import java.util.HashMap;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
 
-public class EmotionAnalizer
+public class EmotionAnalyzer
 {
     String _path;
     HashMap<String, EmotionModel>  _emotions;
 
-    public EmotionAnalizer(String path)
+    public EmotionAnalyzer(String path)
     {
         _emotions = null;
         _path = path;

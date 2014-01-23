@@ -19,8 +19,37 @@
 		<form class="domainSpecificForm" wicket:id="beauty-form"
 			id="beauty-form">
 			<h2>Beauty Products</h2>
-			<label for="beauty-numSlogans">Number of slogans:</label> <input
-				name="beautyForm" type="text">
+			<div id="column1">
+				<div class="labelContainer">
+					<label for="beauty-numSlogans">Number of slogans:</label><br />
+					<!--  -->
+					<input wicket:id="beauty-numSlogans" name="beauty-numSlogans"
+						type="text">
+				</div>
+				<div class="labelContainer">
+					<label for="beauty-productName">Game name:</label> <br />
+					<!--  -->
+					<input wicket:id="beauty-productName" name="beauty-productName" type="text">
+				</div>
+				<div class="labelContainer">
+					<label for="beauty-pattern">Pattern:</label><br />
+					<!--  -->
+					<select id="beauty-pattern" name="beauty-pattern"
+						wicket:id="beauty-pattern"></select>
+				</div>
+				<div class="labelContainer">
+					<label for="beauty-partOfBody">Part of body:</label><br />
+					<!--  -->
+					<select id="beauty-partOfBody" name="beauty-partOfBody"
+						wicket:id="beauty-partOfBody"></select>
+				</div>
+			</div>
+			<div id="column2">
+				<label for="beauty-suggestedWords">Suggested words: (one per line):</label><br/>
+				<textarea wicket:id="beauty-suggestedWords" name="beauty-suggestedWords"
+					rows="20" cols="40"></textarea>
+			</div>
+			<br class="clearfloats"/>
 			<button wicket:id="beauty-submit">Generate slogans</button>
 		</form>
 		<form class="domainSpecificForm" wicket:id="cars-form" id="cars-form">
@@ -86,6 +115,7 @@
 				<textarea wicket:id="games-alienWords" name="games-alienWords"
 					rows="20" cols="40"></textarea>
 			</div>
+			<br class="clearfloats"/>
 			<button wicket:id="games-submit">Generate slogans</button>
 		</form>
 		<form class="domainSpecificForm" wicket:id="soft-form" id="soft-form">

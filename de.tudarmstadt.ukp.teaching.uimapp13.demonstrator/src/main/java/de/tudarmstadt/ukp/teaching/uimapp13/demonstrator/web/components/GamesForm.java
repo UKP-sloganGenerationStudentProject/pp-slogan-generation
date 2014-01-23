@@ -39,20 +39,14 @@ public class GamesForm
     private String featureWords;
     private String alienWords;
 
-    private TextArea<String> featureWordsTextArea;
-    private TextArea<String> alienWordsTextArea;
-
     public GamesForm(final String id)
     {
         super(id);
         this.add(new Button("games-submit"));
         final List<String> emotions = new ArrayList<>(Collections2.transform(
                 Arrays.asList(Emotion.values()), Functions.toStringFunction()));
-        this.add(new DropDownChoice<String>("games-emotion", new PropertyModel<String>(this,
-                "selectedEmotion"), emotions));
-
-        this.featureWordsTextArea = new TextArea<String>("games-featureWords");
-        this.alienWordsTextArea = new TextArea<String>("games-alienWords");
+        this.add(new DropDownChoice<String>("games-emotion", this
+                .createStringProperty("selectedEmotion"), emotions));
 
         this.add(new RequiredTextField<Integer>("games-numSlogans", this
                 .createIntProperty("numSlogans")));
@@ -72,11 +66,13 @@ public class GamesForm
         this.add(new RequiredTextField<Long>("games-randomSeed", this
                 .createLongProperty("randomSeed")));
 
-        this.add(this.featureWordsTextArea);
-        this.featureWordsTextArea.setModel(this.createStringProperty("featureWords"));
+        final TextArea<String> featureWordsTextArea = new TextArea<String>("games-featureWords");
+        featureWordsTextArea.setModel(this.createStringProperty("featureWords"));
+        this.add(featureWordsTextArea);
 
-        this.add(this.alienWordsTextArea);
-        this.alienWordsTextArea.setModel(this.createStringProperty("alienWords"));
+        final TextArea<String> alienWordsTextArea = new TextArea<String>("games-alienWords");
+        alienWordsTextArea.setModel(this.createStringProperty("alienWords"));
+        this.add(alienWordsTextArea);
 
         /*
          * Set default values
@@ -113,11 +109,9 @@ public class GamesForm
     {
         final GamesAdapter adapter = new GamesAdapter();
 
-        final Long randomSeed = 1L;
-
         final HashMap<String, Object> parameters = new HashMap<String, Object>();
         parameters.put(GamesAdapter.GAME_NAME, this.gameName);
-        parameters.put(GamesAdapter.RANDOM_SEED, randomSeed);
+        parameters.put(GamesAdapter.RANDOM_SEED, this.randomSeed);
         parameters.put(GamesAdapter.SLOGAN_COUNT, this.numSlogans);
         parameters.put(GamesAdapter.EMOTION, Emotion.valueOf(this.selectedEmotion));
         // TODO rkluge: allow to configure this

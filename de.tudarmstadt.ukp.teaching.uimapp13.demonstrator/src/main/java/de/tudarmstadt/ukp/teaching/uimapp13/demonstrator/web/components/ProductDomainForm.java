@@ -15,13 +15,13 @@ public class ProductDomainForm
     @SuppressWarnings("unused")
     private ProductDomain selectedProductDomain;
 
-    public ProductDomainForm(final String id)
+    public ProductDomainForm(final String id, final ProductDomain selectedProductDomain)
     {
         super(id);
         final ChoiceRenderer<ProductDomain> productDomainChoiceRenderer = new ChoiceRenderer<ProductDomain>(
                 "name", "id");
 
-        this.selectedProductDomain = ProductDomain.GAMES;
+        this.selectedProductDomain = selectedProductDomain;
         final PropertyModel<ProductDomain> selectedDomainModel = new PropertyModel<ProductDomain>(
                 this, "selectedProductDomain");
         // final Select<ProductDomain> domainSelect = new
