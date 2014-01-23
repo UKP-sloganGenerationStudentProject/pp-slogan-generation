@@ -58,8 +58,9 @@ public class PatternGenerator
     String _ubyDBUserName;
     String _ubyDBPassword;
 
-    List<String> _patternsToAnnotate;
-    List<String> _partsOfBodyToSelect;
+    static List<String> _patternsToAnnotate = Arrays.asList("NC_", "NC_PC_NC_", "VC_NC_", "VC_NC_PC_NC_",
+            "VC_", "NC_VC_", "NC_VC_ADJC_", "NC_VC_NC_");
+    static List<String> _partsOfBodyToSelect = Arrays.asList("eye", "skin", "lips", "fingernails");
 
     PatternFactory _factory;
 
@@ -128,9 +129,6 @@ public class PatternGenerator
 
         this._resources = new Resources();
 
-        this._patternsToAnnotate = Arrays.asList("NC_", "NC_PC_NC_", "VC_NC_", "VC_NC_PC_NC_",
-                "VC_", "NC_VC_", "NC_VC_ADJC_", "NC_VC_NC_");
-        this._partsOfBodyToSelect = Arrays.asList("eye", "skin", "lips", "fingernails");
 
     }
 
@@ -241,9 +239,9 @@ public class PatternGenerator
         this._resources.setSuggestedWords(Arrays.asList(suggestedWords.split(",")));
     }
 
-    public List<String> getSelectablePatterns()
+    public static List<String> getSelectablePatterns()
     {
-        return this._patternsToAnnotate;
+        return _patternsToAnnotate;
     }
 
     public void selectPattern(final String chunkPatternAsString)
@@ -260,9 +258,9 @@ public class PatternGenerator
         }
     }
 
-    public List<String> getSelectablePartsOfBody()
+    public static List<String> getSelectablePartsOfBody()
     {
-        return this._partsOfBodyToSelect;
+        return _partsOfBodyToSelect;
     }
 
     public void selectPartOfBody(final String part)
