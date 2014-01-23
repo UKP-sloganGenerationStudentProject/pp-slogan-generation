@@ -4,21 +4,27 @@ import static org.apache.uima.fit.util.JCasUtil.select;
 
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.fit.component.JCasAnnotator_ImplBase;
+import org.apache.uima.fit.descriptor.ConfigurationParameter;
 import org.apache.uima.jcas.JCas;
 
 import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Lemma;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.emotions.EmotionAnalizer;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.emotions.EmotionAnalyzer;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.emotions.EmotionModel;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.annotation.EmotionAnnotation;
 
-public class EmotionAnnotator extends JCasAnnotator_ImplBase
+public class EmotionAnnotator
+    extends JCasAnnotator_ImplBase
 {
 
-    //WE SUPPOSE THAT TREETAGGER LEMMA HAS BEEN ALREADY USED
+    // WE SUPPOSE THAT TREETAGGER LEMMA HAS BEEN ALREADY USED
+
+    public static final String PARAM_EMOTIONS_LEXICON_PATH = "emotionsPdfFile";
+    @ConfigurationParameter(name = PARAM_EMOTIONS_LEXICON_PATH, mandatory = true, description = "The path to the emotions lexicon (PDF)")
+    private String emotionsPdfFile;
 
     public final class Emotions
     {
-        public static final String POSITIVE ="positive";
+        public static final String POSITIVE = "positive";
         public static final String NEGATIVE = "negative";
         public static final String ANGER = "anger";
         public static final String ANTICIPATION = "anticipation";
@@ -29,78 +35,78 @@ public class EmotionAnnotator extends JCasAnnotator_ImplBase
         public static final String SURPRISE = "surprise";
         public static final String TRUST = "trust";
 
-        private Emotions() {}
-     }
+        private Emotions()
+        {
+        }
+    }
 
     @Override
-    public void process(JCas aJCas)
+    public void process(final JCas aJCas)
         throws AnalysisEngineProcessException
     {
-        EmotionAnalizer analizer = new EmotionAnalizer("src/main/resources/NRCemotionlexicon.pdf");
+        final EmotionAnalyzer analizer = new EmotionAnalyzer(this.emotionsPdfFile);
 
-        for( Lemma lemma : select(aJCas,Lemma.class))
-        {
-            EmotionModel emotion = analizer.getEmotion(lemma.getValue());
+        for (final Lemma lemma : select(aJCas, Lemma.class)) {
+            final EmotionModel emotion = analizer.getEmotion(lemma.getValue());
 
-            if(emotion != null)
-            {
-                if(emotion.isPositive())
-                {
-                    EmotionAnnotation annotation = new EmotionAnnotation(aJCas,lemma.getBegin(),lemma.getEnd());
+            if (emotion != null) {
+                if (emotion.isPositive()) {
+                    final EmotionAnnotation annotation = new EmotionAnnotation(aJCas,
+                            lemma.getBegin(), lemma.getEnd());
                     annotation.setValence(Emotions.POSITIVE);
                     annotation.addToIndexes();
                 }
-                if(emotion.isNegative())
-                {
-                    EmotionAnnotation annotation = new EmotionAnnotation(aJCas,lemma.getBegin(),lemma.getEnd());
+                if (emotion.isNegative()) {
+                    final EmotionAnnotation annotation = new EmotionAnnotation(aJCas,
+                            lemma.getBegin(), lemma.getEnd());
                     annotation.setValence(Emotions.NEGATIVE);
                     annotation.addToIndexes();
                 }
-                if(emotion.isAnger())
-                {
-                    EmotionAnnotation annotation = new EmotionAnnotation(aJCas,lemma.getBegin(),lemma.getEnd());
+                if (emotion.isAnger()) {
+                    final EmotionAnnotation annotation = new EmotionAnnotation(aJCas,
+                            lemma.getBegin(), lemma.getEnd());
                     annotation.setValence(Emotions.ANGER);
                     annotation.addToIndexes();
                 }
-                if(emotion.isAnticipation())
-                {
-                    EmotionAnnotation annotation = new EmotionAnnotation(aJCas,lemma.getBegin(),lemma.getEnd());
+                if (emotion.isAnticipation()) {
+                    final EmotionAnnotation annotation = new EmotionAnnotation(aJCas,
+                            lemma.getBegin(), lemma.getEnd());
                     annotation.setValence(Emotions.ANTICIPATION);
                     annotation.addToIndexes();
                 }
-                if(emotion.isDisgust())
-                {
-                    EmotionAnnotation annotation = new EmotionAnnotation(aJCas,lemma.getBegin(),lemma.getEnd());
+                if (emotion.isDisgust()) {
+                    final EmotionAnnotation annotation = new EmotionAnnotation(aJCas,
+                            lemma.getBegin(), lemma.getEnd());
                     annotation.setValence(Emotions.DISGUST);
                     annotation.addToIndexes();
                 }
-                if(emotion.isFear())
-                {
-                    EmotionAnnotation annotation = new EmotionAnnotation(aJCas,lemma.getBegin(),lemma.getEnd());
+                if (emotion.isFear()) {
+                    final EmotionAnnotation annotation = new EmotionAnnotation(aJCas,
+                            lemma.getBegin(), lemma.getEnd());
                     annotation.setValence(Emotions.FEAR);
                     annotation.addToIndexes();
                 }
-                if(emotion.isJoy())
-                {
-                    EmotionAnnotation annotation = new EmotionAnnotation(aJCas,lemma.getBegin(),lemma.getEnd());
+                if (emotion.isJoy()) {
+                    final EmotionAnnotation annotation = new EmotionAnnotation(aJCas,
+                            lemma.getBegin(), lemma.getEnd());
                     annotation.setValence(Emotions.JOY);
                     annotation.addToIndexes();
                 }
-                if(emotion.isSadness())
-                {
-                    EmotionAnnotation annotation = new EmotionAnnotation(aJCas,lemma.getBegin(),lemma.getEnd());
+                if (emotion.isSadness()) {
+                    final EmotionAnnotation annotation = new EmotionAnnotation(aJCas,
+                            lemma.getBegin(), lemma.getEnd());
                     annotation.setValence(Emotions.SADNESS);
                     annotation.addToIndexes();
                 }
-                if(emotion.isSurprise())
-                {
-                    EmotionAnnotation annotation = new EmotionAnnotation(aJCas,lemma.getBegin(),lemma.getEnd());
+                if (emotion.isSurprise()) {
+                    final EmotionAnnotation annotation = new EmotionAnnotation(aJCas,
+                            lemma.getBegin(), lemma.getEnd());
                     annotation.setValence(Emotions.SURPRISE);
                     annotation.addToIndexes();
                 }
-                if(emotion.isTrust())
-                {
-                    EmotionAnnotation annotation = new EmotionAnnotation(aJCas,lemma.getBegin(),lemma.getEnd());
+                if (emotion.isTrust()) {
+                    final EmotionAnnotation annotation = new EmotionAnnotation(aJCas,
+                            lemma.getBegin(), lemma.getEnd());
                     annotation.setValence(Emotions.TRUST);
                     annotation.addToIndexes();
                 }
@@ -109,8 +115,6 @@ public class EmotionAnnotator extends JCasAnnotator_ImplBase
 
         }
 
-
     }
-
 
 }

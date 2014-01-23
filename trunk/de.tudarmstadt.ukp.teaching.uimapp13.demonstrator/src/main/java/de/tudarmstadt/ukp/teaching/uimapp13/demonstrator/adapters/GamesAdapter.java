@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.koch.uim_project.generation.Generator;
@@ -83,15 +84,16 @@ public class GamesAdapter
                 emotion, patternWeights, styleDevWeights, features, alienFeatures,
                 minWordsForGeneration, maxSynsetDepth,maxWordListLength, ubyConfig, customDbConfig));
 
-        LoggerFactory.getLogger(this.getClass()).info("Generating slogans...");
+        final Logger logger = LoggerFactory.getLogger(this.getClass());
+        logger.info("Generating slogans...");
         final ArrayList<Slogan> slogans = new ArrayList<Slogan>();
         for (int i = 0; i < sloganCount; ++i) {
-            LoggerFactory.getLogger(this.getClass()).info(
+            logger.info(
                     String.format("Slogan %d/%d...", i + 1, sloganCount));
             final Slogan slogan = new Slogan(generator.generateSlogan());
             slogans.add(slogan);
         }
-        LoggerFactory.getLogger(this.getClass()).info("Generating slogans...Done");
+        logger.info("Generating slogans...Done");
 
         return slogans;
     }
