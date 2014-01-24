@@ -1,5 +1,6 @@
 package de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.adapters;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,8 +10,10 @@ import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.configuration.Demonstra
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.model.Slogan;
 
 public class BeautyAdapter
-    implements Adapter
+    implements Adapter, Serializable
 {
+    private static final long serialVersionUID = -5583328894154375145L;
+
     PatternGenerator generator;
     public static final String PRODUCT_NAME = "PRODUCT_NAME";
     public static final String SUGGESTED_WORDS = "SUGGESTED_WORDS";
@@ -18,24 +21,27 @@ public class BeautyAdapter
     public static final String PATTERN = "PATTERN";
     public static final String SLOGAN_COUNT = "SLOGAN_COUNT";
 
-    public void initialize(final Map<String, Object> parameters) throws Exception
+    @Override
+    public void initialize(final Map<String, Object> parameters)
+        throws Exception
     {
-        generator = new PatternGenerator();
+        this.generator = new PatternGenerator();
 
-        generator.setWeb1TPathname(System.getenv("DKPRO_HOME") + "/web1t/ENGLISH");
-        generator
-                .setEmotionFilePath("/s21/studium/11_semester/master_thesis/workspace/de.tudarmstadt.ukp.teaching.uimapp13.demonstrator/src/main/resources/NRCemotionlexicon.pdf");
-        generator
-                .setSloganBasePath("/s21/studium/11_semester/master_thesis/workspace/de.tudarmstadt.ukp.teaching.uimapp13.demonstrator/src/main/resources/beautySlogans.txt");
-        generator.setUbyDBData(DemonstratorConfig.UBY_URL, DemonstratorConfig.JDBC_DRIVER,
-                DemonstratorConfig.JDBC_DRIVER_NAME, DemonstratorConfig.UBY_USER,
-                DemonstratorConfig.UBY_PASSWORD);
+        final DemonstratorConfig config = DemonstratorConfig.getInstance();
 
+        this.generator.setWeb1TPathname(config.getWeb1TPathname());
+        this.generator.setEmotionFilePath(DemonstratorConfig.getResourcePath()
+                + "/NRCemotionlexicon.pdf");
+        this.generator.setSloganBasePath(DemonstratorConfig.getResourcePath()
+                + "/beautySlogans.txt");
+        this.generator.setUbyDBData(config.getUbyUrl(), config.getJdbcDriver(),
+                config.getJdbcDriverName(), config.getUbyUser(), config.getUbyPassword());
 
-     generator.init();
+        this.generator.init();
 
     }
 
+    @Override
     public List<Slogan> generateSlogans(final Map<String, Object> parameters)
     {
 
@@ -45,22 +51,21 @@ public class BeautyAdapter
         final String pattern = (String) parameters.get(PATTERN);
         final Integer sloganCount = (Integer) parameters.get(SLOGAN_COUNT);
 
-        generator.setProductName(productName);
+        this.generator.setProductName(productName);
 
-        generator.setSuggestedWords(suggestedWords);
+        this.generator.setSuggestedWords(suggestedWords);
 
-        generator.selectPartOfBody(bodyPart);
-        generator.selectPattern(pattern);
+        this.generator.selectPartOfBody(bodyPart);
+        this.generator.selectPattern(pattern);
 
-        //TODO generatePatterns should take the number of slog to generate as parameters
-        List<String> generatedSlogans = generator.generatePatterns();
+        // TODO generatePatterns should take the number of slogans to generate as parameters
+        final List<String> generatedSlogans = this.generator.generatePatterns();
 
         final int returnedSloganCount = Math.min(generatedSlogans.size(), sloganCount);
 
-        List<Slogan> slogans = new ArrayList<Slogan>();
+        final List<Slogan> slogans = new ArrayList<Slogan>();
 
-        for (int i = 0; i < returnedSloganCount; ++i)
-        {
+        for (int i = 0; i < returnedSloganCount; ++i) {
             final Slogan slogan = new Slogan(generatedSlogans.get(i));
             slogans.add(slogan);
         }

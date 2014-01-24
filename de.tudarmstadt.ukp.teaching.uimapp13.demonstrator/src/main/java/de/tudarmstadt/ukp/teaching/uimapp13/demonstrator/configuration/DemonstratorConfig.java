@@ -10,7 +10,7 @@ public final class DemonstratorConfig
     public static final String RESOURCES_ENVVAR = "DEMO_RES";
 
     private static DemonstratorConfig instance;
-    private static boolean cacheConfiguration = false;
+    private static boolean isCachingProperties = false;
 
     private DemonstratorConfig()
     {
@@ -20,7 +20,7 @@ public final class DemonstratorConfig
 
     public static DemonstratorConfig getInstance()
     {
-        if (!cacheConfiguration || null == instance) {
+        if (!isCachingProperties || null == instance) {
             instance = new DemonstratorConfig();
             try {
                 instance.loadConfig();
@@ -47,48 +47,62 @@ public final class DemonstratorConfig
 
     public String getJdbcDriver()
     {
-        return this.properties.getProperty("jdbc.driver");
+        return this.getPropertyChecked("jdbc.driver");
 
     }
 
     public String getJdbcDriverName()
     {
-        return this.properties.getProperty("jdbc.driver.name");
+        return this.getPropertyChecked("jdbc.driver.name");
     }
 
     public String getUbyUrl()
     {
-        return this.properties.getProperty("uby.url");
+        return this.getPropertyChecked("uby.url");
     }
 
     public String getUbyPassword()
     {
-        return this.properties.getProperty("uby.password");
+        return this.getPropertyChecked("uby.password");
     }
 
     public String getUbyUser()
     {
-        return this.properties.getProperty("uby.user");
+        return this.getPropertyChecked("uby.user");
     }
 
     public String getUbyUrlJdbc()
     {
-        return this.properties.getProperty("uby.url.jdbc");
+        return this.getPropertyChecked("uby.url.jdbc");
     }
 
     public String getCustomDbUser()
     {
-        return this.properties.getProperty("custom.db.user");
+        return this.getPropertyChecked("custom.db.user");
     }
 
     public String getCustomDbPassword()
     {
-        return this.properties.getProperty("custom.db.password");
+        return this.getPropertyChecked("custom.db.password");
     }
 
     public String getKochDbUrl()
     {
-        return this.properties.getProperty("koch.db.url");
+        return this.getPropertyChecked("koch.db.url");
+    }
+
+    public String getWeb1TPathname()
+    {
+        return this.getPropertyChecked("web1t.pathname");
+    }
+
+    public String getPropertyChecked(final String property)
+    {
+        final String value = this.properties.getProperty(property);
+        if (null == value) {
+            throw new IllegalStateException("Required property " + property + " is missing!");
+        }
+        return value;
     }
 
 }

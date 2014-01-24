@@ -10,3 +10,5 @@ custom.db.user=uimpp
 custom.db.password=uimpp
 
 koch.db.url=jdbc:mysql://localhost:3306/uimpp_koch
+
+web1t.pathname=PATH_TO_YOUR_DKRPO_HOME/web1t/ENGLISH
