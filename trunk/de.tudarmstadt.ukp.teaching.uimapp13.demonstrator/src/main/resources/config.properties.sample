@@ -1,0 +1,12 @@
+jdbc.driver=com.mysql.jdbc.Driver
+jdbc.driver.name=mysql
+
+uby.url=localhost/uby_medium_0_3_0
+uby.password=uby
+uby.user=uby
+uby.url.jdbc=jdbc:mysql://localhost/uby_medium_0_3_0
+
+custom.db.user=uimpp
+custom.db.password=uimpp
+
+koch.db.url=jdbc:mysql://localhost:3306/uimpp_koch

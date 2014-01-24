@@ -1,11 +1,5 @@
 package de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.adapters;
 
-import static de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.configuration.DemonstratorConfig.CUSTOM_DB_PASSWORD;
-import static de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.configuration.DemonstratorConfig.CUSTOM_DB_USER;
-import static de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.configuration.DemonstratorConfig.KOCH_DB_URL;
-import static de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.configuration.DemonstratorConfig.UBY_PASSWORD;
-import static de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.configuration.DemonstratorConfig.UBY_USER;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -56,9 +50,11 @@ public class GamesAdapter
     public List<Slogan> generateSlogans(final Map<String, Object> parameters)
         throws Exception
     {
-        final DbConfig ubyConfig = new DbConfig(DemonstratorConfig.UBY_URL, UBY_USER, UBY_PASSWORD);
-        final DbConfig customDbConfig = new DbConfig(KOCH_DB_URL, CUSTOM_DB_USER,
-                CUSTOM_DB_PASSWORD);
+        final DemonstratorConfig config = DemonstratorConfig.getInstance();
+        final DbConfig ubyConfig = new DbConfig(config.getUbyUrl(), config.getUbyUser(),
+                config.getUbyPassword());
+        final DbConfig customDbConfig = new DbConfig(config.getKochDbUrl(),
+                config.getCustomDbUser(), config.getCustomDbPassword());
 
         final String gameName = (String) parameters.get(GAME_NAME);
         final Long randomSeed = (Long) parameters.get(RANDOM_SEED);
@@ -77,19 +73,19 @@ public class GamesAdapter
         final Integer minWordsForGeneration = (Integer) parameters
                 .get(MIN_WORD_LIST_FOR_GENERATION);
         final Integer maxSynsetDepth = (Integer) parameters.get(MAX_SYNSET_DEPTH);
-        
+
         final Integer maxWordListLength = (Integer) parameters.get(MAX_WORD_LIST_LENGTH);
 
-        final Generator generator = new Generator(new Config(gameName, randomSeed, sloganCount,
-                emotion, patternWeights, styleDevWeights, features, alienFeatures,
-                minWordsForGeneration, maxSynsetDepth,maxWordListLength, ubyConfig, customDbConfig));
+        final Generator generator = new Generator(
+                new Config(gameName, randomSeed, sloganCount, emotion, patternWeights,
+                        styleDevWeights, features, alienFeatures, minWordsForGeneration,
+                        maxSynsetDepth, maxWordListLength, ubyConfig, customDbConfig));
 
         final Logger logger = LoggerFactory.getLogger(this.getClass());
         logger.info("Generating slogans...");
         final ArrayList<Slogan> slogans = new ArrayList<Slogan>();
         for (int i = 0; i < sloganCount; ++i) {
-            logger.info(
-                    String.format("Slogan %d/%d...", i + 1, sloganCount));
+            logger.info(String.format("Slogan %d/%d...", i + 1, sloganCount));
             final Slogan slogan = new Slogan(generator.generateSlogan());
             slogans.add(slogan);
         }

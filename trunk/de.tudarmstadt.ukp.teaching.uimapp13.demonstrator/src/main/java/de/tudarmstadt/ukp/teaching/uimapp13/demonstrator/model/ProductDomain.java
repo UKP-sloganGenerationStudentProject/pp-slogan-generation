@@ -9,7 +9,7 @@ public class ProductDomain
 {
     private static final long serialVersionUID = 5608530679368325726L;
 
-    public static final ProductDomain BEAUTY = new ProductDomain("beauty", "Beauty products");
+    public static final ProductDomain BEAUTY = new ProductDomain("beauty", "Cosmetics");
     public static final ProductDomain CARS = new ProductDomain("cars", "Cars");
     public static final ProductDomain GAMES = new ProductDomain("games", "Games");
     public static final ProductDomain SOFT_DRINKS = new ProductDomain("soft", "Soft Drinks");
@@ -28,12 +28,12 @@ public class ProductDomain
 
     public String getId()
     {
-        return id;
+        return this.id;
     }
 
     public String getName()
     {
-        return name;
+        return this.name;
     }
 
     public static List<ProductDomain> getAllDomains()
