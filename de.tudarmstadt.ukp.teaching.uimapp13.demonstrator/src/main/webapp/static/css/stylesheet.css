@@ -32,21 +32,32 @@ form h2 {
 	margin-top: 0px;
 }
 
-#column1,#column2,#column3 {
-	width: 33%;
-	float: left;
-}
-
-.domainSpecificForm button {
+.column {
 	float: left;
 }
 
 #beauty-form {
-	width: 800px;	
+	width: 800px;
+}
+
+#beauty-form .column {
+	width: 370px;
 }
 
 #games-form {
-	width: 1200px;
+	width: 1400px;
+}
+
+#games-form .column {
+	width: 330px;
+}
+
+#games-form textarea {
+	resize: none;	
+}
+
+.domainSpecificForm button {
+	float: left;
 }
 
 #results {

@@ -58,9 +58,10 @@ public class PatternGenerator
     String _ubyDBUserName;
     String _ubyDBPassword;
 
-    static List<String> _patternsToAnnotate = Arrays.asList("NC_", "NC_PC_NC_", "VC_NC_", "VC_NC_PC_NC_",
-            "VC_", "NC_VC_", "NC_VC_ADJC_", "NC_VC_NC_");
-    static List<String> _partsOfBodyToSelect = Arrays.asList("eye", "skin", "lips", "fingernails");
+    private static List<String> _patternsToAnnotate = Arrays.asList("NC_", "NC_PC_NC_", "VC_NC_",
+            "VC_NC_PC_NC_", "VC_", "NC_VC_", "NC_VC_ADJC_", "NC_VC_NC_");;
+    private static List<String> _partsOfBodyToSelect = Arrays.asList("eye", "skin", "lips",
+            "fingernails");;
 
     PatternFactory _factory;
 
@@ -129,7 +130,6 @@ public class PatternGenerator
 
         this._resources = new Resources();
 
-
     }
 
     public void init()
@@ -185,7 +185,7 @@ public class PatternGenerator
 
         final AnalysisEngineDescription chunkPatternAnnotator = createEngineDescription(
                 ChunkPatternAnnotator.class, ChunkPatternAnnotator.PARAM_PATTERN_LIST,
-                this._patternsToAnnotate);
+                getSelectablePatterns());
         final AnalysisEngineDescription emotionAnnotator = createEngineDescription(
                 EmotionAnnotator.class, EmotionAnnotator.PARAM_EMOTIONS_LEXICON_PATH,
                 this._emotionFilePath);
@@ -394,7 +394,7 @@ public class PatternGenerator
                 }
 
                 if (token.getCoveredText().equals(ChunkPartType.PRODUCT_NAME.toString())) {
-                    chunkPartType = chunkPartType.PRODUCT_NAME;
+                    chunkPartType = ChunkPartType.PRODUCT_NAME;
                 }
 
                 final ChunkPart chunkPart = ChunkPart.createChunkPart(chunkPartType,

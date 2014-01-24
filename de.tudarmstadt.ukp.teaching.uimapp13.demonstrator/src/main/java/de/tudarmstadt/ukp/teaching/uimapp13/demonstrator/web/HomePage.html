@@ -19,7 +19,7 @@
 		<form class="domainSpecificForm" wicket:id="beauty-form"
 			id="beauty-form">
 			<h2>Beauty Products</h2>
-			<div id="column1">
+			<div class="column">
 				<div class="labelContainer">
 					<label for="beauty-numSlogans">Number of slogans:</label><br />
 					<!--  -->
@@ -27,9 +27,10 @@
 						type="text">
 				</div>
 				<div class="labelContainer">
-					<label for="beauty-productName">Game name:</label> <br />
+					<label for="beauty-productName">Cosmetic product name:</label> <br />
 					<!--  -->
-					<input wicket:id="beauty-productName" name="beauty-productName" type="text">
+					<input wicket:id="beauty-productName" name="beauty-productName"
+						type="text">
 				</div>
 				<div class="labelContainer">
 					<label for="beauty-pattern">Pattern:</label><br />
@@ -44,12 +45,13 @@
 						wicket:id="beauty-partOfBody"></select>
 				</div>
 			</div>
-			<div id="column2">
-				<label for="beauty-suggestedWords">Suggested words: (one per line):</label><br/>
-				<textarea wicket:id="beauty-suggestedWords" name="beauty-suggestedWords"
-					rows="20" cols="40"></textarea>
+			<div class="column">
+				<label for="beauty-suggestedWords">Suggested words: (one per
+					line):</label><br />
+				<textarea wicket:id="beauty-suggestedWords"
+					name="beauty-suggestedWords" rows="20" cols="40"></textarea>
 			</div>
-			<br class="clearfloats"/>
+			<br class="clearfloats" />
 			<button wicket:id="beauty-submit">Generate slogans</button>
 		</form>
 		<form class="domainSpecificForm" wicket:id="cars-form" id="cars-form">
@@ -61,7 +63,8 @@
 		<form class="domainSpecificForm" wicket:id="games-form"
 			id="games-form">
 			<h2>Games</h2>
-			<div id="column1">
+			<div class="column">
+				<h3>General</h3>
 				<div class="labelContainer">
 					<label for="games-numSlogans">Number of slogans:</label><br />
 					<!--  -->
@@ -104,18 +107,98 @@
 					<input id="games-randomSeed" name="games-randomSeed"
 						wicket:id="games-randomSeed"></input>
 				</div>
+
 			</div>
-			<div id="column2">
-				<label for="games-featureWords">Feature words (one per line):</label>
+			<div class="column">
+				<h3>Pattern weights</h3>
+				<div class="labelContainer">
+					<label for="games-patternWeight0">Weight for <span
+						wicket:id="games-pattern0">Pattern0</span>:
+					</label><br />
+					<!--  -->
+					<input id="games-patternWeight0" name="games-patternWeight0"
+						wicket:id="games-patternWeight0"></input>
+				</div>
+				<div class="labelContainer">
+					<label for="games-patternWeight1">Weight for <span
+						wicket:id="games-pattern1">Pattern1</span>:
+					</label><br />
+					<!--  -->
+					<input id="games-patternWeight1" name="games-patternWeight1"
+						wicket:id="games-patternWeight1"></input>
+				</div>
+				<div class="labelContainer">
+					<label for="games-patternWeight2">Weight for <span
+						wicket:id="games-pattern2">Pattern2</span>:
+					</label><br />
+					<!--  -->
+					<input id="games-patternWeight2" name="games-patternWeight2"
+						wicket:id="games-patternWeight2"></input>
+				</div>
+				<div class="labelContainer">
+					<label for="games-patternWeight3">Weight for <span
+						wicket:id="games-pattern3">Pattern3</span>:
+					</label><br />
+					<!--  -->
+					<input id="games-patternWeight3" name="games-patternWeight3"
+						wicket:id="games-patternWeight3"></input>
+				</div>
+				<h3>Stylistic device weights</h3>
+				<div class="labelContainer">
+					<label for="games-styleDevWeight0">Weight for <span
+						wicket:id="games-styleDev0">styleDev0</span>:
+					</label><br />
+					<!--  -->
+					<input id="games-styleDevWeight0" name="games-styleDevWeight0"
+						wicket:id="games-styleDevWeight0"></input>
+				</div>
+				<div class="labelContainer">
+					<label for="games-styleDevWeight1">Weight for <span
+						wicket:id="games-styleDev1">styleDev1</span>:
+					</label><br />
+					<!--  -->
+					<input id="games-styleDevWeight1" name="games-styleDevWeight1"
+						wicket:id="games-styleDevWeight1"></input>
+				</div>
+				<div class="labelContainer">
+					<label for="games-styleDevWeight2">Weight for <span
+						wicket:id="games-styleDev2">styleDev2</span>:
+					</label><br />
+					<!--  -->
+					<input id="games-styleDevWeight2" name="games-styleDevWeight2"
+						wicket:id="games-styleDevWeight2"></input>
+				</div>
+				<div class="labelContainer">
+					<label for="games-styleDevWeight3">Weight for <span
+						wicket:id="games-styleDev3">styleDev3</span>:
+					</label><br />
+					<!--  -->
+					<input id="games-styleDevWeight3" name="games-styleDevWeight3"
+						wicket:id="games-styleDevWeight3"></input>
+				</div>
+				<div class="labelContainer">
+					<label for="games-styleDevWeight4">Weight for <span
+						wicket:id="games-styleDev4">styleDev3</span>:
+					</label><br />
+					<!--  -->
+					<input id="games-styleDevWeight4" name="games-styleDevWeight4"
+						wicket:id="games-styleDevWeight4"></input>
+				</div>
+			</div>
+			<div class="column">
+				<h3>Features</h3>
+				<label for="games-featureWords">Feature words (one per
+					line):</label>
 				<textarea wicket:id="games-featureWords" name="games-featureWords"
 					rows="20" cols="40"></textarea>
 			</div>
-			<div id="column3">
+			<div class="column">
+				<h3 style="display: hidden;">Features</h3>
 				<label for="games-alienWords">Alien words (one per line):</label>
 				<textarea wicket:id="games-alienWords" name="games-alienWords"
 					rows="20" cols="40"></textarea>
 			</div>
-			<br class="clearfloats"/>
+			<br class="clearfloats" />
 			<button wicket:id="games-submit">Generate slogans</button>
 		</form>
 		<form class="domainSpecificForm" wicket:id="soft-form" id="soft-form">
@@ -131,7 +214,7 @@
 			<li><span wicket:id="sloganText"></span></li>
 		</ul>
 	</div>
-	<div id="footer">&copy; Content: TODO &mdash; Web application: Roland
-		Kluge</div>
+	<div id="footer">&copy; Content: TODO &mdash; Web application:
+		Roland Kluge</div>
 </body>
 </html>
