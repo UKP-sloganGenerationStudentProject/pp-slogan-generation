@@ -4,17 +4,64 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.PatternGenerator.Resources;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.ChunkHeader.ChunkType;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.ChunkOccurrence;
 
 public class Pattern
 {
     private final ArrayList<ChunkOccurrence> _elementList;
     private final ArrayList<String> _valueOccurrences;
+    private String _patternType;
+    private boolean _isBodyPart;
 
     public Pattern()
     {
         _elementList = new ArrayList<ChunkOccurrence>();
         _valueOccurrences = new ArrayList<String>();
+        _patternType = "UNDEFINED";
+        _isBodyPart = false;
+    }
+
+    public void generatePatternType()
+    {
+        StringBuilder type = new StringBuilder();
+
+        for(ChunkOccurrence occ : _elementList)
+        {
+            type.append(occ.getChunkType().toString());
+            type.append("_");
+        }
+
+        _patternType = type.toString();
+
+    }
+
+    public void generateIsBodyPart()
+    {
+        for(ChunkOccurrence occ : _elementList)
+        {
+            if(occ.getChunkType().equals(ChunkType.NC) && occ.getSemantic().equals("body"))
+            {
+                _isBodyPart = true;
+                break;
+            }
+        }
+    }
+
+    public String getPatternType()
+    {
+        return _patternType;
+    }
+
+    public boolean isBodyPart()
+    {
+        return _isBodyPart;
+    }
+
+    public void generateInformations()
+    {
+        generatePatternType();
+        generateIsBodyPart();
     }
 
     public void addElement(ChunkOccurrence el)
@@ -68,13 +115,13 @@ public class Pattern
 
     public List<String> generateSlogans(Resources resources,int numberOfSlogans)
     {
-        ArrayList<String> newSlogans = new ArrayList<String>();
+        List<String> newSlogans = new ArrayList<String>();
         newSlogans.add("");
 
         for(ChunkOccurrence elem : _elementList)
         {
-            ArrayList<String> temp = new ArrayList<String>();
-            temp = Utils.concatenate(newSlogans, elem.generateSloganParts(resources));
+            List<String> temp = new ArrayList<String>();
+            temp = Utils.concatenate(newSlogans, elem.generateSloganParts(resources,numberOfSlogans));
             newSlogans = temp;
         }
 

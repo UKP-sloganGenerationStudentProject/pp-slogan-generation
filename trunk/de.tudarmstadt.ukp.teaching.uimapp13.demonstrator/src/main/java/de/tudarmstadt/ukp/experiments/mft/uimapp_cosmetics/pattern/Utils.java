@@ -25,9 +25,9 @@ public class Utils
 
     }
 
-    public static ArrayList<String> concatenate(ArrayList<String> array1, ArrayList<String> array2)
+    public static List<String> concatenate(List<String> array1, List<String> array2)
     {
-        ArrayList<String> newValues = new ArrayList<String>();
+        List<String> newValues = new ArrayList<String>();
         for(String val1 : array1)
         {
             for(String val2: array2)

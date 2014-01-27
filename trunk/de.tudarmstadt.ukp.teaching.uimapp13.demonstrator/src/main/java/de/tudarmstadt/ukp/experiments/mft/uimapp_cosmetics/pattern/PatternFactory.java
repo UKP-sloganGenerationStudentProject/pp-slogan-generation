@@ -90,9 +90,11 @@ public class PatternFactory
         if(simiPattern != null)
         {
             simiPattern.addOccurrence(_currentPattern);
+            simiPattern.generateInformations();
         }
         else
         {
+            _currentPattern.generateInformations();
             _patterns.put(patternId,_currentPattern);
         }
 
@@ -105,9 +107,19 @@ public class PatternFactory
         _currentPatternValue = value;
     }
 
-
-    public List<String> generatePatterns(Resources resources)
+    public void resetTheCacheData()
     {
+        for(ChunkHeader header : _chunkIndex.getPatternElements())
+        {
+            header.resetCache();
+        }
+    }
+
+
+    public List<String> generateSlogans(Resources resources, int nbrOfSlogans)
+    {
+
+        resetTheCacheData();
 
         //output all the parameters
         System.out.println("Pattern Generation STARTS... ");
@@ -144,55 +156,84 @@ public class PatternFactory
         System.out.println("WARNING : the parameters for the generation are not taken into account yet");
 
 
-        List<String> output = new ArrayList<String>();
 
-        int incr = -1;
+        List<Pattern> filteredPatterns = new ArrayList<>();
 
-        List<Integer> randomIndices = Utils.getDistinctRandomIndices(_patterns.size(), 4);
+        //filter the patterns and keep just those who correspond to the creteria
 
         for(Pattern pattern : _patterns.values())
         {
-            incr = incr + 1;
 
-            if(!randomIndices.contains(new Integer(incr)))
+            if(resources.getPatternsToGenerate().size()>0)
             {
-                continue;
-            }
-            //output the created slogans
-
-            /*
-            output.append(pattern.getId());
-            output.append("\n");
-            output.append("\n");
-
-            output.append("Models :");
-            output.append("\n");
-            for(String patternOccurrence : pattern.getValueOccurrences())
-            {
-                output.append("\t"+patternOccurrence);
-                output.append("\n");
+                if(!resources.getPatternsToGenerate().contains(pattern.getPatternType()))
+                {
+                    //if the pattern types to generate are precised and if the current pattern
+                    //doesn't correspond to one of those types, don't generate the slogans
+                    // associated to this pattern
+                    continue;
+                }
             }
 
-            output.append("\n");
+            if(resources.getSelectedPartsOfBody().size()>0)
+            {
+                if(!pattern.isBodyPart())
+                {
+                    //if a body part has been precised we don't generate the slogans for the
+                    //patterns that don't have body parts inside
+                    continue;
+                }
+            }
 
-
-            output.append("Generated patterns :");
-            output.append("\n");
-            output.append("\n");
-
-            */
-
-            output.addAll(pattern.generateSlogans(resources,5));
-
-//            output.append("\n");
+            filteredPatterns.add(pattern);
         }
+
+
+        int slogToGenPerPattern = 1;
+        boolean randomize = false;
+        List<Integer> randomIndices = null;
+
+        if(nbrOfSlogans < filteredPatterns.size())
+        {
+            randomize = true;
+            slogToGenPerPattern = 1;
+            randomIndices = randomIndices = Utils.getDistinctRandomIndices(_patterns.size(), nbrOfSlogans);
+        }
+        else
+        {
+            randomize = false;
+            slogToGenPerPattern = nbrOfSlogans / filteredPatterns.size() + 1;
+        }
+
+        List<String> output = new ArrayList<String>();
+        int incr = -1;
+
+        for(Pattern pattern : _patterns.values())
+        {
+
+            if(randomize)
+            {
+                incr = incr + 1;
+
+
+                if(!randomIndices.contains(new Integer(incr)))
+                {
+                    continue;
+                }
+            }
+
+            output.addAll(pattern.generateSlogans(resources,slogToGenPerPattern));
+
+        }
+
+        output = Utils.getSubList(output, nbrOfSlogans);
 
         return output;
     }
 
 
 
-    public String generatePatternsTest(Resources resources)
+    public String generateSlogansTest(Resources resources)
     {
 
         StringBuilder output = new StringBuilder();
@@ -235,6 +276,27 @@ public class PatternFactory
 
         for(Pattern pattern : _patterns.values())
         {
+            if(resources.getPatternsToGenerate().size()>0)
+            {
+                if(!resources.getPatternsToGenerate().contains(pattern.getPatternType()))
+                {
+                    //if the pattern types to generate are precised and if the current pattern
+                    //doesn't correspond to one of those types, don't generate the slogans
+                    // associated to this pattern
+                    continue;
+                }
+            }
+
+            if(resources.getSelectedPartsOfBody().size()>0)
+            {
+                if(!pattern.isBodyPart())
+                {
+                    //if a body part has been precised we don't generate the slogans for the
+                    //patterns that don't have body parts inside
+                    continue;
+                }
+            }
+
             StringBuilder partialOutput = new StringBuilder();
 
             partialOutput.append(pattern.toString()+"\n");

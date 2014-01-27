@@ -1,8 +1,10 @@
 package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.PatternGenerator.Resources;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.Utils;
 
 public class ChunkHeader
 {
@@ -11,6 +13,8 @@ public class ChunkHeader
     protected String _semanticValue;
     protected String _takenValue;
     private final ArrayList<ChunkOccurrence> _occurrences;
+    private List<String> _generated;
+
 
     public static final String NOT_DEFINED = "notDefined";
 
@@ -44,6 +48,8 @@ public class ChunkHeader
         _takenValue = "NO_INFORMATION";
         _chunkType = ChunkType.UNDEFINED;
         _occurrences = new ArrayList<ChunkOccurrence>();
+        _generated = new ArrayList<>();
+
     }
 
     public static ChunkHeader createChunkHeader(ChunkType chunkType)
@@ -146,15 +152,31 @@ public class ChunkHeader
         //to be implemented  by the subclasses
     }
 
-    public ArrayList<String> generateSloganParts(Resources resources)
+    public List<String> generateSloganParts(Resources resources, int nbr)
     {
-        ArrayList<String> output = new ArrayList<String>();
-        for(ChunkOccurrence occ : _occurrences)
+        if(_generated.size()==0)
         {
-            output.addAll(occ.generateSloganPartsIntern(resources));
+            ArrayList<String> generatedTem = new ArrayList<String>();
+            for(ChunkOccurrence occ : _occurrences)
+            {
+                generatedTem.addAll(occ.generateSloganPartsIntern(resources));
+            }
+
+            _generated = Utils.getSubList(generatedTem, nbr);
         }
 
-        return output;
+
+        return _generated;
+    }
+
+    public void resetCache()
+    {
+        _generated = new ArrayList<>();
+
+        for(ChunkOccurrence occ : _occurrences)
+        {
+            occ.resetCache();
+        }
     }
 
 
