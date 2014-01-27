@@ -64,7 +64,7 @@ public class PatternGenerator
     private static List<String> _patternsToAnnotate = Arrays.asList("NC_", "NC_PC_NC_", "VC_NC_",
             "VC_NC_PC_NC_", "VC_", "NC_VC_", "NC_VC_ADJC_", "NC_VC_NC_");;
     private static List<String> _partsOfBodyToSelect = Arrays.asList("eye", "skin", "lips",
-            "fingernails");;
+            "fingernails");
 
     PatternFactory _factory;
 
@@ -77,7 +77,7 @@ public class PatternGenerator
 
         final PatternGenerator generator = new PatternGenerator();
 
-        generator.disableUbyGeneration();
+        //generator.disableUbyGeneration();
 
         generator.setEmotionFilePath("src/main/resources/NRCemotionlexicon.pdf");
         generator.setSloganBasePath("src/main/resources/beautySlogans.txt");
@@ -120,7 +120,13 @@ public class PatternGenerator
         // set the suggested words (a string containing all the words separated with a coma"
         generator.setSuggestedWords("beauty,woman,colour");
 
-        generator.generatePatternsToFile("/media/Storage/TUD/WS13-14/UIMA/Data/generatedSlogans.txt");
+        //generator.generateSlogansToFile("/media/Storage/TUD/WS13-14/UIMA/Data/generatedSlogans.txt");
+
+        for(String slogan : generator.generateSlogans(10))
+        {
+            System.out.println("\t"+slogan);
+        }
+
 
     }
 
@@ -283,9 +289,9 @@ public class PatternGenerator
         }
     }
 
-    public List<String> generatePatterns()
+    public List<String> generateSlogans(int nbrOfSlogans)
     {
-        return this._factory.generatePatterns(this._resources);
+        return this._factory.generateSlogans(this._resources,nbrOfSlogans);
     }
 
     public void disableUbyGeneration()
@@ -293,7 +299,7 @@ public class PatternGenerator
         _resources.disableUbyGeneration();
     }
 
-    public void generatePatternsToFile(String path)
+    public void generateSlogansToFile(String path)
     {
 
 
@@ -324,7 +330,7 @@ public class PatternGenerator
             writer.newLine();
             writer.newLine();
 
-            writer.write(_factory.generatePatternsTest(this._resources));
+            writer.write(_factory.generateSlogansTest(this._resources));
 
             writer.close();
 
