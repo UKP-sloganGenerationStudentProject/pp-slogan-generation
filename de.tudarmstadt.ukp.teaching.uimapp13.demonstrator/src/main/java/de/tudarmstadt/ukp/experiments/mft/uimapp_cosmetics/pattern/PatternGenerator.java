@@ -5,7 +5,10 @@ import static org.apache.uima.fit.factory.CollectionReaderFactory.createReaderDe
 import static org.apache.uima.fit.factory.ExternalResourceFactory.createExternalResourceDescription;
 import static org.apache.uima.fit.util.JCasUtil.select;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -73,11 +76,15 @@ public class PatternGenerator
     {
 
         final PatternGenerator generator = new PatternGenerator();
+
+        generator.disableUbyGeneration();
+
         generator.setEmotionFilePath("src/main/resources/NRCemotionlexicon.pdf");
         generator.setSloganBasePath("src/main/resources/beautySlogans.txt");
         generator.setUbyDBData("localhost/uby_medium_0_3_0", "com.mysql.jdbc.Driver", "mysql",
                 "root", "pass");
         generator.init();
+
 
         /*
          * Generation parameters
@@ -113,9 +120,8 @@ public class PatternGenerator
         // set the suggested words (a string containing all the words separated with a coma"
         generator.setSuggestedWords("beauty,woman,colour");
 
-        for (final String slogan : generator.generatePatterns()) {
-            System.out.println(slogan);
-        }
+        generator.generatePatternsToFile("/media/Storage/TUD/WS13-14/UIMA/Data/generatedSlogans.txt");
+
     }
 
     public PatternGenerator()
@@ -282,6 +288,56 @@ public class PatternGenerator
         return this._factory.generatePatterns(this._resources);
     }
 
+    public void disableUbyGeneration()
+    {
+        _resources.disableUbyGeneration();
+    }
+
+    public void generatePatternsToFile(String path)
+    {
+
+
+        try {
+
+            BufferedWriter writer = null;
+            File file = null;
+
+            file = new File(path);
+
+                file.createNewFile();
+
+            writer = new BufferedWriter(new FileWriter(file, false));
+
+            writer.write("***********************Generated Slogans");
+            writer.newLine();
+            writer.newLine();
+
+            writer.write(_factory.getChunkIndex().toString());
+
+            writer.newLine();
+            writer.newLine();
+
+            //write all the generated patterns into a file
+            System.out.println("Write all the generated patterns into the file.");
+
+            writer.write("***********************Pattern Generation");
+            writer.newLine();
+            writer.newLine();
+
+            writer.write(_factory.generatePatternsTest(this._resources));
+
+            writer.close();
+
+        }
+
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
     public void extractPatterns(final JCas aJCas)
         throws AnalysisEngineProcessException
     {
@@ -424,6 +480,8 @@ public class PatternGenerator
         List<String> _selectedPartsOfBody;
         List<String> _suggestedWords;
 
+        boolean _useUbyGeneration;
+
         public Resources()
         {
             this._uby = null;
@@ -433,6 +491,7 @@ public class PatternGenerator
             this._patternsToGenerate = new ArrayList<String>();
             this._selectedPartsOfBody = new ArrayList<String>();
             this._suggestedWords = new ArrayList<String>();
+            this._useUbyGeneration = true;
         }
 
         public Resources(final Uby uby, final EmotionAnalyzer emotionAnalizer,
@@ -452,6 +511,16 @@ public class PatternGenerator
         public void setUby(final Uby uby)
         {
             this._uby = uby;
+        }
+
+        public void disableUbyGeneration()
+        {
+            this._useUbyGeneration = false;
+        }
+
+        public boolean isUbyGernationAllowed()
+        {
+            return this._useUbyGeneration;
         }
 
         public EmotionAnalyzer getEmotionAnalizer()

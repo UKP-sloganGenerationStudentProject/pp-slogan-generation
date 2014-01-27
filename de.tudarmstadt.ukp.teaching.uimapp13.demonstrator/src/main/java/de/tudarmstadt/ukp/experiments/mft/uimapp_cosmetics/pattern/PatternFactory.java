@@ -190,6 +190,70 @@ public class PatternFactory
         return output;
     }
 
+
+
+    public String generatePatternsTest(Resources resources)
+    {
+
+        StringBuilder output = new StringBuilder();
+
+        //output all the parameters
+        System.out.println("Pattern Generation STARTS... ");
+        System.out.println("\nParameters :");
+
+        System.out.println("\tproductName : "+resources.getProductName());
+
+        System.out.print("\tSelectionned Patterns: ");
+        for(String pattern : resources.getPatternsToGenerate())
+        {
+            System.out.print(pattern);
+            System.out.print(" ; ");
+        }
+
+        System.out.println();
+
+        System.out.print("\tSelectionned parts of body : ");
+        for(String pob : resources.getSelectedPartsOfBody())
+        {
+            System.out.print(pob);
+            System.out.print(" ; ");
+        }
+        System.out.println();
+
+
+        System.out.print("\tSuggested words : ");
+        for(String word : resources.getSuggestedWords())
+        {
+            System.out.print(word);
+            System.out.print(" ; ");
+        }
+
+        System.out.println();
+        System.out.println("WARNING : the parameters for the generation are not taken into account yet");
+
+
+
+        for(Pattern pattern : _patterns.values())
+        {
+            StringBuilder partialOutput = new StringBuilder();
+
+            partialOutput.append(pattern.toString()+"\n");
+
+            for(String slogan : pattern.generateSlogans(resources,-1))
+            {
+                partialOutput.append("\t"+slogan);
+                partialOutput.append("\n");
+            }
+
+            output.append(partialOutput.toString());
+        }
+
+        return output.toString();
+
+
+
+    }
+
     public Object getChunkIndex()
     {
         return _chunkIndex;

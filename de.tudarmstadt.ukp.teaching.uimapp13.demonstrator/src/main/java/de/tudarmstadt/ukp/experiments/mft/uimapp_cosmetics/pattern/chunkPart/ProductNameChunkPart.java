@@ -1,5 +1,9 @@
 package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart;
 
+import java.util.ArrayList;
+
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.PatternGenerator.Resources;
+
 
 
 
@@ -10,6 +14,14 @@ extends ChunkPart
     {
         super();
        _chunkPartType = ChunkPartType.PRODUCT_NAME;
+    }
+
+    @Override
+    public ArrayList<String> generate(Resources resources)
+    {
+        ArrayList<String> output = new ArrayList<String>();
+        output.add(resources.getProductName());
+        return output;
     }
 
 
