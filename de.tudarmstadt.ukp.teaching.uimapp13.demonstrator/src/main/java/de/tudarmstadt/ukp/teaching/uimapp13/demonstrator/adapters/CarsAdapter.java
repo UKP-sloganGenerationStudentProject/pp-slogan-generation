@@ -1,10 +1,9 @@
-package de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.web.components;
+package de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.adapters;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.adapters.Adapter;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.model.Slogan;
 
 public class CarsAdapter

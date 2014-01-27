@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 
+import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.adapters.CarsAdapter;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.model.Slogan;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.web.HomePage;
 
