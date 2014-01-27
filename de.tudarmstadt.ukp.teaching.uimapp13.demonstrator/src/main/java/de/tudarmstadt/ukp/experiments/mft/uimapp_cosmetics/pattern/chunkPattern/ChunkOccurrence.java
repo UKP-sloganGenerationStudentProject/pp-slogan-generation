@@ -11,10 +11,12 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.
 
 public class ChunkOccurrence
 {
+
     ChunkHeader _header;
     ArrayList<ChunkPart> _chunkParts;
     int _mainChunkInd;
     List<String> _generated;
+
 
     public ChunkOccurrence()
     {
@@ -22,6 +24,18 @@ public class ChunkOccurrence
         _mainChunkInd = -1;
         _header = new ChunkHeader();
         _generated = new ArrayList<>();
+    }
+
+    public static ChunkOccurrence createChunkOccurrence(ChunkType chunkType)
+    {
+        ChunkOccurrence output = new ChunkOccurrence();
+
+        if(chunkType.equals(ChunkType.NC))
+        {
+            output = new NounChunkOccurrence();
+        }
+
+        return output;
     }
 
     public void addChunkPart(ChunkPart part)
@@ -61,49 +75,44 @@ public class ChunkOccurrence
         return output.toString();
     }
 
-    public List<String> generateSloganParts(Resources resources, int nbr)
+    public List<ChunkOccurrence> getSimilarChunkOccurrences()
     {
-        if(_header.getSemanticValue()=="UNKNOWN")
+        List<ChunkOccurrence> output = new ArrayList<>();
+        if(_header.getSemanticValue().equals("UNKNOWN"))
         {
-            //if the semantic is unknown we don't look for similar chunks
-            //as these will be all the chunk whose semantic is unknown
-            //and they have nothing to do togehter
-            if(_generated.size()==0)
-            {
-                _generated = generateSloganPartsIntern(resources,nbr);
-            }
-            return _generated;
-
+            output.add(this);
         }
-
-        return _header.generateSloganParts(resources,nbr);
-    }
-
-    public List<String> generateSloganPartsIntern(Resources resources)
-    {
-        return generateSloganPartsIntern(resources, -1);
-    }
-
-    public List<String> generateSloganPartsIntern(Resources resources, int nbr)
-    {
-
-        List<String> output = new ArrayList<String>();
-        output.add("");
-        ArrayList<String> space = new ArrayList<String>();
-        space.add(" ");
-
-        for(ChunkPart occ : _chunkParts)
+        else
         {
-            output = Utils.concatenate(output, occ.generate(resources));
+            output = _header.getChunkOccurrences();
         }
-
-        if(nbr>0)
-        {
-            output = Utils.getSubList(output, nbr);
-
-        }
-
         return output;
+    }
+
+    public void generateInformation(Resources resources)
+    {
+    }
+
+
+    public List<String> generateSloganParts(Resources resources)
+    {
+
+        if(_generated.size()==0)
+        {
+            List<String> temp = new ArrayList<String>();
+            temp.add("");
+            ArrayList<String> space = new ArrayList<String>();
+            space.add(" ");
+
+            for(ChunkPart occ : _chunkParts)
+            {
+                temp = Utils.concatenate(temp, occ.generate(resources));
+            }
+
+            _generated = temp;
+        }
+
+        return _generated;
 
     }
 

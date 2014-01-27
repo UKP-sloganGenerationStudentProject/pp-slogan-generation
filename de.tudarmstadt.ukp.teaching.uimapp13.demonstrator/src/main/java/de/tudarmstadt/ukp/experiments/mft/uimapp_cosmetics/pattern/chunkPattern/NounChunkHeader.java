@@ -65,6 +65,7 @@ public class NounChunkHeader
         _isThe = true;
     }
 
+
     public void setIsProperNoun()
     {
         _isProperNoun = true;

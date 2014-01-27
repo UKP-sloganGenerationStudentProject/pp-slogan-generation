@@ -6,20 +6,19 @@ import java.util.List;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.PatternGenerator.Resources;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.ChunkHeader.ChunkType;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.ChunkOccurrence;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.NounChunkOccurrence;
 
 public class Pattern
 {
     private final ArrayList<ChunkOccurrence> _elementList;
     private final ArrayList<String> _valueOccurrences;
     private String _patternType;
-    private boolean _isBodyPart;
 
     public Pattern()
     {
         _elementList = new ArrayList<ChunkOccurrence>();
         _valueOccurrences = new ArrayList<String>();
         _patternType = "UNDEFINED";
-        _isBodyPart = false;
     }
 
     public void generatePatternType()
@@ -36,32 +35,15 @@ public class Pattern
 
     }
 
-    public void generateIsBodyPart()
-    {
-        for(ChunkOccurrence occ : _elementList)
-        {
-            if(occ.getChunkType().equals(ChunkType.NC) && occ.getSemantic().equals("body"))
-            {
-                _isBodyPart = true;
-                break;
-            }
-        }
-    }
-
     public String getPatternType()
     {
         return _patternType;
     }
 
-    public boolean isBodyPart()
-    {
-        return _isBodyPart;
-    }
 
     public void generateInformations()
     {
         generatePatternType();
-        generateIsBodyPart();
     }
 
     public void addElement(ChunkOccurrence el)
@@ -115,26 +97,138 @@ public class Pattern
 
     public List<String> generateSlogans(Resources resources,int numberOfSlogans)
     {
-        List<String> newSlogans = new ArrayList<String>();
-        newSlogans.add("");
+        List<String> noBodyPart = new ArrayList<>();
+        List<String> withBodyPart = new ArrayList<>();
+        noBodyPart.add("");
+        withBodyPart.add("");
+
+        //tells us if the slogans have to include a specific bodypart
+        boolean mustBeBodyPart = !resources.getSelectedBodyPart().equals("");
+
+        boolean isNoBodyPartValid = true;
+        boolean isWithBodyPartValid = true;
 
         for(ChunkOccurrence elem : _elementList)
         {
-            List<String> temp = new ArrayList<String>();
-            temp = Utils.concatenate(newSlogans, elem.generateSloganParts(resources,numberOfSlogans));
-            newSlogans = temp;
+            List<String> noBodyPartTEMP = new ArrayList<>();
+            List<String> withBodyPartTEMP = new ArrayList<>();
+
+            boolean isNoBodyPartTEMPValid = false;
+            boolean isWithBodyPartTEMPValid = false;
+
+            for(ChunkOccurrence occ : elem.getSimilarChunkOccurrences())
+            {
+                if(occ.getChunkType().equals(ChunkType.NC))
+                {
+                    NounChunkOccurrence nounOcc = (NounChunkOccurrence) occ;
+                    if(nounOcc.isBodyPart())
+                    {
+                        if(mustBeBodyPart)
+                        {
+                            if(nounOcc.getBodyPartName().equals(resources.getSelectedBodyPart()))
+                            {
+                                //we use this occurrence because it contains exactly the bodypart we are looking for
+                                // we concatenate it to the slogan parts that don't have any body part
+                                // because we want only one slogan per bodypart
+                                if(isNoBodyPartValid)
+                                {
+                                    withBodyPartTEMP.addAll(Utils.concatenate(noBodyPart, nounOcc.generateSloganParts(resources)));
+                                    isWithBodyPartTEMPValid = true;
+                                }
+                            }
+                            else
+                            {
+                                //we don't use this occurrence because it corresponds to another part of the body
+                            }
+                        }
+                        else
+                        {
+                            //we don't want any body part so we don't use this occurrence
+                        }
+
+                    }
+                    else
+                    {
+                        //this is not a body part so we can use it anywayocc
+                        if(isNoBodyPartValid)
+                        {
+                            noBodyPartTEMP.addAll(Utils.concatenate(noBodyPart, occ.generateSloganParts(resources)));
+                            isNoBodyPartTEMPValid = true;
+                        }
+                        if(mustBeBodyPart)
+                        {
+                            if(isWithBodyPartValid && withBodyPart.get(0).length()>0)
+                            {
+                                //if we are looking for slogans with body parts, we update also the table
+                                // used to create the slogans with bodypart included
+                                withBodyPartTEMP.addAll(Utils.concatenate(withBodyPart, occ.generateSloganParts(resources)));
+                                isWithBodyPartTEMPValid = true;
+                            }
+                        }
+
+                    }
+                }
+                else
+                {
+                    //this is not a body part so we can use it anyway
+                    if(isNoBodyPartValid)
+                    {
+                        noBodyPartTEMP.addAll(Utils.concatenate(noBodyPart, occ.generateSloganParts(resources)));
+                        isNoBodyPartTEMPValid = true;
+                    }
+                    if(isWithBodyPartValid)
+                    {
+                        if(mustBeBodyPart && withBodyPart.get(0).length()>0)
+                        {
+                            //if we are looking for slogans with body parts, we update also the table
+                            // used to create the slogans with bodypart included
+                            withBodyPartTEMP.addAll(Utils.concatenate(withBodyPart, occ.generateSloganParts(resources)));
+                            isWithBodyPartTEMPValid = true;
+                        }
+                    }
+                }
+            }
+
+            if(isWithBodyPartTEMPValid)
+            {
+                withBodyPart = withBodyPartTEMP;
+            }
+            else
+            {
+                isWithBodyPartValid = false;
+                if(mustBeBodyPart)
+                {
+                    break;
+                }
+            }
+            if(isNoBodyPartTEMPValid)
+            {
+                noBodyPart = noBodyPartTEMP;
+            }
+            else
+            {
+                isNoBodyPartValid = false;
+                if(!mustBeBodyPart)
+                {
+                    break;
+                }
+            }
         }
 
-        List<String> slogansSublist = null;
 
-        if(numberOfSlogans>0)
+        List<String> slogansSublist = new ArrayList<>();
+
+        if(isWithBodyPartValid && mustBeBodyPart)
         {
-            slogansSublist = Utils.getSubList(newSlogans, numberOfSlogans);
+            slogansSublist = withBodyPart;
         }
-        else
+
+        if(isNoBodyPartValid && !mustBeBodyPart)
         {
-           slogansSublist = newSlogans;
+            slogansSublist = noBodyPart;
         }
+
+        slogansSublist = Utils.getSubList(slogansSublist, numberOfSlogans);
 
         return slogansSublist;
     }
