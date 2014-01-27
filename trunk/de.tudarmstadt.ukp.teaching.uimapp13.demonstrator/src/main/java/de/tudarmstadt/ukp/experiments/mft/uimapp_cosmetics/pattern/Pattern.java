@@ -78,7 +78,16 @@ public class Pattern
             newSlogans = temp;
         }
 
-        List<String> slogansSublist = Utils.getSubList(newSlogans, numberOfSlogans);
+        List<String> slogansSublist = null;
+
+        if(numberOfSlogans>0)
+        {
+            slogansSublist = Utils.getSubList(newSlogans, numberOfSlogans);
+        }
+        else
+        {
+           slogansSublist = newSlogans;
+        }
 
         return slogansSublist;
     }
