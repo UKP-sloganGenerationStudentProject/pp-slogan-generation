@@ -63,8 +63,8 @@ public class PatternGenerator
 
     private static List<String> _patternsToAnnotate = Arrays.asList("NC_", "NC_PC_NC_", "VC_NC_",
             "VC_NC_PC_NC_", "VC_", "NC_VC_", "NC_VC_ADJC_", "NC_VC_NC_");;
-    private static List<String> _partsOfBodyToSelect = Arrays.asList("eye", "skin", "lips",
-            "fingernails");
+    private static List<String> _partsOfBodyToSelect = Arrays.asList("eye", "skin", "lip",
+            "nail","hair","lash");
 
     PatternFactory _factory;
 
@@ -95,7 +95,7 @@ public class PatternGenerator
         final List<String> selectablePatterns = generator.getSelectablePatterns();
 
         /*Example :*/
-        final String pattern0 = selectablePatterns.get(0);
+        final String pattern0 = selectablePatterns.get(6);
         /* when the associated checkbox gets checked*/
         generator.selectPattern(pattern0);
         /* when the associated checkbox gets unchecked */
@@ -106,7 +106,7 @@ public class PatternGenerator
         final List<String> selectablePartsOfBody = generator.getSelectablePartsOfBody();
 
         /*Example :*/
-        final String partOfBody0 = selectablePartsOfBody.get(0);
+        final String partOfBody0 = selectablePartsOfBody.get(5);
         /* when the associated checkbox gets checked*/
         generator.selectPartOfBody(partOfBody0);
         /* when the associated checkbox gets unchecked */
@@ -120,12 +120,13 @@ public class PatternGenerator
         // set the suggested words (a string containing all the words separated with a coma"
         generator.setSuggestedWords("beauty,woman,colour");
 
-        //generator.generateSlogansToFile("/media/Storage/TUD/WS13-14/UIMA/Data/generatedSlogans.txt");
+//        generator.generateSlogansToFile("/media/Storage/TUD/WS13-14/UIMA/Data/generatedSlogans.txt");
 
         for(String slogan : generator.generateSlogans(10))
         {
             System.out.println("\t"+slogan);
         }
+
 
 
     }
@@ -277,16 +278,7 @@ public class PatternGenerator
 
     public void selectPartOfBody(final String part)
     {
-        if (!this._resources.getSelectedPartsOfBody().contains(part)) {
-            this._resources.getSelectedPartsOfBody().add(part);
-        }
-    }
-
-    public void unselectPartOfBodyn(final String part)
-    {
-        if (this._resources.getSelectedPartsOfBody().contains(part)) {
-            this._resources.getSelectedPartsOfBody().remove(part);
-        }
+        _resources.setSelectedPartOfBody(part);
     }
 
     public List<String> generateSlogans(int nbrOfSlogans)
@@ -466,7 +458,7 @@ public class PatternGenerator
 
             }
 
-            this._factory.finishChunk();
+            this._factory.finishChunk(_resources);
         }
 
         if (prevPatternAnnot != null) {
@@ -483,7 +475,7 @@ public class PatternGenerator
 
         String _productName;
         List<String> _patternsToGenerate;
-        List<String> _selectedPartsOfBody;
+        String _selectedPartOfBody;
         List<String> _suggestedWords;
 
         boolean _useUbyGeneration;
@@ -495,7 +487,7 @@ public class PatternGenerator
             this._web1tSearcher = null;
             this._productName = "productName";
             this._patternsToGenerate = new ArrayList<String>();
-            this._selectedPartsOfBody = new ArrayList<String>();
+            this._selectedPartOfBody = "";
             this._suggestedWords = new ArrayList<String>();
             this._useUbyGeneration = true;
         }
@@ -569,14 +561,14 @@ public class PatternGenerator
             this._patternsToGenerate = patternsToGenerate;
         }
 
-        public List<String> getSelectedPartsOfBody()
+        public String getSelectedBodyPart()
         {
-            return this._selectedPartsOfBody;
+            return this._selectedPartOfBody;
         }
 
-        public void setSelectedPartsOfBody(final List<String> selectedPartsOfBody)
+        public void setSelectedPartOfBody(final String part)
         {
-            this._selectedPartsOfBody = selectedPartsOfBody;
+            this._selectedPartOfBody = part;
         }
 
         public List<String> getSuggestedWords()

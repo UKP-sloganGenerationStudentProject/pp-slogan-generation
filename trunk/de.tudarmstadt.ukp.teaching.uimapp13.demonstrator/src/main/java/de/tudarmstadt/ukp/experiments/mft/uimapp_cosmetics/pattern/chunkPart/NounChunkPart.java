@@ -30,8 +30,6 @@ extends ChunkPart
 
         ArrayList<String> output = new ArrayList<String>();
 
-
-
         output.add(_lemma);
 
         if(!_isValueDerivable || !resources.isUbyGernationAllowed())
@@ -55,7 +53,6 @@ extends ChunkPart
             {
 
                 /*
-
                 if(output.size()>5)
                 {
                     return output;
@@ -135,15 +132,9 @@ extends ChunkPart
                                 }
                         }
                     }
-
                 }
-
-
-
-
             }
         }
-
         return output;
     }
 

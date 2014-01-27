@@ -180,6 +180,11 @@ public class ChunkPart
         return _semanticValue;
     }
 
+    public String getLemma()
+    {
+        return _lemma;
+    }
+
     public String getId()
     {
         String signature = _chunkPartType.toString();

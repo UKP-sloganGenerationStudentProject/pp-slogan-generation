@@ -31,21 +31,18 @@ public class PatternFactory
 
     public PatternFactory()
     {
-
         _patterns = new Hashtable<String, Pattern>();
         _chunkIndex = new ChunkIndex();
         _currentPattern = new Pattern();
         _currentChunkOccurrence = new ChunkOccurrence();
         _currentPatternValue = "";
         _isCurrentPattern = false;
-
-
     }
 
 
     public void startNewChunk(ChunkType type)
     {
-        _currentChunkOccurrence = new ChunkOccurrence();
+        _currentChunkOccurrence = ChunkOccurrence.createChunkOccurrence(type);
         _currentChunkType = type;
     }
 
@@ -55,8 +52,10 @@ public class PatternFactory
         _currentChunkOccurrence.addChunkPart(chunkPart);
     }
 
-    public void finishChunk()
+    public void finishChunk(Resources resources)
     {
+        _currentChunkOccurrence.generateInformation(resources);
+
         //generate the ChunkHeader
         ChunkHeader header = ChunkHeader.createChunkHeader(_currentChunkType);
         header.generateHeader(_currentChunkOccurrence);
@@ -136,14 +135,8 @@ public class PatternFactory
 
         System.out.println();
 
-        System.out.print("\tSelectionned parts of body : ");
-        for(String pob : resources.getSelectedPartsOfBody())
-        {
-            System.out.print(pob);
-            System.out.print(" ; ");
-        }
+        System.out.print("\tSelectionned part of body : "+resources.getSelectedBodyPart());
         System.out.println();
-
 
         System.out.print("\tSuggested words : ");
         for(String word : resources.getSuggestedWords())
@@ -175,7 +168,9 @@ public class PatternFactory
                 }
             }
 
-            if(resources.getSelectedPartsOfBody().size()>0)
+            /* NOW THE BODYPART FILTERING IS DONE IN THE PATTERN CLASS
+
+            if(!resources.getSelectedBodyPart().equals(""))
             {
                 if(!pattern.isBodyPart())
                 {
@@ -184,6 +179,7 @@ public class PatternFactory
                     continue;
                 }
             }
+            */
 
             filteredPatterns.add(pattern);
         }
@@ -253,12 +249,8 @@ public class PatternFactory
 
         System.out.println();
 
-        System.out.print("\tSelectionned parts of body : ");
-        for(String pob : resources.getSelectedPartsOfBody())
-        {
-            System.out.print(pob);
-            System.out.print(" ; ");
-        }
+
+        System.out.print("\tSelectionned part of body : "+resources.getSelectedBodyPart());
         System.out.println();
 
 
@@ -287,7 +279,9 @@ public class PatternFactory
                 }
             }
 
-            if(resources.getSelectedPartsOfBody().size()>0)
+            /* NOW THE BODYPART FILTERING IS DONE IN THE PATTERN CLASS
+
+            if(!resources.getSelectedBodyPart().equals(""))
             {
                 if(!pattern.isBodyPart())
                 {
@@ -296,10 +290,14 @@ public class PatternFactory
                     continue;
                 }
             }
+            */
+
 
             StringBuilder partialOutput = new StringBuilder();
 
             partialOutput.append(pattern.toString()+"\n");
+
+            partialOutput.append("****generated :\n");
 
             for(String slogan : pattern.generateSlogans(resources,-1))
             {
