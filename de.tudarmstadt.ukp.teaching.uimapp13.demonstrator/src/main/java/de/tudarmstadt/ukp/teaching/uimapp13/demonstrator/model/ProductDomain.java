@@ -12,10 +12,8 @@ public class ProductDomain
     public static final ProductDomain BEAUTY = new ProductDomain("beauty", "Cosmetics");
     public static final ProductDomain CARS = new ProductDomain("cars", "Cars");
     public static final ProductDomain GAMES = new ProductDomain("games", "Games");
-    public static final ProductDomain SOFT_DRINKS = new ProductDomain("soft", "Soft Drinks");
 
-    private static final List<ProductDomain> ALL_DOMAINS = Arrays.asList(BEAUTY, CARS, GAMES,
-            SOFT_DRINKS);
+    private static final List<ProductDomain> ALL_DOMAINS = Arrays.asList(BEAUTY, CARS, GAMES);
 
     private final String id;
     private final String name;

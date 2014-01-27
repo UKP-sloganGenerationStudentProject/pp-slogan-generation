@@ -14,7 +14,6 @@ import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.web.components.BeautyFo
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.web.components.CarsForm;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.web.components.GamesForm;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.web.components.ProductDomainForm;
-import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.web.components.SoftDrinksForm;
 
 public class HomePage
     extends WebPage
@@ -35,7 +34,6 @@ public class HomePage
         this.add(new BeautyForm("beauty-form"));
         this.add(new CarsForm("cars-form"));
         this.add(new GamesForm("games-form"));
-        this.add(new SoftDrinksForm("soft-form"));
 
         this.add(new ListView<Slogan>("slogans", slogans)
         {
