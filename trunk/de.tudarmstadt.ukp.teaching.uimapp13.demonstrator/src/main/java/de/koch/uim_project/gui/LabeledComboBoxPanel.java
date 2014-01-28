@@ -29,6 +29,7 @@ public class LabeledComboBoxPanel extends JPanel {
 	}
 
 	private void addEmotions() {
+		emotionCombo.addItem(Emotion.NONE.toString());
 		emotionCombo.addItem(Emotion.POSITIVE.toString());
 		emotionCombo.addItem(Emotion.NEGATIVE.toString());
 		emotionCombo.addItem(Emotion.ANGER.toString());
