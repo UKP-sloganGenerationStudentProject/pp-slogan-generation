@@ -101,7 +101,7 @@ public class VerbChunkPart
                                    {
                                        continue;
                                    }
-                                   long freq = resources.getWeb1tSearcher().getFrequency(subword);
+                                   long freq = resources.getWordStatistic().getFrequency(subword);
                                    if(freq<1000)
                                    {
                                        isFreqToSmall = true;

@@ -188,7 +188,7 @@ public class PatternFactory
         List<String> output = new ArrayList<String>();
         int incr = -1;
 
-        for (final Pattern pattern : this._patterns.values()) {
+        for (final Pattern pattern : filteredPatterns) {
 
             if (randomize) {
                 incr = incr + 1;
