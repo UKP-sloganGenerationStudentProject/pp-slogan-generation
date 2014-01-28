@@ -45,9 +45,13 @@ public class RandomUtil {
 	 * @param emotionLess
 	 * @param emotionFull
 	 * @return
+	 * @throws SloganNotCreatedException 
 	 */
-	public static Word randomWordPreferEmotion(Random rnd, Set<Word> emotionLess, Set<Word> emotionFull){
+	public static Word randomWordPreferEmotion(Random rnd, Set<Word> emotionLess, Set<Word> emotionFull) throws SloganNotCreatedException{
 		List<Word> words;
+		if(emotionLess.size()== 0 && emotionFull.size() == 0){
+			throw new SloganNotCreatedException("No words in word list");
+		}
 		int pEmoFull = emotionFull.size();
 		int pEmoLess = emotionLess.size();
 		pEmoFull = pEmoFull * 2;
