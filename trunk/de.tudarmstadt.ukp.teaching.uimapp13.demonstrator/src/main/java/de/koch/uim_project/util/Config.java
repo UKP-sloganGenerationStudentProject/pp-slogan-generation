@@ -250,4 +250,91 @@ public class Config
         return result;
     }
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((alienFeatureList == null) ? 0 : alienFeatureList.hashCode());
+		result = prime * result + ((customDbConfig == null) ? 0 : customDbConfig.hashCode());
+		result = prime * result + ((emotion == null) ? 0 : emotion.hashCode());
+		result = prime * result + ((featureList == null) ? 0 : featureList.hashCode());
+		result = prime * result + ((gameName == null) ? 0 : gameName.hashCode());
+		result = prime * result + maxSynsetDepth;
+		result = prime * result + maxWordListLength;
+		result = prime * result + minWordlistForGeneration;
+		result = prime * result + ((patternweights == null) ? 0 : patternweights.hashCode());
+		result = prime * result + ((randomSeed == null) ? 0 : randomSeed.hashCode());
+		result = prime * result + ((sdweights == null) ? 0 : sdweights.hashCode());
+		result = prime * result + ((sloganCount == null) ? 0 : sloganCount.hashCode());
+		result = prime * result + ((ubyConfig == null) ? 0 : ubyConfig.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Config other = (Config) obj;
+		if (alienFeatureList == null) {
+			if (other.alienFeatureList != null)
+				return false;
+		} else if (!alienFeatureList.equals(other.alienFeatureList))
+			return false;
+		if (customDbConfig == null) {
+			if (other.customDbConfig != null)
+				return false;
+		} else if (!customDbConfig.equals(other.customDbConfig))
+			return false;
+		if (emotion != other.emotion)
+			return false;
+		if (featureList == null) {
+			if (other.featureList != null)
+				return false;
+		} else if (!featureList.equals(other.featureList))
+			return false;
+		if (gameName == null) {
+			if (other.gameName != null)
+				return false;
+		} else if (!gameName.equals(other.gameName))
+			return false;
+		if (maxSynsetDepth != other.maxSynsetDepth)
+			return false;
+		if (maxWordListLength != other.maxWordListLength)
+			return false;
+		if (minWordlistForGeneration != other.minWordlistForGeneration)
+			return false;
+		if (patternweights == null) {
+			if (other.patternweights != null)
+				return false;
+		} else if (!patternweights.equals(other.patternweights))
+			return false;
+		if (randomSeed == null) {
+			if (other.randomSeed != null)
+				return false;
+		} else if (!randomSeed.equals(other.randomSeed))
+			return false;
+		if (sdweights == null) {
+			if (other.sdweights != null)
+				return false;
+		} else if (!sdweights.equals(other.sdweights))
+			return false;
+		if (sloganCount == null) {
+			if (other.sloganCount != null)
+				return false;
+		} else if (!sloganCount.equals(other.sloganCount))
+			return false;
+		if (ubyConfig == null) {
+			if (other.ubyConfig != null)
+				return false;
+		} else if (!ubyConfig.equals(other.ubyConfig))
+			return false;
+		return true;
+	}
+    
+    
+
 }
