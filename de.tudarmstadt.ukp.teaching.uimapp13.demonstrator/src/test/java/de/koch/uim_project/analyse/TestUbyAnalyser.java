@@ -1,21 +1,18 @@
 package de.koch.uim_project.analyse;
 
-import static org.junit.Assert.*;
-import de.koch.uim_project.generation.Word;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Ignore;
 import org.junit.Test;
-
-import de.koch.uim_project.util.Config;
-import de.koch.uim_project.util.Constants;
-import de.koch.uim_project.util.DbConfig;
 
 import de.koch.uim_project.database.DbException;
 import de.koch.uim_project.database.UbyConnect;
+import de.koch.uim_project.generation.Word;
+import de.koch.uim_project.util.Constants;
+import de.koch.uim_project.util.DbConfig;
 import de.tudarmstadt.ukp.lmf.model.enums.EPartOfSpeech;
 import de.tudarmstadt.ukp.lmf.model.enums.ERelTypeSemantics;
 
@@ -41,9 +38,5 @@ public class TestUbyAnalyser {
 		assertTrue(oxymerons.size() > 0);
 	}
 	
-	@Test
-	public void testGetPossibleMetaphers() throws DbException{
-		UbyAnalyser.getInstance().getPossibleMetaphors(Config.getDefaultConfig());
-		assert(true);
-	}
+	
 }
