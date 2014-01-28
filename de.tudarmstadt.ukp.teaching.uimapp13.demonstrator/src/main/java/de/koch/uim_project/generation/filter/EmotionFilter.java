@@ -23,6 +23,9 @@ public class EmotionFilter implements IFilterSet, IFilterWord {
 	
 	@Override
 	public boolean filterWord(Word word) {
+		if(emotion == Emotion.NONE){
+			return true;
+		}
 		return (word.getEmotions().size() > 0 && word.getEmotions().contains(emotion));
 	}
 
