@@ -59,7 +59,7 @@ public class BeautyAdapter
         this.generator.selectPattern(pattern);
 
         // TODO generatePatterns should take the number of slogans to generate as parameters
-        final List<String> generatedSlogans = this.generator.generatePatterns();
+        final List<String> generatedSlogans = this.generator.generateSlogans(sloganCount);
 
         final int returnedSloganCount = Math.min(generatedSlogans.size(), sloganCount);
 

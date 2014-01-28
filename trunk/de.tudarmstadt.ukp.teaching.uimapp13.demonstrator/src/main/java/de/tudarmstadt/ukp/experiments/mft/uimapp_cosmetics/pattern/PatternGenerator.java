@@ -108,7 +108,7 @@ public class PatternGenerator
         final List<String> selectablePartsOfBody = generator.getSelectablePartsOfBody();
 
         /*Example :*/
-        final String partOfBody0 = selectablePartsOfBody.get(5);
+        final String partOfBody0 = selectablePartsOfBody.get(1);
         /* when the associated checkbox gets checked*/
         generator.selectPartOfBody(partOfBody0);
         /* when the associated checkbox gets unchecked */
@@ -169,7 +169,7 @@ public class PatternGenerator
         }
         final JWeb1TSearcher lookup = new JWeb1TSearcher(new File(web1tPathname), 1, 1);
 
-        this._resources.setWeb1tSearcher(lookup);
+        this._resources.setWordStatistic(lookup);
 
         final EmotionAnalyzer emotionAnalizer = new EmotionAnalyzer(this._emotionFilePath);
         this._resources.setEmotionAnalizer(emotionAnalizer);
@@ -467,7 +467,7 @@ public class PatternGenerator
     {
         Uby _uby;
         EmotionAnalyzer _emotionAnalizer;
-        JWeb1TSearcher _web1tSearcher;
+        JWeb1TSearcher _web1tWordStatistic;
 
         String _productName;
         List<String> _patternsToGenerate;
@@ -480,7 +480,7 @@ public class PatternGenerator
         {
             this._uby = null;
             this._emotionAnalizer = null;
-            this._web1tSearcher = null;
+            this._web1tWordStatistic = null;
             this._productName = "productName";
             this._patternsToGenerate = new ArrayList<String>();
             this._selectedPartOfBody = "";
@@ -494,7 +494,7 @@ public class PatternGenerator
             super();
             this._uby = uby;
             this._emotionAnalizer = emotionAnalizer;
-            this._web1tSearcher = web1tSearcher;
+            this._web1tWordStatistic = web1tSearcher;
         }
 
         public Uby getUby()
@@ -527,14 +527,14 @@ public class PatternGenerator
             this._emotionAnalizer = emotionAnalizer;
         }
 
-        public JWeb1TSearcher getWeb1tSearcher()
+        public JWeb1TSearcher getWordStatistic()
         {
-            return this._web1tSearcher;
+            return this._web1tWordStatistic;
         }
 
-        public void setWeb1tSearcher(final JWeb1TSearcher web1tSearcher)
+        public void setWordStatistic(final JWeb1TSearcher web1tSearcher)
         {
-            this._web1tSearcher = web1tSearcher;
+            this._web1tWordStatistic = web1tSearcher;
         }
 
         public String getProductName()
