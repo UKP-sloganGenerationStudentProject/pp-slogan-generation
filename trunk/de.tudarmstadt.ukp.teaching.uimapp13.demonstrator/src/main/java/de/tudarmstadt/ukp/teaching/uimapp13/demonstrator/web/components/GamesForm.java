@@ -189,7 +189,6 @@ public class GamesForm
         parameters.put(GamesAdapter.RANDOM_SEED, this.randomSeed);
         parameters.put(GamesAdapter.SLOGAN_COUNT, this.numSlogans);
         parameters.put(GamesAdapter.EMOTION, Emotion.valueOf(this.selectedEmotion));
-        // TODO rkluge: allow to configure this
         parameters.put(GamesAdapter.PATTERN_WEIGHTS, Arrays.asList(this.patternWeight0,
                 this.patternWeight1, this.patternWeight2, this.patternWeight3));
         parameters.put(GamesAdapter.STYLISTIC_DEV_WEIGHTS, Arrays.asList(this.styleDevWeight0,

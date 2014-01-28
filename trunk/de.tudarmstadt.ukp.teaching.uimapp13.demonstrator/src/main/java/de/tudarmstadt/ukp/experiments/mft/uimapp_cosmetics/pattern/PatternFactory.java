@@ -1,5 +1,6 @@
 package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -12,13 +13,15 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.ChunkOccurrence;
 
 public class PatternFactory
+    implements Serializable
 {
 
+    private static final long serialVersionUID = -7074314512406365028L;
 
     /*
      * pattern information
      */
-    Hashtable<String,Pattern> _patterns;
+    Hashtable<String, Pattern> _patterns;
     ChunkIndex _chunkIndex;
     Pattern _currentPattern;
     ChunkOccurrence _currentChunkOccurrence;
@@ -26,143 +29,126 @@ public class PatternFactory
     String _currentPatternValue;
     boolean _isCurrentPattern;
 
-
-
-
     public PatternFactory()
     {
-        _patterns = new Hashtable<String, Pattern>();
-        _chunkIndex = new ChunkIndex();
-        _currentPattern = new Pattern();
-        _currentChunkOccurrence = new ChunkOccurrence();
-        _currentPatternValue = "";
-        _isCurrentPattern = false;
+        this._patterns = new Hashtable<String, Pattern>();
+        this._chunkIndex = new ChunkIndex();
+        this._currentPattern = new Pattern();
+        this._currentChunkOccurrence = new ChunkOccurrence();
+        this._currentPatternValue = "";
+        this._isCurrentPattern = false;
     }
 
-
-    public void startNewChunk(ChunkType type)
+    public void startNewChunk(final ChunkType type)
     {
-        _currentChunkOccurrence = ChunkOccurrence.createChunkOccurrence(type);
-        _currentChunkType = type;
+        this._currentChunkOccurrence = ChunkOccurrence.createChunkOccurrence(type);
+        this._currentChunkType = type;
     }
 
-    public void addPartToChunk(ChunkPart chunkPart)
+    public void addPartToChunk(final ChunkPart chunkPart)
     {
-        //get or add the corresponding part from/to the chunk part index
-        _currentChunkOccurrence.addChunkPart(chunkPart);
+        // get or add the corresponding part from/to the chunk part index
+        this._currentChunkOccurrence.addChunkPart(chunkPart);
     }
 
-    public void finishChunk(Resources resources)
+    public void finishChunk(final Resources resources)
     {
-        _currentChunkOccurrence.generateInformation(resources);
+        this._currentChunkOccurrence.generateInformation(resources);
 
-        //generate the ChunkHeader
-        ChunkHeader header = ChunkHeader.createChunkHeader(_currentChunkType);
-        header.generateHeader(_currentChunkOccurrence);
-        ChunkHeader headerInIndex = _chunkIndex.addHeader(header);
-        headerInIndex.addOccurrence(_currentChunkOccurrence);
-        _currentChunkOccurrence.setHeader(headerInIndex);
-        if(_isCurrentPattern)
-        {
-            _currentPattern.addElement(_currentChunkOccurrence);
+        // generate the ChunkHeader
+        final ChunkHeader header = ChunkHeader.createChunkHeader(this._currentChunkType);
+        header.generateHeader(this._currentChunkOccurrence);
+        final ChunkHeader headerInIndex = this._chunkIndex.addHeader(header);
+        headerInIndex.addOccurrence(this._currentChunkOccurrence);
+        this._currentChunkOccurrence.setHeader(headerInIndex);
+        if (this._isCurrentPattern) {
+            this._currentPattern.addElement(this._currentChunkOccurrence);
         }
     }
 
-
     public void startNewPattern()
     {
-        _currentPattern = new Pattern();
-        _isCurrentPattern = true;
+        this._currentPattern = new Pattern();
+        this._isCurrentPattern = true;
     }
-
 
     public void finishPattern()
     {
 
-        _currentPattern.addValueOccurrence(_currentPatternValue);
+        this._currentPattern.addValueOccurrence(this._currentPatternValue);
 
-        //retrieve the id of the pattern
-        String patternId = _currentPattern.getId();
+        // retrieve the id of the pattern
+        final String patternId = this._currentPattern.getId();
 
-        Pattern simiPattern = _patterns.get(patternId);
+        final Pattern simiPattern = this._patterns.get(patternId);
 
-        if(simiPattern != null)
-        {
-            simiPattern.addOccurrence(_currentPattern);
+        if (simiPattern != null) {
+            simiPattern.addOccurrence(this._currentPattern);
             simiPattern.generateInformations();
         }
-        else
-        {
-            _currentPattern.generateInformations();
-            _patterns.put(patternId,_currentPattern);
+        else {
+            this._currentPattern.generateInformations();
+            this._patterns.put(patternId, this._currentPattern);
         }
 
-        _isCurrentPattern = false;
+        this._isCurrentPattern = false;
 
     }
 
-    public void setPatternValue( String value)
+    public void setPatternValue(final String value)
     {
-        _currentPatternValue = value;
+        this._currentPatternValue = value;
     }
 
     public void resetTheCacheData()
     {
-        for(ChunkHeader header : _chunkIndex.getPatternElements())
-        {
+        for (final ChunkHeader header : this._chunkIndex.getPatternElements()) {
             header.resetCache();
         }
     }
 
-
-    public List<String> generateSlogans(Resources resources, int nbrOfSlogans)
+    public List<String> generateSlogans(final Resources resources, final int nbrOfSlogans)
     {
 
-        resetTheCacheData();
+        this.resetTheCacheData();
 
-        //output all the parameters
+        // output all the parameters
         System.out.println("Pattern Generation STARTS... ");
         System.out.println("\nParameters :");
 
-        System.out.println("\tproductName : "+resources.getProductName());
+        System.out.println("\tproductName : " + resources.getProductName());
 
         System.out.print("\tSelectionned Patterns: ");
-        for(String pattern : resources.getPatternsToGenerate())
-        {
+        for (final String pattern : resources.getPatternsToGenerate()) {
             System.out.print(pattern);
             System.out.print(" ; ");
         }
 
         System.out.println();
 
-        System.out.print("\tSelectionned part of body : "+resources.getSelectedBodyPart());
+        System.out.print("\tSelectionned part of body : " + resources.getSelectedBodyPart());
         System.out.println();
 
         System.out.print("\tSuggested words : ");
-        for(String word : resources.getSuggestedWords())
-        {
+        for (final String word : resources.getSuggestedWords()) {
             System.out.print(word);
             System.out.print(" ; ");
         }
 
         System.out.println();
-        System.out.println("WARNING : the parameters for the generation are not taken into account yet");
+        System.out
+                .println("WARNING : the parameters for the generation are not taken into account yet");
 
+        final List<Pattern> filteredPatterns = new ArrayList<>();
 
+        // filter the patterns and keep just those who correspond to the creteria
 
-        List<Pattern> filteredPatterns = new ArrayList<>();
+        for (final Pattern pattern : this._patterns.values()) {
 
-        //filter the patterns and keep just those who correspond to the creteria
-
-        for(Pattern pattern : _patterns.values())
-        {
-
-            if(resources.getPatternsToGenerate().size()>0)
-            {
-                if(!resources.getPatternsToGenerate().contains(pattern.getPatternType()))
-                {
-                    //if the pattern types to generate are precised and if the current pattern
-                    //doesn't correspond to one of those types, don't generate the slogans
+            if (resources.getPatternsToGenerate().size() > 0) {
+                if (!resources.getPatternsToGenerate().contains(pattern.getPatternType())) {
+                    // if the pattern types to generate are precised and if the current pattern
+                    // doesn't correspond to one of those types, don't generate the slogans
                     // associated to this pattern
                     continue;
                 }
@@ -184,19 +170,17 @@ public class PatternFactory
             filteredPatterns.add(pattern);
         }
 
-
         int slogToGenPerPattern = 1;
         boolean randomize = false;
         List<Integer> randomIndices = null;
 
-        if(nbrOfSlogans < filteredPatterns.size())
-        {
+        if (nbrOfSlogans < filteredPatterns.size()) {
             randomize = true;
             slogToGenPerPattern = 1;
-            randomIndices = randomIndices = Utils.getDistinctRandomIndices(_patterns.size(), nbrOfSlogans);
+            randomIndices = randomIndices = Utils.getDistinctRandomIndices(this._patterns.size(),
+                    nbrOfSlogans);
         }
-        else
-        {
+        else {
             randomize = false;
             slogToGenPerPattern = nbrOfSlogans / filteredPatterns.size() + 1;
         }
@@ -204,21 +188,17 @@ public class PatternFactory
         List<String> output = new ArrayList<String>();
         int incr = -1;
 
-        for(Pattern pattern : _patterns.values())
-        {
+        for (final Pattern pattern : this._patterns.values()) {
 
-            if(randomize)
-            {
+            if (randomize) {
                 incr = incr + 1;
 
-
-                if(!randomIndices.contains(new Integer(incr)))
-                {
+                if (!randomIndices.contains(new Integer(incr))) {
                     continue;
                 }
             }
 
-            output.addAll(pattern.generateSlogans(resources,slogToGenPerPattern));
+            output.addAll(pattern.generateSlogans(resources, slogToGenPerPattern));
 
         }
 
@@ -227,53 +207,43 @@ public class PatternFactory
         return output;
     }
 
-
-
-    public String generateSlogansTest(Resources resources)
+    public String generateSlogansTest(final Resources resources)
     {
 
-        StringBuilder output = new StringBuilder();
+        final StringBuilder output = new StringBuilder();
 
-        //output all the parameters
+        // output all the parameters
         System.out.println("Pattern Generation STARTS... ");
         System.out.println("\nParameters :");
 
-        System.out.println("\tproductName : "+resources.getProductName());
+        System.out.println("\tproductName : " + resources.getProductName());
 
         System.out.print("\tSelectionned Patterns: ");
-        for(String pattern : resources.getPatternsToGenerate())
-        {
+        for (final String pattern : resources.getPatternsToGenerate()) {
             System.out.print(pattern);
             System.out.print(" ; ");
         }
 
         System.out.println();
 
-
-        System.out.print("\tSelectionned part of body : "+resources.getSelectedBodyPart());
+        System.out.print("\tSelectionned part of body : " + resources.getSelectedBodyPart());
         System.out.println();
 
-
         System.out.print("\tSuggested words : ");
-        for(String word : resources.getSuggestedWords())
-        {
+        for (final String word : resources.getSuggestedWords()) {
             System.out.print(word);
             System.out.print(" ; ");
         }
 
         System.out.println();
-        System.out.println("WARNING : the parameters for the generation are not taken into account yet");
+        System.out
+                .println("WARNING : the parameters for the generation are not taken into account yet");
 
-
-
-        for(Pattern pattern : _patterns.values())
-        {
-            if(resources.getPatternsToGenerate().size()>0)
-            {
-                if(!resources.getPatternsToGenerate().contains(pattern.getPatternType()))
-                {
-                    //if the pattern types to generate are precised and if the current pattern
-                    //doesn't correspond to one of those types, don't generate the slogans
+        for (final Pattern pattern : this._patterns.values()) {
+            if (resources.getPatternsToGenerate().size() > 0) {
+                if (!resources.getPatternsToGenerate().contains(pattern.getPatternType())) {
+                    // if the pattern types to generate are precised and if the current pattern
+                    // doesn't correspond to one of those types, don't generate the slogans
                     // associated to this pattern
                     continue;
                 }
@@ -292,16 +262,14 @@ public class PatternFactory
             }
             */
 
+            final StringBuilder partialOutput = new StringBuilder();
 
-            StringBuilder partialOutput = new StringBuilder();
-
-            partialOutput.append(pattern.toString()+"\n");
+            partialOutput.append(pattern.toString() + "\n");
 
             partialOutput.append("****generated :\n");
 
-            for(String slogan : pattern.generateSlogans(resources,-1))
-            {
-                partialOutput.append("\t"+slogan);
+            for (final String slogan : pattern.generateSlogans(resources, -1)) {
+                partialOutput.append("\t" + slogan);
                 partialOutput.append("\n");
             }
 
@@ -310,36 +278,32 @@ public class PatternFactory
 
         return output.toString();
 
-
-
     }
 
     public Object getChunkIndex()
     {
-        return _chunkIndex;
+        return this._chunkIndex;
     }
 
     public int getNbrOfPatterns()
     {
-        return _patterns.size();
+        return this._patterns.size();
     }
 
     @Override
     public String toString()
     {
-        StringBuilder output = new StringBuilder();
+        final StringBuilder output = new StringBuilder();
         output.append("##################PATTERNS##################\n\n");
-        for(Pattern pattern : _patterns.values())
-        {
+        for (final Pattern pattern : this._patterns.values()) {
             output.append(pattern.toString());
             output.append("\n");
         }
 
         output.append("##################ElementIndex###############\n\n");
-        output.append(_chunkIndex.toString());
+        output.append(this._chunkIndex.toString());
 
         return output.toString();
     }
-
 
 }
