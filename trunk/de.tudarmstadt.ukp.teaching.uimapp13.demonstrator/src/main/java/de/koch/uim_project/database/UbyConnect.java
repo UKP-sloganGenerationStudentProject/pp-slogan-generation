@@ -19,6 +19,7 @@ public class UbyConnect {
 
 	private static Uby uby;
 	private static Logger log = Logger.getRootLogger();
+	private static DbConfig dbConfig;
 
 	/**
 	 * Initializes and returns the uby instance
@@ -27,8 +28,8 @@ public class UbyConnect {
 	 * @throws DbException
 	 */
 	public static Uby getUbyInstance(DbConfig config) throws DbException {
-
-		if (uby == null) {
+		dbConfig = config;
+		if (uby == null || !dbConfig.equals(config)) {
 			try {
 				de.tudarmstadt.ukp.lmf.transform.DBConfig db = new de.tudarmstadt.ukp.lmf.transform.DBConfig(config.getUrl(),
 						Constants.DATABASE.JDBC_DRIVER, Constants.DATABASE.DB_TYPE, config.getUser(), config.getPass(), false);

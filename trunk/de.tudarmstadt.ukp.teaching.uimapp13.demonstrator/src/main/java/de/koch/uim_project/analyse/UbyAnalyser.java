@@ -1,29 +1,20 @@
 package de.koch.uim_project.analyse;
 
-import de.koch.uim_project.generation.Word;
-import de.koch.uim_project.util.Config;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javassist.compiler.Lex;
-
 import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
 
 import de.koch.uim_project.database.DbException;
-import de.koch.uim_project.database.UbyConnect;
+import de.koch.uim_project.generation.Word;
 import de.tudarmstadt.ukp.lmf.api.Uby;
-import de.tudarmstadt.ukp.lmf.exceptions.UbyInvalidArgumentException;
 import de.tudarmstadt.ukp.lmf.model.core.LexicalEntry;
-import de.tudarmstadt.ukp.lmf.model.core.Lexicon;
 import de.tudarmstadt.ukp.lmf.model.core.Sense;
 import de.tudarmstadt.ukp.lmf.model.enums.EPartOfSpeech;
 import de.tudarmstadt.ukp.lmf.model.enums.ERelTypeSemantics;
-import de.tudarmstadt.ukp.lmf.model.meta.SemanticLabel;
 import de.tudarmstadt.ukp.lmf.model.semantics.SenseRelation;
 import de.tudarmstadt.ukp.lmf.model.semantics.Synset;
 import de.tudarmstadt.ukp.lmf.model.semantics.SynsetRelation;
@@ -160,13 +151,14 @@ public class UbyAnalyser {
 		sourceSenses.addAll(getSenses(word.getLemma(), word.getPos(), null, uby));
 		for (Sense sense : sourceSenses) {
 			for (SenseRelation rel : sense.getSenseRelations()) {
-				if (rel.getTarget() != null && (relNames == null || relNames.contains(rel.getRelName())) && (relTypes == null || relTypes.contains(rel.getRelType()))) {
+				if (rel.getTarget() != null && (relNames == null || relNames.contains(rel.getRelName()))
+						&& (relTypes == null || relTypes.contains(rel.getRelType()))) {
 					targetSenses.add(rel.getTarget());
 				}
 			}
 		}
-		
-		for(Sense sense : targetSenses){
+
+		for (Sense sense : targetSenses) {
 			Word newWord = Word.fromLexicalEntry(sense.getLexicalEntry());
 			if (newWord != null) {
 				result.add(newWord);
@@ -228,16 +220,6 @@ public class UbyAnalyser {
 				}
 			}
 		}
-		return result;
-	}
-	
-	public Set<Word> getPossibleMetaphors(Config config) throws DbException{
-		Set<Word> result = new HashSet<Word>();
-		Criteria crit = UbyConnect.getUbyInstance(config.getUbyConfig()).getSession().createCriteria(Sense.class);
-		crit.createCriteria("SemanticLabel");
-		List list = crit.list();
-		
-		
 		return result;
 	}
 
