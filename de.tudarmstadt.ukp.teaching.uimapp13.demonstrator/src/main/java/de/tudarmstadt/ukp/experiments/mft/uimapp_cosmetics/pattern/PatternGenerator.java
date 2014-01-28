@@ -9,6 +9,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -47,8 +48,10 @@ import de.tudarmstadt.ukp.uby.resource.UbySemanticFieldResource;
 import de.tudarmstadt.ukp.uby.uima.annotator.UbySemanticFieldAnnotator;
 
 public class PatternGenerator
+    implements Serializable
 {
 
+    private static final long serialVersionUID = 8409089998966336600L;
     /*
      * resources
      */
@@ -63,8 +66,8 @@ public class PatternGenerator
 
     private static List<String> _patternsToAnnotate = Arrays.asList("NC_", "NC_PC_NC_", "VC_NC_",
             "VC_NC_PC_NC_", "VC_", "NC_VC_", "NC_VC_ADJC_", "NC_VC_NC_");;
-    private static List<String> _partsOfBodyToSelect = Arrays.asList("eye", "skin", "lip",
-            "nail","hair","lash");
+    private static List<String> _partsOfBodyToSelect = Arrays.asList("eye", "skin", "lip", "nail",
+            "hair", "lash");
 
     PatternFactory _factory;
 
@@ -77,14 +80,13 @@ public class PatternGenerator
 
         final PatternGenerator generator = new PatternGenerator();
 
-        //generator.disableUbyGeneration();
+        // generator.disableUbyGeneration();
 
         generator.setEmotionFilePath("src/main/resources/NRCemotionlexicon.pdf");
         generator.setSloganBasePath("src/main/resources/beautySlogans.txt");
         generator.setUbyDBData("localhost/uby_medium_0_3_0", "com.mysql.jdbc.Driver", "mysql",
                 "root", "pass");
         generator.init();
-
 
         /*
          * Generation parameters
@@ -120,14 +122,11 @@ public class PatternGenerator
         // set the suggested words (a string containing all the words separated with a coma"
         generator.setSuggestedWords("beauty,woman,colour");
 
-//        generator.generateSlogansToFile("/media/Storage/TUD/WS13-14/UIMA/Data/generatedSlogans.txt");
+        // generator.generateSlogansToFile("/media/Storage/TUD/WS13-14/UIMA/Data/generatedSlogans.txt");
 
-        for(String slogan : generator.generateSlogans(10))
-        {
-            System.out.println("\t"+slogan);
+        for (final String slogan : generator.generateSlogans(10)) {
+            System.out.println("\t" + slogan);
         }
-
-
 
     }
 
@@ -278,22 +277,21 @@ public class PatternGenerator
 
     public void selectPartOfBody(final String part)
     {
-        _resources.setSelectedPartOfBody(part);
+        this._resources.setSelectedPartOfBody(part);
     }
 
-    public List<String> generateSlogans(int nbrOfSlogans)
+    public List<String> generateSlogans(final int nbrOfSlogans)
     {
-        return this._factory.generateSlogans(this._resources,nbrOfSlogans);
+        return this._factory.generateSlogans(this._resources, nbrOfSlogans);
     }
 
     public void disableUbyGeneration()
     {
-        _resources.disableUbyGeneration();
+        this._resources.disableUbyGeneration();
     }
 
-    public void generateSlogansToFile(String path)
+    public void generateSlogansToFile(final String path)
     {
-
 
         try {
 
@@ -302,7 +300,7 @@ public class PatternGenerator
 
             file = new File(path);
 
-                file.createNewFile();
+            file.createNewFile();
 
             writer = new BufferedWriter(new FileWriter(file, false));
 
@@ -310,31 +308,29 @@ public class PatternGenerator
             writer.newLine();
             writer.newLine();
 
-            writer.write(_factory.getChunkIndex().toString());
+            writer.write(this._factory.getChunkIndex().toString());
 
             writer.newLine();
             writer.newLine();
 
-            //write all the generated patterns into a file
+            // write all the generated patterns into a file
             System.out.println("Write all the generated patterns into the file.");
 
             writer.write("***********************Pattern Generation");
             writer.newLine();
             writer.newLine();
 
-            writer.write(_factory.generateSlogansTest(this._resources));
+            writer.write(this._factory.generateSlogansTest(this._resources));
 
             writer.close();
 
         }
 
-        catch (IOException e) {
+        catch (final IOException e) {
             e.printStackTrace();
         }
 
-
     }
-
 
     public void extractPatterns(final JCas aJCas)
         throws AnalysisEngineProcessException
@@ -458,7 +454,7 @@ public class PatternGenerator
 
             }
 
-            this._factory.finishChunk(_resources);
+            this._factory.finishChunk(this._resources);
         }
 
         if (prevPatternAnnot != null) {
