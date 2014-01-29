@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>simplenlg</groupId>
+  <artifactId>simplenlg</artifactId>
+  <versioning>
+    <release>4.4.2</release>
+    <versions>
+      <version>4.4.2</version>
+    </versions>
+    <lastUpdated>20140129120418</lastUpdated>
+  </versioning>
+</metadata>
