@@ -21,6 +21,7 @@ public class BeautyAdapter
     public static final String BODY_PART = "BODY_PART";
     public static final String PATTERN = "PATTERN";
     public static final String SLOGAN_COUNT = "SLOGAN_COUNT";
+    public static final String USE_UBY_FOR_NEW_WORDS = "USE_UBY_FOR_NEW_WORDS";
 
     @Override
     public void initialize(final Map<String, Object> parameters)
@@ -51,6 +52,7 @@ public class BeautyAdapter
         final String bodyPart = (String) parameters.get(BODY_PART);
         final String pattern = (String) parameters.get(PATTERN);
         final Integer sloganCount = (Integer) parameters.get(SLOGAN_COUNT);
+        final boolean isUseUbyForNewWords = (boolean) parameters.get(USE_UBY_FOR_NEW_WORDS);
 
         this.generator.setProductName(productName);
 
@@ -58,6 +60,7 @@ public class BeautyAdapter
 
         this.generator.selectPartOfBody(bodyPart);
         this.generator.selectPattern(pattern);
+        this.generator.useUbyForNewWords(isUseUbyForNewWords);
 
         // TODO generatePatterns should take the number of slogans to generate as parameters
         final List<String> generatedSlogans = this.generator.generateSlogans(sloganCount);

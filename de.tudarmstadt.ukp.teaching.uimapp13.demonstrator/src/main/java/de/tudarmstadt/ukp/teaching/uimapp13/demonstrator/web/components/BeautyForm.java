@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.wicket.markup.html.form.Button;
+import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.form.TextArea;
@@ -24,11 +25,12 @@ public class BeautyForm
 
     private static final String DEFAULT_PRODUCT_NAME = "MyBeauty";
 
-    private String productName;
-    private String suggestedWords;
-    private String pattern;
-    private String partOfBody;
-    private int sloganCount;
+    private final String productName;
+    private final String suggestedWords;
+    private final String pattern;
+    private final String partOfBody;
+    private final int sloganCount;
+    private final boolean isUseUbyForNewWords;
 
     public BeautyForm(final String id)
     {
@@ -50,6 +52,8 @@ public class BeautyForm
         this.add(new DropDownChoice<String>("beauty-pattern", this.createStringProperty("pattern"),
                 selectablePatterns));
 
+        this.add(new CheckBox("beauty-useUbyForNewWords", this.createBooleanProperty("isUseUbyForNewWords")));
+
         final TextArea<String> suggestedWordsTextArea = new TextArea<String>(
                 "beauty-suggestedWords");
         suggestedWordsTextArea.setModel(this.createStringProperty("suggestedWords"));
@@ -60,6 +64,7 @@ public class BeautyForm
         this.suggestedWords = Joiner.on("\n").join(Arrays.asList("women", "color", "life"));
         this.partOfBody = selectablePartsOfBody.get(0);
         this.pattern = selectablePatterns.get(0);
+        this.isUseUbyForNewWords = true;
 
     }
 
@@ -81,6 +86,7 @@ public class BeautyForm
         parameters.put(BeautyAdapter.SUGGESTED_WORDS, commaSeparatedSuggestedWords);
         parameters.put(BeautyAdapter.BODY_PART, this.partOfBody);
         parameters.put(BeautyAdapter.PATTERN, this.pattern);
+        parameters.put(BeautyAdapter.USE_UBY_FOR_NEW_WORDS, this.isUseUbyForNewWords);
         return parameters;
     }
 
