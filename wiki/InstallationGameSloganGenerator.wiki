@@ -22,10 +22,8 @@ To run the generator locally you need the following:
   * (optionally) A Web1T corpus.
   * Correctly set constants in "de.koch.uim project.util.Constants"
 
-While the Generator only needs its parameters to run, the local GUI depends
-on additional constants. Please see class “de.koch.uim project.util.Constants”.
-Edit the constants accordingly. The JavaDoc gives examples. To run the appli-
-caton run the main method of “de.koch.uim project.main.Main”.
+While the generator only needs its parameters to run, the local GUI depends on additional constants. Please see class “de.koch.uim project.util.Constants”.
+Edit the constants accordingly. The Javadoc gives examples. To run the applicaton run the main method of “de.koch.uim project.main.Main”.
 
 == Note ==
   * While the application will work with an empty custom database the absence of emotion words has a heavy impact on the quality of the generated slogans. In this case it is advisable to allways turn the emotion option to “None” to save performance.
