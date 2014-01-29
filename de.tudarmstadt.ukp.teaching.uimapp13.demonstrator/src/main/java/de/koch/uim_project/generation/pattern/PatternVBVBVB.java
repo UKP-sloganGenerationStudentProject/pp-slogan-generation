@@ -80,24 +80,24 @@ public class PatternVBVBVB extends AbstractPattern {
 				synsetDepth++;
 				if (verbs.size() <= config.getMinWordlistForGeneration()) {
 					//Increase all word lists
-					verbs.addAll(posFilter.filterSet(wordGen.getMore(synsetDepth)));
+					verbs.addAll(posFilter.filterSet(wordGen.getSynsetDepthWords(synsetDepth)));
 					verbsEmo.addAll(emoFilter.filterSet(verbs));
 				} else {
 					//Increase only emotion full word lists
-					verbsEmo.addAll(combFilter.filterSet(wordGen.getMore(synsetDepth)));
+					verbsEmo.addAll(combFilter.filterSet(wordGen.getSynsetDepthWords(synsetDepth)));
 				}
 
 			}
 			
 			//Create slogan from emotion full word lists
 			for (int i = 0; i < verbResult.length; i++) {
-				verbResult[i] = RandomUtil.randomWord(gen.getRnd(), verbsEmo, null).getLemma();
+				verbResult[i] = RandomUtil.randomWord(gen.getRnd(), verbsEmo).getLemma();
 			}
 
 		} catch (NoMorGenerationPossibleException e) {
 			//Create slogan from emotion less word lists
 			for (int i = 0; i < verbResult.length; i++) {
-				verbResult[i] = RandomUtil.randomWord(gen.getRnd(), verbs, config.getEmotion()).getLemma();
+				verbResult[i] = RandomUtil.randomWordPreferEmotion(gen.getRnd(), verbs, verbsEmo).getLemma();
 			}
 		}
 
@@ -137,14 +137,14 @@ public class PatternVBVBVB extends AbstractPattern {
 					//Increase all word lists
 					Set<Word> unionSet = new HashSet<Word>();
 					for (int i = 0; i <= synsetDepth; i++) {
-						unionSet.addAll(wordGen.getMore(i));
+						unionSet.addAll(wordGen.getSynsetDepthWords(i));
 					}
 					verbs = allFilter.filterSet(unionSet);
 				}
 				//Increase only emotion full list
 				Set<Word> unionSet = new HashSet<Word>();
 				for (int i = 0; i <= synsetDepth; i++) {
-					unionSet.addAll(wordGen.getMore(i));
+					unionSet.addAll(wordGen.getSynsetDepthWords(i));
 				}
 				verbsEmo = allFilter.filterSet(emoFilter.filterSet(unionSet));
 

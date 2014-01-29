@@ -75,15 +75,15 @@ public class PatternNNVVN extends AbstractPattern {
 			
 			if(nouns.size() < config.getMinWordlistForGeneration() || verbs.size() < config.getMinWordlistForGeneration() ){
 				//Increase all word lists
-				nouns.addAll(nounFilter.filterSet(wordGen.getMore(synsetDepth)));
-				verbs.addAll(verbFilter.filterSet(wordGen.getMore(synsetDepth)));
+				nouns.addAll(nounFilter.filterSet(wordGen.getSynsetDepthWords(synsetDepth)));
+				verbs.addAll(verbFilter.filterSet(wordGen.getSynsetDepthWords(synsetDepth)));
 				verbsEmo.addAll(emoFilter.filterSet(verbs));
 				nounsEmo.addAll(emoFilter.filterSet(nouns));
 				
 			}else{
 				//Increase only emotion full word lists
-				verbsEmo.addAll(verbEmo.filterSet(wordGen.getMore(synsetDepth)));
-				nounsEmo.addAll(nounEmo.filterSet(wordGen.getMore(synsetDepth)));
+				verbsEmo.addAll(verbEmo.filterSet(wordGen.getSynsetDepthWords(synsetDepth)));
+				nounsEmo.addAll(nounEmo.filterSet(wordGen.getSynsetDepthWords(synsetDepth)));
 				
 			}
 			

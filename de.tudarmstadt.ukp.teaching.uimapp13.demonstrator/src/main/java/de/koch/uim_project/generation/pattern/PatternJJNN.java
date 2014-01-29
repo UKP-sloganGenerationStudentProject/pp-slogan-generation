@@ -80,7 +80,7 @@ public class PatternJJNN extends AbstractPattern {
 			while (nounsEmo.size() < config.getMinWordlistForGeneration() || adjsEmo.size() < config.getMinWordlistForGeneration()) {
 
 				synsetDepth++;
-				Set<Word> more = wordGen.getMore(synsetDepth);
+				Set<Word> more = wordGen.getSynsetDepthWords(synsetDepth);
 				
 				//increase emotion less lists and emotion full lists
 				if (nouns.size() < config.getMinWordlistForGeneration() || adjs.size() < config.getMinWordlistForGeneration()) {
