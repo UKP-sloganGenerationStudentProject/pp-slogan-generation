@@ -28,7 +28,7 @@ public class TestBaseWordListGenerator {
 		try {
 			while (synsetDepth < config.getMaxSynsetDepth()) {
 				synsetDepth++;
-				testWordList(wordGen.getMore(synsetDepth));
+				testWordList(wordGen.getSynsetDepthWords(synsetDepth));
 
 			}
 		} catch (NoMorGenerationPossibleException e) {
