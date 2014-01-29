@@ -1,5 +1,9 @@
 package de.koch.uim_project.util;
 
+import com.googlecode.jweb1t.JWeb1TSearcher;
+
+import de.koch.uim_project.generation.Generator;
+
 /**
  * This class gathers constants used by the project. Grouping is done by
  * subclasses.
@@ -11,15 +15,21 @@ public class Constants {
 
 	private Constants() {
 	}
-	
+
 	/**
 	 * Filesystem related constants.
+	 * 
 	 * @author Frerik Koch
-	 *
+	 * 
 	 */
-	public static final class FILESYSTEM{
-		
-		public static final String WEB1T_DEFAULT_PATH ="/home/finwe8/web1t" ;
+	public static final class FILESYSTEM {
+
+		/**
+		 * Filesystem path to web1t corpus. If the {@link Generator} gets a path
+		 * or a {@link JWeb1TSearcher} directly as argument this constant is not
+		 * used.
+		 */
+		public static final String WEB1T_DEFAULT_PATH = "/home/finwe8/web1t";
 	}
 
 	/**
@@ -31,13 +41,13 @@ public class Constants {
 	public static final class DATABASE {
 
 		/**
-		 * Driver for JDBC connection. e.g. "com.mysql.jdbc.Driver".
-		 * Corresponds to the custom database.
+		 * Driver for JDBC connection. e.g. "com.mysql.jdbc.Driver". Corresponds
+		 * to the custom database.
 		 */
 		public static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 		/**
-		 * Database type for JDBC connection. e.g. "mysql".
-		 * Corresponds to the custom database.
+		 * Database type for JDBC connection. e.g. "mysql". Corresponds to the
+		 * custom database.
 		 */
 		public static final String DB_TYPE = "mysql";
 
@@ -49,8 +59,8 @@ public class Constants {
 		 */
 		public static final class UBY {
 			/**
-			 * Url for the uby database. Must be a valid Uby url parameter.
-			 * E.g. "localhost/uby_open_0_3_0"
+			 * Url for the uby database. Must be a valid Uby url parameter. E.g.
+			 * "localhost/uby_open_0_3_0"
 			 */
 			public static final String DEFAULT_UBY_URL = "localhost/uby_open_0_3_0";
 			/**
