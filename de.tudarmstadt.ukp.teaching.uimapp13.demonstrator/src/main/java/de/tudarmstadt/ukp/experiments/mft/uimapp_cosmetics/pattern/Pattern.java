@@ -103,10 +103,15 @@ public class Pattern
         withBodyPart.add("");
 
         //tells us if the slogans have to include a specific bodypart
-        boolean mustBeBodyPart = !resources.getSelectedBodyPart().equals("");
+        boolean mustBeBodyPart = !resources.getSelectedBodyPart().equals(PatternGenerator.DONT_CARE) && !resources.getSelectedBodyPart().equals("");
 
         boolean isNoBodyPartValid = true;
         boolean isWithBodyPartValid = true;
+
+        if(_valueOccurrences.contains("Choose the rainbow colors for your nails"))
+        {
+            System.out.println("STOP HERE !");
+        }
 
         for(ChunkOccurrence elem : _elementList)
         {
@@ -189,32 +194,20 @@ public class Pattern
                 }
             }
 
+
+
             if(isWithBodyPartTEMPValid)
             {
                 withBodyPart = withBodyPartTEMP;
-            }
-            else
-            {
-                isWithBodyPartValid = false;
-                if(mustBeBodyPart)
-                {
-                    break;
-                }
             }
             if(isNoBodyPartTEMPValid)
             {
                 noBodyPart = noBodyPartTEMP;
             }
-            else
-            {
-                isNoBodyPartValid = false;
-                if(!mustBeBodyPart)
-                {
-                    break;
-                }
-            }
-        }
 
+            isWithBodyPartValid = isWithBodyPartTEMPValid;
+            isNoBodyPartValid = isNoBodyPartTEMPValid;
+        }
 
         List<String> slogansSublist = new ArrayList<>();
 

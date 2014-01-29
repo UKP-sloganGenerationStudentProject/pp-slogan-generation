@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 import org.apache.uima.analysis_engine.AnalysisEngineDescription;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
@@ -64,9 +65,11 @@ public class PatternGenerator
     String _ubyDBUserName;
     String _ubyDBPassword;
 
-    private static List<String> _patternsToAnnotate = Arrays.asList("NC_", "NC_PC_NC_", "VC_NC_",
+    public static final String DONT_CARE = "don't care";
+
+    private static List<String> _patternsToAnnotate = Arrays.asList(DONT_CARE,"NC_", "NC_PC_NC_", "VC_NC_",
             "VC_NC_PC_NC_", "VC_", "NC_VC_", "NC_VC_ADJC_", "NC_VC_NC_");;
-    private static List<String> _partsOfBodyToSelect = Arrays.asList("eye", "skin", "lip", "nail",
+    private static List<String> _partsOfBodyToSelect = Arrays.asList(DONT_CARE,"eye", "skin", "lip", "nail",
             "hair", "lash");
 
     PatternFactory _factory;
@@ -80,7 +83,7 @@ public class PatternGenerator
 
         final PatternGenerator generator = new PatternGenerator();
 
-        // generator.disableUbyGeneration();
+        //generator.disableUbyGeneration();
 
         generator.setEmotionFilePath("src/main/resources/NRCemotionlexicon.pdf");
         generator.setSloganBasePath("src/main/resources/beautySlogans.txt");
@@ -95,38 +98,88 @@ public class PatternGenerator
         // retrieve the list of selectable patterns (add a chekckbox with each element of the list
         // as label)
         final List<String> selectablePatterns = generator.getSelectablePatterns();
-
-        /*Example :*/
-        final String pattern0 = selectablePatterns.get(6);
-        /* when the associated checkbox gets checked*/
-        generator.selectPattern(pattern0);
-        /* when the associated checkbox gets unchecked */
-        // generator.unselectPattern(pattern0);
-
-        // PART OF BODY
-        // retrieve the list of selectable part of the body
         final List<String> selectablePartsOfBody = generator.getSelectablePartsOfBody();
 
         /*Example :*/
-        final String partOfBody0 = selectablePartsOfBody.get(1);
+        //final String pattern0 = selectablePatterns.get(6);
         /* when the associated checkbox gets checked*/
-        generator.selectPartOfBody(partOfBody0);
+        //generator.selectPattern(pattern0);
+        /* when the associated checkbox gets unchecked */
+        // generator.unselectPattern(pattern0);
+
+        // PART OF BODYye
+        // retrieve the list of selectable part of the body
+
+
+        /*Example :*/
+        //final String partOfBody0 = selectablePartsOfBody.get(3);
+        /* when the associated checkbox gets checked*/
+        //generator.selectPartOfBody(partOfBody0);
         /* when the associated checkbox gets unchecked */
         // generator.unselectPartOfBodyn(partOfBody0);
 
         // PRODUCT NAME
         // set the product name
-        generator.setProductName("myProduct");
+        generator.setProductName("myProductName");
 
         // PARTS OF THE BODY
         // set the suggested words (a string containing all the words separated with a coma"
         generator.setSuggestedWords("beauty,woman,colour");
 
+        Scanner user_input = new Scanner(System.in);
+
+//        System.out.println(generator.toString());
+
+        while(true)
+        {
+
+            System.out.println();
+            System.out.print("What do you want to do ? 0 : print PatternGenerator content, 1 : generate slogans");
+            int action = Integer.parseInt(user_input.next());
+            if(action==0)
+            {
+                System.out.println(generator.toString());
+                continue;
+            }
+
+
+            System.out.println();
+            System.out.println();
+            int i = 0;
+            for(String patternType : selectablePatterns)
+            {
+                System.out.print(i+" : "+patternType+";  ");
+                i = i+1;
+            }
+            System.out.println();
+            System.out.print("Give the number of the pattern you want to select :");
+            int selectedPatternNumber = Integer.parseInt(user_input.next());
+            generator.selectPattern(selectablePatterns.get(selectedPatternNumber));
+
+            System.out.println();
+            System.out.println();
+            int j = 0;
+            for(String bodyPart : selectablePartsOfBody)
+            {
+                System.out.print(j+" : "+bodyPart+";  ");
+                j = j+1;
+            }
+            System.out.println();
+            System.out.print("Give the number of the body part you want to select :");
+            int selectedBodyPartNumber = Integer.parseInt(user_input.next());
+            generator.selectPartOfBody(selectablePartsOfBody.get(selectedBodyPartNumber));
+
+            for (final String slogan : generator.generateSlogans(10)) {
+                System.out.println("\t" + slogan);
+            }
+
+        }
+
         // generator.generateSlogansToFile("/media/Storage/TUD/WS13-14/UIMA/Data/generatedSlogans.txt");
 
-        for (final String slogan : generator.generateSlogans(10)) {
-            System.out.println("\t" + slogan);
-        }
+
+
+//        System.out.println(generator.toString());
 
     }
 
@@ -258,16 +311,7 @@ public class PatternGenerator
 
     public void selectPattern(final String chunkPatternAsString)
     {
-        if (!this._resources.getPatternsToGenerate().contains(chunkPatternAsString)) {
-            this._resources.getPatternsToGenerate().add(chunkPatternAsString);
-        }
-    }
-
-    public void unselectPattern(final String chunkPatternAsString)
-    {
-        if (this._resources.getPatternsToGenerate().contains(chunkPatternAsString)) {
-            this._resources.getPatternsToGenerate().remove(chunkPatternAsString);
-        }
+        _resources.setPatternToGenerate(chunkPatternAsString);
     }
 
     public static List<String> getSelectablePartsOfBody()
@@ -463,6 +507,13 @@ public class PatternGenerator
 
     }
 
+
+    @Override
+    public String toString()
+    {
+        return _factory.toString();
+    }
+
     public class Resources
     {
         Uby _uby;
@@ -470,7 +521,7 @@ public class PatternGenerator
         JWeb1TSearcher _web1tWordStatistic;
 
         String _productName;
-        List<String> _patternsToGenerate;
+        String _patternToGenerate;
         String _selectedPartOfBody;
         List<String> _suggestedWords;
 
@@ -482,7 +533,7 @@ public class PatternGenerator
             this._emotionAnalizer = null;
             this._web1tWordStatistic = null;
             this._productName = "productName";
-            this._patternsToGenerate = new ArrayList<String>();
+            this._patternToGenerate = "";
             this._selectedPartOfBody = "";
             this._suggestedWords = new ArrayList<String>();
             this._useUbyGeneration = true;
@@ -547,14 +598,14 @@ public class PatternGenerator
             this._productName = productName;
         }
 
-        public List<String> getPatternsToGenerate()
+        public String getPatternToGenerate()
         {
-            return this._patternsToGenerate;
+            return this._patternToGenerate;
         }
 
-        public void setPatternsToGenerate(final List<String> patternsToGenerate)
+        public void setPatternToGenerate(final String patternToGenerate)
         {
-            this._patternsToGenerate = patternsToGenerate;
+            this._patternToGenerate = patternToGenerate;
         }
 
         public String getSelectedBodyPart()
@@ -576,6 +627,7 @@ public class PatternGenerator
         {
             this._suggestedWords = suggestedWords;
         }
+
     }
 
 }
