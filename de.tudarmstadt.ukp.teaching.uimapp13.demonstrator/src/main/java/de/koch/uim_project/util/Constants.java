@@ -97,5 +97,18 @@ public class Constants {
 
 		}
 	}
+	
+	/**
+	 * Analsysis related constants. These constants specifie the output folders and files for the analysis.
+	 * @author Frerik Koch
+	 *
+	 */
+	public static final class ANALYSIS{
+		public static final String CHUNK_DISTRIBUTION_OUTPUT_PATH = "src/main/resources/koch/analysis/chunkDistribution.txt";
+		public static final String POS_DISTRIBUTION_OUTPUT_PATH = 	"src/main/resources/koch/analysis/lemmaDistribution.txt";
+		public static final String LEMMA_DISTRIBUTION_OUTPUT_PATH = "src/main/resources/koch/analysis/posDistribution.txt";
+		public static final String SYNSET_DISTRIBUTION_OUTPUT_PATH = "src/main/resources/koch/analysis/synsetDistribution.txt";
+		public static final String FULL_ANALYSIS_OUTPUT_PATH = "src/main/resources/koch/analysis/fullyAnalysed.txt";
+	}
 
 }
