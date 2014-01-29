@@ -99,14 +99,14 @@ public class PatternJJNNJJNN extends AbstractPattern {
 		
 				if (nouns.size() <= config.getMinWordlistForGeneration() || adjs.size() <= config.getMinWordlistForGeneration()) {
 					//Increase all word lists
-					nouns.addAll(nounFilter.filterSet(wordGen.getMore(synsetDepth)));
-					adjs.addAll(adjFilter.filterSet(wordGen.getMore(synsetDepth)));
+					nouns.addAll(nounFilter.filterSet(wordGen.getSynsetDepthWords(synsetDepth)));
+					adjs.addAll(adjFilter.filterSet(wordGen.getSynsetDepthWords(synsetDepth)));
 					nounsEmo.addAll(emoFilter.filterSet(nouns));
 					adjsEmo.addAll(emoFilter.filterSet(adjs));
 				} else {
 					//Increase emotion full lists
-					nounsEmo.addAll(nounEmo.filterSet(wordGen.getMore(synsetDepth)));
-					adjsEmo.addAll(adjEmo.filterSet(wordGen.getMore(synsetDepth)));
+					nounsEmo.addAll(nounEmo.filterSet(wordGen.getSynsetDepthWords(synsetDepth)));
+					adjsEmo.addAll(adjEmo.filterSet(wordGen.getSynsetDepthWords(synsetDepth)));
 				}
 
 			}
@@ -175,15 +175,15 @@ public class PatternJJNNJJNN extends AbstractPattern {
 				synsetDepth++;
 				try {
 					if (result.size() < config.getMinWordlistForGeneration()) {
-						result.addAll(wordGen.getMore(synsetDepth));
+						result.addAll(wordGen.getSynsetDepthWords(synsetDepth));
 						result.retainAll(oxymerons);
 						resultEmo.addAll(emoFilter.filterSet(result));
 					} else {
-						resultEmo.addAll(nounEmo.filterSet(wordGen.getMore(synsetDepth)));
+						resultEmo.addAll(nounEmo.filterSet(wordGen.getSynsetDepthWords(synsetDepth)));
 						resultEmo.retainAll(oxymerons);
 					}
 				} catch (NoMorGenerationPossibleException e) {
-					return RandomUtil.randomWord(gen.getRnd(), result, config.getEmotion());
+					return RandomUtil.randomWordPreferEmotion(gen.getRnd(), result, resultEmo);
 				}
 			}
 			return RandomUtil.randomWord(gen.getRnd(), resultEmo);
@@ -224,14 +224,14 @@ public class PatternJJNNJJNN extends AbstractPattern {
 				
 				if (nouns.size() < config.getMinWordlistForGeneration() || adjs.size() < config.getMinWordlistForGeneration()) {
 					//increase all word lists
-					nouns.addAll(nounFilter.filterSet(wordGen.getMore(synsetDepth)));
-					adjs.addAll(adjFilter.filterSet(wordGen.getMore(synsetDepth)));
+					nouns.addAll(nounFilter.filterSet(wordGen.getSynsetDepthWords(synsetDepth)));
+					adjs.addAll(adjFilter.filterSet(wordGen.getSynsetDepthWords(synsetDepth)));
 					nounsEmo.addAll(emoFilter.filterSet(nouns));
 					adjs.addAll(emoFilter.filterSet(adjs));
 				} else {
 					//increase only emotion full word lists
-					nounsEmo.addAll(emoAndNoun.filterSet(wordGen.getMore(synsetDepth)));
-					adjsEmo.addAll(emoAndAdj.filterSet(wordGen.getMore(synsetDepth)));
+					nounsEmo.addAll(emoAndNoun.filterSet(wordGen.getSynsetDepthWords(synsetDepth)));
+					adjsEmo.addAll(emoAndAdj.filterSet(wordGen.getSynsetDepthWords(synsetDepth)));
 				}
 
 			}
@@ -286,14 +286,14 @@ public class PatternJJNNJJNN extends AbstractPattern {
 				synsetDepth++;
 				if (nouns.size() < config.getMinWordlistForGeneration() || adjs.size() < config.getMinWordlistForGeneration()) {
 					//Increase all word lists
-					nouns.addAll(nounFilter.filterSet(wordGen.getMore(synsetDepth)));
-					adjs.addAll(adjFilter.filterSet(wordGen.getMore(synsetDepth)));
+					nouns.addAll(nounFilter.filterSet(wordGen.getSynsetDepthWords(synsetDepth)));
+					adjs.addAll(adjFilter.filterSet(wordGen.getSynsetDepthWords(synsetDepth)));
 					nounsEmo.addAll(emoFilter.filterSet(nouns));
 					adjsEmo.addAll(emoFilter.filterSet(adjs));
 				} else {
 					//Increase only emotion full word lists
-					nounsEmo.addAll(nounAndEmo.filterSet(wordGen.getMore(synsetDepth)));
-					adjsEmo.addAll(adjAndEmo.filterSet(wordGen.getMore(synsetDepth)));
+					nounsEmo.addAll(nounAndEmo.filterSet(wordGen.getSynsetDepthWords(synsetDepth)));
+					adjsEmo.addAll(adjAndEmo.filterSet(wordGen.getSynsetDepthWords(synsetDepth)));
 				}
 
 			}
