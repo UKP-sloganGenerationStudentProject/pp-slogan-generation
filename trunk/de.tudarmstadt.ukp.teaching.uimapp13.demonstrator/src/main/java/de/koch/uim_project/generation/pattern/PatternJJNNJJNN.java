@@ -112,17 +112,19 @@ public class PatternJJNNJJNN extends AbstractPattern {
 			}
 			
 			//Choose words from emotion full lists
-			adj1Result = RandomUtil.randomWord(gen.getRnd(), adjsEmo);
-			adj2Result = searchOxymeronNoun(adj1Result, true);
 			noun1Result = RandomUtil.randomWord(gen.getRnd(), nounsEmo);
 			noun2Result = RandomUtil.randomWord(gen.getRnd(), nounsEmo);
+			adj1Result = RandomUtil.findAdjectiveToNoun(gen.getRnd(), gen.getW1tSearcher(), adjsEmo, noun1Result);
+			adj2Result = searchOxymeron(adj1Result, true);
+			
 
 		} catch (NoMorGenerationPossibleException e) {
 			//Choose words from emotion less lists but prefer emotion full words
-			adj1Result = RandomUtil.randomWordPreferEmotion(gen.getRnd(), adjs, adjsEmo);
+			
 			noun1Result = RandomUtil.randomWordPreferEmotion(gen.getRnd(), nouns, nounsEmo);
 			noun2Result = RandomUtil.randomWordPreferEmotion(gen.getRnd(), nouns, nounsEmo);
-			adj2Result = searchOxymeronNoun(adj1Result, true);
+			adj1Result = RandomUtil.findAdjectiveToNoun(gen.getRnd(),gen.getW1tSearcher(), adjs,adjsEmo, noun1Result);
+			adj2Result = searchOxymeron(adj1Result, true);
 		}
 
 		return generateResultString(adj1Result, noun1Result, adj2Result, noun2Result);
@@ -136,7 +138,7 @@ public class PatternJJNNJJNN extends AbstractPattern {
 	 * @throws SloganNotCreatedException
 	 * @throws DbException
 	 */
-	private Word searchOxymeronNoun(Word toSearchFor, boolean useEmotion) throws SloganNotCreatedException, DbException {
+	private Word searchOxymeron(Word toSearchFor, boolean useEmotion) throws SloganNotCreatedException, DbException {
 		int synsetDepth = 0;
 		BaseWordListGen wordGen = gen.getGlobalWordListGen();
 		
@@ -235,18 +237,18 @@ public class PatternJJNNJJNN extends AbstractPattern {
 			}
 
 			//create slogan from emotion full word lists
-			adj1 = RandomUtil.randomWord(gen.getRnd(), adjsEmo);
-			adj2 = RandomUtil.randomWord(gen.getRnd(), adjsEmo);
 			noun1 = RandomUtil.randomWord(gen.getRnd(), nounsEmo);
 			noun2 = RandomUtil.randomWord(gen.getRnd(), nounsEmo);
+			adj1 = RandomUtil.findAdjectiveToNoun(gen.getRnd(), gen.getW1tSearcher(),adjsEmo, noun1);
+			adj2 = RandomUtil.findAdjectiveToNoun(gen.getRnd(), gen.getW1tSearcher(),adjsEmo, noun2);
+			
 
 		} catch (NoMorGenerationPossibleException e) {
 			//create slogan from emotion less word lists but prefer emotion full words
-			adj1 = RandomUtil.randomWordPreferEmotion(gen.getRnd(), adjs, adjsEmo);
-			adj2 = RandomUtil.randomWordPreferEmotion(gen.getRnd(), adjs, adjsEmo);
 			noun1 = RandomUtil.randomWordPreferEmotion(gen.getRnd(), nouns, nounsEmo);
 			noun2 = RandomUtil.randomWordPreferEmotion(gen.getRnd(), nouns, nounsEmo);
-
+			adj1 = RandomUtil.findAdjectiveToNoun(gen.getRnd(), gen.getW1tSearcher(),adjs,adjsEmo, noun1);
+			adj2 = RandomUtil.findAdjectiveToNoun(gen.getRnd(), gen.getW1tSearcher(),adjs,adjsEmo, noun2);
 		}
 
 		return generateResultString(adj1, noun1, adj2, noun2);
@@ -296,16 +298,16 @@ public class PatternJJNNJJNN extends AbstractPattern {
 
 			}
 
-			//Generate slogan from emotion full word lists
-			adj = RandomUtil.randomWord(gen.getRnd(), adjsEmo);
+			//Generate slogan from emotion full word lists	
 			noun1 = RandomUtil.randomWord(gen.getRnd(), nounsEmo);
 			noun2 = RandomUtil.randomWord(gen.getRnd(), nounsEmo);
+			adj = RandomUtil.findAdjectiveToNoun(gen.getRnd(), gen.getW1tSearcher(), adjsEmo, noun1);
 
 		} catch (NoMorGenerationPossibleException e) {
-			//create slogan from emotion less word lists but prefer emotion full words
-			adj = RandomUtil.randomWordPreferEmotion(gen.getRnd(), adjs, adjsEmo);
+			//create slogan from emotion less word lists but prefer emotion full words		
 			noun1 = RandomUtil.randomWordPreferEmotion(gen.getRnd(), nouns, nounsEmo);
 			noun2 = RandomUtil.randomWordPreferEmotion(gen.getRnd(), nouns, nounsEmo);
+			adj = RandomUtil.findAdjectiveToNoun(gen.getRnd(), gen.getW1tSearcher(),adjs, adjsEmo, noun1);
 		}
 
 		return generateResultString(adj, noun1, adj, noun2);

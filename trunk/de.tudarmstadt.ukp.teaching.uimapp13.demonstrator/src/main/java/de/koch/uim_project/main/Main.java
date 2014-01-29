@@ -4,6 +4,7 @@ import de.koch.uim_project.generation.Generator;
 import de.koch.uim_project.generation.exception.SloganNotCreatedException;
 import de.koch.uim_project.gui.MainFrame;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.apache.log4j.Logger;
@@ -11,6 +12,7 @@ import org.apache.uima.UIMAException;
 
 import de.koch.uim_project.util.Config;
 import de.koch.uim_project.util.ConfigValidator;
+import de.koch.uim_project.util.Constants;
 import de.koch.uim_project.analyse.AnalyseException;
 import de.koch.uim_project.analyse.fileoutput.FileWriterUimException;
 import de.koch.uim_project.database.DbException;
@@ -33,7 +35,7 @@ public class Main {
 		Config config = mainWindow.getConfig();
 		if (ConfigValidator.getInstance().validate(config)) {
 			try {
-				Generator gen = Generator.getInstance(config);
+				Generator gen = Generator.getInstance(new File(Constants.FILESYSTEM.WEB1T_DEFAULT_PATH),config);
 				for (int i = 0; i < config.getSloganCount(); i++) {
 					try {
 						String slogan = gen.generateSlogan();

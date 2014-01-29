@@ -5,6 +5,8 @@ import de.koch.uim_project.generation.exception.SloganNotCreatedException;
 import de.koch.uim_project.generation.pattern.AbstractPattern;
 import de.koch.uim_project.generation.pattern.PatternFactory;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -12,6 +14,8 @@ import java.util.Random;
 import de.koch.uim_project.main.Main;
 
 import org.apache.log4j.Logger;
+
+import com.googlecode.jweb1t.JWeb1TSearcher;
 
 import de.koch.uim_project.util.Config;
 import de.koch.uim_project.util.Pattern;
@@ -30,28 +34,49 @@ import de.tudarmstadt.ukp.lmf.api.Uby;
  */
 public class Generator {
 
+
 	private Config config;
 	private final Map<AbstractPattern, Double> patternsNormWeights = new HashMap<AbstractPattern, Double>();
-	private Logger log = Logger.getRootLogger();
+	private static Logger log = Logger.getRootLogger();
 	private static Random rnd;
 	private static BaseWordListGen globalWordListGen;
 	private JdbcConnect customDb;
 	private Uby uby;
+	/**
+	 * This field may be null! Which is to interpret as no w1tsearch is used.
+	 */
+	private JWeb1TSearcher w1tSearcher;
 	private static Generator instance;
 
-	public static Generator getInstance(Config config) throws DbException {
+	public static Generator getInstance(Config config,JWeb1TSearcher w1tSearcher) throws DbException {
 		if (instance == null) {
-			instance = new Generator(config);
+			instance = new Generator(config,w1tSearcher);
 			return instance;
 		} else {
 			if (config.equals(instance.config)) {
 				return instance;
 			} else {
-				instance = new Generator(config);
+				instance = new Generator(config,w1tSearcher);
 			}
 		}
 
 		return instance;
+	}
+	
+	public static Generator getInstance(Config config) throws DbException{
+		return getInstance(config,null);
+	}
+	
+	public static Generator getInstance(File w1tFilePath,Config config) throws DbException{
+		JWeb1TSearcher w1tSearcher;
+		try {
+			w1tSearcher = new JWeb1TSearcher(w1tFilePath, 2, 2);
+		} catch (IOException e) {
+			log.error("Couldn't initialize w1tSearcher, fallback to no n-gramms");
+			return getInstance(config);
+		}
+		return getInstance(config,w1tSearcher);
+		
 	}
 
 	/**
@@ -61,9 +86,10 @@ public class Generator {
 	 *            Config for the generation of this {@link Generator}
 	 * @throws DbException
 	 */
-	private Generator(Config config) throws DbException {
+	private Generator(Config config,JWeb1TSearcher w1tSearcher) throws DbException {
 		// Init fields
 		this.config = config;
+		this.w1tSearcher = w1tSearcher;
 		this.customDb = new JdbcConnect(config.getCustomDbConfig());
 		this.uby = UbyConnect.getUbyInstance(config.getUbyConfig());
 
@@ -197,6 +223,10 @@ public class Generator {
 
 	public Uby getUby() {
 		return uby;
+	}
+
+	public JWeb1TSearcher getW1tSearcher() {
+		return w1tSearcher;
 	}
 
 	/**

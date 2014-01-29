@@ -11,6 +11,16 @@ public class Constants {
 
 	private Constants() {
 	}
+	
+	/**
+	 * Filesystem related constants.
+	 * @author Frerik Koch
+	 *
+	 */
+	public static final class FILESYSTEM{
+		
+		public static final String WEB1T_DEFAULT_PATH ="/home/finwe8/web1t" ;
+	}
 
 	/**
 	 * Database related constants
