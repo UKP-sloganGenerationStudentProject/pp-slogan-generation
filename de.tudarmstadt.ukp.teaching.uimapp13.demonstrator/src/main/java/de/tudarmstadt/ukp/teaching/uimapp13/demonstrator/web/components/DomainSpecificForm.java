@@ -1,5 +1,6 @@
 package de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.web.components;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,15 +19,30 @@ import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.web.SessionAttributes;
 public abstract class DomainSpecificForm
     extends Form<Void>
 {
+    /**
+     * Holds the most recent generation configuration
+     */
+    protected HashMap<Object, Object> previousConfiguration;
+
+    protected Logger logger;
+
     private static final long serialVersionUID = -2244336369430716569L;
     private Adapter adapter;
-    private Logger logger;
 
     public DomainSpecificForm(final String id)
     {
         super(id);
 
         this.logger = LoggerFactory.getLogger(this.getClass());
+
+        final Serializable sessionGenerationConfig = this.getSession().getAttribute(
+                SessionAttributes.CONFIG);
+        this.previousConfiguration = new HashMap<>();
+        if (sessionGenerationConfig != null) {
+            @SuppressWarnings("unchecked")
+            final HashMap<String, Object> cachedConfig = (HashMap<String, Object>) sessionGenerationConfig;
+            this.previousConfiguration.putAll(cachedConfig);
+        }
 
         if (this.loadAdapterEagerly()) {
             this.initializeAdapter();
@@ -40,7 +56,8 @@ public abstract class DomainSpecificForm
             this.initializeAdapter();
         }
 
-        final Map<String, Object> parameters = this.createGenerationParameters();
+        final HashMap<String, Object> parameters = this.createGenerationParameters();
+        this.getSession().setAttribute(SessionAttributes.CONFIG, parameters);
 
         final List<Slogan> slogans = new ArrayList<>();
         String statusMessage;
@@ -133,12 +150,12 @@ public abstract class DomainSpecificForm
         return new PropertyModel<T>(this, property);
     }
 
-    protected Map<String, Object> createInitializationParameters()
+    protected HashMap<String, Object> createInitializationParameters()
     {
         return new HashMap<String, Object>();
     }
 
-    protected Map<String, Object> createGenerationParameters()
+    protected HashMap<String, Object> createGenerationParameters()
     {
         return new HashMap<String, Object>();
     }

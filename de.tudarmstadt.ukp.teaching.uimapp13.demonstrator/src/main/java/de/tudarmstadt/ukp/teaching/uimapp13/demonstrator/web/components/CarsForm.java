@@ -2,8 +2,6 @@ package de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.web.components;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.CheckBox;
@@ -27,8 +25,8 @@ public class CarsForm
 
     private static final int DEFAULT_SLOGAN_COUNT = 20;
     private static final String DEFAULT_PRODUCT_NAME = "MyCar";
-    private static final List<String> DEFAULT_SUGGESTED_WORDS = Arrays.asList("fun", "speed",
-            "family");
+    private static final String DEFAULT_SUGGESTED_WORDS = Joiner.on(",").join(
+            Arrays.asList("fun", "speed", "family"));
 
     private int sloganCount;
     private String productName;
@@ -72,17 +70,62 @@ public class CarsForm
         suggestedWordsTextArea.setModel(this.createStringProperty("suggestedWords"));
         this.add(suggestedWordsTextArea);
 
-        this.sloganCount = DEFAULT_SLOGAN_COUNT;
-        this.productName = DEFAULT_PRODUCT_NAME;
-        this.suggestedWords = Joiner.on("\n").join(DEFAULT_SUGGESTED_WORDS);
-        this.isGoodLuck = false;
-        this.useProductNameCreatively = true;
-        this.selectedEmotion = CarsAdapter.getAllEmotions().get(0);
-        this.selectedTemplate = CarsAdapter.getAllTemplates().get(0);
+        this.initializeDefaultValues();
+    }
+
+    private void initializeDefaultValues()
+    {
+        this.sloganCount = this.getParam(CarsAdapter.SLOGAN_COUNT, DEFAULT_SLOGAN_COUNT);
+
+        this.productName = this.getParam(CarsAdapter.PRODUCT_NAME, DEFAULT_PRODUCT_NAME);
+
+        final String commaSeparatedSuggestedWords = this.getParam(CarsAdapter.SUGGESTED_WORDS,
+                DEFAULT_SUGGESTED_WORDS);
+        final String nlSeparatedWords = this.convertSeparator(commaSeparatedSuggestedWords, ",",
+                "\n");
+        this.suggestedWords = nlSeparatedWords;
+
+        this.isGoodLuck = this.getParam(CarsAdapter.GOOD_LUCK, false);
+
+        this.useProductNameCreatively = this.getParam(CarsAdapter.USE_PRODUCT_NAME_CREATIVELY,
+                true);
+
+        final String firstEmotion = CarsAdapter.getAllEmotions().get(0);
+        this.selectedEmotion = this.getParam(CarsAdapter.EMOTION, firstEmotion);
+
+        final Template firstTemplate = CarsAdapter.getAllTemplates().get(0);
+        this.selectedTemplate = this.getParam(CarsAdapter.TEMPLATE, firstTemplate);
+    }
+
+    private String convertSeparator(final String commaSeparatedSuggestedWords, final String sep1,
+            final String sep2)
+    {
+        return Joiner.on(sep2).join(Arrays.asList(commaSeparatedSuggestedWords.split(sep1)));
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T> T getParam(final String key, final T defaultValue)
+    {
+        T result = defaultValue;
+        if (this.previousConfiguration.containsKey(key)) {
+            final Object value = this.previousConfiguration.get(key);
+            try {
+                result = (T) value;
+            }
+            catch (final ClassCastException ex) {
+                this.logger
+                        .warn(String
+                                .format("Value for parameter %s has not the expected type %s, instead: '%s'. Using default value %s instead.",
+                                        key, defaultValue.getClass().getSimpleName(), value,
+                                        defaultValue.toString()));
+
+            }
+        }
+        return result;
     }
 
     @Override
-    protected Map<String, Object> createGenerationParameters()
+    protected HashMap<String, Object> createGenerationParameters()
     {
         final HashMap<String, Object> parameters = new HashMap<>();
         parameters.put(CarsAdapter.SLOGAN_COUNT, this.sloganCount);
