@@ -1,5 +1,6 @@
 package de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.adapters;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,11 +10,14 @@ import de.tobiasloeser.slogangenerator.SloganGenerator;
 import de.tobiasloeser.slogangenerator.SloganTemplate;
 import de.tobiasloeser.slogangenerator.TemplateGenerator;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.configuration.DemonstratorConfig;
+import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.model.ProductDomain;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.model.Slogan;
 
 public class CarsAdapter
-    implements Adapter
+    implements Adapter, Serializable
 {
+    private static final long serialVersionUID = -2271555874935381594L;
+
     public static final String PRODUCT_NAME = "PRODUCT_NAME";
     public static final String SLOGAN_COUNT = "SLOGAN_COUNT";
     public static final String EMOTION = "EMOTION";
@@ -23,17 +27,11 @@ public class CarsAdapter
     public static final String SUGGESTED_WORDS = "SUGGESTED_WORDS";
     private SloganGenerator generator;
 
-    public static class Emotion
-    {
-        public static List<String> getAllEmotions()
-        {
-            return Arrays.asList("positive", "negative", "anger", "anticipation", "disgust",
-                    "fear", "joy", "sadness", "surprise", "trust");
-        }
-    }
-
     public static class Template
+        implements Serializable
     {
+        private static final long serialVersionUID = -5798199994348706917L;
+
         private final int id;
         private final String name;
 
@@ -52,26 +50,14 @@ public class CarsAdapter
         {
             return this.name;
         }
-
-        public static List<Template> getAllTemplates()
-        {
-            return Arrays.asList(new Template(1, "NC with Alliteration"), //
-                    new Template(2, "NC without Alliteration"), //
-                    new Template(3, "VC NC without Alliteration"), //
-                    new Template(4, "VC NC with Alliteration"), //
-                    new Template(5, "NC VC NC without Alliteration"), //
-                    new Template(6, "NC VC NC with Alliteration"), //
-                    new Template(7, "NC with Oxymoron"), //
-                    new Template(8, "?"));
-        }
     }
 
     @Override
     public void initialize(final Map<String, Object> parameters)
     {
         final DemonstratorConfig config = DemonstratorConfig.getInstance();
-        generator = new SloganGenerator(config.getUbyUrl(),
-                config.getUbyUser(), config.getUbyPassword(), config.getEmotionPath());
+        this.generator = new SloganGenerator(config.getUbyUrl(), config.getUbyUser(),
+                config.getUbyPassword(), config.getEmotionPath());
     }
 
     @Override
@@ -85,4 +71,27 @@ public class CarsAdapter
         return Arrays.asList(new Slogan("Testslogan for Cars"));
     }
 
+    public static List<Template> getAllTemplates()
+    {
+        return Arrays.asList(new Template(1, "NC with Alliteration"), //
+                new Template(2, "NC without Alliteration"), //
+                new Template(3, "VC NC without Alliteration"), //
+                new Template(4, "VC NC with Alliteration"), //
+                new Template(5, "NC VC NC without Alliteration"), //
+                new Template(6, "NC VC NC with Alliteration"), //
+                new Template(7, "NC with Oxymoron"), //
+                new Template(8, "?"));
+    }
+
+    public static List<String> getAllEmotions()
+    {
+        return Arrays.asList("positive", "negative", "anger", "anticipation", "disgust", "fear",
+                "joy", "sadness", "surprise", "trust");
+    }
+
+    @Override
+    public ProductDomain getDomain()
+    {
+        return ProductDomain.CARS;
+    }
 }

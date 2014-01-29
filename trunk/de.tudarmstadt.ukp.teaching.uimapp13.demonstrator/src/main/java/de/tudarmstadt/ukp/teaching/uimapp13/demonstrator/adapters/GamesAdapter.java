@@ -18,6 +18,7 @@ import de.koch.uim_project.util.Emotion;
 import de.koch.uim_project.util.Pattern;
 import de.koch.uim_project.util.StylisticDevice;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.configuration.DemonstratorConfig;
+import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.model.ProductDomain;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.model.Slogan;
 
 public class GamesAdapter
@@ -119,5 +120,11 @@ public class GamesAdapter
     {
         final String[] split = string.split("\n");
         return new HashSet<String>(Arrays.asList(split));
+    }
+
+    @Override
+    public ProductDomain getDomain()
+    {
+        return ProductDomain.GAMES;
     }
 }

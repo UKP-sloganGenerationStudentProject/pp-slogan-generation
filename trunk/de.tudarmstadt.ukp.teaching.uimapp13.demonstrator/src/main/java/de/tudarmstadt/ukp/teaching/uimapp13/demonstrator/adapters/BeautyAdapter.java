@@ -7,6 +7,7 @@ import java.util.Map;
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.PatternGenerator;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.configuration.DemonstratorConfig;
+import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.model.ProductDomain;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.model.Slogan;
 
 public class BeautyAdapter
@@ -71,5 +72,11 @@ public class BeautyAdapter
         }
 
         return slogans;
+    }
+
+    @Override
+    public ProductDomain getDomain()
+    {
+        return ProductDomain.BEAUTY;
     }
 }
