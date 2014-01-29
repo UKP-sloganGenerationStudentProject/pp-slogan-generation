@@ -9,11 +9,8 @@ import java.util.Map;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.DropDownChoice;
-import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.form.TextArea;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.PropertyModel;
 
 import com.google.common.base.Functions;
 import com.google.common.base.Joiner;
@@ -28,7 +25,7 @@ import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.model.Slogan;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.web.HomePage;
 
 public class GamesForm
-    extends Form<Void>
+    extends DomainSpecificForm
 {
     private static final long serialVersionUID = -4876200976182929042L;
 
@@ -157,26 +154,6 @@ public class GamesForm
         this.styleDevWeight2 = defaultStyleDevWeights.get(stylisticDevices[2]);
         this.styleDevWeight3 = defaultStyleDevWeights.get(stylisticDevices[3]);
         this.styleDevWeight4 = defaultStyleDevWeights.get(stylisticDevices[4]);
-    }
-
-    private <T> IModel<T> createProperty(final String property, final Class<T> clazz)
-    {
-        return new PropertyModel<T>(this, property);
-    }
-
-    private IModel<Integer> createIntProperty(final String property)
-    {
-        return new PropertyModel<Integer>(this, property);
-    }
-
-    private IModel<String> createStringProperty(final String property)
-    {
-        return new PropertyModel<String>(this, property);
-    }
-
-    private IModel<Long> createLongProperty(final String property)
-    {
-        return new PropertyModel<Long>(this, property);
     }
 
     @Override

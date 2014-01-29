@@ -8,11 +8,8 @@ import java.util.Map;
 
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.DropDownChoice;
-import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.form.TextArea;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.PropertyModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +21,7 @@ import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.model.Slogan;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.web.HomePage;
 
 public class BeautyForm
-    extends Form<Void>
+    extends DomainSpecificForm
 {
     private static final int DEFAULT_SLOGAN_COUNT = 20;
 
@@ -93,16 +90,6 @@ public class BeautyForm
         logger.info("Initializing " + this.adapter.getClass().getSimpleName() + "...Done");
     }
 
-    private IModel<Integer> createIntProperty(final String property)
-    {
-        return new PropertyModel<Integer>(this, property);
-    }
-
-    private IModel<String> createStringProperty(final String property)
-    {
-        return new PropertyModel<String>(this, property);
-    }
-
     @Override
     public void onSubmit()
     {
@@ -112,10 +99,7 @@ public class BeautyForm
             this.initializeAdapter();
         }
 
-        final String[] suggestedWords = this.suggestedWords.split("\\n");
-        final String commaSeparatedSuggestedWords = Joiner.on(",").join(suggestedWords);
-
-        final Map<String, Object> parameters = this.createParameters(commaSeparatedSuggestedWords);
+        final Map<String, Object> parameters = this.createParameters();
 
         final List<Slogan> slogans = new ArrayList<>();
         String statusMessage;
@@ -143,8 +127,11 @@ public class BeautyForm
         return !this.loadAdapterEagerly();
     }
 
-    private Map<String, Object> createParameters(final String commaSeparatedSuggestedWords)
+    private Map<String, Object> createParameters()
     {
+        final String[] suggestedWordsList = this.suggestedWords.split("\\n");
+        final String commaSeparatedSuggestedWords = Joiner.on(",").join(suggestedWordsList);
+
         final Map<String, Object> parameters = new HashMap<>();
         parameters.put(BeautyAdapter.PRODUCT_NAME, this.productName);
         parameters.put(BeautyAdapter.SLOGAN_COUNT, this.sloganCount);

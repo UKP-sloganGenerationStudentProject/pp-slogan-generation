@@ -47,10 +47,12 @@ form h2 {
 	float: left;
 }
 
+#cars-form,
 #beauty-form {
 	width: 800px;
 }
 
+#cars-form .column,
 #beauty-form .column {
 	width: 370px;
 }
@@ -63,7 +65,7 @@ form h2 {
 	width: 330px;
 }
 
-#games-form textarea {
+textarea {
 	resize: none;	
 }
 

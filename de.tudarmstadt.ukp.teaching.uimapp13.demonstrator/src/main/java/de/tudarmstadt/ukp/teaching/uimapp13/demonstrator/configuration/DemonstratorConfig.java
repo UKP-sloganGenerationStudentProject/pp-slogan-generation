@@ -96,6 +96,11 @@ public final class DemonstratorConfig
         return this.getPropertyChecked("web1t.pathname");
     }
 
+    public String getEmotionPath()
+    {
+        return getResourcePath() + "/NRCemotionLexicon.pdf";
+    }
+
     public String getPropertyChecked(final String property)
     {
         final String value = this.properties.getProperty(property);
