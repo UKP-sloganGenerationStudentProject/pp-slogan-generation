@@ -30,7 +30,15 @@ public class Constants {
 	 */
 	public static final class DATABASE {
 
+		/**
+		 * Driver for JDBC connection. e.g. "com.mysql.jdbc.Driver".
+		 * Corresponds to the custom database.
+		 */
 		public static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+		/**
+		 * Database type for JDBC connection. e.g. "mysql".
+		 * Corresponds to the custom database.
+		 */
 		public static final String DB_TYPE = "mysql";
 
 		/**
@@ -40,10 +48,19 @@ public class Constants {
 		 * 
 		 */
 		public static final class UBY {
+			/**
+			 * Url for the uby database. Must be a valid Uby url parameter.
+			 * E.g. "localhost/uby_open_0_3_0"
+			 */
 			public static final String DEFAULT_UBY_URL = "localhost/uby_open_0_3_0";
+			/**
+			 * Password for uby database
+			 */
 			public static final String DEFAULT_UBY_PASS = "root";
+			/**
+			 * Login for uby database
+			 */
 			public static final String DEFAULT_UBY_LOGIN = "root";
-			public static final String DEFAULT_UBY_URL_JDBC = "jdbc:mysql://localhost:3306/uby_open_0_3_0";
 		}
 
 		/**
@@ -54,8 +71,18 @@ public class Constants {
 		 */
 		public static final class CUSTOM_DATABASE {
 
+			/**
+			 * Custom database login
+			 */
 			public static final String DEFAULT_DB_USER = "root";
+			/**
+			 * Custom database password
+			 */
 			public static final String DEFAULT_DB_PASS = "root";
+			/**
+			 * JDBC url for the custom database. Has to be a valid jdbc url.
+			 * E.g. "jdbc:mysql://localhost:3306/uim_projekt"
+			 */
 			public static final String DEFAULT_DB_URL = "jdbc:mysql://localhost:3306/uim_projekt";
 
 		}
