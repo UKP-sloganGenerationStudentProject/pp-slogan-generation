@@ -2,6 +2,7 @@ package de.tobiasloeser.slogangenerator;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -16,7 +17,9 @@ import de.tudarmstadt.ukp.lmf.model.semantics.Synset;
 import de.tudarmstadt.ukp.lmf.transform.DBConfig;
 
 public class SloganGenerator
+    implements Serializable
 {
+    private static final long serialVersionUID = 8708478297667499513L;
 
     private int alliterationChances = 30;
     private int resetchances = 30;

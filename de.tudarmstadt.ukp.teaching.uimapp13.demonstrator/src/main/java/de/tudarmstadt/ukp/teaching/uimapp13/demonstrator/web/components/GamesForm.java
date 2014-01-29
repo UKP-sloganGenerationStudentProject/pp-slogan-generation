@@ -20,9 +20,8 @@ import de.koch.uim_project.util.Config;
 import de.koch.uim_project.util.Emotion;
 import de.koch.uim_project.util.Pattern;
 import de.koch.uim_project.util.StylisticDevice;
+import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.adapters.Adapter;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.adapters.GamesAdapter;
-import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.model.Slogan;
-import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.web.HomePage;
 
 public class GamesForm
     extends DomainSpecificForm
@@ -157,10 +156,8 @@ public class GamesForm
     }
 
     @Override
-    public void onSubmit()
+    protected HashMap<String, Object> createGenerationParameters()
     {
-        final GamesAdapter adapter = new GamesAdapter();
-
         final HashMap<String, Object> parameters = new HashMap<String, Object>();
         parameters.put(GamesAdapter.GAME_NAME, this.gameName);
         parameters.put(GamesAdapter.RANDOM_SEED, this.randomSeed);
@@ -176,19 +173,13 @@ public class GamesForm
         parameters.put(GamesAdapter.MAX_SYNSET_DEPTH, this.maxSynsetDepth);
         parameters.put(GamesAdapter.MIN_WORD_LIST_FOR_GENERATION, this.minWordsForGeneration);
         parameters.put(GamesAdapter.MAX_WORD_LIST_LENGTH, this.maxWordList);
+        return parameters;
+    }
 
-        List<Slogan> slogans;
-        String statusMessage;
-        try {
-            slogans = adapter.generateSlogans(parameters);
-            statusMessage = "";
-        }
-        catch (final Exception e) {
-            e.printStackTrace();
-            statusMessage = e.getMessage();
-            slogans = Arrays.asList();
-        }
-        this.setResponsePage(new HomePage(slogans, statusMessage));
+    @Override
+    protected Adapter createAdapter()
+    {
+        return new GamesAdapter();
     }
 
 }
