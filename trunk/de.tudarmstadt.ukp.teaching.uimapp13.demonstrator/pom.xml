@@ -18,7 +18,7 @@
 		<repository>
 			<id>in-project</id>
 			<name>In Project Repo</name>
-			<url>file://${project.basedir}/libs</url>
+			<url>file://${project.basedir}/libs/</url>
 		</repository>
 		<repository>
 			<id>ukp-oss-snapshots</id>
@@ -48,8 +48,6 @@
 			<groupId>simplenlg</groupId>
 			<artifactId>simplenlg</artifactId>
 			<version>4.4.2</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/libs/simplenlg/simplenlg/4.4.2/simplenlg-4.4.2.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -93,7 +91,6 @@
 			<artifactId>
 					de.tudarmstadt.ukp.dkpro.core.io.text-asl
 				</artifactId>
-			<version>1.5.0</version>
 		</dependency>
 		<dependency>
 			<groupId>de.tudarmstadt.ukp.dkpro.core</groupId>
