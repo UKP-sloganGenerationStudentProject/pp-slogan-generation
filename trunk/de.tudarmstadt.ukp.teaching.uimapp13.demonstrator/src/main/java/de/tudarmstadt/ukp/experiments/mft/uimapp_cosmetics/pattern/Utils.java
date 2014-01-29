@@ -55,9 +55,9 @@ public class Utils
         return list.subList(0, nbrOfIndices);
     }
 
-    public static List<String> getSubList(List<String> list,List<Integer> inds)
+    public static <T> List<T> getSubList(List<T> list,List<Integer> inds)
     {
-        ArrayList<String> subList = new ArrayList<String>();
+        ArrayList<T> subList = new ArrayList<T>();
 
         for(int ind : inds)
         {
@@ -67,7 +67,7 @@ public class Utils
         return subList;
     }
 
-    public static List<String> getSubList(List<String> list,int nbrOfIndices)
+    public static  <T> List<T> getSubList(List<T> list,int nbrOfIndices)
     {
         return getSubList(list, getDistinctRandomIndices(list.size(), nbrOfIndices));
     }

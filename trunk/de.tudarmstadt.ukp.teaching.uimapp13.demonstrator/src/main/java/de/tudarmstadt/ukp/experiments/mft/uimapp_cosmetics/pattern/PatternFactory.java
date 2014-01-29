@@ -2,6 +2,7 @@ package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -118,11 +119,8 @@ public class PatternFactory
 
         System.out.println("\tproductName : " + resources.getProductName());
 
-        System.out.print("\tSelectionned Patterns: ");
-        for (final String pattern : resources.getPatternsToGenerate()) {
-            System.out.print(pattern);
-            System.out.print(" ; ");
-        }
+        System.out.print("\tSelectionned Patterns: "+ resources.getPatternToGenerate());
+        System.out.println();
 
         System.out.println();
 
@@ -145,8 +143,8 @@ public class PatternFactory
 
         for (final Pattern pattern : this._patterns.values()) {
 
-            if (resources.getPatternsToGenerate().size() > 0) {
-                if (!resources.getPatternsToGenerate().contains(pattern.getPatternType())) {
+            if (!resources.getPatternToGenerate().equals("") && !resources.getPatternToGenerate().equals(PatternGenerator.DONT_CARE) ) {
+                if (!resources.getPatternToGenerate().equals(pattern.getPatternType())) {
                     // if the pattern types to generate are precised and if the current pattern
                     // doesn't correspond to one of those types, don't generate the slogans
                     // associated to this pattern
@@ -170,6 +168,7 @@ public class PatternFactory
             filteredPatterns.add(pattern);
         }
 
+        /*
         int slogToGenPerPattern = 1;
         boolean randomize = false;
         List<Integer> randomIndices = null;
@@ -177,28 +176,27 @@ public class PatternFactory
         if (nbrOfSlogans < filteredPatterns.size()) {
             randomize = true;
             slogToGenPerPattern = 1;
-            randomIndices = randomIndices = Utils.getDistinctRandomIndices(this._patterns.size(),
+            randomIndices = randomIndices = Utils.getDistinctRandomIndices(filteredPatterns.size(),
                     nbrOfSlogans);
         }
         else {
             randomize = false;
             slogToGenPerPattern = nbrOfSlogans / filteredPatterns.size() + 1;
         }
+        */
 
-        List<String> output = new ArrayList<String>();
-        int incr = -1;
+        Collections.shuffle(filteredPatterns);
 
-        for (final Pattern pattern : filteredPatterns) {
+        List<String> output = new ArrayList<>();
 
-            if (randomize) {
-                incr = incr + 1;
+        for (final Pattern pattern : filteredPatterns)
+        {
 
-                if (!randomIndices.contains(new Integer(incr))) {
-                    continue;
-                }
+            output.addAll(pattern.generateSlogans(resources, nbrOfSlogans));
+            if(output.size()>nbrOfSlogans*nbrOfSlogans/2+1)
+            {
+                break;
             }
-
-            output.addAll(pattern.generateSlogans(resources, slogToGenPerPattern));
 
         }
 
@@ -218,11 +216,8 @@ public class PatternFactory
 
         System.out.println("\tproductName : " + resources.getProductName());
 
-        System.out.print("\tSelectionned Patterns: ");
-        for (final String pattern : resources.getPatternsToGenerate()) {
-            System.out.print(pattern);
-            System.out.print(" ; ");
-        }
+        System.out.print("\tSelectionned Patterns: "+ resources.getPatternToGenerate());
+        System.out.println();
 
         System.out.println();
 
@@ -240,8 +235,8 @@ public class PatternFactory
                 .println("WARNING : the parameters for the generation are not taken into account yet");
 
         for (final Pattern pattern : this._patterns.values()) {
-            if (resources.getPatternsToGenerate().size() > 0) {
-                if (!resources.getPatternsToGenerate().contains(pattern.getPatternType())) {
+            if (!resources.getPatternToGenerate().equals("") && !resources.getPatternToGenerate().equals(PatternGenerator.DONT_CARE) ) {
+                if (!resources.getPatternToGenerate().equals(pattern.getPatternType())) {
                     // if the pattern types to generate are precised and if the current pattern
                     // doesn't correspond to one of those types, don't generate the slogans
                     // associated to this pattern

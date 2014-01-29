@@ -26,7 +26,7 @@ public class NounChunkOccurrence
 
         for(ChunkPart occPart : _chunkParts)
         {
-            if(occPart.getChunkPartType().equals(ChunkPartType.N) && occPart.getSemanticValue().equals("body") && PatternGenerator.getSelectablePartsOfBody().contains(occPart.getLemma()))
+            if(occPart.getChunkPartType().equals(ChunkPartType.N) && occPart.getSemanticValue().equals("body") && PatternGenerator.getSelectablePartsOfBody().contains(occPart.getLemma()) && PatternGenerator.getSelectablePartsOfBody().contains(occPart.getLemma()))
             {
                 _isBodyPart = true;
                 _bodyPartName = occPart.getLemma();
@@ -47,6 +47,12 @@ public class NounChunkOccurrence
     public String getBodyPartName()
     {
         return _bodyPartName;
+    }
+
+    @Override
+    public String toString()
+    {
+        return super.toString()+" [ isBodyPart : "+_isBodyPart+"; bodyPartName : "+_bodyPartName+"]";
     }
 
 }
