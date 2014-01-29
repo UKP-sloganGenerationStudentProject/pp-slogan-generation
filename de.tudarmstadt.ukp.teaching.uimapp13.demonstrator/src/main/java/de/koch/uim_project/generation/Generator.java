@@ -22,43 +22,64 @@ import de.koch.uim_project.database.UbyConnect;
 import de.tudarmstadt.ukp.lmf.api.Uby;
 
 /**
- * This class is the entry point to the generation package.
- * {@link Generator} manages slogan generation
+ * This class is the entry point to the generation package. {@link Generator}
+ * manages slogan generation
+ * 
  * @author Frerik Koch
- *
+ * 
  */
 public class Generator {
 
 	private Config config;
-	private final Map<AbstractPattern,Double> patternsNormWeights = new HashMap<AbstractPattern,Double>();
+	private final Map<AbstractPattern, Double> patternsNormWeights = new HashMap<AbstractPattern, Double>();
 	private Logger log = Logger.getRootLogger();
 	private static Random rnd;
-	private BaseWordListGen globalWordListGen;
+	private static BaseWordListGen globalWordListGen;
 	private JdbcConnect customDb;
 	private Uby uby;
+	private static Generator instance;
+
+	public static Generator getInstance(Config config) throws DbException {
+		if (instance == null) {
+			instance = new Generator(config);
+			return instance;
+		} else {
+			if (config.equals(instance.config)) {
+				return instance;
+			} else {
+				instance = new Generator(config);
+			}
+		}
+
+		return instance;
+	}
 
 	/**
 	 * Initializes a new {@link Generator} with the given {@link Config}
-	 * @param config Config for the generation of this {@link Generator}
+	 * Reuses an old {@link BaseWordListGen} if possible for performance reasons
+	 * @param config
+	 *            Config for the generation of this {@link Generator}
 	 * @throws DbException
 	 */
-	public Generator(Config config) throws DbException {
-		//Init fields
+	private Generator(Config config) throws DbException {
+		// Init fields
 		this.config = config;
 		this.customDb = new JdbcConnect(config.getCustomDbConfig());
 		this.uby = UbyConnect.getUbyInstance(config.getUbyConfig());
-		
-		//Init random
+
+		// Init random
 		rnd = new Random(config.getRandomSeed());
-		
-		//Init word list generator
-		this.globalWordListGen = new BaseWordListGen(true, config,this);
-		
-		//Normalize pattern weights
-		Map<Pattern,Double> normalizedPatternWeights = normalizeWeights(config.getPatternweights());
+
+		// Init new BaseWordListGen if necessary
+		if (globalWordListGen == null || !globalWordListGen.generatesEqualList(config.getWordListGenConfig())) {
+			globalWordListGen = new BaseWordListGen(config.getWordListGenConfig(), uby, customDb);
+		}
+
+		// Normalize pattern weights
+		Map<Pattern, Double> normalizedPatternWeights = normalizeWeights(config.getPatternweights());
 		for (Pattern pattern : Pattern.values()) {
 			try {
-				patternsNormWeights.put(PatternFactory.getInstance().createPattern(pattern,config,this),normalizedPatternWeights.get(pattern));
+				patternsNormWeights.put(PatternFactory.getInstance().createPattern(pattern, config, this), normalizedPatternWeights.get(pattern));
 			} catch (PatternNotInitializeableException e) {
 				log.error("Pattern not initializable: " + e.getPattern(), e);
 				Main.writeToConsole("Pattern not initializable: " + e.getPattern());
@@ -66,7 +87,7 @@ public class Generator {
 		}
 
 	}
-	
+
 	/**
 	 * Getter for global random generator.
 	 * 
@@ -80,7 +101,9 @@ public class Generator {
 	}
 
 	/**
-	 * Generates one slogan. Pattern and {@link StylisticDevice} are chosen randomly according to given weights
+	 * Generates one slogan. Pattern and {@link StylisticDevice} are chosen
+	 * randomly according to given weights
+	 * 
 	 * @return Generated slogan
 	 * @throws DbException
 	 * @throws SloganNotCreatedException
@@ -93,70 +116,77 @@ public class Generator {
 		patternToGenerate = choosePattern();
 		sdToGenerate = chooseSD(patternToGenerate.getPossibleStylisticDevices());
 		result = patternToGenerate.generateSlogan(sdToGenerate);
-		Main.writeToConsole("Created: " + patternToGenerate + " With: "+sdToGenerate);
+		Main.writeToConsole("Created: " + patternToGenerate + " With: " + sdToGenerate);
 
 		return result;
 	}
 
 	/**
 	 * This method chooses one of the available stylistic devices randomly
-	 * @param possibleStylisticDevices Possible stylistic devices
+	 * 
+	 * @param possibleStylisticDevices
+	 *            Possible stylistic devices
 	 * @return Chosen stylistic device
 	 */
 	private StylisticDevice chooseSD(StylisticDevice[] possibleStylisticDevices) {
 		Double chooseSD = rnd.nextDouble();
-		Map<StylisticDevice,Double> normalizedSD = new HashMap<StylisticDevice,Double>();
-		for(StylisticDevice sd : possibleStylisticDevices){
-			normalizedSD.put( sd, config.getSdweights().get(sd));
+		Map<StylisticDevice, Double> normalizedSD = new HashMap<StylisticDevice, Double>();
+		for (StylisticDevice sd : possibleStylisticDevices) {
+			normalizedSD.put(sd, config.getSdweights().get(sd));
 		}
 		normalizedSD = normalizeWeights(normalizedSD);
 		Double count = 0.0;
-		for(StylisticDevice sdNorm : normalizedSD.keySet()){
+		for (StylisticDevice sdNorm : normalizedSD.keySet()) {
 			count += normalizedSD.get(sdNorm);
-			if(count >= chooseSD){
+			if (count >= chooseSD) {
 				return sdNorm;
 			}
 		}
 		return possibleStylisticDevices[0];
 	}
-	
-	
 
 	/**
 	 * This method chooeses a pattern randomly
+	 * 
 	 * @return Choosen pattern
 	 */
 	private AbstractPattern choosePattern() {
 		Double choosenPattern = rnd.nextDouble();
 		Double count = 0.0;
-		for(AbstractPattern pattern : patternsNormWeights.keySet()){
+		for (AbstractPattern pattern : patternsNormWeights.keySet()) {
 			count += patternsNormWeights.get(pattern);
-			if(count >= choosenPattern){
+			if (count >= choosenPattern) {
 				return pattern;
 			}
 		}
-		return patternsNormWeights.keySet().iterator().next(); //Shouldn't be reached. If so, the first pattern is returned.
+		return patternsNormWeights.keySet().iterator().next(); // Shouldn't be
+																// reached. If
+																// so, the first
+																// pattern is
+																// returned.
 	}
-	
+
 	/**
-	 * This method is used to normalize weights so that the values sum up to 1. 
-	 * It works by multiplying each weight with 1/(sum of all weights).
-	 * This results in the same weight distribution between 0 and 1.
-	 * @param toNormalize Weights to normalize
+	 * This method is used to normalize weights so that the values sum up to 1.
+	 * It works by multiplying each weight with 1/(sum of all weights). This
+	 * results in the same weight distribution between 0 and 1.
+	 * 
+	 * @param toNormalize
+	 *            Weights to normalize
 	 * @return normalized weights
 	 */
-	public static <T> Map<T,Double> normalizeWeights(Map<T,Double> toNormalize){
-		Map<T,Double> result = new HashMap<T,Double>();
+	public static <T> Map<T, Double> normalizeWeights(Map<T, Double> toNormalize) {
+		Map<T, Double> result = new HashMap<T, Double>();
 		Double sum = 0.0;
-		for(T t : toNormalize.keySet()){
+		for (T t : toNormalize.keySet()) {
 			sum += toNormalize.get(t);
 		}
-		for(T t : toNormalize.keySet()){
-			result.put(t, (toNormalize.get(t)*(1/sum)));
+		for (T t : toNormalize.keySet()) {
+			result.put(t, (toNormalize.get(t) * (1 / sum)));
 		}
 		return result;
 	}
-	
+
 	public BaseWordListGen getGlobalWordListGen() {
 		return globalWordListGen;
 	}
@@ -164,24 +194,17 @@ public class Generator {
 	public JdbcConnect getCustomDb() {
 		return customDb;
 	}
-	
+
 	public Uby getUby() {
 		return uby;
 	}
 
 	/**
-	 * Closes the DB connection. Should be called at the end of {@link Generator} usage.
+	 * Closes the DB connection. Should be called at the end of
+	 * {@link Generator} usage.
 	 */
-	public void close(){
+	public void close() {
 		customDb.closeConnection();
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

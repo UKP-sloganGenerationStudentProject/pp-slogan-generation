@@ -249,6 +249,10 @@ public class Config
         result.add("world");
         return result;
     }
+    
+    public WordlistGenConfig getWordListGenConfig(){
+    	return new WordlistGenConfig(featureList, minWordlistForGeneration, maxWordListLength,maxSynsetDepth,gameName);
+    }
 
 	@Override
 	public int hashCode() {
