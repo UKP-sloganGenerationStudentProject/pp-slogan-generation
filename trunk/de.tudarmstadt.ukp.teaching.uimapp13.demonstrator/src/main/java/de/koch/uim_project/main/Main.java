@@ -33,7 +33,7 @@ public class Main {
 		Config config = mainWindow.getConfig();
 		if (ConfigValidator.getInstance().validate(config)) {
 			try {
-				Generator gen = new Generator(config);
+				Generator gen = Generator.getInstance(config);
 				for (int i = 0; i < config.getSloganCount(); i++) {
 					try {
 						String slogan = gen.generateSlogan();

@@ -77,7 +77,7 @@ public class GamesAdapter
 
         final Integer maxWordListLength = (Integer) parameters.get(MAX_WORD_LIST_LENGTH);
 
-        final Generator generator = new Generator(
+        final Generator generator = Generator.getInstance(
                 new Config(gameName, randomSeed, sloganCount, emotion, patternWeights,
                         styleDevWeights, features, alienFeatures, minWordsForGeneration,
                         maxSynsetDepth, maxWordListLength, ubyConfig, customDbConfig));

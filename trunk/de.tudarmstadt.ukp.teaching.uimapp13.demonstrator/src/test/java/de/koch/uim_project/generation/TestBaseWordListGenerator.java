@@ -8,34 +8,39 @@ import java.util.Set;
 import org.junit.Test;
 
 import de.koch.uim_project.database.DbException;
+import de.koch.uim_project.database.JdbcConnect;
+import de.koch.uim_project.database.UbyConnect;
 import de.tudarmstadt.ukp.lmf.model.enums.EPartOfSpeech;
 import de.koch.uim_project.util.Config;
 
 public class TestBaseWordListGenerator {
 
 	@Test
-	public void testWordListGenerator() throws DbException, NoMorGenerationPossibleException {
+	public void testWordListGenerator() throws DbException {
 		Config config = Config.getDefaultConfig();
 
-		Generator gen = new Generator(config);
-		BaseWordListGen wordGen = new BaseWordListGen(true, config, gen);
+		BaseWordListGen wordGen = new BaseWordListGen(config.getWordListGenConfig(), UbyConnect.getUbyInstance(config.getUbyConfig()),
+				new JdbcConnect(config.getCustomDbConfig()));
 
 		int synsetDepth = 0;
 		testWordList(wordGen.getInitialSet());
 		testFeature(wordGen.getInitialSet());
-		
-		while (synsetDepth < config.getMaxSynsetDepth()) {
-			synsetDepth++;
-			testWordList(wordGen.getMore(synsetDepth));
+		try {
+			while (synsetDepth < config.getMaxSynsetDepth()) {
+				synsetDepth++;
+				testWordList(wordGen.getMore(synsetDepth));
 
+			}
+		} catch (NoMorGenerationPossibleException e) {
+			assertTrue(wordGen.getWordCount() > config.getMaxWordListLength());
 		}
 	}
 
 	private void testFeature(Set<Word> initialSet) {
-		for(Word word : initialSet){
+		for (Word word : initialSet) {
 			assertTrue(word.isFeature());
 		}
-		
+
 	}
 
 	private void testWordList(Set<Word> wordList) {
