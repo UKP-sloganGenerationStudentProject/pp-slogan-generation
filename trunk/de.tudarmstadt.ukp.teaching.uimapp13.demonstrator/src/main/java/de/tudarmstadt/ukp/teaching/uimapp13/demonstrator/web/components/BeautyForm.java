@@ -3,7 +3,6 @@ package de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.web.components;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.DropDownChoice;
@@ -71,12 +70,12 @@ public class BeautyForm
     }
 
     @Override
-    protected Map<String, Object> createGenerationParameters()
+    protected HashMap<String, Object> createGenerationParameters()
     {
         final String[] suggestedWordsList = this.suggestedWords.split("\\n");
         final String commaSeparatedSuggestedWords = Joiner.on(",").join(suggestedWordsList);
 
-        final Map<String, Object> parameters = new HashMap<>();
+        final HashMap<String, Object> parameters = new HashMap<>();
         parameters.put(BeautyAdapter.PRODUCT_NAME, this.productName);
         parameters.put(BeautyAdapter.SLOGAN_COUNT, this.sloganCount);
         parameters.put(BeautyAdapter.SUGGESTED_WORDS, commaSeparatedSuggestedWords);

@@ -4,4 +4,5 @@ public interface SessionAttributes
 {
 
     String DOMAIN = "RecentDomain";
+    String CONFIG = "RecentGenerationConfiguration";
 }
