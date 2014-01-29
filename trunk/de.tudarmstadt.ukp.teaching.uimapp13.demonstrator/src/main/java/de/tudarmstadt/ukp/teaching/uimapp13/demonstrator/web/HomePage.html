@@ -30,7 +30,7 @@
 							type="text">
 					</div>
 					<div class="labelContainer">
-						<label for="beauty-productName">Cosmetic product name:</label> <br />
+						<label for="beauty-productName">Product name:</label> <br />
 						<!--  -->
 						<input wicket:id="beauty-productName" name="beauty-productName"
 							type="text">
@@ -59,8 +59,53 @@
 			</form>
 			<form class="domainSpecificForm" wicket:id="cars-form" id="cars-form">
 				<h2>Cars</h2>
-				<label for="cars-numSlogans">Number of slogans:</label> <input
-					name="cars-numSlogans" type="text">
+				<div class="column">
+					<div class="labelContainer">
+						<label for="cars-numSlogans">Number of slogans:</label><br />
+						<!--  -->
+						<input wicket:id="cars-numSlogans" name="beauty-numSlogans"
+							type="text">
+					</div>
+					<!-- TODO: rename labelContainer class -->
+					<div class="labelContainer">
+						<label for="cars-productName">Product name:</label> <br />
+						<!--  -->
+						<input wicket:id="cars-productName" name="cars-productName"
+							type="text">
+					</div>
+					<div class="labelContainer">
+						<label for="cars-goodLuck">Good Luck?</label> <br />
+						<!--  -->
+						<input wicket:id="cars-goodLuck" name="cars-goodLuck"
+							type="checkbox">
+					</div>
+					<div class="labelContainer">
+						<label for="cars-useProductNameCreatively">Use product
+							name creatively?</label> <br />
+						<!--  -->
+						<input wicket:id="cars-useProductNameCreatively"
+							name="cars-useProductNameCreatively" type="checkbox">
+					</div>
+					<div class="labelContainer">
+						<label for="cars-templateChoice">Template:</label><br />
+						<!--  -->
+						<select id="cars-templateChoice" name="cars-templateChoice"
+							wicket:id="cars-templateChoice"></select>
+					</div>
+					<div class="labelContainer">
+						<label for="cars-emotionChoice">Emotion:</label><br />
+						<!--  -->
+						<select id="cars-emotionChoice" name="cars-emotionChoice"
+							wicket:id="cars-emotionChoice"></select>
+					</div>
+				</div>
+				<div class="column">
+					<label for="cars-suggestedWords">Suggested words: (one per
+						line):</label><br />
+					<textarea wicket:id="cars-suggestedWords"
+						name="cars-suggestedWords" rows="20" cols="40"></textarea>
+				</div>
+				<br class="clearfloats" />
 				<button wicket:id="cars-submit">Generate slogans</button>
 			</form>
 			<form class="domainSpecificForm" wicket:id="games-form"
