@@ -54,7 +54,7 @@ public class PatternJJNN extends AbstractPattern {
 	private String generateNoStylisticDevice() throws DbException, SloganNotCreatedException {
 		int synsetDepth = 0;
 		
-		String noun,adj;
+		Word noun,adj;
 		
 		BaseWordListGen wordGen = gen.getGlobalWordListGen();
 		Set<Word> nounsEmo;
@@ -98,18 +98,18 @@ public class PatternJJNN extends AbstractPattern {
 			}
 			
 			//generate from emotion lists
-			noun = RandomUtil.randomWord(gen.getRnd(), nounsEmo, null).getLemma();
-			adj = RandomUtil.randomWord(gen.getRnd(), adjsEmo, null).getLemma();
+			noun = RandomUtil.randomWord(gen.getRnd(), nounsEmo);
+			adj = RandomUtil.findAdjectiveToNoun(gen.getRnd(), gen.getW1tSearcher(), adjsEmo, noun);
 
 		} catch (NoMorGenerationPossibleException e) {
 			
 			//generate from emotion less lists but prefer emotion fitting words
-			noun = RandomUtil.randomWordPreferEmotion(gen.getRnd(), nouns, nounsEmo).getLemma();
-			adj = RandomUtil.randomWordPreferEmotion(gen.getRnd(), adjs, adjsEmo).getLemma();
+			noun = RandomUtil.randomWordPreferEmotion(gen.getRnd(), nouns, nounsEmo);
+			adj = RandomUtil.findAdjectiveToNoun(gen.getRnd(), gen.getW1tSearcher(), adjs,adjsEmo, noun);
 
 		}
 
-		return adj + " " + noun;
+		return adj.getLemma() + " " + noun.getLemma();
 	}
 
 	/* (non-Javadoc)
