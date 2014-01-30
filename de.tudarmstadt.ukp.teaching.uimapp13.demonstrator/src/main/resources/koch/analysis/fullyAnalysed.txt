@@ -1,0 +1,722 @@
+
+
+############## With Chunk Frequenz of 14##############
+
+------------- Slogan: a harrowing tale of hope -------------
+Chunked Sentence: NC_PC_NC_
+Pos Sentence: a_VVG_NN_of_NN_
+------------- ------------- 
+
+------------- Slogan: a stunning open world in your hands. -------------
+Chunked Sentence: NC_PC_NC_
+Pos Sentence: a_JJ_JJ_NN_in_your_NNS_SENT_
+------------- ------------- 
+
+------------- Slogan: all-out war on a living battlefield -------------
+Chunked Sentence: NC_PC_NC_
+Pos Sentence: JJ_NN_on_a_VVG_NN_
+------------- ------------- 
+
+------------- Slogan: bid farewell to your bloodstained past -------------
+Chunked Sentence: NC_PC_NC_
+Pos Sentence: NN_NN_to_your_JJ_NN_
+------------- ------------- 
+
+------------- Slogan: epic battle of strategy and honor -------------
+Chunked Sentence: NC_PC_NC_
+Pos Sentence: NN_NN_of_NN_and_NN_
+------------- ------------- 
+
+------------- Slogan: fight for the lost -------------
+Chunked Sentence: NC_PC_NC_
+Pos Sentence: NN_for_the_VVN_
+------------- ------------- 
+
+------------- Slogan: party with your sims! -------------
+Chunked Sentence: NC_PC_NC_
+Pos Sentence: NN_with_your_NNS_SENT_
+------------- ------------- 
+
+------------- Slogan: the crusade for the crystals -------------
+Chunked Sentence: NC_PC_NC_
+Pos Sentence: the_NN_for_the_NNS_
+------------- ------------- 
+
+------------- Slogan: the fighting game for real fighters -------------
+Chunked Sentence: NC_PC_NC_
+Pos Sentence: the_VVG_NN_for_JJ_NNS_
+------------- ------------- 
+
+------------- Slogan: the final test of the game master -------------
+Chunked Sentence: NC_PC_NC_
+Pos Sentence: the_JJ_NN_of_the_NN_NN_
+------------- ------------- 
+
+------------- Slogan: the journey of a life time -------------
+Chunked Sentence: NC_PC_NC_
+Pos Sentence: the_NN_of_a_NN_NN_
+------------- ------------- 
+
+------------- Slogan: the ultimate online game of survival and domination -------------
+Chunked Sentence: NC_PC_NC_
+Pos Sentence: the_JJ_JJ_NN_of_NN_and_NN_
+------------- ------------- 
+
+------------- Slogan: world domination in a box. -------------
+Chunked Sentence: NC_PC_NC_
+Pos Sentence: NN_NN_in_a_NN_SENT_
+------------- ------------- 
+
+------------- Slogan: your personal universe in a box -------------
+Chunked Sentence: NC_PC_NC_
+Pos Sentence: your_JJ_NN_in_a_NN_
+------------- ------------- 
+
+
+############## With Chunk Frequenz of 13##############
+
+------------- Slogan: be a legend -------------
+Chunked Sentence: VC_NC_
+Pos Sentence: be_a_NN_
+------------- ------------- 
+
+------------- Slogan: be the ultimate modern warfare general -------------
+Chunked Sentence: VC_NC_
+Pos Sentence: be_the_JJ_JJ_NN_NN_
+------------- ------------- 
+
+------------- Slogan: build rome! -------------
+Chunked Sentence: VC_NC_
+Pos Sentence: VV_NN_SENT_
+------------- ------------- 
+
+------------- Slogan: choose your path -------------
+Chunked Sentence: VC_NC_
+Pos Sentence: VV_your_NN_
+------------- ------------- 
+
+------------- Slogan: create the ultimate amusement park -------------
+Chunked Sentence: VC_NC_
+Pos Sentence: VV_the_JJ_NN_NN_
+------------- ------------- 
+
+------------- Slogan: defy empires -------------
+Chunked Sentence: VC_NC_
+Pos Sentence: VV_NNS_
+------------- ------------- 
+
+------------- Slogan: discover the universe -------------
+Chunked Sentence: VC_NC_
+Pos Sentence: VV_the_NN_
+------------- ------------- 
+
+------------- Slogan: expand your civilization -------------
+Chunked Sentence: VC_NC_
+Pos Sentence: VV_your_NN_
+------------- ------------- 
+
+------------- Slogan: feel the battle! -------------
+Chunked Sentence: VC_NC_
+Pos Sentence: VV_the_NN_SENT_
+------------- ------------- 
+
+------------- Slogan: join our horde -------------
+Chunked Sentence: VC_NC_
+Pos Sentence: VV_our_NN_
+------------- ------------- 
+
+------------- Slogan: live the legend -------------
+Chunked Sentence: VC_NC_
+Pos Sentence: VV_the_NN_
+------------- ------------- 
+
+------------- Slogan: take your sims downtown! -------------
+Chunked Sentence: VC_NC_
+Pos Sentence: VV_your_NN_NN_SENT_
+------------- ------------- 
+
+------------- Slogan: unleash your creativity -------------
+Chunked Sentence: VC_NC_
+Pos Sentence: VV_your_NN_
+------------- ------------- 
+
+
+############## With Chunk Frequenz of 12##############
+
+------------- Slogan: all hail caesar! -------------
+Chunked Sentence: NC_
+Pos Sentence: all_NN_NN_SENT_
+------------- ------------- 
+
+------------- Slogan: and the heavens shell tremble -------------
+Chunked Sentence: NC_
+Pos Sentence: and_the_NNS_NN_NN_
+------------- ------------- 
+
+------------- Slogan: brave new world! -------------
+Chunked Sentence: NC_
+Pos Sentence: JJ_JJ_NN_SENT_
+------------- ------------- 
+
+------------- Slogan: death lives -------------
+Chunked Sentence: NC_
+Pos Sentence: NN_NNS_
+------------- ------------- 
+
+------------- Slogan: tactical espionage action -------------
+Chunked Sentence: NC_
+Pos Sentence: JJ_NN_NN_
+------------- ------------- 
+
+------------- Slogan: the american nightmare -------------
+Chunked Sentence: NC_
+Pos Sentence: the_JJ_NN_
+------------- ------------- 
+
+------------- Slogan: the dark fantasy epic -------------
+Chunked Sentence: NC_
+Pos Sentence: the_JJ_NN_NN_
+------------- ------------- 
+
+------------- Slogan: the next generation people simulator -------------
+Chunked Sentence: NC_
+Pos Sentence: the_next_NN_NNS_NN_
+------------- ------------- 
+
+------------- Slogan: the nightmare returns -------------
+Chunked Sentence: NC_
+Pos Sentence: the_NN_NNS_
+------------- ------------- 
+
+------------- Slogan: the ultimate power trip -------------
+Chunked Sentence: NC_
+Pos Sentence: the_JJ_NN_NN_
+------------- ------------- 
+
+------------- Slogan: the wind crystal shatters... -------------
+Chunked Sentence: NC_
+Pos Sentence: the_NN_NN_NNS_:_
+------------- ------------- 
+
+------------- Slogan: whats youre game? -------------
+Chunked Sentence: NC_
+Pos Sentence: NNS_NN_NN_SENT_
+------------- ------------- 
+
+
+############## With Chunk Frequenz of 7##############
+
+------------- Slogan: a new age has begun -------------
+Chunked Sentence: NC_VC_
+Pos Sentence: a_JJ_NN_has_VVN_
+------------- ------------- 
+
+------------- Slogan: a world awaits -------------
+Chunked Sentence: NC_VC_
+Pos Sentence: a_NN_VVZ_
+------------- ------------- 
+
+------------- Slogan: a world divided -------------
+Chunked Sentence: NC_VC_
+Pos Sentence: a_NN_VVN_
+------------- ------------- 
+
+------------- Slogan: an ancient war rekindled. -------------
+Chunked Sentence: NC_VC_
+Pos Sentence: an_JJ_NN_VVD_SENT_
+------------- ------------- 
+
+------------- Slogan: evil has survived... -------------
+Chunked Sentence: NC_VC_
+Pos Sentence: NN_has_VVN_:_
+------------- ------------- 
+
+------------- Slogan: stealth action redefined -------------
+Chunked Sentence: NC_VC_
+Pos Sentence: NN_NN_VVN_
+------------- ------------- 
+
+------------- Slogan: trade fight build think -------------
+Chunked Sentence: NC_VC_
+Pos Sentence: NN_NN_VVP_VV_
+------------- ------------- 
+
+
+############## With Chunk Frequenz of 5##############
+
+------------- Slogan: a continent torn asunder -------------
+Chunked Sentence: NC_VC_ADVC_
+Pos Sentence: a_NN_VVN_RB_
+------------- ------------- 
+
+------------- Slogan: conquoror take's all -------------
+Chunked Sentence: NC_VC_ADVC_
+Pos Sentence: NN_NN_VBZ_all_
+------------- ------------- 
+
+------------- Slogan: rally is back -------------
+Chunked Sentence: NC_VC_ADVC_
+Pos Sentence: NN_is_back_
+------------- ------------- 
+
+------------- Slogan: the best just got better! -------------
+Chunked Sentence: NC_VC_ADVC_
+Pos Sentence: the_RBS_RB_got_RBR_SENT_
+------------- ------------- 
+
+------------- Slogan: the crystal comes back -------------
+Chunked Sentence: NC_VC_ADVC_
+Pos Sentence: the_NN_VVZ_back_
+------------- ------------- 
+
+------------- Slogan: beware your sims have magic -------------
+Chunked Sentence: VC_NC_VC_NC_
+Pos Sentence: VV_your_NNS_have_JJ_
+------------- ------------- 
+
+------------- Slogan: build a city, build an empire! -------------
+Chunked Sentence: VC_NC_VC_NC_
+Pos Sentence: VV_a_NN_,_VV_an_NN_SENT_
+------------- ------------- 
+
+------------- Slogan: choose your army, conquer the world -------------
+Chunked Sentence: VC_NC_VC_NC_
+Pos Sentence: VV_your_NN_,_VV_the_NN_
+------------- ------------- 
+
+------------- Slogan: feel the power. experience the magic. -------------
+Chunked Sentence: VC_NC_VC_NC_
+Pos Sentence: VV_the_NN_SENT_VV_the_NN_SENT_
+------------- ------------- 
+
+------------- Slogan: master the shadows and command the darkniss -------------
+Chunked Sentence: VC_NC_VC_NC_
+Pos Sentence: VV_the_NNS_and_VV_the_NN_
+------------- ------------- 
+
+------------- Slogan: become a creature of everquest legend! -------------
+Chunked Sentence: VC_NC_PC_NC_
+Pos Sentence: VV_a_NN_of_JJ_NN_SENT_
+------------- ------------- 
+
+------------- Slogan: build the theme park of your dreams -------------
+Chunked Sentence: VC_NC_PC_NC_
+Pos Sentence: VV_the_NN_NN_of_your_NNS_
+------------- ------------- 
+
+------------- Slogan: conquer the worlds of might and magic -------------
+Chunked Sentence: VC_NC_PC_NC_
+Pos Sentence: VV_the_NNS_of_might_and_NN_
+------------- ------------- 
+
+------------- Slogan: enter a world of samurai and ninja -------------
+Chunked Sentence: VC_NC_PC_NC_
+Pos Sentence: VV_a_NN_of_NN_and_NN_
+------------- ------------- 
+
+------------- Slogan: master the art of war -------------
+Chunked Sentence: VC_NC_PC_NC_
+Pos Sentence: VV_the_NN_of_NN_
+------------- ------------- 
+
+
+############## With Chunk Frequenz of 4##############
+
+------------- Slogan: classic metal. new gear! -------------
+Chunked Sentence: NC_NC_
+Pos Sentence: JJ_NN_SENT_JJ_NN_SENT_
+------------- ------------- 
+
+------------- Slogan: new universe. new rules. -------------
+Chunked Sentence: NC_NC_
+Pos Sentence: JJ_NN_SENT_JJ_NNS_SENT_
+------------- ------------- 
+
+------------- Slogan: real-time strategy. unraveld scale. -------------
+Chunked Sentence: NC_NC_
+Pos Sentence: JJ_NN_SENT_JJ_NN_SENT_
+------------- ------------- 
+
+------------- Slogan: two assassins. one destiny. -------------
+Chunked Sentence: NC_NC_
+Pos Sentence: two_NNS_SENT_one_NN_SENT_
+------------- ------------- 
+
+
+############## With Chunk Frequenz of 3##############
+
+------------- Slogan: best strategy game yet -------------
+Chunked Sentence: NC_ADVC_
+Pos Sentence: JJS_NN_NN_yet_
+------------- ------------- 
+
+------------- Slogan: byte back -------------
+Chunked Sentence: NC_ADVC_
+Pos Sentence: NN_back_
+------------- ------------- 
+
+------------- Slogan: movin out -------------
+Chunked Sentence: NC_ADVC_
+Pos Sentence: NN_out_
+------------- ------------- 
+
+------------- Slogan: welcome to aperture laboratories -------------
+Chunked Sentence: ADJC_PC_NC_
+Pos Sentence: JJ_to_NN_NNS_
+------------- ------------- 
+
+------------- Slogan: welcome to eorzea -------------
+Chunked Sentence: ADJC_PC_NC_
+Pos Sentence: JJ_to_NN_
+------------- ------------- 
+
+------------- Slogan: welcome to the jungle -------------
+Chunked Sentence: ADJC_PC_NC_
+Pos Sentence: JJ_to_the_NN_
+------------- ------------- 
+
+
+############## With Chunk Frequenz of 2##############
+
+------------- Slogan: conquer new frontiers online! -------------
+Chunked Sentence: VC_NC_ADJC_
+Pos Sentence: VV_JJ_NNS_JJ_SENT_
+------------- ------------- 
+
+------------- Slogan: take your adventure online! -------------
+Chunked Sentence: VC_NC_ADJC_
+Pos Sentence: VV_your_NN_JJ_SENT_
+------------- ------------- 
+
+------------- Slogan: this one is totally infectious -------------
+Chunked Sentence: NC_VC_ADJC_
+Pos Sentence: this_one_is_RB_JJ_
+------------- ------------- 
+
+------------- Slogan: your sims are famous -------------
+Chunked Sentence: NC_VC_ADJC_
+Pos Sentence: your_NNS_are_JJ_
+------------- ------------- 
+
+------------- Slogan: come play, my lord -------------
+Chunked Sentence: VC_NC_NC_
+Pos Sentence: VVN_NN_,_my_NN_
+------------- ------------- 
+
+------------- Slogan: give your sims the wild life -------------
+Chunked Sentence: VC_NC_NC_
+Pos Sentence: VV_your_NN_the_JJ_NN_
+------------- ------------- 
+
+------------- Slogan: the greatest civilization awaits your command! -------------
+Chunked Sentence: NC_VC_NC_
+Pos Sentence: the_JJS_NN_VVZ_your_NN_SENT_
+------------- ------------- 
+
+------------- Slogan: the sims have pets -------------
+Chunked Sentence: NC_VC_NC_
+Pos Sentence: the_NNS_have_NNS_
+------------- ------------- 
+
+------------- Slogan: hail governor. your city awaits. -------------
+Chunked Sentence: NC_NC_VC_
+Pos Sentence: NN_NN_SENT_your_NN_VVZ_SENT_
+------------- ------------- 
+
+------------- Slogan: so real it hurts -------------
+Chunked Sentence: NC_NC_VC_
+Pos Sentence: so_JJ_it_VVZ_
+------------- ------------- 
+
+------------- Slogan: the sims are on vacation -------------
+Chunked Sentence: NC_VC_PC_NC_
+Pos Sentence: the_NNS_are_on_NN_
+------------- ------------- 
+
+------------- Slogan: the truth is written in blood -------------
+Chunked Sentence: NC_VC_PC_NC_
+Pos Sentence: the_NN_is_VVN_in_NN_
+------------- ------------- 
+
+------------- Slogan: a people to manage, an empire to build. -------------
+Chunked Sentence: NC_VC_NC_VC_
+Pos Sentence: a_NNS_to_VV_,_an_NN_to_VV_SENT_
+------------- ------------- 
+
+------------- Slogan: the entire x3 universe is yours to discover -------------
+Chunked Sentence: NC_VC_NC_VC_
+Pos Sentence: the_JJ_NN_NN_is_yours_to_VV_
+------------- ------------- 
+
+------------- Slogan: the battle for the future has begun -------------
+Chunked Sentence: NC_PC_NC_VC_
+Pos Sentence: the_NN_for_the_NN_has_VVN_
+------------- ------------- 
+
+------------- Slogan: the return of command & conquer -------------
+Chunked Sentence: NC_PC_NC_VC_
+Pos Sentence: the_NN_of_NN_CC_VV_
+------------- ------------- 
+
+------------- Slogan: the maginificence of vana'diel awats. -------------
+Chunked Sentence: NC_PC_NC_NC_
+Pos Sentence: the_NN_of_NN_POS_NN_NNS_SENT_
+------------- ------------- 
+
+------------- Slogan: two ways to rune your day -------------
+Chunked Sentence: NC_PC_NC_NC_
+Pos Sentence: two_NNS_to_NN_your_NN_
+------------- ------------- 
+
+------------- Slogan: rise from warrior to legend -------------
+Chunked Sentence: NC_PC_NC_PC_NC_
+Pos Sentence: NN_from_NN_to_NN_
+------------- ------------- 
+
+------------- Slogan: the basic elements of adventure in their most advanced form -------------
+Chunked Sentence: NC_PC_NC_PC_NC_
+Pos Sentence: the_JJ_NNS_of_NN_in_their_most_JJ_NN_
+------------- ------------- 
+
+------------- Slogan: this is the tip of americas military spear -------------
+Chunked Sentence: NC_VC_NC_PC_NC_
+Pos Sentence: this_is_the_NN_of_NNS_JJ_NN_
+------------- ------------- 
+
+------------- Slogan: truth is the first casuality of war -------------
+Chunked Sentence: NC_VC_NC_PC_NC_
+Pos Sentence: NN_is_the_first_NN_of_NN_
+------------- ------------- 
+
+------------- Slogan: an age of wonder. an age of chaos. -------------
+Chunked Sentence: NC_PC_NC_NC_PC_NC_
+Pos Sentence: an_NN_of_NN_SENT_an_NN_of_NN_SENT_
+------------- ------------- 
+
+------------- Slogan: new depth of strategy new hights of glory -------------
+Chunked Sentence: NC_PC_NC_NC_PC_NC_
+Pos Sentence: JJ_NN_of_NN_JJ_NNS_of_NN_
+------------- ------------- 
+
+
+############## With Chunk Frequenz of 1##############
+
+------------- Slogan: for your freedom -------------
+Chunked Sentence: PC_NC_
+Pos Sentence: for_your_NN_
+------------- ------------- 
+
+------------- Slogan: only the ruthless survive -------------
+Chunked Sentence: ADVC_NC_VC_
+Pos Sentence: only_the_JJ_VV_
+------------- ------------- 
+
+------------- Slogan: baseball so real, its unreal -------------
+Chunked Sentence: NC_ADJC_NC_
+Pos Sentence: NN_so_JJ_,_its_JJ_
+------------- ------------- 
+
+------------- Slogan: up close and personal -------------
+Chunked Sentence: ADVC_ADJC_NC_
+Pos Sentence: up_JJ_and_JJ_
+------------- ------------- 
+
+------------- Slogan: let the trials begin! -------------
+Chunked Sentence: VC_NC_VC_
+Pos Sentence: VV_the_NNS_VVP_SENT_
+------------- ------------- 
+
+------------- Slogan: veni, vidi, vici  -------------
+Chunked Sentence: NC_NC_NC_
+Pos Sentence: NP_,_NP_,_NP_
+------------- ------------- 
+
+------------- Slogan: play civ like never before! -------------
+Chunked Sentence: NC_PC_ADVC_ADVC_
+Pos Sentence: NN_NN_IN_never_before_SENT_
+------------- ------------- 
+
+------------- Slogan: build. discover. dominate. inspire. -------------
+Chunked Sentence: VC_VC_VC_VC_
+Pos Sentence: VV_SENT_VV_SENT_VV_SENT_VV_SENT_
+------------- ------------- 
+
+------------- Slogan: undercover the rules are different -------------
+Chunked Sentence: NC_NC_VC_ADJC_
+Pos Sentence: JJ_the_NNS_are_JJ_
+------------- ------------- 
+
+------------- Slogan: don't believe what you see -------------
+Chunked Sentence: VC_NC_NC_VC_
+Pos Sentence: do_RB_VV_what_you_VVP_
+------------- ------------- 
+
+------------- Slogan: the island faranga needs a new hero, you! -------------
+Chunked Sentence: NC_VC_NC_NC_
+Pos Sentence: the_NN_NN_VVZ_a_JJ_NN_,_you_SENT_
+------------- ------------- 
+
+------------- Slogan: the quest for true heroes rages on... -------------
+Chunked Sentence: NC_PC_NC_PC_
+Pos Sentence: the_NN_for_JJ_NNS_NNS_on_:_
+------------- ------------- 
+
+------------- Slogan: this time your choices effect everyone around you -------------
+Chunked Sentence: NC_NC_PC_NC_
+Pos Sentence: this_NN_your_NNS_NN_everyone_around_you_
+------------- ------------- 
+
+------------- Slogan: hell it's about time -------------
+Chunked Sentence: INTJ_NC_VC_NC_
+Pos Sentence: UH_it_VBZ_about_NN_
+------------- ------------- 
+
+------------- Slogan: run. think. shoot. live. -------------
+Chunked Sentence: NC_VC_NC_ADJC_
+Pos Sentence: NN_SENT_VVP_SENT_NN_SENT_JJ_SENT_
+------------- ------------- 
+
+------------- Slogan: question everything you believe in. -------------
+Chunked Sentence: NC_NC_NC_VC_PC_
+Pos Sentence: NN_everything_you_VVP_in_SENT_
+------------- ------------- 
+
+------------- Slogan: a new game, a new focus ,  a new way of live -------------
+Chunked Sentence: NC_NC_NC_PC_NC_
+Pos Sentence: a_JJ_NN_,_a_JJ_NN_,_a_JJ_NN_of_JJ_
+------------- ------------- 
+
+------------- Slogan: out of the lab, onto the battlefield -------------
+Chunked Sentence: ADVC_PC_NC_PC_NC_
+Pos Sentence: out_of_the_NN_,_IN_the_NN_
+------------- ------------- 
+
+------------- Slogan: the war is far from over -------------
+Chunked Sentence: NC_VC_ADJC_PC_NC_
+Pos Sentence: the_NN_is_far_from_over_
+------------- ------------- 
+
+------------- Slogan: a modern god game where nature is the star  -------------
+Chunked Sentence: NC_ADVC_NC_VC_NC_
+Pos Sentence: a_JJ_NN_NN_where_NN_is_the_NN_
+------------- ------------- 
+
+------------- Slogan: discover the secret that will unravel an empire -------------
+Chunked Sentence: VC_NC_NC_VC_NC_
+Pos Sentence: VV_the_NN_that_will_VV_an_NN_
+------------- ------------- 
+
+------------- Slogan: war like you've never experienced before -------------
+Chunked Sentence: NC_PC_NC_VC_ADVC_
+Pos Sentence: NN_IN_you_VHP_never_VVN_before_
+------------- ------------- 
+
+------------- Slogan: your game boy is about to become a man -------------
+Chunked Sentence: NC_VC_NC_VC_NC_
+Pos Sentence: your_NN_NN_is_about_to_VV_a_NN_
+------------- ------------- 
+
+------------- Slogan: level up for the epic conclusion of the tiberium saga -------------
+Chunked Sentence: NC_ADVC_PC_NC_PC_NC_
+Pos Sentence: NN_up_for_the_NN_NN_of_the_NN_NN_
+------------- ------------- 
+
+------------- Slogan: find out who your creature really is -------------
+Chunked Sentence: VC_PRT_NC_NC_ADVC_VC_
+Pos Sentence: VV_out_who_your_NN_RB_is_
+------------- ------------- 
+
+------------- Slogan: a new world to explore, deadly enemies to fight, a kingdom to rebuild -------------
+Chunked Sentence: NC_VC_NC_VC_NC_VC_
+Pos Sentence: a_JJ_NN_to_VV_,_JJ_NNS_to_VV_,_a_NN_to_VV_
+------------- ------------- 
+
+------------- Slogan: how far will you go for rome? -------------
+Chunked Sentence: ADVC_VC_NC_VC_PC_NC_
+Pos Sentence: how_far_will_you_VV_for_NN_SENT_
+------------- ------------- 
+
+------------- Slogan: do you have the courage to face your destiny? -------------
+Chunked Sentence: VC_NC_VC_NC_VC_NC_
+Pos Sentence: do_you_have_the_NN_to_VV_your_NN_SENT_
+------------- ------------- 
+
+------------- Slogan: build an empire to stand the test of time  -------------
+Chunked Sentence: VC_NC_VC_NC_PC_NC_
+Pos Sentence: VV_an_NN_to_VV_the_NN_of_NN_
+------------- ------------- 
+
+------------- Slogan: the television skill game that fits the mood of any scene -------------
+Chunked Sentence: NC_NC_VC_NC_PC_NC_
+Pos Sentence: the_NN_NN_NN_that_VVZ_the_NN_of_any_NN_
+------------- ------------- 
+
+------------- Slogan: become a jedi master without ever leaving home -------------
+Chunked Sentence: VC_NC_PC_NC_VC_NC_
+Pos Sentence: VV_a_NN_NN_without_ever_VVG_NN_
+------------- ------------- 
+
+------------- Slogan: only a select few may be able to save it" -------------
+Chunked Sentence: ADVC_NC_VC_ADJC_VC_NC_
+Pos Sentence: only_a_JJ_few_may_be_JJ_to_VV_it_''_
+------------- ------------- 
+
+------------- Slogan: the fate of the world is in your hands! -------------
+Chunked Sentence: NC_PC_NC_VC_PC_NC_
+Pos Sentence: the_NN_of_the_NN_is_in_your_NNS_SENT_
+------------- ------------- 
+
+------------- Slogan: before he was a god, he was a man -------------
+Chunked Sentence: SBAR_NC_VC_NC_NC_VC_NC_
+Pos Sentence: before_he_was_a_NN_,_he_was_a_NN_
+------------- ------------- 
+
+------------- Slogan: already fighting your way across the frontlines of war? -------------
+Chunked Sentence: ADVC_VC_NC_PC_NC_PC_NC_
+Pos Sentence: already_VVG_your_NN_IN_the_NNS_of_NN_SENT_
+------------- ------------- 
+
+------------- Slogan: to determine the fate of an empire you must conquer the new world -------------
+Chunked Sentence: VC_NC_PC_NC_NC_VC_NC_
+Pos Sentence: to_VV_the_NN_of_an_NN_you_must_VV_the_JJ_NN_
+------------- ------------- 
+
+------------- Slogan: rome has fallen and the world is up for grabs -------------
+Chunked Sentence: NC_VC_NC_VC_ADVC_PC_NC_
+Pos Sentence: NN_has_VVN_and_the_NN_is_up_for_NNS_
+------------- ------------- 
+
+------------- Slogan: so begins your journey to save the darkside of xeen. -------------
+Chunked Sentence: ADVC_VC_NC_VC_NC_PC_NC_
+Pos Sentence: so_VVZ_your_NN_to_VV_the_NN_of_NN_SENT_
+------------- ------------- 
+
+------------- Slogan: cut, cut at will, cut what you will -------------
+Chunked Sentence: NC_VC_PC_NC_VC_NC_NC_VC_
+Pos Sentence: NN_,_VVN_at_will_,_VV_what_you_will_
+------------- ------------- 
+
+------------- Slogan: magitek has been reborn. and the end of the world is near. -------------
+Chunked Sentence: NC_VC_ADJC_NC_PC_NC_VC_ADJC_
+Pos Sentence: NP_has_been_JJ_SENT_and_the_NN_of_the_NN_is_near_SENT_
+------------- ------------- 
+
+------------- Slogan: brings you closer than ever to the fury of combat -------------
+Chunked Sentence: VC_NC_ADVC_SBAR_ADVC_PC_NC_PC_NC_
+Pos Sentence: VVZ_you_RBR_than_ever_to_the_NN_of_NN_
+------------- ------------- 
+
+------------- Slogan: it's not about the destination, it's about the journey -------------
+Chunked Sentence: NC_VC_ADVC_PC_NC_NC_VC_NC_NC_
+Pos Sentence: it_VBZ_not_about_the_NN_,_it_VBZ_about_the_NN_
+------------- ------------- 
+
+------------- Slogan: embark if you dare on a quest to destroy the lord of all evil... -------------
+Chunked Sentence: VC_SBAR_NC_VC_PC_NC_VC_NC_PC_NC_
+Pos Sentence: VV_if_you_VVP_on_a_NN_to_VV_the_NN_of_all_NN_:_
+------------- ------------- 
+
+------------- Slogan: pick up your sword, gather your army and get ready for battle in this all new heroes adventure! -------------
+Chunked Sentence: VC_PRT_NC_VC_NC_VC_ADJC_PC_NC_PC_NC_
+Pos Sentence: VV_up_your_NN_,_VV_your_NN_and_get_JJ_for_NN_in_this_all_JJ_NNS_NN_SENT_
+------------- ------------- 

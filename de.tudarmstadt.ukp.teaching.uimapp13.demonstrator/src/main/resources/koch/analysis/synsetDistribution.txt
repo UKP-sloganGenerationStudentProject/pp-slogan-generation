@@ -1,0 +1,725 @@
+WN_Synset_50822 Definition: everything that exists anywhere	16
+WN_Synset_13113 Definition: all of the living human inhabitants of the earth	14
+WN_Synset_49805 Definition: the 3rd planet from the sun	12
+WN_Synset_50902 Definition: a part of the earth that can be considered separately	12
+WN_Synset_43635 Definition: people in general	12
+OW_eng_Synset_6983 Definition: The Earth with all its inhabitants and all things upon it.	12
+WN_Synset_44580 Definition: people in general considered as a whole	12
+WN_Synset_31866 Definition: all of your experiences that determine how things appear to you	12
+WN_Synset_31173 Definition: the concerns of this life as distinguished from heaven and the afterlife	12
+WN_Synset_81874 Definition: (tennis) a division of play during which one player serves	9
+WN_Synset_2531 Definition: frivolous or trifling behavior	9
+OW_eng_Synset_13130 Definition: null	9
+WN_Synset_41556 Definition: the flesh of wild animals that is used for food	9
+WN_Synset_2265 Definition: a contest with rules to determine a winner	9
+WN_Synset_2266 Definition: a single play of a sport or other contest	9
+WN_Synset_2915 Definition: your occupation or line of work	9
+WN_Synset_32340 Definition: a secret scheme to do something (especially something underhand or illegal)	9
+WN_Synset_72601 Definition: (games) the score at a particular point or the score needed to win	9
+WN_Synset_11237 Definition: animal hunted for food or sport	9
+WN_Synset_2116 Definition: an amusement or pastime	9
+WN_Synset_18612 Definition: the game equipment needed in order to play a particular game	9
+WN_Synset_4952 Definition: the waging of armed conflict against an enemy	8
+WN_Synset_6327 Definition: an active struggle between competing entities	8
+OW_eng_Synset_43386 Definition: ISO 639-6 entity	7
+OW_eng_Synset_6191 Definition: A conflict or a state of hostility between two or more parties, nations or states, in which armed forces or military operations are used.
+(Source: RHW)	7
+WN_Synset_74864 Definition: a legal state created by a declaration of war and ended by official declaration during which the international rules of war apply	7
+WN_Synset_4068 Definition: a concerted campaign to end something that is injurious	7
+WN_Synset_4871 Definition: a hostile meeting of opposing military forces in the course of a war	6
+WN_Synset_56259 Definition: a person who has general authority over others	5
+WN_Synset_46406 Definition: the domain ruled by an emperor or empress	5
+WN_Synset_42172 Definition: an eating apple that somewhat resembles a McIntosh	5
+WN_Synset_45729 Definition: a monarchy with an emperor as head of state	5
+WN_Synset_43979 Definition: a group of countries under a single authority	5
+WN_Synset_44012 Definition: a group of diverse companies under common ownership and run as a single organization	5
+WN_Synset_37 Definition: the continuum of experience in which events pass from the future through the present to the past	4
+OW_eng_Synset_5704 Definition: 1) The dimension of the physical universe which, at a given place, orders the sequence of events. 
+2) A designated instant in this sequence, as the time of day. Also known as epoch.
+(Source: MGH)	4
+WN_Synset_81191 Definition: the fourth coordinate that is required (along with three spatial dimensions) to specify a physical event	4
+WN_Synset_77518 Definition: your overall circumstances or condition in life (including everything that happens to you)	4
+WN_Synset_31891 Definition: everything stated or assumed in a given discussion	4
+OW_eng_Synset_23204 Definition: The science and art of military command as applied to the overall planning and conduct of warfare.	4
+OW_eng_Synset_23206 Definition: A plan of action intended to accomplish a specific goal.	4
+WN_Synset_81816 Definition: a suitable moment	4
+WN_Synset_32902 Definition: (statistics) the entire aggregation of items from which samples can be drawn	4
+WN_Synset_81159 Definition: a reading of a point in time as given by a clock	4
+WN_Synset_81122 Definition: an indefinite period (usually marked by specific attributes or activities)	4
+OW_eng_Synset_19261 Definition: instance of combat in warfare between two or more parties wherein each group will seek to defeat the others	4
+WN_Synset_51023 Definition: the ultimate agency regarded as predetermining the course of events (often personified as a woman)	4
+OW_eng_Synset_8461 Definition: The period of time a prisoner is imprisoned	4
+OW_eng_Synset_8251 Definition: The grammatical construct of the time in which a sentence acts.	4
+WN_Synset_39667 Definition: an event (or a course of events) that will inevitably happen in the future	4
+WN_Synset_4883 Definition: an open clash between two opposing groups (or individuals)	4
+OW_eng_Synset_28601 Definition: A part on a map or model listing and explaining the individual symbols used.	4
+WN_Synset_81948 Definition: a period of time considered as a resource under your control and sufficient to accomplish something	4
+WN_Synset_33803 Definition: the branch of military science dealing with military command and the planning and conduct of a war	4
+WN_Synset_4009 Definition: an energetic attempt to achieve something	4
+WN_Synset_39445 Definition: a person's experience on a particular occasion	4
+WN_Synset_32329 Definition: an elaborate and systematic plan of action	4
+WN_Synset_81694 Definition: the period of time a prisoner is imprisoned	4
+WN_Synset_34415 Definition: a story about mythical or supernatural beings or events	4
+WN_Synset_34289 Definition: brief description accompanying an illustration	4
+WN_Synset_39560 Definition: an instance or single occasion for some event	4
+WN_Synset_27689 Definition: rhythm as given by division into parts of equal duration	4
+OW_eng_Synset_12935 Definition: A table on a map, chart, or the like, listing and explaining the symbols used.	4
+WN_Synset_58385 Definition: a combatant who is able to defeat rivals	3
+WN_Synset_20511 Definition: an original creation (i.e., an audio recording) from which copies can be made	3
+WN_Synset_81863 Definition: an era of history having some distinctive feature	3
+WN_Synset_81307 Definition: a late time of life	3
+OW_eng_Synset_10388 Definition: The capital of Italy, Europe.	3
+WN_Synset_47582 Definition: capital and largest city of Italy	3
+WN_Synset_5993 Definition: the act of fighting	3
+WN_Synset_2044 Definition: a course of conduct	3
+OW_eng_Synset_24769 Definition: A province in the Lazio region of Italy.	3
+WN_Synset_55706 Definition: an officer who is licensed to command a merchant ship	3
+WN_Synset_55705 Definition: someone who holds a master's degree from academic institution	3
+WN_Synset_55704 Definition: directs the work of others	3
+WN_Synset_55703 Definition: an authority qualified to teach apprentices	3
+WN_Synset_55594 Definition: an artist of consummate skill	3
+WN_Synset_1469 Definition: the act of traveling from one place to another	3
+WN_Synset_34459 Definition: a long narrative poem telling of a hero's deeds	3
+WN_Synset_4044 Definition: a wild and exciting undertaking (not necessarily lawful)	3
+WN_Synset_27891 Definition: physical strength	3
+WN_Synset_81246 Definition: a time of life (usually defined in years) at which some particular qualification or power arises	3
+WN_Synset_81801 Definition: a prolonged period of time	3
+WN_Synset_21492 Definition: key that secures entrance everywhere	3
+WN_Synset_27314 Definition: how long something has existed	3
+WN_Synset_3996 Definition: an attempt to get something	3
+OW_eng_Synset_16980 Definition: An exciting or very unusual experience.	3
+OW_eng_Synset_122 Definition: The period of time that a person, animal or plant has lived or is expected to live.
+(Source: CED)	3
+WN_Synset_54893 Definition: presiding officer of a school	3
+WN_Synset_44153 Definition: the leadership of the Roman Catholic Church	3
+OW_eng_Synset_25666 Definition: The act of traveling from one place to another.	3
+WN_Synset_38777 Definition: an authoritative direction or instruction to do something	3
+WN_Synset_81876 Definition: (in games or plays or other performances) the time during which play proceeds	2
+WN_Synset_45672 Definition: the army of the United States of America	2
+WN_Synset_26303 Definition: availability for use	2
+WN_Synset_14278 Definition: the operating part that transmits power to a mechanism	2
+WN_Synset_54683 Definition: a man of such superior qualities that he seems like a deity to other people	2
+OW_eng_Synset_883 Definition: Term used generically today to denote any urban form but applied particularly to large urban settlements. There are, however, no agreed definitions to separate a city from the large metropolis or the smaller town.
+(Source: GOOD)	2
+OW_eng_Synset_11144 Definition: That which conforms to reality.	2
+WN_Synset_55464 Definition: a living person	2
+WN_Synset_3808 Definition: morally objectionable behavior	2
+WN_Synset_49331 Definition: a motive for living	2
+WN_Synset_73677 Definition: the quantity contained in a box	2
+WN_Synset_37942 Definition: a dramatic work intended for performance by actors on a stage	2
+WN_Synset_65 Definition: something done (usually as opposed to something said)	2
+WN_Synset_74929 Definition: the removal of constraints	2
+WN_Synset_26699 Definition: the quality of being near to the true value	2
+WN_Synset_51227 Definition: terms referring to the Judeo-Christian God	2
+WN_Synset_51226 Definition: the supernatural being conceived as the perfect and omnipotent and omniscient originator and ruler of the universe	2
+WN_Synset_58338 Definition: a manservant who acts as a personal attendant to his employer	2
+OW_eng_Synset_17605 Definition: physics: ratio of the performed work to the time needed for it	2
+WN_Synset_83 Definition: the act using a sword (or other weapon) vigorously and skillfully	2
+WN_Synset_62343 Definition: the organic phenomenon that distinguishes living organisms from nonliving ones	2
+WN_Synset_2526 Definition: gay or light-hearted recreational activity for diversion or amusement	2
+WN_Synset_35158 Definition: an account of the series of events making up a person's life	2
+WN_Synset_25872 Definition: animation and energy in action or expression	2
+WN_Synset_81696 Definition: a prison term lasting as long as the prisoner lives	2
+WN_Synset_77182 Definition: a predicament from which a skillful or graceful escape is impossible	2
+WN_Synset_71871 Definition: the social process whereby societies achieve an advanced stage of development and organization	2
+WN_Synset_74767 Definition: a characteristic state or mode of living	2
+WN_Synset_74760 Definition: the condition of living or the state of being alive	2
+WN_Synset_6049 Definition: an act by a government body or supranational organization	2
+WN_Synset_6048 Definition: a judicial proceeding brought by one party against another	2
+WN_Synset_74759 Definition: the course of existence of an individual	2
+WN_Synset_28740 Definition: the power or authority to command	2
+WN_Synset_31664 Definition: a terrifying or deeply upsetting dream	2
+WN_Synset_75009 Definition: a state in which action is feasible	2
+OW_eng_Synset_3294 Definition: A member of the human race.
+(Source: MGH)	2
+OW_eng_Synset_15025 Definition: null	2
+WN_Synset_38008 Definition: a theatrical performance of a drama	2
+WN_Synset_79740 Definition: a solid formed by the solidification of a chemical and having a highly regular atomic structure	2
+WN_Synset_77359 Definition: power to dominate or defeat	2
+WN_Synset_74732 Definition: conformity to reality or actuality	2
+WN_Synset_47011 Definition: a line leading to a place or point	2
+WN_Synset_74720 Definition: a position of highest authority	2
+WN_Synset_34425 Definition: the series of events that form a plot	2
+WN_Synset_44648 Definition: a permanent organization of the military land forces of a nation or state	2
+WN_Synset_44644 Definition: a military unit or region under the control of a single officer	2
+WN_Synset_51025 Definition: any supernatural being worshipped as controlling some part of the world or some aspect of life or who is the personification of a force	2
+WN_Synset_28708 Definition: possession of controlling influence	2
+WN_Synset_57348 Definition: someone who serves in the armed forces	2
+WN_Synset_79718 Definition: colorless glass made of almost pure silica	2
+WN_Synset_35782 Definition: enthusiastic greeting	2
+WN_Synset_46209 Definition: a region where a battle is being (or has been) fought	2
+WN_Synset_4836 Definition: the act of searching for something	2
+WN_Synset_31916 Definition: a fact that has been verified	2
+WN_Synset_4840 Definition: utilization or exercise	2
+WN_Synset_21459 Definition: a gear position that acts as a parking brake	2
+WN_Synset_2204 Definition: a boxing or wrestling match	2
+WN_Synset_36292 Definition: a true statement	2
+WN_Synset_46716 Definition: a lot where cars are parked	2
+WN_Synset_46715 Definition: a piece of open land for recreational use in an urban area	2
+WN_Synset_46714 Definition: a large area of land preserved in its natural state as public property	2
+OW_eng_Synset_8227 Definition: All human beings.	2
+WN_Synset_44601 Definition: a large number of people united for some specific purpose	2
+WN_Synset_77996 Definition: a final state	2
+WN_Synset_4868 Definition: a military engagement	2
+WN_Synset_31776 Definition: doing as one pleases or chooses	2
+WN_Synset_30879 Definition: possession of the qualities (especially mental qualities) required to do something or get something done	2
+WN_Synset_73767 Definition: space for movement	2
+WN_Synset_5131 Definition: any standardized procedure for measuring sensitivity or memory or intelligence or aptitude or personality etc	2
+WN_Synset_32018 Definition: a general category of things	2
+WN_Synset_2772 Definition: a deliberate coordinated movement requiring dexterity and skill	2
+WN_Synset_74349 Definition: a rectangular drawing	2
+WN_Synset_38863 Definition: an intense verbal dispute	2
+WN_Synset_26940 Definition: the quality of being morally wrong in principle or practice	2
+WN_Synset_68271 Definition: evergreen shrubs or small trees	2
+WN_Synset_28475 Definition: that which causes harm or destruction or misfortune	2
+WN_Synset_36749 Definition: a mathematical notation indicating the number of times a quantity is multiplied by itself	2
+WN_Synset_25490 Definition: any artifact consisting of a road or path affording passage from one place to another	2
+OW_eng_Synset_37870 Definition: A private area in a theater or grandstand where a small group can watch the performance.	2
+WN_Synset_2274 Definition: (game) the activity of doing something in an agreed succession	2
+WN_Synset_49967 Definition: many objects thrown forcefully through the air	2
+WN_Synset_15491 Definition: a (usually rectangular) container	2
+OW_eng_Synset_10270 Definition: A generic manmade object with space in it (commonly made of cardboard or wood) that is used to keep and store many various different objects.	2
+WN_Synset_21871 Definition: a metal sheathing of uniform thickness (such as the shield attached to an artillery piece to protect the gunners)	2
+WN_Synset_61666 Definition: United States abolitionist and feminist who was freed from slavery and became a leading advocate of the abolition of slavery and for the rights of women (1797-1883)	2
+WN_Synset_55539 Definition: a titled peer of the realm	2
+WN_Synset_14866 Definition: a facility in which ball games are played (especially baseball games)	2
+OW_eng_Synset_4333 Definition: Solid in which the constituent atoms, molecules, or ions are packed in a regularly ordered, repeating pattern extending in all three spatial dimensions.	2
+WN_Synset_36577 Definition: verbal wit or mockery (often at another's expense but not to be taken seriously)	2
+WN_Synset_20436 Definition: game equipment consisting of an object used in playing certain board games	2
+WN_Synset_44266 Definition: a society in an advanced state of social development (e.g., with complex legal and political and religious organizations)	2
+WN_Synset_31021 Definition: great skillfulness and knowledge of some subject or activity	2
+WN_Synset_44796 Definition: people living in a large densely populated municipality	2
+OW_eng_Synset_9847 Definition: A large, military force concerned mainly with ground operations	2
+WN_Synset_72223 Definition: a process existing in or produced by nature (rather than by the intent of human beings)	2
+WN_Synset_4022 Definition: the act of testing something	2
+WN_Synset_26747 Definition: the quality of excellence in thought and manners and taste	2
+OW_eng_Synset_13338 Definition: The sequence of physical and mental experiences that make up the existence of an individual.	2
+WN_Synset_62295 Definition: precipitation of ice pellets when there are strong rising air currents	2
+WN_Synset_4033 Definition: the act of undergoing testing	2
+WN_Synset_15494 Definition: the driver's seat on a coach	2
+WN_Synset_15493 Definition: private area in a theater or grandstand where a small group can watch the performance	2
+WN_Synset_15492 Definition: separate partitioned area in a public place for a few people	2
+OW_eng_Synset_18881 Definition: A public place or area set aside for recreation or preservation of a cultural or natural resource.	2
+WN_Synset_5771 Definition: social control by dominating	2
+WN_Synset_81224 Definition: the period from the present until death	2
+WN_Synset_81223 Definition: the period between birth and the present time	2
+WN_Synset_81222 Definition: the period during which something is functional (as between birth and death)	2
+WN_Synset_27341 Definition: how something is done or how it happens	2
+WN_Synset_56636 Definition: one possessing or exercising power or influence or authority	2
+WN_Synset_28171 Definition: the property of distance in general	2
+WN_Synset_46321 Definition: an incorporated administrative district established by state charter	2
+WN_Synset_17035 Definition: a crystalline element used as a component in various electronic devices	2
+WN_Synset_17034 Definition: glassware made of quartz	2
+WN_Synset_17033 Definition: a protective cover that protects the face of a watch	2
+WN_Synset_49741 Definition: a rock formed by the solidification of a substance	2
+WN_Synset_2778 Definition: a preset plan of action in team sports	2
+OW_eng_Synset_37866 Definition: A predicament from which a skillful or graceful escape is impossible.	2
+OW_eng_Synset_15601 Definition: A living organism characterized by voluntary movement.	2
+WN_Synset_53757 Definition: a person who is controlled by others and is used to perform unpleasant or dishonest tasks for someone else	2
+WN_Synset_53756 Definition: a human being	2
+WN_Synset_46302 Definition: a large and densely populated urban area	2
+OW_eng_Synset_38124 Definition: Activity that has as a goal to have a judge take a decision.	2
+OW_eng_Synset_13397 Definition: null	2
+WN_Synset_62228 Definition: (physics) the rate of doing work	2
+WN_Synset_74679 Definition: (of a government or government official) holding an office means being in power	2
+WN_Synset_26558 Definition: movement or space for movement	2
+WN_Synset_2115 Definition: the act of playing for stakes in the hope of winning (including the payment of a price for a chance to win a prize)	2
+WN_Synset_579 Definition: a blow with the hand (usually on the ear)	2
+WN_Synset_2120 Definition: activity by children that is guided more by imagination than by fixed rules	2
+WN_Synset_74653 Definition: the condition of things generally	2
+WN_Synset_52922 Definition: a very wealthy or powerful businessman	2
+WN_Synset_31870 Definition: the experience of being alive	2
+WN_Synset_44568 Definition: a state powerful enough to influence events throughout the world	2
+WN_Synset_74637 Definition: a situation resembling a terrifying dream	2
+WN_Synset_9799 Definition: a hard outer covering as of some amoebas and sea urchins	2
+WN_Synset_70943 Definition: a portion of something divided into shares	2
+OW_eng_Synset_8162 Definition: A name for God.	2
+WN_Synset_40116 Definition: a weak and tremulous light	2
+WN_Synset_35518 Definition: (computer science) a line of code written as part of a computer program	2
+OW_eng_Synset_26294 Definition: null	2
+WN_Synset_38931 Definition: a set of questions or exercises evaluating skill or knowledge	2
+WN_Synset_1507 Definition: a journey or passage	2
+WN_Synset_31816 Definition: trying something to find out about it	2
+WN_Synset_15495 Definition: any one of several designated areas on a ball field where the batter or catcher or coaches are positioned	2
+WN_Synset_55642 Definition: a male subordinate	2
+WN_Synset_55641 Definition: the generic use of the word to refer to any human being	2
+WN_Synset_70790 Definition: the income or profit arising from such transactions as the sale of land or other property	2
+WN_Synset_13112 Definition: any living or extinct member of the family Hominidae characterized by superior intelligence, articulate speech, and erect carriage	2
+WN_Synset_55639 Definition: an adult male person who has a manly character (virile and courageous competent)	2
+WN_Synset_55638 Definition: a male person who plays a significant role (husband or lover or boyfriend) in the life of a particular woman	2
+WN_Synset_55637 Definition: an adult person who is male (as opposed to a woman)	2
+WN_Synset_776 Definition: how a result is obtained or an end is achieved	2
+WN_Synset_74997 Definition: the state of being active	2
+OW_eng_Synset_18204 Definition: How to do something.	2
+WN_Synset_35891 Definition: an indication of potential opportunity	2
+WN_Synset_31673 Definition: a search for an alternative that meets cognitive criteria	2
+WN_Synset_26867 Definition: an aggressive willingness to compete	2
+WN_Synset_47914 Definition: one of the British Isles in the Irish Sea	2
+WN_Synset_60955 Definition: Scottish explorer in Africa (1771-1806)	2
+WN_Synset_34562 Definition: the last section of a communication	2
+WN_Synset_13 Definition: living things collectively	2
+WN_Synset_26859 Definition: the trait of being active and energetic and forceful	2
+WN_Synset_18 Definition: a living organism characterized by voluntary movement	2
+WN_Synset_45154 Definition: a particular society at a particular time and place	2
+WN_Synset_2878 Definition: the most important or interesting work or activity in a specific area or field	2
+WN_Synset_19502 Definition: a material effigy that is worshipped	2
+WN_Synset_46309 Definition: the central area or commercial center of a town or city	1
+WN_Synset_46543 Definition: place where something began and flourished	1
+WN_Synset_34014 Definition: the phonological or orthographic sound or appearance of a word that can be used to describe or identify something	1
+WN_Synset_46855 Definition: the place where some action occurs	1
+WN_Synset_30867 Definition: the intellectual ability to penetrate deeply into ideas	1
+WN_Synset_38762 Definition: a formal proposal to buy at a specified price	1
+WN_Synset_35332 Definition: document giving the tax collector information about the taxpayer's tax liability	1
+WN_Synset_73960 Definition: relative magnitude	1
+WN_Synset_46464 Definition: the context and environment in which something is set	1
+WN_Synset_40670 Definition: the feeling aroused by something strange and surprising	1
+WN_Synset_46462 Definition: the place designated as the end (as of a race or journey)	1
+WN_Synset_77320 Definition: special emphasis attached to something	1
+WN_Synset_35784 Definition: a greeting or reception	1
+OW_deu_Synset_15402 Definition: Sturnus vulgaris: Ein Sperlingsvogel aus der Familie der der Stare (Sturnidae).	1
+WN_Synset_36 Definition: the spatial arrangement of something as distinct from its substance	1
+WN_Synset_46458 Definition: one of two places from which people are communicating to each other	1
+WN_Synset_46457 Definition: the surface at either extremity of a three-dimensional object	1
+WN_Synset_1572 Definition: the act of changing location in an upward direction	1
+WN_Synset_46455 Definition: either extremity of something that has length	1
+WN_Synset_46454 Definition: a boundary marking the extremities of something	1
+WN_Synset_40367 Definition: an automobile race run over public roads	1
+WN_Synset_28409 Definition: height above ground	1
+WN_Synset_19916 Definition: a workplace for the conduct of scientific research	1
+WN_Synset_32548 Definition: grounds for feeling hopeful about the future	1
+WN_Synset_38746 Definition: an informal reference to a marriage proposal	1
+OW_eng_Synset_38518 Definition: The ability to create or invent something.	1
+WN_Synset_81323 Definition: a day assigned to a particular purpose or observance	1
+WN_Synset_37952 Definition: a subdivision of an act of a play	1
+WN_Synset_45651 Definition: a class of 14th century Japanese who were trained in martial arts and were hired for espionage and assassinations	1
+WN_Synset_45650 Definition: feudal Japanese military aristocracy	1
+WN_Synset_44868 Definition: a body of students who are taught together	1
+WN_Synset_35309 Definition: a legal document declaring a person's wishes regarding the disposal of their property when they die	1
+OW_eng_Synset_10361 Definition: A noteworthy or popular person, often a performer or athlete.	1
+WN_Synset_1594 Definition: the act of going back to a prior location	1
+OW_eng_Synset_43337 Definition: A person who is actively engaged in battle, conflict or warfare; a soldier or combatant.	1
+OW_deu_Synset_7061 Definition: Luftstrom relativ zur Erdoberfläche; bezieht sich normalerweise auf eine horizontale Luftbewegung, im Unterschied zu einer vertikalen.	1
+WN_Synset_76606 Definition: a symptom caused by an illness or a drug	1
+WN_Synset_32401 Definition: a unifying idea that is a recurrent element in literary or artistic work	1
+OW_eng_Synset_23888 Definition: A mililtary campaign by the European Christians in the Middle Ages aiming to reconquer the Church of the Holy Sepulchre in Jerusalem.	1
+WN_Synset_34627 Definition: an essay (especially one written as an assignment)	1
+WN_Synset_81125 Definition: some point or period in time	1
+OW_eng_Synset_363 Definition: The creation of works of beauty or other special significance.	1
+WN_Synset_81195 Definition: the recurring hours when you are not sleeping (especially those when you are working)	1
+WN_Synset_1714 Definition: the act of reducing the amount or number	1
+WN_Synset_34397 Definition: fiction with a large amount of imagination in it	1
+WN_Synset_81837 Definition: the normal time between successive generations	1
+WN_Synset_77168 Definition: a display of bad temper	1
+OW_eng_Synset_35645 Definition: A single step or stage in the succession of natural descent	1
+WN_Synset_81834 Definition: an era of existence or influence	1
+WN_Synset_32285 Definition: something many people believe that is false	1
+WN_Synset_23411 Definition: a machine that simulates an environment for the purpose of training or research	1
+WN_Synset_74918 Definition: the condition of being free	1
+WN_Synset_36609 Definition: written directions for finding some location	1
+WN_Synset_46419 Definition: where you live at a particular time	1
+WN_Synset_965 Definition: the act of ending something	1
+WN_Synset_55626 Definition: a youthful male person	1
+WN_Synset_46411 Definition: the domain ruled by a king or queen	1
+OW_eng_Synset_28099 Definition: The place where something began and flourished.	1
+OW_eng_Synset_8991 Definition: The time ahead; those moments yet to be experienced.	1
+WN_Synset_46949 Definition: the extreme end of something	1
+OW_eng_Synset_35653 Definition: All of the people born and living at about the same time, regarded collectively.	1
+WN_Synset_77807 Definition: immunity from an obligation or duty	1
+WN_Synset_18445 Definition: a mold for setting concrete	1
+WN_Synset_43506 Definition: the highest taxonomic group into which organisms are grouped	1
+WN_Synset_43505 Definition: a basic group of natural objects	1
+WN_Synset_4632 Definition: the act of photographing a scene or part of a scene without interruption	1
+WN_Synset_54634 Definition: the head of a religious order or congregation	1
+OW_eng_Synset_38352 Definition: An important melody that occurs several times throughout a piece of music.	1
+WN_Synset_31477 Definition: the topology of a network whose components are connected to a hub	1
+OW_eng_Synset_8443 Definition: The abode of a human being, their place of residence.	1
+WN_Synset_47077 Definition: the European mainland	1
+OW_eng_Synset_22962 Definition: A tool to measure the weight of something.	1
+WN_Synset_23234 Definition: a very light narrow racing boat	1
+WN_Synset_23233 Definition: the housing or outer covering of something	1
+WN_Synset_23232 Definition: ammunition consisting of a cylindrical metal casing containing an explosive charge and a projectile	1
+WN_Synset_35680 Definition: a consecutive series of pictures that constitutes a unit of action in a film	1
+WN_Synset_5967 Definition: (sports) an unbroken sequence of several successive strokes	1
+WN_Synset_26124 Definition: brilliant radiant beauty	1
+WN_Synset_3323 Definition: the systematic use of spies to get military or political secrets	1
+WN_Synset_52511 Definition: someone who is dazzlingly skilled in any field	1
+WN_Synset_50404 Definition: a line or route along which something travels or moves	1
+WN_Synset_54633 Definition: a general officer of the highest rank	1
+WN_Synset_1753 Definition: the act of shortening something by chopping off the ends	1
+WN_Synset_24545 Definition: an electronic device that receives television signals and displays them on a screen	1
+WN_Synset_45488 Definition: a large gathering of people intended to arouse enthusiasm	1
+WN_Synset_50933 Definition: the personification of death	1
+OW_eng_Synset_3438 Definition: A land mass, especially one smaller than a continent, entirely surrounded by water.
+(Source: AMHER)	1
+WN_Synset_35673 Definition: a distinct selection of music from a recording or a compact disc	1
+WN_Synset_28220 Definition: degree of psychological or intellectual profundity	1
+OW_eng_Synset_8424 Definition: A period of time lasting 24 hours	1
+WN_Synset_22967 Definition: the painted structures of a stage set that are intended to suggest a particular locale	1
+WN_Synset_22966 Definition: graphic art consisting of the graphic or photographic representation of a visual percept	1
+WN_Synset_28754 Definition: an ability to perform well	1
+WN_Synset_56079 Definition: a member of the ninja who were trained in martial arts and hired for espionage or sabotage or assassinations	1
+WN_Synset_74764 Definition: the absence of life or state of being dead	1
+WN_Synset_24539 Definition: a telecommunication system that transmits images of objects (stationary or moving) between distant points	1
+WN_Synset_74762 Definition: a state of surviving	1
+WN_Synset_25856 Definition: temperament or disposition	1
+WN_Synset_28217 Definition: a position on a scale of intensity or amount or quality	1
+WN_Synset_72442 Definition: a natural process resulting in the evolution of organisms best adapted to the environment	1
+OW_eng_Synset_9200 Definition: A luminous celestial body that is made from gases (particularly hydrogen and helium) and forms the shape of a sphere.	1
+OW_eng_Synset_16867 Definition: That which follows something on which it depends.	1
+WN_Synset_31003 Definition: a superior skill that you can learn by study and practice and observation	1
+WN_Synset_22950 Definition: a measuring instrument for weighing	1
+WN_Synset_73967 Definition: the ratio between the size of something and a representation of it	1
+WN_Synset_62630 Definition: air moving (sometimes with considerable force) from an area of high pressure to an area of low pressure	1
+WN_Synset_23734 Definition: an implement with a shaft and barbed point used for catching fish	1
+WN_Synset_23733 Definition: a long pointed rod used as a tool or weapon	1
+WN_Synset_22949 Definition: an indicator having a graduated sequence of marks	1
+WN_Synset_62186 Definition: the permanent end of all life functions in an organism or part of an organism	1
+WN_Synset_1781 Definition: increase in price or value	1
+WN_Synset_36435 Definition: the proposition arrived at by logical reasoning (such as the proposition that must follow from the major and minor premises of a syllogism)	1
+WN_Synset_32387 Definition: an impression (especially one that is artificial or contrived)	1
+WN_Synset_38826 Definition: a final settlement	1
+WN_Synset_266 Definition: an unintentional but embarrassing blunder	1
+WN_Synset_28087 Definition: the property possessed by a slope or surface that rises	1
+WN_Synset_36961 Definition: (music) a series of notes differing in pitch according to a specific scheme (usually within an octave)	1
+WN_Synset_77352 Definition: (usually plural) a low moral state	1
+WN_Synset_81119 Definition: the time yet to come	1
+WN_Synset_6266 Definition: a refusal to recognize someone you know	1
+WN_Synset_25827 Definition: the complex of emotional and intellectual attributes that determine a person's characteristic actions and reactions	1
+WN_Synset_27930 Definition: the property of being wild or turbulent	1
+WN_Synset_46056 Definition: a place where hoboes camp	1
+WN_Synset_46221 Definition: a location marked by an intense competition and struggle for survival	1
+WN_Synset_34199 Definition: a verb tense that expresses actions or states in the future	1
+WN_Synset_51726 Definition: (ethnic slur) offensive and disparaging term for Black man	1
+WN_Synset_51027 Definition: (classical mythology) the hideous snake-haired monsters (usually three in number) who pursued unpunished criminals	1
+WN_Synset_32722 Definition: a fixed and persistent intent or purpose	1
+OW_deu_Synset_5997 Definition: Taxonomische Kategorie unmittelbar unter der Gattung, die eng verwandte, morphologisch ähnliche Individuen, die miteinander fruchtbare Nachkommen erzeugen können	1
+OW_eng_Synset_21821 Definition: The belief that something hoped for can happen.	1
+OW_eng_Synset_8840 Definition: The capacity to do something well. They are usually acquired or learned, as opposed to abilities, which are often thought of as innate.	1
+WN_Synset_100 Definition: the feat of mustering strength for a renewed effort	1
+WN_Synset_53125 Definition: a friendly informal reference to a grown man	1
+WN_Synset_51017 Definition: a causal agent creating and controlling things in the universe	1
+WN_Synset_32712 Definition: the ultimate goal for which something is done	1
+WN_Synset_60035 Definition: United States comedian (born in England) who appeared in films with Bing Crosby (1903-2003)	1
+WN_Synset_26478 Definition: uncertainty about the truth or factuality or existence of something	1
+WN_Synset_36283 Definition: a remark capable of wounding mentally	1
+WN_Synset_35619 Definition: the central meaning or theme of a speech or literary work	1
+WN_Synset_50694 Definition: (astronomy) a celestial body of hot gases that radiates energy derived from thermonuclear reactions in the interior	1
+WN_Synset_36920 Definition: any character from an ancient Germanic alphabet used in Scandinavia from the 3rd century to the Middle Ages	1
+WN_Synset_32708 Definition: the state of affairs that a plan is intended to achieve and that (when achieved) terminates behavior intended to achieve it	1
+OW_eng_Synset_30507 Definition: A genre of literature and art that uses magic and other supernatural forms as a primary element of plot, theme, or setting. It usually uses a fictional, historically oriented setting.	1
+WN_Synset_36455 Definition: a trivial lie	1
+WN_Synset_63193 Definition: the hard usually fibrous outer layer of some fruits especially nuts	1
+WN_Synset_62132 Definition: the formless and disordered state of matter before the creation of the cosmos	1
+WN_Synset_40294 Definition: a movement upward	1
+WN_Synset_31910 Definition: a fact about the whole (as opposed to particular)	1
+WN_Synset_14547 Definition: a device that controls amount of light admitted	1
+OW_eng_Synset_43576 Definition: a bat-and-ball sport played between two teams usually of nine players each.	1
+WN_Synset_46729 Definition: the top or extreme point of something (usually a mountain or hill)	1
+WN_Synset_24351 Definition: a cutting or thrusting weapon that has a long metal blade and a hilt with a hand guard	1
+WN_Synset_46720 Definition: an established line of travel or access	1
+WN_Synset_126 Definition: the act of someone appearing again	1
+WN_Synset_128 Definition: a coming to or returning home	1
+WN_Synset_53357 Definition: someone who fights for a cause	1
+WN_Synset_38378 Definition: an arrangement of the elements in a composition or discourse	1
+WN_Synset_39803 Definition: the event of dying or departure from life	1
+WN_Synset_37893 Definition: photographs or other visual representations in a printed publication	1
+OW_deu_Synset_8713 Definition: null	1
+WN_Synset_6426 Definition: the act of making something legally void	1
+OW_eng_Synset_9017 Definition: Social gathering for entertainment and fun.	1
+WN_Synset_44608 Definition: a moving crowd	1
+WN_Synset_139 Definition: the act of departing politely	1
+WN_Synset_54949 Definition: (classical mythology) a being of great strength and courage celebrated for bold exploits	1
+WN_Synset_4321 Definition: the act of producing offspring or multiplying by such production	1
+WN_Synset_38755 Definition: a formal proposal for action made to a deliberative assembly for discussion and vote	1
+OW_eng_Synset_12841 Definition: A battle, a fight (often one in which weapons are used); a struggle for victory.	1
+WN_Synset_38915 Definition: an instance of questioning	1
+WN_Synset_75881 Definition: a central point or locus of an infection in an organism	1
+OW_eng_Synset_9004 Definition: A young male person, usually a child or teenager.	1
+WN_Synset_30994 Definition: an ability that has been acquired by training	1
+WN_Synset_31249 Definition: something that baffles understanding and cannot be explained	1
+OW_eng_Synset_12312 Definition: The expression of creativity or imagination, or both.	1
+WN_Synset_45911 Definition: people who perform a particular kind of skilled work	1
+OW_eng_Synset_40818 Definition: The death of a person.	1
+WN_Synset_39453 Definition: something that causes feelings of wonder	1
+WN_Synset_39640 Definition: a growth in strength or number or importance	1
+WN_Synset_41580 Definition: a piece of meat that has been cut from an animal carcass	1
+WN_Synset_26968 Definition: a quality of spirit that enables you to face danger or pain without showing fear	1
+WN_Synset_39828 Definition: an incident (real or imaginary)	1
+WN_Synset_32021 Definition: a particular type of thing	1
+WN_Synset_46581 Definition: a country with a king as head of state	1
+WN_Synset_31235 Definition: a state in which you want to learn more about something	1
+WN_Synset_5669 Definition: an equal exchange	1
+WN_Synset_49473 Definition: an upward slope or grade (as in a road)	1
+WN_Synset_58495 Definition: someone engaged in or experienced in warfare	1
+WN_Synset_32014 Definition: a category of things distinguished by some common characteristic or quality	1
+OW_eng_Synset_10222 Definition: A greeting used when someone arrives.	1
+WN_Synset_32011 Definition: a position or opinion or judgment reached after consideration	1
+WN_Synset_50591 Definition: a thin flake of dead epidermis shed from the surface of the skin	1
+WN_Synset_5672 Definition: a particular instance of buying or selling	1
+WN_Synset_18715 Definition: wheelwork consisting of a connected set of rotating gears by which force is transmitted or motion or torque is changed	1
+WN_Synset_18713 Definition: a mechanism for transmitting motion for some specific purpose (as the steering gear of a vehicle)	1
+WN_Synset_18712 Definition: equipment consisting of miscellaneous articles needed for a particular operation or sport etc.	1
+WN_Synset_18711 Definition: a toothed wheel that engages another toothed mechanism in order to change the speed or direction of transmitted motion	1
+WN_Synset_39653 Definition: (theology) the origination of the Holy Spirit at Pentecost	1
+WN_Synset_50052 Definition: a land mass (smaller than a continent) that is surrounded by water	1
+WN_Synset_30962 Definition: imagination unrestricted by reality	1
+WN_Synset_2787 Definition: (American football) the act of running back the ball after a kickoff or punt or interception or fumble	1
+OW_eng_Synset_33285 Definition: Rank in the army and air force that is higher than colonel or brigadier, and is usually the highest rank group next to commander in chief, except in countries that use the rank of field marshal.	1
+OW_eng_Synset_1605 Definition: Effects include: a) direct effects, which are caused by the action and occur at the same time and place, b) indirect effects, which are caused by the action and are later in time or farther removed in distance, that are still reasonably foreseeable.
+(Source: LANDY)	1
+OW_eng_Synset_5092 Definition: Thick and intricate forest typical of monsoon regions like India and Malaysia	1
+WN_Synset_44982 Definition: an organization to gain political power	1
+WN_Synset_19314 Definition: an institution where people are cared for	1
+WN_Synset_57154 Definition: a Japanese warrior who was a member of the feudal military aristocracy	1
+WN_Synset_70305 Definition: a new branch	1
+WN_Synset_26930 Definition: a woman's virtue or chastity	1
+WN_Synset_30990 Definition: ability to produce solutions in some problem domain	1
+WN_Synset_1479 Definition: a journey for some purpose (usually including the return)	1
+OW_eng_Synset_9388 Definition: Not to be afraid or intimidated easily without being incautious or inconsiderate.	1
+WN_Synset_39637 Definition: a coming into being	1
+WN_Synset_49447 Definition: a natural opening in something	1
+OW_eng_Synset_20593 Definition: null	1
+WN_Synset_56890 Definition: a dissolute man in fashionable society	1
+WN_Synset_18581 Definition: bulk commodities bought or sold at an agreed price for delivery at a specified future date	1
+OW_eng_Synset_34163 Definition: An offer or proposal for goods and/or services submitted in response to a government agency’s invitation.	1
+OW_eng_Synset_5699 Definition: The act or process of buying, selling or exchanging goods and services at either wholesale or retail, within a country or between countries.
+(Source: RHW)	1
+WN_Synset_26921 Definition: one of the three Christian virtues	1
+WN_Synset_19363 Definition: a flat surface at right angles to a plumb line	1
+WN_Synset_31725 Definition: an intuitive assumption	1
+WN_Synset_3066 Definition: the skilled practice of a practical occupation	1
+WN_Synset_51341 Definition: (Greek mythology) the most ancient of gods	1
+WN_Synset_77289 Definition: a step on some scale	1
+WN_Synset_31079 Definition: the capability of conscious choice and decision and intention	1
+WN_Synset_3710 Definition: (American football) a position on the line of scrimmage	1
+WN_Synset_77280 Definition: a relative position or degree of value in a graded group	1
+WN_Synset_22586 Definition: the key on electric typewriters or computer keyboards that causes a carriage return and a line feed	1
+WN_Synset_29804 Definition: the fluid (red in vertebrates) that is pumped through the body by the heart and contains plasma, blood cells, and platelets	1
+WN_Synset_44955 Definition: a group of people gathered together for pleasure	1
+WN_Synset_55019 Definition: someone (or something) on which expectations are centered	1
+WN_Synset_30921 Definition: the ability to create	1
+WN_Synset_56333 Definition: a person involved in legal proceedings	1
+OW_deu_Synset_10016 Definition: Eine namhafte oder bekannte Person, oft ein(e) Schauspieler(in) oder ein(e) Athlet(in).	1
+WN_Synset_328 Definition: getting something back again	1
+WN_Synset_81934 Definition: the temporal end	1
+WN_Synset_76486 Definition: a wound made by cutting	1
+WN_Synset_44943 Definition: a nomadic community	1
+WN_Synset_2409 Definition: the division of a deck of cards before dealing	1
+WN_Synset_51321 Definition: (Greek mythology) priestess of Aphrodite who killed herself when her lover Leander drowned while trying to swim the Hellespont to see her	1
+WN_Synset_26786 Definition: maximum clarity or distinctness of an idea	1
+WN_Synset_36591 Definition: the subject matter at issue	1
+OW_eng_Synset_7237 Definition: A protuberance of the earth's crustal shell, with an area of several million square miles and sufficient elevation so that much of it above sea level.
+(Source: MGH)	1
+WN_Synset_40711 Definition: a feeling of intense anger	1
+WN_Synset_54207 Definition: (football) the person who plays at one end of the line of scrimmage	1
+WN_Synset_27027 Definition: the quality of being honorable and having a good name	1
+WN_Synset_77787 Definition: the prevailing psychological state	1
+WN_Synset_20445 Definition: a life-size dummy used to display clothes	1
+WN_Synset_31577 Definition: the style in which a garment is cut	1
+OW_eng_Synset_38463 Definition: A barrier on roads and highways between the opposite flows of traffic.	1
+WN_Synset_4001 Definition: the part you are expected to play	1
+WN_Synset_38046 Definition: (music) melodic subject of a musical composition	1
+OW_eng_Synset_9327 Definition: A sentence, phrase or word which asks for information, a reply or response.	1
+OW_eng_Synset_9323 Definition: Challenge about the truth or accuracy of a matter.	1
+WN_Synset_17097 Definition: a trench resembling a furrow that was made by erosion or excavation	1
+WN_Synset_54727 Definition: the head of a state government	1
+WN_Synset_26228 Definition: maximum clarity or distinctness of an image rendered by an optical system	1
+OW_deu_Synset_9167 Definition: null	1
+WN_Synset_39463 Definition: the concluding parts of an event or occurrence	1
+WN_Synset_39462 Definition: event whose occurrence ends something	1
+OW_eng_Synset_21667 Definition: Cue, advice or hint that helps someone or is meant to help	1
+WN_Synset_44263 Definition: (biology) a group of organisms within a species that differ in trivial ways from similar groups	1
+WN_Synset_35775 Definition: an acknowledgment or expression of goodwill at parting	1
+WN_Synset_17729 Definition: housing that someone is living in	1
+WN_Synset_74334 Definition: a plane figure with 5 or more points	1
+WN_Synset_25019 Definition: a catch mechanism that acts as a switch	1
+WN_Synset_41894 Definition: a large sandwich made of a long crusty roll split lengthwise and filled with meats and cheese (and tomato and onion and lettuce and condiments)	1
+WN_Synset_72753 Definition: a sequence of 8 bits (enough to represent one character of alphanumeric data) processed as a single unit of information	1
+WN_Synset_25620 Definition: a musical instrument in which the sound is produced by an enclosed column of air that is moved by the breath	1
+WN_Synset_39446 Definition: an exciting or stimulating experience	1
+OW_eng_Synset_28687 Definition: Everything not created by man.	1
+OW_eng_Synset_44730 Definition: null	1
+WN_Synset_40564 Definition: a feeling of delight at being entertained	1
+WN_Synset_384 Definition: an illusory feat	1
+WN_Synset_45924 Definition: an impenetrable equatorial forest	1
+WN_Synset_26090 Definition: the visual appearance of something or someone	1
+OW_eng_Synset_40831 Definition: In photography, the camera lens opening and its relative diameter. Measured in f-stops, such as f/8, f/ I 1, etc. As the number increases, the size of the aperture decreases, thereby reducing the amount of light passing through the lens and striking the film. (source: Ackland Art Museum)	1
+WN_Synset_28306 Definition: an increase in cost	1
+WN_Synset_28305 Definition: the amount a salary is increased	1
+WN_Synset_36007 Definition: something that should remain hidden from others (especially information that is not to be passed on)	1
+WN_Synset_36006 Definition: information known only to a special group	1
+OW_eng_Synset_13349 Definition: A social gathering for entertainment and fun.	1
+WN_Synset_28838 Definition: alternative names for the body of a human being	1
+WN_Synset_26080 Definition: an outward appearance	1
+WN_Synset_1681 Definition: the act of winding or twisting	1
+WN_Synset_77203 Definition: the state of being welcome	1
+WN_Synset_77098 Definition: state of violent mental agitation	1
+WN_Synset_505 Definition: the act of shooting at targets	1
+OW_eng_Synset_32188 Definition: The place set for the end of a journey, or to which something is sent.	1
+WN_Synset_77734 Definition: a domain in which something is dominant	1
+WN_Synset_27456 Definition: an indication of radiant light drawn around the head of a saint	1
+WN_Synset_5372 Definition: avoiding detection by moving carefully	1
+WN_Synset_74838 Definition: a state of extreme confusion and disorder	1
+WN_Synset_4769 Definition: the creation of beautiful or significant things	1
+OW_eng_Synset_41324 Definition: A unit of measurement of information storage, most often consisting of eight bits.	1
+WN_Synset_81932 Definition: the point in time at which something ends	1
+OW_eng_Synset_4807 Definition: An organized group that has as its fundamental aim the attainment of political power and public office for its designated leaders. Usually, a
+political party will advertise a common commitment by its leaders and its membership to a set of political, social, economic and/or cultural values.
+(Source: DUC)	1
+WN_Synset_45547 Definition: all the people living at the same time or of approximately the same age	1
+WN_Synset_4055 Definition: a series of actions advancing a principle or tending toward a particular end	1
+WN_Synset_34410 Definition: a narrative telling the adventures of a hero or a family	1
+WN_Synset_45544 Definition: group of genetically related organisms constituting a single step in the line of descent	1
+WN_Synset_77728 Definition: an environment offering affection and security	1
+WN_Synset_28063 Definition: any spatial attributes (especially as defined by outline)	1
+WN_Synset_44126 Definition: a social unit living together	1
+WN_Synset_38622 Definition: empty rhetoric or insincere or exaggerated talk	1
+WN_Synset_82058 Definition: a stage of technological development or innovation	1
+WN_Synset_81204 Definition: leisure time away from work devoted to rest or pleasure	1
+WN_Synset_26734 Definition: (of a law) having legal validity	1
+OW_eng_Synset_7047 Definition: The motion of air relative to the earth's surface; usually means horizontal air motion, as distinguished from vertical motion.
+(Source: MGH)	1
+WN_Synset_4711 Definition: the production of heat or electricity	1
+WN_Synset_34930 Definition: a printed document with spaces in which to write	1
+WN_Synset_81238 Definition: the time when something ends	1
+WN_Synset_74167 Definition: an ordered reference standard	1
+WN_Synset_55866 Definition: a man distinguished by exceptional courage and nobility and strength	1
+WN_Synset_62241 Definition: a point of convergence of light (or other radiation) or a point from which it diverges	1
+OW_eng_Synset_17715 Definition: A tool for finding whether a surface is level, or for creating a horizontal or vertical line of reference.	1
+WN_Synset_57598 Definition: a male human offspring	1
+WN_Synset_35704 Definition: (film) an immediate transition from one shot to the next	1
+WN_Synset_32169 Definition: a final part or section	1
+WN_Synset_35597 Definition: the subject matter of a conversation or discussion	1
+WN_Synset_1351 Definition: a light or nimble tread	1
+OW_eng_Synset_3878 Definition: An opaque crystalline material usually of high strength with good electrical and thermal conductivities, ductility and reflectivity.
+(Source: MGH)	1
+WN_Synset_81237 Definition: the time at which life ends	1
+WN_Synset_1011 Definition: the act of killing	1
+OW_eng_Synset_17722 Definition: null	1
+OW_eng_Synset_26213 Definition: null	1
+WN_Synset_6319 Definition: a reciprocal group action	1
+WN_Synset_81599 Definition: the period of time taken by a particular planet (e.g. Mars) to make a complete rotation on its axis	1
+WN_Synset_81598 Definition: the time for one complete rotation of the earth relative to a particular star, about 4 minutes shorter than a mean solar day	1
+WN_Synset_18321 Definition: a structure consisting of a room or set of rooms at a single position along a vertical scale	1
+WN_Synset_27347 Definition: a particular mode in which something is manifested	1
+OW_eng_Synset_613 Definition: A fluid connective tissue consisting of the plasma and cells that circulate in the blood vessels.
+(Source: MGH)	1
+WN_Synset_50303 Definition: the natural physical world including plants and animals and landscapes etc.	1
+WN_Synset_46178 Definition: (usually plural) the deepest and most remote part	1
+OW_eng_Synset_8864 Definition: The shape or visible structure of a thing or person.	1
+WN_Synset_73889 Definition: verb inflections that express how the action or state is conceived by the speaker	1
+WN_Synset_14633 Definition: the products of human creativity	1
+WN_Synset_59076 Definition: United States comedian who pioneered comedy television shows (born 1922)	1
+WN_Synset_44599 Definition: a vast multitude	1
+WN_Synset_59957 Definition: Greek mathematician and inventor who devised a way to determine the area of a triangle and who described various mechanical devices (first century)	1
+WN_Synset_2110 Definition: an activity that is diverting and that holds the attention	1
+WN_Synset_49708 Definition: one of the large landmasses of the earth	1
+WN_Synset_36358 Definition: (bridge) the number of tricks a bridge player is willing to contract to make	1
+OW_eng_Synset_43605 Definition: A special point used to define a conic section	1
+OW_eng_Synset_13531 Definition: A superior skill that one can learn by study, practice, and observation.	1
+OW_eng_Synset_13532 Definition: Photographs or other visual representations in a printed publication.	1
+WN_Synset_77553 Definition: (physical chemistry) a distinct state of matter in a system	1
+OW_eng_Synset_13537 Definition: The products of human creativity; works of art collectively.	1
+WN_Synset_31343 Definition: the concentration of attention or energy on something	1
+WN_Synset_18832 Definition: a control that maintains a steady speed in a machine (as by controlling the supply of fuel)	1
+OW_eng_Synset_38806 Definition: A configuration of the transmission of an motor car so as to achieve a particular ratio of engine to axle torque.	1
+WN_Synset_74655 Definition: a specific identifiable position in a continuum or series or especially in a process	1
+OW_eng_Synset_8843 Definition: A blank document or template to be filled in by the user.	1
+WN_Synset_77015 Definition: a hallucinatory experience induced by drugs	1
+WN_Synset_78338 Definition: any of several chemical elements that are usually shiny solids that conduct heat or electricity and can be formed into sheets etc.	1
+WN_Synset_40898 Definition: a characteristic (habitual or relatively temporary) state of feeling	1
+WN_Synset_77571 Definition: a period of opportunity	1
+WN_Synset_20095 Definition: indicator that establishes the horizontal when a bubble is centered in a tube of liquid	1
+WN_Synset_70961 Definition: a share of the profits	1
+WN_Synset_39763 Definition: a wave that lifts the surface of the water or ground	1
+WN_Synset_74640 Definition: a situation treated as an observable object	1
+WN_Synset_9788 Definition: a flattened rigid plate forming part of the body covering of many animals	1
+WN_Synset_50695 Definition: any celestial body visible (as a point of light) from the Earth at night	1
+WN_Synset_81313 Definition: time for Earth to make a complete rotation on its axis	1
+WN_Synset_32645 Definition: any art that invokes supernatural powers	1
+WN_Synset_4253 Definition: breath	1
+WN_Synset_5579 Definition: the commercial exchange (buying and selling on domestic or international markets) of goods and services	1
+WN_Synset_1892 Definition: the act of cutting something into parts	1
+WN_Synset_9794 Definition: hard outer covering or case of certain organisms such as arthropods and turtles	1
+WN_Synset_1897 Definition: the act of penetrating or opening open with a sharp edge	1
+WN_Synset_9796 Definition: the hard largely calcareous covering of a mollusc or a brachiopod	1
+WN_Synset_21507 Definition: a way especially designed for a particular use	1
+WN_Synset_39599 Definition: an accidental misstep threatening (or causing) a fall	1
+WN_Synset_4909 Definition: an engagement fought between two military forces	1
+WN_Synset_33954 Definition: broadcasting visual images of stationary or moving objects	1
+WN_Synset_46128 Definition: the place where you are stationed and from which missions start and end	1
+WN_Synset_46127 Definition: the country or state or city where you live	1
+WN_Synset_4266 Definition: a reflex that expels intestinal gas through the anus	1
+WN_Synset_721 Definition: the act of making up your mind about something	1
+OW_eng_Synset_21629 Definition: A legal entity which represents a faction of the people from a country and is united under one specific political platform of issues.	1
+WN_Synset_54890 Definition: a performer who receives prominent billing	1
+WN_Synset_62595 Definition: steady winds blowing from east to west above and below the equator	1
+OW_eng_Synset_10141 Definition: A long-bladed weapon having a handle and sometimes a hilt and designed to stab, cut or slash.	1
+OW_eng_Synset_34621 Definition: The production or creation of something.	1
+WN_Synset_79000 Definition: the material that forms the hard outer covering of many animals	1
+WN_Synset_34732 Definition: the omission that is made when an editorial change shortens a written passage	1
+OW_eng_Synset_38841 Definition: An official who heads the government of a colony, state or other sub-national state unit.	1
+WN_Synset_5597 Definition: the business given to a commercial establishment by its customers	1
+WN_Synset_39735 Definition: happening again (especially at regular intervals)	1
+WN_Synset_38946 Definition: a quick reply to a question or remark (especially a witty or critical one)	1
+WN_Synset_40681 Definition: a specific instance of feeling hopeful	1
+WN_Synset_36833 Definition: a star-shaped character * used in printing	1
+WN_Synset_14546 Definition: an man-made opening	1
+OW_eng_Synset_35962 Definition: The end of life; The state of being dead.	1
+WN_Synset_38930 Definition: a sentence of inquiry that asks for a reply	1
+WN_Synset_2822 Definition: (sports) a stroke that puts reverse spin on the ball	1
+WN_Synset_2825 Definition: a tennis stroke that sends the ball back to the other player	1
+WN_Synset_4931 Definition: any of the more or less continuous military expeditions in the 11th to 13th centuries when Christian powers of Europe tried to recapture the Holy Land from the Muslims	1
+WN_Synset_215 Definition: an unexcused absence from class	1
+WN_Synset_62036 Definition: a tendency or force that influences events	1
+WN_Synset_40305 Definition: an occasion on which people can assemble for social interaction and entertainment	1
+WN_Synset_40302 Definition: the occurrence of a change in direction back in the opposite direction	1
+WN_Synset_40837 Definition: the general feeling that some desire will be fulfilled	1
+OW_eng_Synset_32547 Definition: Defined usage or destination for something.	1
+OW_eng_Synset_24145 Definition: Images or sound added to enhance the experience of viewing a movie or listening to music.	1
+WN_Synset_39063 Definition: a message that tells the particulars of an act or occurrence or course of events	1
+WN_Synset_59326 Definition: United States writer best known for his autobiographical works (1874-1935)	1
+WN_Synset_4413 Definition: a reflex motion caused by cold or fear or excitement	1
+WN_Synset_17869 Definition: a piece of cloth that is left over after the rest has been used or sold	1
+WN_Synset_59075 Definition: conqueror of Gaul and master of Italy (100-44 BC)	1
+OW_eng_Synset_38349 Definition: The main idea or ideas emerging from a literary work.	1
+WN_Synset_43522 Definition: people viewed as members of a group	1
+WN_Synset_62017 Definition: a phenomenon that follows and is caused by some previous phenomenon	1
+WN_Synset_14960 Definition: a ball used in playing baseball	1
+WN_Synset_33791 Definition: an abstract place usually conceived as having depth	1
+WN_Synset_50627 Definition: the exterior covering of a bird's egg	1
+WN_Synset_50626 Definition: a rigid covering that envelops an object	1
+WN_Synset_5213 Definition: something that survives	1
+WN_Synset_34043 Definition: (linguistics) the form of a word after all affixes are removed	1
+WN_Synset_72350 Definition: a marked recovery of strength or spirits during an illness	1
+WN_Synset_2853 Definition: in baseball	1
+WN_Synset_57737 Definition: an actor who plays a principal role	1
+WN_Synset_17098 Definition: a canal made by erosion or excavation	1
+OW_eng_Synset_41059 Definition: A taxon in either (historically) the highest rank, or (in the new three-domain system) the rank below domain. Each kingdom is divided into smaller groups called phyla (or in some contexts these are called "divisions").	1
+OW_eng_Synset_26973 Definition: A monarchy having as it's supreme ruler a king and/or queen.	1
+WN_Synset_44236 Definition: the descendants of one individual	1
+WN_Synset_32466 Definition: the visual percept of a region	1
+WN_Synset_33789 Definition: (physics) a dynamical system that is extremely sensitive to its initial conditions	1
+WN_Synset_74456 Definition: a V shape	1
+WN_Synset_70238 Definition: a specialized leaf or bract that protects a bud or catkin	1
+WN_Synset_78133 Definition: a mixture containing two or more metallic elements or metallic and nonmetallic elements usually fused together or dissolving into each other when molten	1
+WN_Synset_46488 Definition: a fixed reference point on the concave side of a conic section	1
+WN_Synset_81362 Definition: the time after sunrise and before sunset while it is light outside	1
+OW_eng_Synset_10316 Definition: One’s own dwelling place; the house or structure in which one lives; especially the house in which one lives with his family.	1
+WN_Synset_45020 Definition: a band of people associated temporarily in some activity	1
+WN_Synset_32453 Definition: a perceptual structure	1
+WN_Synset_2336 Definition: a ball game played with a bat and ball between two teams of nine players	1
+OW_eng_Synset_23023 Definition: The result or outcome of a cause.	1
+WN_Synset_26327 Definition: the essential qualities or characteristics by which something is recognized	1
+WN_Synset_71015 Definition: a relatively small amount of money given for services rendered (as by a waiter)	1
+WN_Synset_45728 Definition: a monarchy with a king or queen as head of state	1
+WN_Synset_36133 Definition: a tangible symbol signifying approval or distinction	1
+OW_eng_Synset_19548 Definition: Very large and very remarquable positive reputation.	1
+WN_Synset_77331 Definition: a state of high honor	1
+WN_Synset_77330 Definition: the state of being honored	1
+WN_Synset_32446 Definition: the principal character in a play or movie or novel or poem	1
+WN_Synset_28426 Definition: the extent downward or backward or inward	1
+WN_Synset_28425 Definition: the attribute or quality of being deep, strong, or intense	1
+WN_Synset_19319 Definition: (baseball) base consisting of a rubber slab where the batter stands	1
+OW_eng_Synset_20900 Definition: null	1
+WN_Synset_19652 Definition: a zone or area resembling an island	1
