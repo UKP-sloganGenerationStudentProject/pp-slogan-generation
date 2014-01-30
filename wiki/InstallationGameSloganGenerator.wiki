@@ -50,8 +50,8 @@ does not. Everything it needs has to be specified in the conifguration class.
 To generate the analysis files used to develop this generator you need:
   * Maven/Eclipse -project from [https://code.google.com/p/pp-slogan-generation/ pp-slogan-generation]
   * An Uby database (Tested for uby_open_3_0_0) from [https://code.google.com/p/uby/ Uby]
-  * A custom database. An empty schema is located under
-“/src/main/resources/koch/sql dumb 2014 01 29 1700 no data” Attention: The analysis will not produce results with an empty custom database! Tables “stopword”, “functionword” and “slogans” are essential.
+  * A custom database. An empty schema is located under “/src/main/resources/koch/sql dumb 2014 01 29 1700 no data” Attention: The analysis will not produce results with an empty custom database! Tables “stopword”, “functionword” and “slogans” are essential.
   * Correctly set constants in “de.koch.uim project.util.Constants” Please see class “de.koch.uim project.util.Constants”. Edit the constants
 accordingly. The Javadoc gives examples. 
+
 To generate the analysis files run the main method of: “de.koch.uim project.analyse.AnalyseMain”
