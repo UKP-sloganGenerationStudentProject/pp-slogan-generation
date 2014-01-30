@@ -3,15 +3,15 @@ package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.PatternGenerator;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.PatternGenerator.Resources;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPart;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPart.ChunkPartType;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPartHeader.ChunkPartType;
 
-public class NounChunkOccurrence
-    extends ChunkOccurrence
+public class NounChunk
+    extends Chunk
 {
     boolean _isBodyPart;
     String _bodyPartName;
 
-    public NounChunkOccurrence()
+    public NounChunk()
     {
         super();
         _isBodyPart = false;

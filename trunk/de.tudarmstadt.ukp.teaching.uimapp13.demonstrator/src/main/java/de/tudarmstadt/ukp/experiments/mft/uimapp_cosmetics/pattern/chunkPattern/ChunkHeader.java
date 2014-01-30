@@ -3,13 +3,16 @@ package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChunkHeader
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.index.IndexElement;
+
+public class ChunkHeader extends IndexElement
 {
+
     protected ChunkType _chunkType;
     protected boolean _isValueDerivable;
     protected String _semanticValue;
     protected String _takenValue;
-    private final ArrayList<ChunkOccurrence> _occurrences;
+    private final ArrayList<Chunk> _occurrences;
 
 
     public static final String NOT_DEFINED = "notDefined";
@@ -43,7 +46,7 @@ public class ChunkHeader
         _semanticValue = "";
         _takenValue = "NO_INFORMATION";
         _chunkType = ChunkType.UNDEFINED;
-        _occurrences = new ArrayList<ChunkOccurrence>();
+        _occurrences = new ArrayList<Chunk>();
 
     }
 
@@ -80,9 +83,9 @@ public class ChunkHeader
     }
 
 
-    public void addOccurrence(ChunkOccurrence occ)
+    public void addOccurrence(Chunk occ)
     {
-        for(ChunkOccurrence occ2 : _occurrences)
+        for(Chunk occ2 : _occurrences)
         {
             if(occ.toString().toLowerCase().equals(occ2.toString().toLowerCase()))
             {
@@ -92,7 +95,7 @@ public class ChunkHeader
         _occurrences.add(occ);
     }
 
-    public List<ChunkOccurrence> getChunkOccurrences()
+    public List<Chunk> getOccurrences()
     {
         return _occurrences;
     }
@@ -123,6 +126,7 @@ public class ChunkHeader
         return _semanticValue;
     }
 
+    @Override
     public String getId()
     {
         String signature = _chunkType.toString();
@@ -137,7 +141,7 @@ public class ChunkHeader
         return signature;
     }
 
-    public void generateHeader(ChunkOccurrence occurrence)
+    public void generateHeader(Chunk occurrence)
     {
         //general operation
         _takenValue=occurrence.toString();
@@ -147,14 +151,14 @@ public class ChunkHeader
     }
 
 
-    public void specializedHeaderGeneration(ChunkOccurrence occurrence)
+    public void specializedHeaderGeneration(Chunk occurrence)
     {
         //to be implemented  by the subclasses
     }
 
     public void resetCache()
     {
-        for(ChunkOccurrence occ : _occurrences)
+        for(Chunk occ : _occurrences)
         {
             occ.resetCache();
         }
@@ -184,7 +188,7 @@ public class ChunkHeader
 
         output.append(getSpecificInformation());
 
-        for(ChunkOccurrence occ : _occurrences)
+        for(Chunk occ : _occurrences)
         {
             output.append("\n\t");
             output.append(occ.toString());
@@ -196,5 +200,11 @@ public class ChunkHeader
     public String getSpecificInformation()
     {
         return "";
+    }
+
+    @Override
+    protected String getTypeAsString()
+    {
+        return getChunkType().toString();
     }
 }

@@ -18,7 +18,6 @@ extends ChunkPart
     public AdjChunkPart()
     {
         super();
-        _chunkPartType = ChunkPartType.ADJ;
         _isValueDerivable = true;
     }
 

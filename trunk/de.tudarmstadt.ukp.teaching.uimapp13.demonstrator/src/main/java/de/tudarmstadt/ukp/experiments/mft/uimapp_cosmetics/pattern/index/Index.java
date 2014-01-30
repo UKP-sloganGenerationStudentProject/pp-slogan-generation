@@ -1,31 +1,33 @@
-package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern;
+package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.index;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Set;
 
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.ChunkHeader.ChunkType;
 
-public class ChunkIndex
+
+public class Index<Element extends IndexElement>
     implements Serializable
 {
     private static final long serialVersionUID = 6772044159525718129L;
 
-    Hashtable<String, ChunkHeader> _elementsIndex;
 
-    public ChunkIndex()
+
+    Hashtable<String, Element> _elementsIndex;
+
+    public Index()
     {
-        this._elementsIndex = new Hashtable<String, ChunkHeader>();
+        this._elementsIndex = new Hashtable<String, Element>();
     }
 
-    public ChunkHeader addHeader(final ChunkHeader header)
+    public Element addElement(final Element header)
     {
 
-        ChunkHeader output;
+        Element output;
 
         final String patternElementId = header.getId();
-        final ChunkHeader assocHeader = this._elementsIndex.get(patternElementId);
+        final Element assocHeader = this._elementsIndex.get(patternElementId);
         if (assocHeader == null) {
             output = header;
             this._elementsIndex.put(patternElementId, header);
@@ -38,7 +40,7 @@ public class ChunkIndex
 
     }
 
-    public ChunkHeader get(final String id)
+    public Element get(final String id)
     {
         return this._elementsIndex.get(id);
     }
@@ -48,7 +50,7 @@ public class ChunkIndex
         return this._elementsIndex.keySet();
     }
 
-    public Collection<ChunkHeader> getPatternElements()
+    public Collection<Element> getElements()
     {
         return this._elementsIndex.values();
     }
@@ -56,13 +58,13 @@ public class ChunkIndex
     @Override
     public String toString()
     {
-        final Hashtable<ChunkType, StringBuilder> partialOutput = new Hashtable<ChunkHeader.ChunkType, StringBuilder>();
+        final Hashtable<String, StringBuilder> partialOutput = new Hashtable<String, StringBuilder>();
 
-        for (final ChunkHeader element : this._elementsIndex.values()) {
-            StringBuilder stb = partialOutput.get(element.getChunkType());
+        for (final Element element : this._elementsIndex.values()) {
+            StringBuilder stb = partialOutput.get(element.getTypeAsString());
             if (stb == null) {
                 stb = new StringBuilder();
-                partialOutput.put(element.getChunkType(), stb);
+                partialOutput.put(element.getTypeAsString(), stb);
             }
             stb.append(element.toString());
             stb.append("\n");
@@ -70,7 +72,7 @@ public class ChunkIndex
 
         final StringBuilder output = new StringBuilder();
 
-        for (final ChunkType key : partialOutput.keySet()) {
+        for (final String key : partialOutput.keySet()) {
             output.append("\n");
             output.append(partialOutput.get(key).toString());
         }

@@ -18,7 +18,6 @@ public class NounChunkPart
     public NounChunkPart()
     {
         super();
-        this._chunkPartType = ChunkPartType.N;
         this._isValueDerivable = true;
     }
 

@@ -1,71 +1,28 @@
 package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.PatternGenerator.Resources;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPartHeader.ChunkPartType;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.Chunk;
 
 
 public class ChunkPart
 {
 
-    protected ChunkPartType _chunkPartType;
+    protected ChunkPartHeader _header;
+    protected Chunk _containingChunk;
     protected boolean _isValueDerivable;
     protected String _semanticValue;
     protected String _takenValue;
     protected String _lemma;
     protected String _pos;
 
+
     public static final String NOT_DEFINED = "notDefined";
 
-    public enum ChunkPartType
-    {
-        N("N"),
-        PUNC("PUNC"),
-        ART("ART"),
-        V("V"),
-        ADJ("ADJ"),
-        PP("PP"),
-        PR("PR"),
-        CARD("CARD"),
-        CONJ("CONJ"),
-        PRT("PRT"),
-        ADV("ADV"),
-        PRODUCT_NAME("productname"),
-        UNDEFINED("UNDEFINED");
 
-        private String name ="";
-        ChunkPartType(String name)
-        {
-            this.name = name;
-        }
-
-        public static ChunkPartType getTypeOf(String val)
-        {
-            ChunkPartType type = null;
-            if(val.equals("NP")||val.equals("NN"))
-            {
-                type = N;
-            }
-            else
-            {
-                try
-                {
-                    type = valueOf(val);
-                }
-                catch(IllegalArgumentException e)
-                {
-                    type = UNDEFINED;
-                }
-            }
-            return type;
-        }
-
-        @Override
-        public String toString()
-        {
-            return name;
-        }
-    }
 
 
     public ChunkPart()
@@ -73,8 +30,8 @@ public class ChunkPart
         _isValueDerivable = false;
         _semanticValue = "";
         _takenValue = "NO_INFORMATION";
-        _chunkPartType = ChunkPartType.UNDEFINED;
         _lemma = "";
+        _containingChunk = null;
     }
 
 
@@ -123,6 +80,26 @@ public class ChunkPart
         return output;
     }
 
+    public void setHeader(ChunkPartHeader header)
+    {
+        _header = header;
+    }
+
+    public void setContainingChunk(Chunk chunk)
+    {
+        _containingChunk = chunk;
+    }
+
+    public List<ChunkPart> getSimilarOccurrences()
+    {
+        List<ChunkPart> output =  _header.getOccurrences();
+        if(output.size()==0)
+        {
+            output.add(this);
+        }
+        return output;
+    }
+
     public ArrayList<String> generate(Resources resources)
     {
         ArrayList<String> output = new ArrayList<String>();
@@ -167,7 +144,7 @@ public class ChunkPart
 
     public ChunkPartType getChunkPartType()
     {
-        return _chunkPartType;
+        return _header.getChunkPartType();
     }
 
     public void setSemanticValue(String value)
@@ -187,7 +164,7 @@ public class ChunkPart
 
     public String getId()
     {
-        String signature = _chunkPartType.toString();
+        String signature = _header.getChunkPartType().toString();
         if(_isValueDerivable)
         {
             signature = signature + "-VAR" + "[sem:" + getSemanticValue() + "]";
@@ -204,16 +181,8 @@ public class ChunkPart
     public String toString()
     {
         StringBuilder output = new StringBuilder();
-        output.append(_chunkPartType.toString());
-        output.append("#");
-        if(_isValueDerivable)
-        {
-            output.append("D");
-        }
-        else
-        {
-            output.append("ND");
-        }
+
+        output.append(_takenValue);
 
         output.append(" [ ");
 
