@@ -1,6 +1,7 @@
 package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern;
 
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.POSForm.AdjForm;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.AdjForm;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
 
 public class AdjChunkHeader
     extends ChunkHeader

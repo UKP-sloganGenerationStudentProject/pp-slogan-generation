@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.emotions.EmotionModel;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.PatternGenerator.Resources;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.Resources;
 import de.tudarmstadt.ukp.lmf.model.core.LexicalEntry;
 import de.tudarmstadt.ukp.lmf.model.core.Sense;
 import de.tudarmstadt.ukp.lmf.model.enums.EPartOfSpeech;

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.Pattern;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.PatternGenerator.Resources;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.Resources;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.Utils;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPart;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.ChunkHeader.ChunkType;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
 
 
 public class Chunk
@@ -18,6 +18,7 @@ public class Chunk
     ArrayList<ChunkPart> _chunkParts;
     int _mainChunkInd;
     List<String> _generated;
+    private boolean _isSuggestedWordsCompatible;
 
 
     public Chunk()

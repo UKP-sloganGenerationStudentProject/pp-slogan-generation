@@ -6,14 +6,13 @@ import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
 
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.PatternGenerator.Resources;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPart;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPartHeader;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPartHeader.ChunkPartType;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.Chunk;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.ChunkHeader;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.ChunkHeader.ChunkType;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.index.Index;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkPartType;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
 
 public class PatternFactory
     implements Serializable
@@ -195,10 +194,21 @@ public class PatternFactory
         }
         */
 
+
+        /*
+         * filter the pattern that can produce constraints over the selected words
+         * and produce those constraints
+         */
+
+
+
         Collections.shuffle(filteredPatterns);
 
         List<String> output = new ArrayList<>();
 
+        /*
+         * generate the patterns
+         */
         for (final Pattern pattern : filteredPatterns)
         {
 

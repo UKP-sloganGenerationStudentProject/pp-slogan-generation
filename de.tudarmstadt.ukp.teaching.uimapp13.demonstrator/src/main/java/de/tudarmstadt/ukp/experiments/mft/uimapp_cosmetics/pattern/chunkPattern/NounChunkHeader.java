@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPart;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
 
 public class NounChunkHeader
     extends ChunkHeader
@@ -85,13 +86,6 @@ public class NounChunkHeader
             }
         }
 
-        // proper noun
-        // TODO does not work
-        final String pos = occurrence.getAt(occurrence.getPartsNbr() - 1).getPos();
-
-        if (pos.startsWith("NNP")) {
-            this.setIsProperNoun();
-        }
 
         // isPerson
         final List<String> person = Arrays.asList("i", "me", "myself", "you", "yourself", "she",

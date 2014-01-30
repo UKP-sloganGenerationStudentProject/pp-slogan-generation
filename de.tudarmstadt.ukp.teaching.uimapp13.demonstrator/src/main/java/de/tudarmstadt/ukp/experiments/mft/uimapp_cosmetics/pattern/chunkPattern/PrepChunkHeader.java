@@ -1,5 +1,7 @@
 package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern;
 
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
+
 
 public class PrepChunkHeader
     extends ChunkHeader

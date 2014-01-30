@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -38,10 +37,10 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.annotation.EmotionAnn
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.annotation.SloganAnnotator;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.emotions.EmotionAnalyzer;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPart;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPartHeader.ChunkPartType;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.ChunkHeader.ChunkType;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.annotation.ChunkPatternAnnotation;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.annotation.EmotionAnnotation;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkPartType;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
 import de.tudarmstadt.ukp.lmf.api.Uby;
 import de.tudarmstadt.ukp.lmf.exceptions.UbyInvalidArgumentException;
 import de.tudarmstadt.ukp.lmf.transform.DBConfig;
@@ -71,7 +70,7 @@ public class PatternGenerator
     private static List<String> _patternsToAnnotate = Arrays.asList(DONT_CARE, "NC_", "NC_PC_NC_",
             "VC_NC_", "VC_NC_PC_NC_", "VC_", "NC_VC_", "NC_VC_ADJC_", "NC_VC_NC_");;
     private static List<String> _partsOfBodyToSelect = Arrays.asList(NO_BODY_PART, "eye", "skin",
-            "lip", "nail", "hair", "lash");
+            "lip", "nail", "hair", "lash","hand");
 
     PatternFactory _factory;
 
@@ -510,122 +509,6 @@ public class PatternGenerator
     public String toString()
     {
         return this._factory.toString();
-    }
-
-    public class Resources
-    {
-        Uby _uby;
-        EmotionAnalyzer _emotionAnalizer;
-        JWeb1TSearcher _web1tWordStatistic;
-
-        String _productName;
-        String _patternToGenerate;
-        String _selectedPartOfBody;
-        List<String> _suggestedWords;
-
-        boolean _useUbyGeneration;
-
-        public Resources()
-        {
-            this._uby = null;
-            this._emotionAnalizer = null;
-            this._web1tWordStatistic = null;
-            this._productName = "productName";
-            this._patternToGenerate = "";
-            this._selectedPartOfBody = "";
-            this._suggestedWords = new ArrayList<String>();
-            this._useUbyGeneration = true;
-        }
-
-        public Resources(final Uby uby, final EmotionAnalyzer emotionAnalizer,
-                final JWeb1TSearcher web1tSearcher)
-        {
-            super();
-            this._uby = uby;
-            this._emotionAnalizer = emotionAnalizer;
-            this._web1tWordStatistic = web1tSearcher;
-        }
-
-        public Uby getUby()
-        {
-            return this._uby;
-        }
-
-        public void setUby(final Uby uby)
-        {
-            this._uby = uby;
-        }
-
-        public void useUbyForNewWords(final boolean tof)
-        {
-            this._useUbyGeneration = tof;
-        }
-
-        public boolean isUbyGernationAllowed()
-        {
-            return this._useUbyGeneration;
-        }
-
-        public EmotionAnalyzer getEmotionAnalizer()
-        {
-            return this._emotionAnalizer;
-        }
-
-        public void setEmotionAnalizer(final EmotionAnalyzer emotionAnalizer)
-        {
-            this._emotionAnalizer = emotionAnalizer;
-        }
-
-        public JWeb1TSearcher getWordStatistic()
-        {
-            return this._web1tWordStatistic;
-        }
-
-        public void setWordStatistic(final JWeb1TSearcher web1tSearcher)
-        {
-            this._web1tWordStatistic = web1tSearcher;
-        }
-
-        public String getProductName()
-        {
-            return this._productName;
-        }
-
-        public void setProductName(final String productName)
-        {
-            this._productName = productName;
-        }
-
-        public String getPatternToGenerate()
-        {
-            return this._patternToGenerate;
-        }
-
-        public void setPatternToGenerate(final String patternToGenerate)
-        {
-            this._patternToGenerate = patternToGenerate;
-        }
-
-        public String getSelectedBodyPart()
-        {
-            return this._selectedPartOfBody;
-        }
-
-        public void setSelectedPartOfBody(final String part)
-        {
-            this._selectedPartOfBody = part;
-        }
-
-        public List<String> getSuggestedWords()
-        {
-            return this._suggestedWords;
-        }
-
-        public void setSuggestedWords(final List<String> suggestedWords)
-        {
-            this._suggestedWords = suggestedWords;
-        }
-
     }
 
 }

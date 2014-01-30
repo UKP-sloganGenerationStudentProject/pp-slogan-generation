@@ -3,16 +3,16 @@ package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.PatternGenerator.Resources;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.ChunkHeader.ChunkType;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.Chunk;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.NounChunk;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
 
 public class Pattern
 {
     private final ArrayList<Chunk> _elementList;
     private final ArrayList<String> _valueOccurrences;
     private String _patternType;
+    private boolean _isSuggestedWordsCompatible;
 
     public Pattern()
     {
@@ -130,6 +130,14 @@ public class Pattern
                     {
                         if(mustBeBodyPart)
                         {
+
+                            if(isNoBodyPartValid)
+                            {
+                                withBodyPartTEMP.addAll(Utils.concatenate(noBodyPart, nounOcc.generateSloganParts(resources)));
+                                isWithBodyPartTEMPValid = true;
+                            }
+
+                            /*
                             if(nounOcc.getBodyPartName().equals(resources.getSelectedBodyPart()))
                             {
                                 //we use this occurrence because it contains exactly the bodypart we are looking for
@@ -145,6 +153,7 @@ public class Pattern
                             {
                                 //we don't use this occurrence because it corresponds to another part of the body
                             }
+                            */
                         }
                         else
                         {
@@ -263,5 +272,15 @@ public class Pattern
         }
 
         return output.toString();
+    }
+
+    public boolean getSuggestedWordsCompatibility()
+    {
+        return _isSuggestedWordsCompatible;
+    }
+
+    public void setSuggestedWordsCompatibility(boolean _isSuggestedWordsCompatible)
+    {
+        this._isSuggestedWordsCompatible = _isSuggestedWordsCompatible;
     }
 }

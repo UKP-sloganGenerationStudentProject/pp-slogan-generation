@@ -2,7 +2,7 @@ package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart;
 
 import java.util.ArrayList;
 
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.PatternGenerator.Resources;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.Resources;
 
 
 

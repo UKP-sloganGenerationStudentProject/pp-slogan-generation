@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.index.IndexElement;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkPartType;
 
 public class ChunkPartHeader extends IndexElement
 {
@@ -12,55 +13,6 @@ public class ChunkPartHeader extends IndexElement
     protected boolean _isValueDerivable;
     protected final ArrayList<ChunkPart> _occurrences;
 
-    public enum ChunkPartType
-    {
-        N("N"),
-        PUNC("PUNC"),
-        ART("ART"),
-        V("V"),
-        ADJ("ADJ"),
-        PP("PP"),
-        PR("PR"),
-        CARD("CARD"),
-        CONJ("CONJ"),
-        PRT("PRT"),
-        ADV("ADV"),
-        PRODUCT_NAME("productname"),
-        UNDEFINED("UNDEFINED");
-
-        private String name ="";
-        ChunkPartType(String name)
-        {
-            this.name = name;
-        }
-
-        public static ChunkPartType getTypeOf(String val)
-        {
-            ChunkPartType type = null;
-            if(val.equals("NP")||val.equals("NN"))
-            {
-                type = N;
-            }
-            else
-            {
-                try
-                {
-                    type = valueOf(val);
-                }
-                catch(IllegalArgumentException e)
-                {
-                    type = UNDEFINED;
-                }
-            }
-            return type;
-        }
-
-        @Override
-        public String toString()
-        {
-            return name;
-        }
-    }
 
     public ChunkPartHeader()
     {
