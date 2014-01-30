@@ -25,6 +25,7 @@ public class GamesAdapter
     implements Adapter
 {
 
+    private static final long serialVersionUID = -8502811331633647842L;
     public static final String DEFAULT_GAME_NAME = "My Game";
     public static final int DEFAULT_NUM_SLOGANS = 40;
 

@@ -139,7 +139,7 @@ public class SloganGenerator
     /**
      * Generates a slogan for the template. 
      * 
-     * @param Template The template for the generated slogan
+     * @param template The template for the generated slogan
      * @return An Object of the class Slogan, which represents a Slogan
      */
     public Slogan generateSlogan(final SloganTemplate template)

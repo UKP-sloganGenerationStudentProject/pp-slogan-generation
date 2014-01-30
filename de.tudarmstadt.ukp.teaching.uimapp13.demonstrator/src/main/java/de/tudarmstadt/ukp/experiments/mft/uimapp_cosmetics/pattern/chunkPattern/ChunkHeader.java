@@ -1,33 +1,32 @@
 package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.index.IndexElement;
 
-public class ChunkHeader extends IndexElement
+public class ChunkHeader
+    extends IndexElement
+    implements Serializable
 {
 
+    private static final long serialVersionUID = 1325933957546266085L;
     protected ChunkType _chunkType;
     protected boolean _isValueDerivable;
     protected String _semanticValue;
     protected String _takenValue;
     private final ArrayList<Chunk> _occurrences;
 
-
     public static final String NOT_DEFINED = "notDefined";
 
     public enum ChunkType
     {
-        NC("NC"),
-        VC("VC"),
-        ADJC("ADJC"),
-        PC("PC"),
-        ADVC("ADVC"),
-        UNDEFINED("UNDEFINED");
+        NC("NC"), VC("VC"), ADJC("ADJC"), PC("PC"), ADVC("ADVC"), UNDEFINED("UNDEFINED");
 
-        private String name ="";
-        ChunkType(String name)
+        private String name = "";
+
+        ChunkType(final String name)
         {
             this.name = name;
         }
@@ -35,131 +34,118 @@ public class ChunkHeader extends IndexElement
         @Override
         public String toString()
         {
-            return name;
+            return this.name;
         }
     }
-
 
     public ChunkHeader()
     {
-        _isValueDerivable = true;
-        _semanticValue = "";
-        _takenValue = "NO_INFORMATION";
-        _chunkType = ChunkType.UNDEFINED;
-        _occurrences = new ArrayList<Chunk>();
+        this._isValueDerivable = true;
+        this._semanticValue = "";
+        this._takenValue = "NO_INFORMATION";
+        this._chunkType = ChunkType.UNDEFINED;
+        this._occurrences = new ArrayList<Chunk>();
 
     }
 
-    public static ChunkHeader createChunkHeader(ChunkType chunkType)
+    public static ChunkHeader createChunkHeader(final ChunkType chunkType)
     {
         ChunkHeader output = new ChunkHeader();
 
-        if(chunkType.equals(ChunkType.NC))
-        {
+        if (chunkType.equals(ChunkType.NC)) {
             output = new NounChunkHeader();
         }
 
-        if(chunkType.equals(ChunkType.ADJC))
-        {
+        if (chunkType.equals(ChunkType.ADJC)) {
             output = new AdjChunkHeader();
         }
 
-        if(chunkType.equals(ChunkType.VC))
-        {
+        if (chunkType.equals(ChunkType.VC)) {
             output = new VerbChunkHeader();
         }
 
-        if(chunkType.equals(ChunkType.PC))
-        {
+        if (chunkType.equals(ChunkType.PC)) {
             output = new PrepChunkHeader();
         }
 
-        if(chunkType.equals(ChunkType.ADVC))
-        {
+        if (chunkType.equals(ChunkType.ADVC)) {
             output = new AdvChunkHeader();
         }
 
         return output;
     }
 
-
-    public void addOccurrence(Chunk occ)
+    public void addOccurrence(final Chunk occ)
     {
-        for(Chunk occ2 : _occurrences)
-        {
-            if(occ.toString().toLowerCase().equals(occ2.toString().toLowerCase()))
-            {
+        for (final Chunk occ2 : this._occurrences) {
+            if (occ.toString().toLowerCase().equals(occ2.toString().toLowerCase())) {
                 return;
             }
         }
-        _occurrences.add(occ);
+        this._occurrences.add(occ);
     }
 
     public List<Chunk> getOccurrences()
     {
-        return _occurrences;
+        return this._occurrences;
     }
 
     public boolean isValueDerivable()
     {
-        return _isValueDerivable;
+        return this._isValueDerivable;
     }
 
-    public void setFixedValue(String fixedValue)
+    public void setFixedValue(final String fixedValue)
     {
-        _isValueDerivable = false;
-        _takenValue = fixedValue;
+        this._isValueDerivable = false;
+        this._takenValue = fixedValue;
     }
 
     public ChunkType getChunkType()
     {
-        return _chunkType;
+        return this._chunkType;
     }
 
-    public void setSemanticValue(String sem)
+    public void setSemanticValue(final String sem)
     {
-        _semanticValue = sem;
+        this._semanticValue = sem;
     }
 
     public String getSemanticValue()
     {
-        return _semanticValue;
+        return this._semanticValue;
     }
 
     @Override
     public String getId()
     {
-        String signature = _chunkType.toString();
-        if(_isValueDerivable)
-        {
-            signature = signature + "-VAR" + "[sem:" + _semanticValue + "]";
+        String signature = this._chunkType.toString();
+        if (this._isValueDerivable) {
+            signature = signature + "-VAR" + "[sem:" + this._semanticValue + "]";
         }
-        else
-        {
-            signature = signature + "-FIX-" + _takenValue;
+        else {
+            signature = signature + "-FIX-" + this._takenValue;
         }
         return signature;
     }
 
-    public void generateHeader(Chunk occurrence)
+    public void generateHeader(final Chunk occurrence)
     {
-        //general operation
-        _takenValue=occurrence.toString();
+        // general operation
+        this._takenValue = occurrence.toString();
 
-        //generation specialized to the header type
-        specializedHeaderGeneration(occurrence);
+        // generation specialized to the header type
+        this.specializedHeaderGeneration(occurrence);
     }
 
-
-    public void specializedHeaderGeneration(Chunk occurrence)
+    public void specializedHeaderGeneration(final Chunk occurrence)
     {
-        //to be implemented  by the subclasses
+        // to be implemented by the subclasses
     }
 
     public void resetCache()
     {
-        for(Chunk occ : _occurrences)
-        {
+        for (final Chunk occ : this._occurrences) {
             occ.resetCache();
         }
     }
@@ -167,29 +153,25 @@ public class ChunkHeader extends IndexElement
     @Override
     public String toString()
     {
-        StringBuilder output = new StringBuilder();
-        output.append(_chunkType.toString());
+        final StringBuilder output = new StringBuilder();
+        output.append(this._chunkType.toString());
         output.append("#");
-        if(_isValueDerivable)
-        {
+        if (this._isValueDerivable) {
             output.append("D");
         }
-        else
-        {
+        else {
             output.append("ND");
         }
 
         output.append(" [ ");
 
-
-        output.append(_semanticValue);
+        output.append(this._semanticValue);
 
         output.append("] ");
 
-        output.append(getSpecificInformation());
+        output.append(this.getSpecificInformation());
 
-        for(Chunk occ : _occurrences)
-        {
+        for (final Chunk occ : this._occurrences) {
             output.append("\n\t");
             output.append(occ.toString());
         }
@@ -205,6 +187,6 @@ public class ChunkHeader extends IndexElement
     @Override
     protected String getTypeAsString()
     {
-        return getChunkType().toString();
+        return this.getChunkType().toString();
     }
 }

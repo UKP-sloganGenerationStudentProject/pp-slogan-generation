@@ -1,6 +1,5 @@
 package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,7 +7,6 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.Chu
 
 public class NounChunkHeader
     extends ChunkHeader
-    implements Serializable
 {
     private static final long serialVersionUID = 825846968453941550L;
     boolean _isThe;
@@ -27,7 +25,7 @@ public class NounChunkHeader
     @Override
     public String getId()
     {
-        StringBuilder id = new StringBuilder();
+        final StringBuilder id = new StringBuilder();
         id.append(super.getId());
         id.append(" [");
         id.append("_isThe:");
@@ -41,7 +39,6 @@ public class NounChunkHeader
         id.append(this._isPerson);
         return id.toString();
     }
-
 
     @Override
     public String getSpecificInformation()
@@ -76,7 +73,7 @@ public class NounChunkHeader
     }
 
     @Override
-    public void specializedHeaderGeneration(Chunk occurrence)
+    public void specializedHeaderGeneration(final Chunk occurrence)
     {
         this._isValueDerivable = true;
         this._semanticValue = occurrence.getAt(occurrence.getPartsNbr() - 1).getSemanticValue();

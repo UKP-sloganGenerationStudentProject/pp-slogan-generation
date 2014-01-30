@@ -1,21 +1,21 @@
 package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern;
 
-
-
 public class AdvChunkHeader
     extends ChunkHeader
 {
 
+    private static final long serialVersionUID = 2167117216771551930L;
+
     public AdvChunkHeader()
     {
         super();
-        _chunkType = ChunkType.ADVC;
+        this._chunkType = ChunkType.ADVC;
     }
 
     @Override
-    public void specializedHeaderGeneration(Chunk occurrence)
+    public void specializedHeaderGeneration(final Chunk occurrence)
     {
-        _isValueDerivable = false;
+        this._isValueDerivable = false;
     }
 
 }
