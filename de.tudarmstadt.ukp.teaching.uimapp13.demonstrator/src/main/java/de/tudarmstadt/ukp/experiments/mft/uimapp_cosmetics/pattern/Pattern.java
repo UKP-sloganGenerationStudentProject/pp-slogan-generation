@@ -103,7 +103,7 @@ public class Pattern
         withBodyPart.add("");
 
         //tells us if the slogans have to include a specific bodypart
-        boolean mustBeBodyPart = !resources.getSelectedBodyPart().equals(PatternGenerator.DONT_CARE) && !resources.getSelectedBodyPart().equals("");
+        boolean mustBeBodyPart = !resources.getSelectedBodyPart().equals(PatternGenerator.NO_BODY_PART) && !resources.getSelectedBodyPart().equals("");
 
         boolean isNoBodyPartValid = true;
         boolean isWithBodyPartValid = true;
