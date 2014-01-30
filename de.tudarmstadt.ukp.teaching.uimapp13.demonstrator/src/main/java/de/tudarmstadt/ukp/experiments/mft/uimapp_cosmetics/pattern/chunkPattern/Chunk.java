@@ -3,40 +3,45 @@ package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern
 import java.util.ArrayList;
 import java.util.List;
 
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.Pattern;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.PatternGenerator.Resources;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.Utils;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPart;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.ChunkHeader.ChunkType;
 
 
-public class ChunkOccurrence
+public class Chunk
 {
 
     ChunkHeader _header;
+    Pattern _containingPattern;
     ArrayList<ChunkPart> _chunkParts;
     int _mainChunkInd;
     List<String> _generated;
 
 
-    public ChunkOccurrence()
+    public Chunk()
     {
         _chunkParts = new ArrayList<ChunkPart>();
         _mainChunkInd = -1;
         _header = new ChunkHeader();
         _generated = new ArrayList<>();
+        _containingPattern = null;
     }
 
-    public static ChunkOccurrence createChunkOccurrence(ChunkType chunkType)
+    public static Chunk createChunkOccurrence(ChunkType chunkType)
     {
-        ChunkOccurrence output = new ChunkOccurrence();
+        Chunk output = new Chunk();
 
         if(chunkType.equals(ChunkType.NC))
         {
-            output = new NounChunkOccurrence();
+            output = new NounChunk();
         }
 
         return output;
     }
+
+
 
     public void addChunkPart(ChunkPart part)
     {
@@ -46,6 +51,11 @@ public class ChunkOccurrence
     public void setHeader(ChunkHeader header)
     {
         _header = header;
+    }
+
+    public void setContainingPattern(Pattern pattern)
+    {
+        _containingPattern = pattern;
     }
 
     public ChunkType getChunkType()
@@ -75,16 +85,16 @@ public class ChunkOccurrence
         return output.toString();
     }
 
-    public List<ChunkOccurrence> getSimilarChunkOccurrences()
+    public List<Chunk> getSimilarChunkOccurrences()
     {
-        List<ChunkOccurrence> output = new ArrayList<>();
+        List<Chunk> output = new ArrayList<>();
         if(_header.getSemanticValue().equals("UNKNOWN"))
         {
             output.add(this);
         }
         else
         {
-            output = _header.getChunkOccurrences();
+            output = _header.getOccurrences();
         }
         return output;
     }
@@ -156,12 +166,12 @@ public class ChunkOccurrence
         {
             return true;
         }
-        if(!(obj instanceof ChunkOccurrence))
+        if(!(obj instanceof Chunk))
         {
             return false;
         }
 
-        ChunkOccurrence occ = (ChunkOccurrence) obj;
+        Chunk occ = (Chunk) obj;
 
         return toString().toLowerCase().equals(occ.toString().toLowerCase());
     }

@@ -19,7 +19,6 @@ public class VerbChunkPart
    public VerbChunkPart()
    {
        super();
-       _chunkPartType = ChunkPartType.V;
        _isValueDerivable = false;
    }
 

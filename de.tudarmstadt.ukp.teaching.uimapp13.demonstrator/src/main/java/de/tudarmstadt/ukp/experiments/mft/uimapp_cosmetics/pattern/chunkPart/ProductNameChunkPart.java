@@ -13,7 +13,6 @@ extends ChunkPart
     public ProductNameChunkPart()
     {
         super();
-       _chunkPartType = ChunkPartType.PRODUCT_NAME;
     }
 
     @Override

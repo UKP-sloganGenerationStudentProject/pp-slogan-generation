@@ -44,7 +44,7 @@ public class AdjChunkHeader extends ChunkHeader
     }
 
     @Override
-    public void specializedHeaderGeneration(ChunkOccurrence occurrence)
+    public void specializedHeaderGeneration(Chunk occurrence)
     {
         _isValueDerivable = true;
         _semanticValue = occurrence.getAt(occurrence.getPartsNbr()-1).getSemanticValue();

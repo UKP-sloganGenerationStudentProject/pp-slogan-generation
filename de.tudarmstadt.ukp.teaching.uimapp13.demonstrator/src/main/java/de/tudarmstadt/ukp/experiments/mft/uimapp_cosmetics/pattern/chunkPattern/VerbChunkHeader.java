@@ -48,7 +48,7 @@ public class VerbChunkHeader extends ChunkHeader
 
 
     @Override
-    public void specializedHeaderGeneration(ChunkOccurrence occurrence)
+    public void specializedHeaderGeneration(Chunk occurrence)
     {
 
 

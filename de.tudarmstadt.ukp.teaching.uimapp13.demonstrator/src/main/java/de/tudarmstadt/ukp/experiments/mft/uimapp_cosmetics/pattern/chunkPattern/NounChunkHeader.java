@@ -27,7 +27,7 @@ public class NounChunkHeader
     @Override
     public String getId()
     {
-        final StringBuilder id = new StringBuilder();
+        StringBuilder id = new StringBuilder();
         id.append(super.getId());
         id.append(" [");
         id.append("_isThe:");
@@ -41,6 +41,7 @@ public class NounChunkHeader
         id.append(this._isPerson);
         return id.toString();
     }
+
 
     @Override
     public String getSpecificInformation()
@@ -75,7 +76,7 @@ public class NounChunkHeader
     }
 
     @Override
-    public void specializedHeaderGeneration(final ChunkOccurrence occurrence)
+    public void specializedHeaderGeneration(Chunk occurrence)
     {
         this._isValueDerivable = true;
         this._semanticValue = occurrence.getAt(occurrence.getPartsNbr() - 1).getSemanticValue();

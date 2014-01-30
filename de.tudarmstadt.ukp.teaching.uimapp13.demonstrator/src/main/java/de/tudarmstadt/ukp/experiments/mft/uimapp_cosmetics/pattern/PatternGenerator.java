@@ -38,7 +38,7 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.annotation.EmotionAnn
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.annotation.SloganAnnotator;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.emotions.EmotionAnalyzer;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPart;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPart.ChunkPartType;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPartHeader.ChunkPartType;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.ChunkHeader.ChunkType;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.annotation.ChunkPatternAnnotation;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.annotation.EmotionAnnotation;
@@ -493,7 +493,7 @@ public class PatternGenerator
                 final ChunkPart chunkPart = ChunkPart.createChunkPart(chunkPartType,
                         token.getCoveredText(), lemma, sem, pos.getPosValue());
 
-                this._factory.addPartToChunk(chunkPart);
+                this._factory.addPartToChunk(chunkPartType,chunkPart);
 
             }
 

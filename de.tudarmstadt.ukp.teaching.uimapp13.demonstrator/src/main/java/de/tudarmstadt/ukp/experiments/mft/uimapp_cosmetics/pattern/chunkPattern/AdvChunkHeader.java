@@ -13,7 +13,7 @@ public class AdvChunkHeader
     }
 
     @Override
-    public void specializedHeaderGeneration(ChunkOccurrence occurrence)
+    public void specializedHeaderGeneration(Chunk occurrence)
     {
         _isValueDerivable = false;
     }

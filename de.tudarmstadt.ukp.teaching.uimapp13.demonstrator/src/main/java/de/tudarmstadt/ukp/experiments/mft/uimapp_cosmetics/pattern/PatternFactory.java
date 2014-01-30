@@ -8,10 +8,12 @@ import java.util.List;
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.PatternGenerator.Resources;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPart;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPartHeader;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPartHeader.ChunkPartType;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.Chunk;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.ChunkHeader;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.ChunkHeader.ChunkType;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.ChunkIndex;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.ChunkOccurrence;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.index.Index;
 
 public class PatternFactory
     implements Serializable
@@ -23,9 +25,10 @@ public class PatternFactory
      * pattern information
      */
     Hashtable<String, Pattern> _patterns;
-    ChunkIndex _chunkIndex;
+    Index<ChunkHeader> _chunkIndex;
+    Index<ChunkPartHeader> _chunkPartIndex;
     Pattern _currentPattern;
-    ChunkOccurrence _currentChunkOccurrence;
+    Chunk _currentChunkOccurrence;
     ChunkType _currentChunkType;
     String _currentPatternValue;
     boolean _isCurrentPattern;
@@ -33,22 +36,28 @@ public class PatternFactory
     public PatternFactory()
     {
         this._patterns = new Hashtable<String, Pattern>();
-        this._chunkIndex = new ChunkIndex();
+        this._chunkIndex = new Index<ChunkHeader>();
+        this._chunkPartIndex = new Index<ChunkPartHeader>();
         this._currentPattern = new Pattern();
-        this._currentChunkOccurrence = new ChunkOccurrence();
+        this._currentChunkOccurrence = new Chunk();
         this._currentPatternValue = "";
         this._isCurrentPattern = false;
     }
 
     public void startNewChunk(final ChunkType type)
     {
-        this._currentChunkOccurrence = ChunkOccurrence.createChunkOccurrence(type);
+        this._currentChunkOccurrence = Chunk.createChunkOccurrence(type);
         this._currentChunkType = type;
     }
 
-    public void addPartToChunk(final ChunkPart chunkPart)
+    public void addPartToChunk(ChunkPartType type,final ChunkPart chunkPart)
     {
         // get or add the corresponding part from/to the chunk part index
+        final ChunkPartHeader header = ChunkPartHeader.createChunkHeader(type, chunkPart.getSemanticValue());
+        final ChunkPartHeader headerInIndex = _chunkPartIndex.addElement(header);
+        headerInIndex.addOccurrence(chunkPart);
+        chunkPart.setHeader(headerInIndex);
+        chunkPart.setContainingChunk(_currentChunkOccurrence);
         this._currentChunkOccurrence.addChunkPart(chunkPart);
     }
 
@@ -59,11 +68,12 @@ public class PatternFactory
         // generate the ChunkHeader
         final ChunkHeader header = ChunkHeader.createChunkHeader(this._currentChunkType);
         header.generateHeader(this._currentChunkOccurrence);
-        final ChunkHeader headerInIndex = this._chunkIndex.addHeader(header);
+        final ChunkHeader headerInIndex = this._chunkIndex.addElement(header);
         headerInIndex.addOccurrence(this._currentChunkOccurrence);
         this._currentChunkOccurrence.setHeader(headerInIndex);
         if (this._isCurrentPattern) {
             this._currentPattern.addElement(this._currentChunkOccurrence);
+            this._currentChunkOccurrence.setContainingPattern(this._currentPattern);
         }
     }
 
@@ -103,7 +113,7 @@ public class PatternFactory
 
     public void resetTheCacheData()
     {
-        for (final ChunkHeader header : this._chunkIndex.getPatternElements()) {
+        for (final ChunkHeader header : this._chunkIndex.getElements()) {
             header.resetCache();
         }
     }
@@ -295,8 +305,13 @@ public class PatternFactory
             output.append("\n");
         }
 
-        output.append("##################ElementIndex###############\n\n");
+        output.append("\n\n##################ChunkIndex###############\n\n");
         output.append(this._chunkIndex.toString());
+
+        output.append("\n\n##################ChunkPartIndex###############\n\n");
+        output.append(this._chunkPartIndex.toString());
+
+
 
         return output.toString();
     }

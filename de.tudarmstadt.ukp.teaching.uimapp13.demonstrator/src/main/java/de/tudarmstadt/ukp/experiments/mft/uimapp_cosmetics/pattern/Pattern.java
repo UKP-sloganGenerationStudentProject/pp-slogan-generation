@@ -5,18 +5,18 @@ import java.util.List;
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.PatternGenerator.Resources;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.ChunkHeader.ChunkType;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.ChunkOccurrence;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.NounChunkOccurrence;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.Chunk;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.NounChunk;
 
 public class Pattern
 {
-    private final ArrayList<ChunkOccurrence> _elementList;
+    private final ArrayList<Chunk> _elementList;
     private final ArrayList<String> _valueOccurrences;
     private String _patternType;
 
     public Pattern()
     {
-        _elementList = new ArrayList<ChunkOccurrence>();
+        _elementList = new ArrayList<Chunk>();
         _valueOccurrences = new ArrayList<String>();
         _patternType = "UNDEFINED";
     }
@@ -25,7 +25,7 @@ public class Pattern
     {
         StringBuilder type = new StringBuilder();
 
-        for(ChunkOccurrence occ : _elementList)
+        for(Chunk occ : _elementList)
         {
             type.append(occ.getChunkType().toString());
             type.append("_");
@@ -46,7 +46,7 @@ public class Pattern
         generatePatternType();
     }
 
-    public void addElement(ChunkOccurrence el)
+    public void addElement(Chunk el)
     {
         _elementList.add(el);
     }
@@ -65,7 +65,7 @@ public class Pattern
     {
         String id = "";
 
-        for(ChunkOccurrence elem: _elementList)
+        for(Chunk elem: _elementList)
         {
             id = id + elem.getHeaderId() + "_";
         }
@@ -73,7 +73,7 @@ public class Pattern
         return id;
     }
 
-    public List<ChunkOccurrence> getPatternElementList()
+    public List<Chunk> getPatternElementList()
     {
         return _elementList;
     }
@@ -113,7 +113,7 @@ public class Pattern
             System.out.println("STOP HERE !");
         }
 
-        for(ChunkOccurrence elem : _elementList)
+        for(Chunk elem : _elementList)
         {
             List<String> noBodyPartTEMP = new ArrayList<>();
             List<String> withBodyPartTEMP = new ArrayList<>();
@@ -121,11 +121,11 @@ public class Pattern
             boolean isNoBodyPartTEMPValid = false;
             boolean isWithBodyPartTEMPValid = false;
 
-            for(ChunkOccurrence occ : elem.getSimilarChunkOccurrences())
+            for(Chunk occ : elem.getSimilarChunkOccurrences())
             {
                 if(occ.getChunkType().equals(ChunkType.NC))
                 {
-                    NounChunkOccurrence nounOcc = (NounChunkOccurrence) occ;
+                    NounChunk nounOcc = (NounChunk) occ;
                     if(nounOcc.isBodyPart())
                     {
                         if(mustBeBodyPart)
@@ -248,7 +248,7 @@ public class Pattern
     {
         StringBuilder output = new StringBuilder();
 
-        for(ChunkOccurrence elem: _elementList)
+        for(Chunk elem: _elementList)
         {
             output.append(elem.getHeaderId());
             output.append(" _ ");
