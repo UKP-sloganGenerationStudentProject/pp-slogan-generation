@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.emotions.EmotionModel;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.PatternGenerator.Resources;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.Resources;
 import de.tudarmstadt.ukp.lmf.model.core.LexicalEntry;
 import de.tudarmstadt.ukp.lmf.model.core.Sense;
 import de.tudarmstadt.ukp.lmf.model.enums.EPartOfSpeech;
@@ -27,12 +27,25 @@ public class NounChunkPart
 
         final ArrayList<String> output = new ArrayList<String>();
 
+
+        /*
+         * we don't want this because would make mix the different expression between the different part of the body
+         */
+//
+//        if(PatternGenerator.getSelectablePartsOfBody().contains(this._lemma) && !PatternGenerator.NO_BODY_PART.equals(resources.getSelectedBodyPart()))
+//        {
+//            output.add(resources.getSelectedBodyPart());
+//            return output;
+//        }
+
         output.add(this._lemma);
 
         if (!this._isValueDerivable || !resources.isUbyGernationAllowed()
                 || resources.getSelectedBodyPart().equals(this._lemma)) {
             return output;
         }
+
+
 
         final String ubySemantic = "noun." + this._semanticValue;
 

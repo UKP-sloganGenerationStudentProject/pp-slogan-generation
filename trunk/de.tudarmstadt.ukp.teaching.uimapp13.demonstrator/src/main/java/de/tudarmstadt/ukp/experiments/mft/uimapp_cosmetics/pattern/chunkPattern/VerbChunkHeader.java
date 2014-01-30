@@ -1,7 +1,8 @@
 package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern;
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPart;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.POSForm.VerbForm;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.VerbForm;
 
 public class VerbChunkHeader
     extends ChunkHeader

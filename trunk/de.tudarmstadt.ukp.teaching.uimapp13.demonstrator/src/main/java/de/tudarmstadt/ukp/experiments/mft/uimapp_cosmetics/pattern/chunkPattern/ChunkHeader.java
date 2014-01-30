@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.index.IndexElement;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
 
 public class ChunkHeader
     extends IndexElement
@@ -17,26 +18,11 @@ public class ChunkHeader
     protected String _semanticValue;
     protected String _takenValue;
     private final ArrayList<Chunk> _occurrences;
+    private final ArrayList<Chunk> _constrainedOccurences;
 
     public static final String NOT_DEFINED = "notDefined";
 
-    public enum ChunkType
-    {
-        NC("NC"), VC("VC"), ADJC("ADJC"), PC("PC"), ADVC("ADVC"), UNDEFINED("UNDEFINED");
 
-        private String name = "";
-
-        ChunkType(final String name)
-        {
-            this.name = name;
-        }
-
-        @Override
-        public String toString()
-        {
-            return this.name;
-        }
-    }
 
     public ChunkHeader()
     {
@@ -45,7 +31,7 @@ public class ChunkHeader
         this._takenValue = "NO_INFORMATION";
         this._chunkType = ChunkType.UNDEFINED;
         this._occurrences = new ArrayList<Chunk>();
-
+        this._constrainedOccurences = new ArrayList<>();
     }
 
     public static ChunkHeader createChunkHeader(final ChunkType chunkType)
@@ -88,6 +74,16 @@ public class ChunkHeader
     public List<Chunk> getOccurrences()
     {
         return this._occurrences;
+    }
+
+    public boolean getSuggestedWordsCompatibility()
+    {
+        return this._constrainedOccurences.size()>0;
+    }
+
+    public List<Chunk> getConstrainedOccurences()
+    {
+        return this._constrainedOccurences;
     }
 
     public boolean isValueDerivable()
