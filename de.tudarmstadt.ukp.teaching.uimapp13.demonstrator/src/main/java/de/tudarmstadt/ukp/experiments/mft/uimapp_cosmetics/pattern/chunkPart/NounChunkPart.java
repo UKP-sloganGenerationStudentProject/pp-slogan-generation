@@ -12,45 +12,42 @@ import de.tudarmstadt.ukp.lmf.model.enums.EPartOfSpeech;
 import de.tudarmstadt.ukp.lmf.model.meta.SemanticLabel;
 import de.tudarmstadt.ukp.lmf.model.semantics.Synset;
 
-
 public class NounChunkPart
-extends ChunkPart
+    extends ChunkPart
 {
     public NounChunkPart()
     {
         super();
-       _chunkPartType = ChunkPartType.N;
-       _isValueDerivable = true;
+        this._chunkPartType = ChunkPartType.N;
+        this._isValueDerivable = true;
     }
 
-
     @Override
-    public ArrayList<String> generate(Resources resources)
+    public ArrayList<String> generate(final Resources resources)
     {
 
-        ArrayList<String> output = new ArrayList<String>();
+        final ArrayList<String> output = new ArrayList<String>();
 
-        output.add(_lemma);
+        output.add(this._lemma);
 
-        if(!_isValueDerivable || !resources.isUbyGernationAllowed() || resources.getSelectedBodyPart().equals(_lemma))
-        {
+        if (!this._isValueDerivable || !resources.isUbyGernationAllowed()
+                || resources.getSelectedBodyPart().equals(this._lemma)) {
             return output;
         }
 
-        String ubySemantic = "noun."+_semanticValue;
+        final String ubySemantic = "noun." + this._semanticValue;
 
-//        System.out.println("[");
-//        System.out.println(ubySemantic);
-//        System.out.println(_lemma);
-//        System.out.println("]");
+        // System.out.println("[");
+        // System.out.println(ubySemantic);
+        // System.out.println(_lemma);
+        // System.out.println("]");
 
-        List<LexicalEntry> lexicalEntries = resources.getUby().getLexicalEntries(_lemma, EPartOfSpeech.noun, null);
+        final List<LexicalEntry> lexicalEntries = resources.getUby().getLexicalEntries(this._lemma,
+                EPartOfSpeech.noun, null);
 
-        for (LexicalEntry lexEntry : lexicalEntries) {
+        for (final LexicalEntry lexEntry : lexicalEntries) {
 
-
-            for (Sense sense:lexEntry.getSenses())
-            {
+            for (final Sense sense : lexEntry.getSenses()) {
 
                 /*
                 if(output.size()>5)
@@ -59,77 +56,64 @@ extends ChunkPart
                 }
                 */
 
-                Synset synset = sense.getSynset();
+                final Synset synset = sense.getSynset();
 
-                if(synset == null)
-                {
+                if (synset == null) {
                     continue;
                 }
 
-                for(Sense sense2 : synset.getSenses())
-                {
-//                    System.out.println("\t"+sense2.getLexicalEntry().getLemmaForm());
+                for (final Sense sense2 : synset.getSenses()) {
+                    // System.out.println("\t"+sense2.getLexicalEntry().getLemmaForm());
 
-                    for(SemanticLabel sem : sense2.getSemanticLabels())
-                    {
-//                        System.out.println("\t\t"+sem.getLabel());
+                    for (final SemanticLabel sem : sense2.getSemanticLabels()) {
+                        // System.out.println("\t\t"+sem.getLabel());
 
-                        if(sem.getLabel().equals(ubySemantic))
-                        {
-                            String word = sense2.getLexicalEntry().getLemmaForm();
+                        if (sem.getLabel().equals(ubySemantic)) {
+                            final String word = sense2.getLexicalEntry().getLemmaForm();
                             boolean isNegativeConnotation = false;
-                            EmotionModel emotion = resources.getEmotionAnalizer().getEmotion(word);
-                            if(emotion!=null)
-                            {
-                                isNegativeConnotation= emotion.isNegative();
+                            final EmotionModel emotion = resources.getEmotionAnalizer().getEmotion(
+                                    word);
+                            if (emotion != null) {
+                                isNegativeConnotation = emotion.isNegative();
                             }
 
                             boolean isFreqToSmall = false;
 
-                            String[] subwords = word.split(" ");
-                            List<String> subwordWfreqs = new ArrayList<String>();
+                            final String[] subwords = word.split(" ");
+                            final List<String> subwordWfreqs = new ArrayList<String>();
 
-
-                            try
-                            {
-                                for(String subword : subwords)
-                                {
-                                    if(subword.length()==0)
-                                    {
+                            try {
+                                for (final String subword : subwords) {
+                                    if (subword.length() == 0) {
                                         continue;
                                     }
-                                    long freq = resources.getWordStatistic().getFrequency(subword);
-                                    if(freq<1000)
-                                    {
+                                    final long freq = resources.getWordStatistic().getFrequency(
+                                            subword);
+                                    if (freq < 1000) {
                                         isFreqToSmall = true;
                                         break;
                                     }
-                                    subwordWfreqs.add("("+subword+")["+freq+"] ");
+                                    subwordWfreqs.add("(" + subword + ")[" + freq + "] ");
                                 }
                             }
-                            catch (IOException e) {
+                            catch (final IOException e) {
                             }
 
-                            if(isFreqToSmall)
-                            {
-                                System.out.println("Too smal frequence : "+word);
+                            if (isFreqToSmall) {
+                                System.out.println("Too small frequence : " + word);
                                 continue;
                             }
 
-
-
                             String wordfreq = "";
 
-                            for(String val : subwordWfreqs)
-                            {
+                            for (final String val : subwordWfreqs) {
                                 wordfreq = wordfreq + val;
                             }
 
-                             if(!output.contains(wordfreq) && !isNegativeConnotation)
-                                {
-                                    output.add(wordfreq);
-//                                System.out.println("\t\tYES");
-                                }
+                            if (!output.contains(wordfreq) && !isNegativeConnotation) {
+                                output.add(wordfreq);
+                                // System.out.println("\t\tYES");
+                            }
                         }
                     }
                 }
@@ -137,6 +121,5 @@ extends ChunkPart
         }
         return output;
     }
-
 
 }
