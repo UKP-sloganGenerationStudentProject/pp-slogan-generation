@@ -1,5 +1,6 @@
 package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -7,106 +8,100 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.Chu
 
 public class NounChunkHeader
     extends ChunkHeader
+    implements Serializable
 {
-
+    private static final long serialVersionUID = 825846968453941550L;
     boolean _isThe;
     boolean _isProperNoun;
     boolean _isPerson;
 
-
     public NounChunkHeader()
     {
         super();
-        _chunkType = ChunkType.NC;
-        _isThe = false;
-        _isProperNoun = false;
-        _isPerson = false;
+        this._chunkType = ChunkType.NC;
+        this._isThe = false;
+        this._isProperNoun = false;
+        this._isPerson = false;
     }
 
     @Override
     public String getId()
     {
-        StringBuilder id = new StringBuilder();
+        final StringBuilder id = new StringBuilder();
         id.append(super.getId());
         id.append(" [");
         id.append("_isThe:");
-        id.append(_isThe);
+        id.append(this._isThe);
         id.append("]");
         id.append(" [");
         id.append("ProperNoun:");
-        id.append(_isProperNoun);
+        id.append(this._isProperNoun);
         id.append("]");
         id.append("isPerson:");
-        id.append(_isPerson);
+        id.append(this._isPerson);
         return id.toString();
     }
-
 
     @Override
     public String getSpecificInformation()
     {
-        StringBuilder output = new StringBuilder();
+        final StringBuilder output = new StringBuilder();
         output.append(" [");
         output.append("_isThe:");
-        output.append(_isThe);
+        output.append(this._isThe);
         output.append("]");
         output.append(" [");
         output.append("ProperNoun:");
-        output.append(_isProperNoun);
+        output.append(this._isProperNoun);
         output.append("]");
         output.append("isPerson:");
-        output.append(_isPerson);
+        output.append(this._isPerson);
         return output.toString();
     }
 
-
     public void setIsThe()
     {
-        _isThe = true;
+        this._isThe = true;
     }
-
 
     public void setIsProperNoun()
     {
-        _isProperNoun = true;
+        this._isProperNoun = true;
     }
 
     public void setIsPerson()
     {
-        _isPerson = true;
+        this._isPerson = true;
     }
 
     @Override
-    public void specializedHeaderGeneration(ChunkOccurrence occurrence)
+    public void specializedHeaderGeneration(final ChunkOccurrence occurrence)
     {
-        _isValueDerivable = true;
-        _semanticValue = occurrence.getAt(occurrence.getPartsNbr()-1).getSemanticValue();
+        this._isValueDerivable = true;
+        this._semanticValue = occurrence.getAt(occurrence.getPartsNbr() - 1).getSemanticValue();
 
-        //isThe
-        for(ChunkPart occPart : occurrence.getChunkParts())
-        {
-            if(occPart.getTakenValue().toLowerCase().equals("the"))
-            {
-                setIsThe();
+        // isThe
+        for (final ChunkPart occPart : occurrence.getChunkParts()) {
+            if (occPart.getTakenValue().toLowerCase().equals("the")) {
+                this.setIsThe();
             }
         }
 
-        //proper noun
-        //TODO does not work
-        String pos =  occurrence.getAt(occurrence.getPartsNbr()-1).getPos();
+        // proper noun
+        // TODO does not work
+        final String pos = occurrence.getAt(occurrence.getPartsNbr() - 1).getPos();
 
-        if(pos.startsWith("NNP"))
-        {
-            setIsProperNoun();
+        if (pos.startsWith("NNP")) {
+            this.setIsProperNoun();
         }
 
-        //isPerson
-        List<String> person = Arrays.asList("i","me","myself","you","yourself","she","her","herself","he","him","himself","we","us","ourself","ourselves","they","them","themself","themselves");
-        if(person.contains(occurrence.getAt(occurrence.getPartsNbr()-1).getTakenValue()))
-        {
-            setIsPerson();
+        // isPerson
+        final List<String> person = Arrays.asList("i", "me", "myself", "you", "yourself", "she",
+                "her", "herself", "he", "him", "himself", "we", "us", "ourself", "ourselves",
+                "they", "them", "themself", "themselves");
+        if (person.contains(occurrence.getAt(occurrence.getPartsNbr() - 1).getTakenValue())) {
+            this.setIsPerson();
         }
-
 
     }
 }

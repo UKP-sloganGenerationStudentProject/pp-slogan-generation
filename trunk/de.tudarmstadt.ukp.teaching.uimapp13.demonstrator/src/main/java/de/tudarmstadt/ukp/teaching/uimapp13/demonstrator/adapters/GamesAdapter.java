@@ -62,10 +62,10 @@ public class GamesAdapter
         final Integer sloganCount = (Integer) parameters.get(SLOGAN_COUNT);
         final Emotion emotion = (Emotion) parameters.get(EMOTION);
 
-        final Map<Pattern, Double> patternWeights = this
-                .parsePatternWeights((List<Double>) parameters.get(PATTERN_WEIGHTS));
-        final Map<StylisticDevice, Double> styleDevWeights = this
-                .parseStyleDevWeights((List<Double>) parameters.get(STYLISTIC_DEV_WEIGHTS));
+        final Map<Pattern, Double> patternWeights = this.parsePatternWeights(parameters
+                .get(PATTERN_WEIGHTS));
+        final Map<StylisticDevice, Double> styleDevWeights = this.parseStyleDevWeights(parameters
+                .get(STYLISTIC_DEV_WEIGHTS));
 
         final Set<String> features = this.parseSetFromLines((String) parameters.get(FEATURES));
         final Set<String> alienFeatures = this.parseSetFromLines((String) parameters
@@ -77,8 +77,8 @@ public class GamesAdapter
 
         final Integer maxWordListLength = (Integer) parameters.get(MAX_WORD_LIST_LENGTH);
 
-        final Generator generator = Generator.getInstance(
-                new Config(gameName, randomSeed, sloganCount, emotion, patternWeights,
+        final Generator generator = Generator
+                .getInstance(new Config(gameName, randomSeed, sloganCount, emotion, patternWeights,
                         styleDevWeights, features, alienFeatures, minWordsForGeneration,
                         maxSynsetDepth, maxWordListLength, ubyConfig, customDbConfig));
 
@@ -95,24 +95,30 @@ public class GamesAdapter
         return slogans;
     }
 
-    private Map<StylisticDevice, Double> parseStyleDevWeights(final List<Double> list)
+    private Map<StylisticDevice, Double> parseStyleDevWeights(final Object input)
     {
+        @SuppressWarnings("unchecked")
+        final List<Double> sdWeights = (List<Double>) input;
+
         final HashMap<StylisticDevice, Double> map = new HashMap<StylisticDevice, Double>();
-        map.put(StylisticDevice.Alliteration, list.get(0));
-        map.put(StylisticDevice.Metaphor, list.get(1));
-        map.put(StylisticDevice.Oxymoron, list.get(2));
-        map.put(StylisticDevice.Parallelism, list.get(3));
-        map.put(StylisticDevice.None, list.get(4));
+        map.put(StylisticDevice.Alliteration, sdWeights.get(0));
+        map.put(StylisticDevice.Metaphor, sdWeights.get(1));
+        map.put(StylisticDevice.Oxymoron, sdWeights.get(2));
+        map.put(StylisticDevice.Parallelism, sdWeights.get(3));
+        map.put(StylisticDevice.None, sdWeights.get(4));
         return map;
     }
 
-    private Map<Pattern, Double> parsePatternWeights(final List<Double> list)
+    private Map<Pattern, Double> parsePatternWeights(final Object input)
     {
+        @SuppressWarnings("unchecked")
+        final List<Double> patternWeights = (List<Double>) input;
+
         final HashMap<Pattern, Double> map = new HashMap<Pattern, Double>();
-        map.put(Pattern.JJNN, list.get(0));
-        map.put(Pattern.JJNNJJNN, list.get(1));
-        map.put(Pattern.VBVBVB, list.get(2));
-        map.put(Pattern.NNVVN, list.get(3));
+        map.put(Pattern.JJNN, patternWeights.get(0));
+        map.put(Pattern.JJNNJJNN, patternWeights.get(1));
+        map.put(Pattern.VBVBVB, patternWeights.get(2));
+        map.put(Pattern.NNVVN, patternWeights.get(3));
         return map;
     }
 
