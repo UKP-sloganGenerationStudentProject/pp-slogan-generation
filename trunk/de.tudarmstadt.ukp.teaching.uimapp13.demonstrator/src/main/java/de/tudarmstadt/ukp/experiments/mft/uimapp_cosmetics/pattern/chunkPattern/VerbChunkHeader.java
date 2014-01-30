@@ -3,102 +3,88 @@ package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPart;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.POSForm.VerbForm;
 
-
-public class VerbChunkHeader extends ChunkHeader
+public class VerbChunkHeader
+    extends ChunkHeader
 {
 
+    private static final long serialVersionUID = -7294589898479992115L;
     VerbForm _form;
-
 
     public VerbChunkHeader()
     {
         super();
-        _chunkType = ChunkType.VC;
-        _form = VerbForm.NO_INFORMATION;
+        this._chunkType = ChunkType.VC;
+        this._form = VerbForm.NO_INFORMATION;
     }
 
-    public void setForm(VerbForm form)
+    public void setForm(final VerbForm form)
     {
-        _form = form;
+        this._form = form;
     }
 
     @Override
     public String getId()
     {
-        StringBuilder id = new StringBuilder();
+        final StringBuilder id = new StringBuilder();
         id.append(super.getId());
         id.append(" [");
         id.append("form:");
-        id.append(_form);
+        id.append(this._form);
         id.append("]");
         return id.toString();
     }
 
-
     @Override
     public String getSpecificInformation()
     {
-        StringBuilder output = new StringBuilder();
+        final StringBuilder output = new StringBuilder();
         output.append(" [");
         output.append("form:");
-        output.append(_form);
+        output.append(this._form);
         output.append("]");
         return output.toString();
     }
 
-
     @Override
-    public void specializedHeaderGeneration(Chunk occurrence)
+    public void specializedHeaderGeneration(final Chunk occurrence)
     {
 
+        this._isValueDerivable = true;
+        this._semanticValue = occurrence.getAt(occurrence.getPartsNbr() - 1).getSemanticValue();
 
-        _isValueDerivable = true;
-        _semanticValue = occurrence.getAt(occurrence.getPartsNbr()-1).getSemanticValue();
-
-
-        ChunkPart part = occurrence.getAt(occurrence.getPartsNbr()-1);
+        final ChunkPart part = occurrence.getAt(occurrence.getPartsNbr() - 1);
         part.setDerivable(true);
 
-        String pos = part.getPos();
+        final String pos = part.getPos();
 
-        if(pos.equals("VB")||pos.equals("VV"))
-        {
-            setForm(VerbForm.LEMMA);
+        if (pos.equals("VB") || pos.equals("VV")) {
+            this.setForm(VerbForm.LEMMA);
 
-            if(occurrence.getPartsNbr()>1)
-            {
-                if(occurrence.getAt(occurrence.getPartsNbr()-2).getPos().equals("TO"))
-                {
-                    setForm(VerbForm.TO_);
+            if (occurrence.getPartsNbr() > 1) {
+                if (occurrence.getAt(occurrence.getPartsNbr() - 2).getPos().equals("TO")) {
+                    this.setForm(VerbForm.TO_);
                 }
             }
         }
 
-        if(pos.equals("VBD")||pos.equals("VBN")
-                ||pos.equals("VVD")||pos.equals("VVN"))
-        {
-            //verb is past tense or past participle
-            setForm(VerbForm.PAST);
+        if (pos.equals("VBD") || pos.equals("VBN") || pos.equals("VVD") || pos.equals("VVN")) {
+            // verb is past tense or past participle
+            this.setForm(VerbForm.PAST);
         }
 
-        if(pos.equals("VVG"))
-        {
-            setForm(VerbForm._ING);
+        if (pos.equals("VVG")) {
+            this.setForm(VerbForm._ING);
 
-            if(occurrence.getPartsNbr()>1)
-            {
-                String prevPosVal = occurrence.getAt(occurrence.getPartsNbr()-2).getPos();
-                if(prevPosVal.startsWith("VB"))
-                {
-                    setForm(VerbForm.PRESENT);
+            if (occurrence.getPartsNbr() > 1) {
+                final String prevPosVal = occurrence.getAt(occurrence.getPartsNbr() - 2).getPos();
+                if (prevPosVal.startsWith("VB")) {
+                    this.setForm(VerbForm.PRESENT);
                 }
             }
         }
 
-        if(pos.equals("VBP")||pos.equals("VBZ")
-                ||pos.equals("VVP")||pos.equals("VVZ"))
-        {
-            setForm(VerbForm.PRESENT);
+        if (pos.equals("VBP") || pos.equals("VBZ") || pos.equals("VVP") || pos.equals("VVZ")) {
+            this.setForm(VerbForm.PRESENT);
         }
     }
 
