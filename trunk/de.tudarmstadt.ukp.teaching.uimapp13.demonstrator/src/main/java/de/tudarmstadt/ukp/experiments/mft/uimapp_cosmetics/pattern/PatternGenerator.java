@@ -66,10 +66,11 @@ public class PatternGenerator
     String _ubyDBPassword;
 
     public static final String DONT_CARE = "don't care";
+    public static final String NO_BODY_PART = "no body part";
 
     private static List<String> _patternsToAnnotate = Arrays.asList(DONT_CARE,"NC_", "NC_PC_NC_", "VC_NC_",
             "VC_NC_PC_NC_", "VC_", "NC_VC_", "NC_VC_ADJC_", "NC_VC_NC_");;
-    private static List<String> _partsOfBodyToSelect = Arrays.asList(DONT_CARE,"eye", "skin", "lip", "nail",
+    private static List<String> _partsOfBodyToSelect = Arrays.asList(NO_BODY_PART,"eye", "skin", "lip", "nail",
             "hair", "lash");
 
     PatternFactory _factory;
@@ -83,7 +84,7 @@ public class PatternGenerator
 
         final PatternGenerator generator = new PatternGenerator();
 
-        //generator.disableUbyGeneration();
+        generator.useUbyForNewWords(true);
 
         generator.setEmotionFilePath("src/main/resources/NRCemotionlexicon.pdf");
         generator.setSloganBasePath("src/main/resources/beautySlogans.txt");
@@ -329,9 +330,9 @@ public class PatternGenerator
         return this._factory.generateSlogans(this._resources, nbrOfSlogans);
     }
 
-    public void disableUbyGeneration()
+    public void useUbyForNewWords(boolean tof)
     {
-        this._resources.disableUbyGeneration();
+        this._resources.useUbyForNewWords(tof);
     }
 
     public void generateSlogansToFile(final String path)
@@ -558,9 +559,9 @@ public class PatternGenerator
             this._uby = uby;
         }
 
-        public void disableUbyGeneration()
+        public void useUbyForNewWords(boolean tof)
         {
-            this._useUbyGeneration = false;
+            this._useUbyGeneration = tof;
         }
 
         public boolean isUbyGernationAllowed()

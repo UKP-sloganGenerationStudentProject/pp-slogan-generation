@@ -32,7 +32,7 @@ extends ChunkPart
 
         output.add(_lemma);
 
-        if(!_isValueDerivable || !resources.isUbyGernationAllowed())
+        if(!_isValueDerivable || !resources.isUbyGernationAllowed() || resources.getSelectedBodyPart().equals(_lemma))
         {
             return output;
         }
