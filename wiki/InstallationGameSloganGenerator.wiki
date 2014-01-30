@@ -27,7 +27,7 @@ Edit the constants accordingly. The Javadoc gives examples.
 To run the applicaton run the main method of “de.koch.uim_project.main.Main”.
 
 == Note ==
-  * While the application will work with an empty custom database the absence of emotion words has a heavy impact on the quality of the generated slogans. In this case it is advisable to allways turn the emotion option to “None” to save performance.
+  * While the application will work with an empty custom database the absence of emotion words has a heavy impact on the quality of the generated slogans. In this case it is advisable to turn the emotion option to “None” to save performance.
   * The application will work without a web1t corpus but the quality of the generated slogans is lesser.
 
 = Integrate the generator in some other project =
