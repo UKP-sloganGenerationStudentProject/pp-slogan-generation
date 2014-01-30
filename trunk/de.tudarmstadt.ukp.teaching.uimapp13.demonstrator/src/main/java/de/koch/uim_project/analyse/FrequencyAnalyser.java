@@ -16,6 +16,7 @@ import org.apache.uima.jcas.JCas;
 import de.koch.uim_project.analyse.data.ChunkedSentence;
 import de.koch.uim_project.analyse.data.PosSentence;
 import de.koch.uim_project.database.JdbcConnect;
+import de.koch.uim_project.util.Constants;
 import de.tudarmstadt.ukp.dkpro.core.api.frequency.util.FrequencyDistribution;
 import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Lemma;
 import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Token;
@@ -68,7 +69,7 @@ public class FrequencyAnalyser {
 		FrequencyDistribution<Synset> fd = new FrequencyDistribution<Synset>();
 		try {
 			Set<String> stopWordFiles = new HashSet<String>();
-			stopWordFiles.add("src/main/resources/sources/stopwordlist.txt");
+			stopWordFiles.add(Constants.ANALYSIS.PATH_STOP_WORDS);
 			JCas jcas;
 			AnalysisEngineDescription pipeline = AnalysisEngineFactory.createEngineDescription(AnalysisEngineFactory
 					.createEngineDescription(StanfordSegmenter.class), AnalysisEngineFactory.createEngineDescription(TreeTaggerPosLemmaTT4J.class),
@@ -91,8 +92,8 @@ public class FrequencyAnalyser {
 			}
 
 		} catch (Exception e) {
-			log.error("Failed to analyse synset frequency");
-			throw new AnalyseException("Failed to analyse synset frequency");
+			log.error("Failed to analyse synset frequency",e);
+			throw new AnalyseException("Failed to analyse synset frequency",e);
 		}
 		return fd;
 	}
@@ -109,7 +110,7 @@ public class FrequencyAnalyser {
 		FrequencyDistribution<String> fd = new FrequencyDistribution<String>();
 		try {
 			Set<String> stopWordFiles = new HashSet<String>();
-			stopWordFiles.add("src/main/resources/sources/stopwordlist.txt");
+			stopWordFiles.add(Constants.ANALYSIS.PATH_STOP_WORDS);
 			JCas jcas;
 			AnalysisEngineDescription pipeline = AnalysisEngineFactory.createEngineDescription(AnalysisEngineFactory
 					.createEngineDescription(StanfordSegmenter.class), AnalysisEngineFactory.createEngineDescription(TreeTaggerPosLemmaTT4J.class),
@@ -127,7 +128,7 @@ public class FrequencyAnalyser {
 
 		} catch (Exception e) {
 			log.error("Failed to analyse Frequency", e);
-			throw new AnalyseException("Failed to analyse Frequency");
+			throw new AnalyseException("Failed to analyse Frequency",e);
 		}
 		return fd;
 	}
@@ -207,7 +208,7 @@ public class FrequencyAnalyser {
 			}
 		} catch (UIMAException e) {
 			log.error("Failed to analyse Frequency", e);
-			throw new AnalyseException("Failed to analyse Frequency");
+			throw new AnalyseException("Failed to analyse Frequency",e);
 		}
 		return fd;
 	}

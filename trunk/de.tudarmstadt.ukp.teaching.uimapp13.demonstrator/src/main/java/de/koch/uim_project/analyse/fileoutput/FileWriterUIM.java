@@ -73,8 +73,9 @@ public class FileWriterUIM
             final OutputGenerator<T> defaultOutputGenerator)
         throws FileWriterUimException
     {
-        BufferedWriter bw = null;
+        BufferedWriter bw = null;  
         try {
+        	file.createNewFile();
             bw = new BufferedWriter(new FileWriter(file));
 
             final List<SortPair<T>> sos = new ArrayList<SortPair<T>>();
@@ -124,6 +125,7 @@ public class FileWriterUIM
     {
         BufferedWriter bw = null;
         try {
+        	file.createNewFile();
             bw = new BufferedWriter(new FileWriter(file));
             final Comparator<FullyAnalyzedSentence> comp = Collections.reverseOrder();
             Collections.sort(fslogans, comp);

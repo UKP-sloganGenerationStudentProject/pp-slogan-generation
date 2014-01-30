@@ -49,22 +49,22 @@ public class AnalyseMain {
 		Uby uby = UbyConnect.getUbyInstance(ubyConfig);
 		
 		FrequencyDistribution<ChunkedSentence> fdChunk = FrequencyAnalyser.getInstance().getChunkPatternFrequency(slogans, true);
-		FileWriterUIM.getInstance().printFrequencyDistribution(new File("src/main/resources/analysis/chunkDistribution.txt"), fdChunk);
+		FileWriterUIM.getInstance().printFrequencyDistribution(new File(Constants.ANALYSIS.CHUNK_DISTRIBUTION_OUTPUT_PATH), fdChunk);
 
 		FrequencyDistribution<String> fdLemma = FrequencyAnalyser.getInstance().getLemmaFrequency(allSlogans);
-		FileWriterUIM.getInstance().printFrequencyDistribution(new File("src/main/resources/analysis/lemmaDistribution.txt"), fdLemma,
+		FileWriterUIM.getInstance().printFrequencyDistribution(new File(Constants.ANALYSIS.LEMMA_DISTRIBUTION_OUTPUT_PATH), fdLemma,
 				new DefaultOutputGenerator<String>());
 
 		FrequencyDistribution<PosSentence> fdPos = FrequencyAnalyser.getInstance().getPosPatternFrequency(slogans, true,con);
-		FileWriterUIM.getInstance().printFrequencyDistribution(new File("src/main/resources/analysis/posDistribution.txt"), fdPos,
+		FileWriterUIM.getInstance().printFrequencyDistribution(new File(Constants.ANALYSIS.POS_DISTRIBUTION_OUTPUT_PATH), fdPos,
 				new DefaultOutputGenerator<PosSentence>());
 
 		FrequencyDistribution<Synset> fdSyn = FrequencyAnalyser.getInstance().getSynsetFrequency(allSlogans,uby);
-		FileWriterUIM.getInstance().printFrequencyDistribution(new File("src/main/resources/analysis/synsetDistribution.txt"), fdSyn,
+		FileWriterUIM.getInstance().printFrequencyDistribution(new File(Constants.ANALYSIS.SYNSET_DISTRIBUTION_OUTPUT_PATH), fdSyn,
 				new SynsetOutputGenerator());
 
 		List<FullyAnalyzedSentence> fullyAnalyse = PatternAnalyser.getInstance().getFullyAnalyzeForFrequenz(slogans, 0, true,con);
-		FileWriterUIM.getInstance().printFullyAnalyzedSlogans(fullyAnalyse, new File("src/main/resources/analysis/fullyAnalysed.txt"));
+		FileWriterUIM.getInstance().printFullyAnalyzedSlogans(fullyAnalyse, new File(Constants.ANALYSIS.FULL_ANALYSIS_OUTPUT_PATH));
 		con.closeConnection();
 	}
 }
