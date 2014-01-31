@@ -11,7 +11,7 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.Ch
 public class ChunkPart
 {
 
-    protected ChunkPartHeader _header;
+    protected ChunkPartGeneric _header;
     protected Chunk _containingChunk;
     protected boolean _isValueDerivable;
     protected String _semanticValue;
@@ -80,12 +80,12 @@ public class ChunkPart
         return output;
     }
 
-    public void setHeader(ChunkPartHeader header)
+    public void setHeader(ChunkPartGeneric header)
     {
         _header = header;
     }
 
-    public ChunkPartHeader getHeader()
+    public ChunkPartGeneric getHeader()
     {
         return _header;
     }

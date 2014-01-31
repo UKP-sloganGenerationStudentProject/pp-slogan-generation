@@ -8,7 +8,7 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.constraints.W
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.index.IndexElement;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkPartType;
 
-public class ChunkPartHeader extends IndexElement
+public class ChunkPartGeneric extends IndexElement
 {
     protected ChunkPartType _chunkPartType;
     protected String _semanticValue;
@@ -18,7 +18,7 @@ public class ChunkPartHeader extends IndexElement
     private final List<ChunkPart> _constrainedElements;
 
 
-    public ChunkPartHeader()
+    public ChunkPartGeneric()
     {
         _isValueDerivable = false;
         _semanticValue = "";
@@ -29,9 +29,9 @@ public class ChunkPartHeader extends IndexElement
 
     }
 
-    public static ChunkPartHeader createChunkHeader(ChunkPartType type,String semantic)
+    public static ChunkPartGeneric createChunkHeader(ChunkPartType type,String semantic)
     {
-        ChunkPartHeader output = new ChunkPartHeader();
+        ChunkPartGeneric output = new ChunkPartGeneric();
         output.setPosType(type);
         output.setSemanticValue(semantic);
         if(type.equals(ChunkPartType.ADJ))

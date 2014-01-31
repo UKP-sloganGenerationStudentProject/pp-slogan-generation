@@ -8,7 +8,7 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.Resources;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.index.IndexElement;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
 
-public class ChunkHeader
+public class ChunkGeneric
     extends IndexElement
     implements Serializable
 {
@@ -26,7 +26,7 @@ public class ChunkHeader
 
 
 
-    public ChunkHeader()
+    public ChunkGeneric()
     {
         this._isValueDerivable = true;
         this._semanticValue = "";
@@ -36,28 +36,28 @@ public class ChunkHeader
         _constrainedElements = new ArrayList<>();
     }
 
-    public static ChunkHeader createChunkHeader(final ChunkType chunkType)
+    public static ChunkGeneric createChunkHeader(final ChunkType chunkType)
     {
-        ChunkHeader output = new ChunkHeader();
+        ChunkGeneric output = new ChunkGeneric();
 
         if (chunkType.equals(ChunkType.NC)) {
-            output = new NounChunkHeader();
+            output = new NounChunkGeneric();
         }
 
         if (chunkType.equals(ChunkType.ADJC)) {
-            output = new AdjChunkHeader();
+            output = new AdjChunkGeneric();
         }
 
         if (chunkType.equals(ChunkType.VC)) {
-            output = new VerbChunkHeader();
+            output = new VerbChunkGeneric();
         }
 
         if (chunkType.equals(ChunkType.PC)) {
-            output = new PrepChunkHeader();
+            output = new PrepChunkGeneric();
         }
 
         if (chunkType.equals(ChunkType.ADVC)) {
-            output = new AdvChunkHeader();
+            output = new AdvChunkGeneric();
         }
 
         return output;

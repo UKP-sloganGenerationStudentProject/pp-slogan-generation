@@ -12,7 +12,7 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.Ch
 
 public class Chunk
 {
-    ChunkHeader _header;
+    ChunkGeneric _header;
     Pattern _containingPattern;
     ArrayList<ChunkPart> _chunkParts;
     int _mainChunkInd;
@@ -24,7 +24,7 @@ public class Chunk
     {
         _chunkParts = new ArrayList<ChunkPart>();
         _mainChunkInd = -1;
-        _header = new ChunkHeader();
+        _header = new ChunkGeneric();
         _generated = new ArrayList<>();
         _containingPattern = null;
         _hasConstraint = false;
@@ -49,12 +49,12 @@ public class Chunk
         _chunkParts.add(part);
     }
 
-    public void setHeader(ChunkHeader header)
+    public void setHeader(ChunkGeneric header)
     {
         _header = header;
     }
 
-    public ChunkHeader getHeader()
+    public ChunkGeneric getHeader()
     {
         return _header;
     }

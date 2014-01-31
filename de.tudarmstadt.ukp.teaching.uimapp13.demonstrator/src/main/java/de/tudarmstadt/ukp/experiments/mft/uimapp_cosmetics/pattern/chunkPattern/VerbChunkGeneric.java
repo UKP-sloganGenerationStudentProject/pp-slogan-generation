@@ -4,14 +4,14 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.Chu
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.VerbForm;
 
-public class VerbChunkHeader
-    extends ChunkHeader
+public class VerbChunkGeneric
+    extends ChunkGeneric
 {
 
     private static final long serialVersionUID = -7294589898479992115L;
     VerbForm _form;
 
-    public VerbChunkHeader()
+    public VerbChunkGeneric()
     {
         super();
         this._chunkType = ChunkType.VC;

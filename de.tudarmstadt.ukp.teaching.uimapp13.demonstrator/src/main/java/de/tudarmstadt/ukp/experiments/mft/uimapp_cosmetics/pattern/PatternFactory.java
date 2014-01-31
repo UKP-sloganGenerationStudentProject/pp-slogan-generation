@@ -7,9 +7,9 @@ import java.util.Hashtable;
 import java.util.List;
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPart;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPartHeader;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPartGeneric;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.Chunk;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.ChunkHeader;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.ChunkGeneric;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.index.Index;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkPartType;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
@@ -24,8 +24,8 @@ public class PatternFactory
      * pattern information
      */
     Hashtable<String, Pattern> _patterns;
-    Index<ChunkHeader> _chunkIndex;
-    Index<ChunkPartHeader> _chunkPartIndex;
+    Index<ChunkGeneric> _chunkIndex;
+    Index<ChunkPartGeneric> _chunkPartIndex;
     Pattern _currentPattern;
     Chunk _currentChunkOccurrence;
     ChunkType _currentChunkType;
@@ -35,8 +35,8 @@ public class PatternFactory
     public PatternFactory()
     {
         this._patterns = new Hashtable<String, Pattern>();
-        this._chunkIndex = new Index<ChunkHeader>();
-        this._chunkPartIndex = new Index<ChunkPartHeader>();
+        this._chunkIndex = new Index<ChunkGeneric>();
+        this._chunkPartIndex = new Index<ChunkPartGeneric>();
         this._currentPattern = new Pattern();
         this._currentChunkOccurrence = new Chunk();
         this._currentPatternValue = "";
@@ -52,8 +52,8 @@ public class PatternFactory
     public void addPartToChunk(ChunkPartType type,final ChunkPart chunkPart)
     {
         // get or add the corresponding part from/to the chunk part index
-        final ChunkPartHeader header = ChunkPartHeader.createChunkHeader(type, chunkPart.getSemanticValue());
-        final ChunkPartHeader headerInIndex = _chunkPartIndex.addElement(header);
+        final ChunkPartGeneric header = ChunkPartGeneric.createChunkHeader(type, chunkPart.getSemanticValue());
+        final ChunkPartGeneric headerInIndex = _chunkPartIndex.addElement(header);
         headerInIndex.addOccurrence(chunkPart);
         chunkPart.setHeader(headerInIndex);
         chunkPart.setContainingChunk(_currentChunkOccurrence);
@@ -65,9 +65,9 @@ public class PatternFactory
         this._currentChunkOccurrence.generateInformation(resources);
 
         // generate the ChunkHeader
-        final ChunkHeader header = ChunkHeader.createChunkHeader(this._currentChunkType);
+        final ChunkGeneric header = ChunkGeneric.createChunkHeader(this._currentChunkType);
         header.generateHeader(this._currentChunkOccurrence);
-        final ChunkHeader headerInIndex = this._chunkIndex.addElement(header);
+        final ChunkGeneric headerInIndex = this._chunkIndex.addElement(header);
         headerInIndex.addOccurrence(this._currentChunkOccurrence);
         this._currentChunkOccurrence.setHeader(headerInIndex);
         if (this._isCurrentPattern) {
@@ -112,7 +112,7 @@ public class PatternFactory
 
     public void resetTheCacheData()
     {
-        for (final ChunkHeader header : this._chunkIndex.getElements()) {
+        for (final ChunkGeneric header : this._chunkIndex.getElements()) {
             header.resetCache();
         }
     }
@@ -231,11 +231,11 @@ public class PatternFactory
         {
             pattern.releaseConstraints();
         }
-        for(ChunkHeader header : _chunkIndex.getElements())
+        for(ChunkGeneric header : _chunkIndex.getElements())
         {
             header.releaseConstraints();
         }
-        for(ChunkPartHeader header : _chunkPartIndex.getElements())
+        for(ChunkPartGeneric header : _chunkPartIndex.getElements())
         {
             header.releaseConstraints();
         }
