@@ -11,7 +11,7 @@ On this wiki page short instructions are given how to use the results of this pr
 
 = Use the generator via demonstrator =
 
-Run the demonstrator, select game slogan generation and configure generation parameters
+Instructions to run the demonstrator are given on the project home page [https://code.google.com/p/pp-slogan-generation/ pp-slogan-generation]
 
 = Run the generator locally =
 
