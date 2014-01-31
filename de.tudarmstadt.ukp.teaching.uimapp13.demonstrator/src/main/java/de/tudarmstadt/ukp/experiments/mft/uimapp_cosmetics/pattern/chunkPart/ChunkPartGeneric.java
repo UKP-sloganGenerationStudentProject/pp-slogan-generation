@@ -112,7 +112,7 @@ public class ChunkPartGeneric extends IndexElement
                 if(constraint.getChunkPartType().equals(this._chunkPartType) && constraint.getSemantic().equals(this._semanticValue))
                 {
                     /* the constraint corresponds to this element */
-                    ChunkPart part = new ChunkPart();
+                    ChunkPart part = ChunkPart.createChunkPart(this._chunkPartType);
                     part.setDerivable(false);
                     part.setHeader(this);
                     part.setLemma(constraint.getLemma());

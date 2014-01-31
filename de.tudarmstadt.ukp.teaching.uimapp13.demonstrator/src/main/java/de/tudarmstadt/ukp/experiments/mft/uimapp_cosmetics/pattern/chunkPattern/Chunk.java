@@ -93,7 +93,7 @@ public class Chunk
         return output.toString();
     }
 
-    public List<Chunk> getSimilarChunkOccurrences()
+    public List<Chunk> getSimilarChunkOccurrences(Resources resources)
     {
         List<Chunk> output = new ArrayList<>();
         if(_genericForm.getSemanticValue().equals("UNKNOWN"))
@@ -102,7 +102,7 @@ public class Chunk
         }
         else
         {
-            output = _genericForm.getOccurrences();
+            output = _genericForm.getOccurrences(resources);
         }
         return output;
     }
@@ -117,17 +117,22 @@ public class Chunk
 
         if(_generated.size()==0)
         {
-            List<String> temp = new ArrayList<String>();
-            temp.add("");
+            List<String> newPartTexts = new ArrayList<String>();
+            newPartTexts.add("");
             ArrayList<String> space = new ArrayList<String>();
             space.add(" ");
 
             for(ChunkPart occ : _chunkParts)
             {
-                temp = Utils.concatenate(temp, occ.generate(resources));
+                List<String> newPartTextsTemp = new ArrayList<>();
+                for(ChunkPart equiv : occ.getSimilarOccurrences(resources))
+                {
+                    newPartTextsTemp.addAll(Utils.concatenate(newPartTexts,equiv.generate(resources)));
+                }
+                newPartTexts = newPartTextsTemp;
             }
 
-            _generated = temp;
+            _generated = newPartTexts;
         }
 
         return _generated;

@@ -75,9 +75,21 @@ public class ChunkGeneric
         this._occurrences.add(occ);
     }
 
-    public List<Chunk> getOccurrences()
+    public List<Chunk> getOccurrences(Resources resources)
     {
-        return this._occurrences;
+
+        List<Chunk> chunks = null;
+
+        if(resources.hasConstraints() && this._hasConstraint)
+        {
+            chunks = this._constrainedElements;
+        }
+        else
+        {
+            chunks = this._occurrences;
+        }
+
+        return chunks;
     }
 
     public boolean isValueDerivable()

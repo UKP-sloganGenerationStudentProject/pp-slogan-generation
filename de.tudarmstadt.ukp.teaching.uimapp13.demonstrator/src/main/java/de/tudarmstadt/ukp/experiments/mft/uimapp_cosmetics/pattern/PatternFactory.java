@@ -122,6 +122,8 @@ public class PatternFactory
 
         this.resetTheCacheData();
 
+        this.checkForConstraints(resources);
+
         // output all the parameters
         System.out.println("Pattern Generation STARTS... ");
         System.out.println("\nParameters :");
@@ -150,7 +152,15 @@ public class PatternFactory
 
         // filter the patterns and keep just those who correspond to the creteria
 
-        for (final Pattern pattern : this._patterns.values()) {
+        for (final Pattern pattern : this._patterns.values())
+        {
+
+
+            if(resources.hasConstraints() && !pattern.hasConstraint())
+            {
+                //this pattern doens't include one of the constraints
+                continue;
+            }
 
             if (!resources.getPatternToGenerate().equals("") && !resources.getPatternToGenerate().equals(PatternGenerator.DONT_CARE) ) {
                 if (!resources.getPatternToGenerate().equals(pattern.getPatternType())) {
@@ -161,38 +171,11 @@ public class PatternFactory
                 }
             }
 
-            /* NOW THE BODYPART FILTERING IS DONE IN THE PATTERN CLASS
-
-            if(!resources.getSelectedBodyPart().equals(""))
-            {
-                if(!pattern.isBodyPart())
-                {
-                    //if a body part has been precised we don't generate the slogans for the
-                    //patterns that don't have body parts inside
-                    continue;
-                }
-            }
-            */
+            System.out.println("Selected patterns : ");
+            System.out.println(pattern.toString());
 
             filteredPatterns.add(pattern);
         }
-
-        /*
-        int slogToGenPerPattern = 1;
-        boolean randomize = false;
-        List<Integer> randomIndices = null;
-
-        if (nbrOfSlogans < filteredPatterns.size()) {
-            randomize = true;
-            slogToGenPerPattern = 1;
-            randomIndices = randomIndices = Utils.getDistinctRandomIndices(filteredPatterns.size(),
-                    nbrOfSlogans);
-        }
-        else {
-            randomize = false;
-            slogToGenPerPattern = nbrOfSlogans / filteredPatterns.size() + 1;
-        }
-        */
 
 
         /*
@@ -220,6 +203,8 @@ public class PatternFactory
 
         }
 
+        this.releaseConstraints();
+
         output = Utils.getSubList(output, nbrOfSlogans);
 
         return output;
@@ -243,9 +228,12 @@ public class PatternFactory
 
     public void checkForConstraints(Resources resources)
     {
-        for(Pattern pattern : _patterns.values())
+        if(resources.hasConstraints())
         {
-            pattern.checkForConstraints(resources);
+            for(Pattern pattern : _patterns.values())
+            {
+                pattern.checkForConstraints(resources);
+            }
         }
     }
 
@@ -278,7 +266,8 @@ public class PatternFactory
         System.out
                 .println("WARNING : the parameters for the generation are not taken into account yet");
 
-        for (final Pattern pattern : this._patterns.values()) {
+        for (final Pattern pattern : this._patterns.values())
+        {
             if (!resources.getPatternToGenerate().equals("") && !resources.getPatternToGenerate().equals(PatternGenerator.DONT_CARE) ) {
                 if (!resources.getPatternToGenerate().equals(pattern.getPatternType())) {
                     // if the pattern types to generate are precised and if the current pattern
