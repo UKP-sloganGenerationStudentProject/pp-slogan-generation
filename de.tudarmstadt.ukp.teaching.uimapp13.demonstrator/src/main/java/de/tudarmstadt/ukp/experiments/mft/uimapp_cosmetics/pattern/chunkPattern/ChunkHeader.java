@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.Resources;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.index.IndexElement;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
 
@@ -18,7 +19,8 @@ public class ChunkHeader
     protected String _semanticValue;
     protected String _takenValue;
     private final ArrayList<Chunk> _occurrences;
-    private final ArrayList<Chunk> _constrainedOccurences;
+    private boolean _hasConstraint;
+    private final List<Chunk> _constrainedElements;
 
     public static final String NOT_DEFINED = "notDefined";
 
@@ -31,7 +33,7 @@ public class ChunkHeader
         this._takenValue = "NO_INFORMATION";
         this._chunkType = ChunkType.UNDEFINED;
         this._occurrences = new ArrayList<Chunk>();
-        this._constrainedOccurences = new ArrayList<>();
+        _constrainedElements = new ArrayList<>();
     }
 
     public static ChunkHeader createChunkHeader(final ChunkType chunkType)
@@ -74,16 +76,6 @@ public class ChunkHeader
     public List<Chunk> getOccurrences()
     {
         return this._occurrences;
-    }
-
-    public boolean getSuggestedWordsCompatibility()
-    {
-        return this._constrainedOccurences.size()>0;
-    }
-
-    public List<Chunk> getConstrainedOccurences()
-    {
-        return this._constrainedOccurences;
     }
 
     public boolean isValueDerivable()
@@ -138,6 +130,40 @@ public class ChunkHeader
     {
         // to be implemented by the subclasses
     }
+
+    public void selectElementsWithConstraint(Resources resources)
+    {
+        for(Chunk chunk : _occurrences)
+        {
+            chunk.checkForConstraints(resources);
+            if(chunk.hasConstraint())
+            {
+                _constrainedElements.add(chunk);
+            }
+        }
+        _hasConstraint = _constrainedElements.size()>0;
+    }
+
+    public List<Chunk> getConstrainedElements()
+    {
+        return _constrainedElements;
+    }
+
+    public boolean hasConstraint()
+    {
+        return _hasConstraint;
+    }
+
+    public void releaseConstraints()
+    {
+        _constrainedElements.clear();
+        _hasConstraint = false;
+        for(Chunk chunk : _occurrences)
+        {
+            chunk.releaseConstraints();
+        }
+    }
+
 
     public void resetCache()
     {

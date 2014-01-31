@@ -9,6 +9,7 @@ import de.tudarmstadt.ukp.lmf.exceptions.UbyInvalidArgumentException;
 import de.tudarmstadt.ukp.lmf.model.core.LexicalEntry;
 import de.tudarmstadt.ukp.lmf.model.core.Lexicon;
 import de.tudarmstadt.ukp.lmf.model.core.Sense;
+import de.tudarmstadt.ukp.lmf.model.enums.EPartOfSpeech;
 import de.tudarmstadt.ukp.lmf.model.meta.SemanticLabel;
 
 public class WordConstraint
@@ -55,20 +56,33 @@ public class WordConstraint
 
         for(String word : suggestedWords)
         {
-            for(LexicalEntry entry : uby.getLexicalEntries(word, null, lex))
+            for(LexicalEntry entry : uby.getLexicalEntries(word, null, null))//lex))
             {
                 String lemma = entry.getLemmaForm();
-                ChunkPartType type = ChunkPartType.getTypeOf(entry.getPartOfSpeech());
+                EPartOfSpeech pos = entry.getPartOfSpeech();
+                if(pos == null)
+                {
+                    continue;
+                }
+
+                ChunkPartType type = ChunkPartType.getTypeOf(pos);
+                if(type.equals(ChunkPartType.UNDEFINED))
+                {
+                    continue;
+                }
                 ArrayList<String> sems = new ArrayList<>();
                 for(Sense sens : entry.getSenses())
                 {
                     for (SemanticLabel sem : sens.getSemanticLabels())
                     {
-                        String[] semValueTable = sem.getLabel().split(".");
-                        String semValue = semValueTable[semValueTable.length-1];
-                        if(!sems.contains(semValue))
+                        String[] semValueTable = sem.getLabel().split("\\.");
+                        if(semValueTable.length>0)
                         {
-                            sems.add(semValue);
+                            String semValue = semValueTable[semValueTable.length-1];
+                            if(!sems.contains(semValue))
+                            {
+                                sems.add(semValue);
+                            }
                         }
                     }
                 }
@@ -76,6 +90,7 @@ public class WordConstraint
                 for(String sem : sems)
                 {
                    WordConstraint constraint = new WordConstraint(word,lemma,type,sem);
+                   output.add(constraint);
                 }
             }
 
@@ -115,6 +130,12 @@ public class WordConstraint
     public void setChunkPartType(ChunkPartType chunkPartType)
     {
         this._chunkPartType = chunkPartType;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "WordConstraint : "+_takenValue+" "+_lemma+" "+_chunkPartType.toString()+" "+_semantic;
     }
 
 }
