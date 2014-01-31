@@ -241,6 +241,14 @@ public class PatternFactory
         }
     }
 
+    public void checkForConstraints(Resources resources)
+    {
+        for(Pattern pattern : _patterns.values())
+        {
+            pattern.checkForConstraints(resources);
+        }
+    }
+
     public String generateSlogansTest(final Resources resources)
     {
 

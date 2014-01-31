@@ -12,22 +12,24 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.Ch
 
 public class Chunk
 {
-    ChunkGeneric _header;
+    ChunkGeneric _genericForm;
     Pattern _containingPattern;
     ArrayList<ChunkPart> _chunkParts;
     int _mainChunkInd;
     List<String> _generated;
     private boolean _hasConstraint;
+    private boolean _haveConstraintsBeenChecked;
 
 
     public Chunk()
     {
         _chunkParts = new ArrayList<ChunkPart>();
         _mainChunkInd = -1;
-        _header = new ChunkGeneric();
+        _genericForm = new ChunkGeneric();
         _generated = new ArrayList<>();
         _containingPattern = null;
         _hasConstraint = false;
+        _haveConstraintsBeenChecked = false;
     }
 
     public static Chunk createChunkOccurrence(ChunkType chunkType)
@@ -51,12 +53,12 @@ public class Chunk
 
     public void setHeader(ChunkGeneric header)
     {
-        _header = header;
+        _genericForm = header;
     }
 
     public ChunkGeneric getHeader()
     {
-        return _header;
+        return _genericForm;
     }
 
     public void setContainingPattern(Pattern pattern)
@@ -66,17 +68,17 @@ public class Chunk
 
     public ChunkType getChunkType()
     {
-        return _header.getChunkType();
+        return _genericForm.getChunkType();
     }
 
     public String getSemantic()
     {
-        return _header.getSemanticValue();
+        return _genericForm.getSemanticValue();
     }
 
     public String getHeaderId()
     {
-        return _header.getId();
+        return _genericForm.getId();
     }
 
     public String getId()
@@ -94,13 +96,13 @@ public class Chunk
     public List<Chunk> getSimilarChunkOccurrences()
     {
         List<Chunk> output = new ArrayList<>();
-        if(_header.getSemanticValue().equals("UNKNOWN"))
+        if(_genericForm.getSemanticValue().equals("UNKNOWN"))
         {
             output.add(this);
         }
         else
         {
-            output = _header.getOccurrences();
+            output = _genericForm.getOccurrences();
         }
         return output;
     }
@@ -152,13 +154,23 @@ public class Chunk
         _generated = new ArrayList<>();
     }
 
+    public void checkForGenericConstraints(Resources resources)
+    {
+        _genericForm.checkForConstraints(resources);
+    }
+
     public void checkForConstraints(Resources resources)
     {
-        for(ChunkPart part : _chunkParts)
+        if(!_haveConstraintsBeenChecked)
         {
-            part.getHeader().selectElementsWithConstraint(resources);
-            _hasConstraint = _hasConstraint || part.getHeader().hasConstraint();
+            for(ChunkPart part : _chunkParts)
+            {
+                part.checkForGenericConstraints(resources);
+                _hasConstraint = _hasConstraint || part.hasGenericConstraints();
+            }
+            _haveConstraintsBeenChecked = true;
         }
+
     }
 
     public boolean hasConstraint()
@@ -166,15 +178,27 @@ public class Chunk
         return _hasConstraint;
     }
 
+    public boolean hasGenericConstraint()
+    {
+        return _genericForm.hasConstraint();
+    }
+
     public void releaseConstraints()
     {
         _hasConstraint = false;
+        _haveConstraintsBeenChecked = false;
     }
 
     @Override
     public String toString()
     {
         StringBuilder output = new StringBuilder();
+        output.append(" [hasConstraint:");
+        output.append(_hasConstraint);
+        output.append("]");
+        output.append(" [haveConstraintsBeenChecked:");
+        output.append(_haveConstraintsBeenChecked);
+        output.append("]");
 
         for(ChunkPart occ : _chunkParts)
         {

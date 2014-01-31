@@ -21,6 +21,7 @@ public class ChunkGeneric
     private final ArrayList<Chunk> _occurrences;
     private boolean _hasConstraint;
     private final List<Chunk> _constrainedElements;
+    private boolean _haveConstraintsBeenChecked;
 
     public static final String NOT_DEFINED = "notDefined";
 
@@ -34,6 +35,7 @@ public class ChunkGeneric
         this._chunkType = ChunkType.UNDEFINED;
         this._occurrences = new ArrayList<Chunk>();
         _constrainedElements = new ArrayList<>();
+        _haveConstraintsBeenChecked = false;
     }
 
     public static ChunkGeneric createChunkHeader(final ChunkType chunkType)
@@ -131,17 +133,22 @@ public class ChunkGeneric
         // to be implemented by the subclasses
     }
 
-    public void selectElementsWithConstraint(Resources resources)
+    public void checkForConstraints (Resources resources)
     {
-        for(Chunk chunk : _occurrences)
+        if(!_haveConstraintsBeenChecked)
         {
-            chunk.checkForConstraints(resources);
-            if(chunk.hasConstraint())
+            for(Chunk chunk : _occurrences)
             {
-                _constrainedElements.add(chunk);
+                chunk.checkForConstraints(resources);
+                if(chunk.hasConstraint())
+                {
+                    _constrainedElements.add(chunk);
+                }
             }
+            _hasConstraint = _constrainedElements.size()>0;
+            _haveConstraintsBeenChecked = true;
         }
-        _hasConstraint = _constrainedElements.size()>0;
+
     }
 
     public List<Chunk> getConstrainedElements()
@@ -158,6 +165,7 @@ public class ChunkGeneric
     {
         _constrainedElements.clear();
         _hasConstraint = false;
+        _haveConstraintsBeenChecked = false;
         for(Chunk chunk : _occurrences)
         {
             chunk.releaseConstraints();
@@ -177,20 +185,25 @@ public class ChunkGeneric
     {
         final StringBuilder output = new StringBuilder();
         output.append(this._chunkType.toString());
-        output.append("#");
-        if (this._isValueDerivable) {
-            output.append("D");
+        output.append(" [semantics:");
+        output.append(_semanticValue);
+        output.append("]");
+        output.append(" [derivability:");
+        output.append(_isValueDerivable);
+        output.append("]");
+        output.append(" [hasConstraint:");
+        output.append(_hasConstraint);
+        output.append("]");
+        output.append(" [haveConstraintsBeenChecked:");
+        output.append(_haveConstraintsBeenChecked);
+        output.append("]");
+        output.append(" [constrained elements:");
+        for(Chunk chunk : _constrainedElements)
+        {
+            output.append(chunk.getId());
+            output.append(";");
         }
-        else {
-            output.append("ND");
-        }
-
-        output.append(" [ ");
-
-        output.append(this._semanticValue);
-
-        output.append("] ");
-
+        output.append("]");
         output.append(this.getSpecificInformation());
 
         for (final Chunk occ : this._occurrences) {

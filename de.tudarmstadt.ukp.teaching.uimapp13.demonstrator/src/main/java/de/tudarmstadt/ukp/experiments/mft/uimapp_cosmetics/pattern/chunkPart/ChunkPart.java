@@ -11,7 +11,7 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.Ch
 public class ChunkPart
 {
 
-    protected ChunkPartGeneric _header;
+    protected ChunkPartGeneric _genericForm;
     protected Chunk _containingChunk;
     protected boolean _isValueDerivable;
     protected String _semanticValue;
@@ -82,12 +82,12 @@ public class ChunkPart
 
     public void setHeader(ChunkPartGeneric header)
     {
-        _header = header;
+        _genericForm = header;
     }
 
     public ChunkPartGeneric getHeader()
     {
-        return _header;
+        return _genericForm;
     }
 
     public void setContainingChunk(Chunk chunk)
@@ -97,7 +97,7 @@ public class ChunkPart
 
     public List<ChunkPart> getSimilarOccurrences()
     {
-        List<ChunkPart> output =  _header.getOccurrences();
+        List<ChunkPart> output =  _genericForm.getOccurrences();
         if(output.size()==0)
         {
             output.add(this);
@@ -110,6 +110,16 @@ public class ChunkPart
         ArrayList<String> output = new ArrayList<String>();
         output.add(_takenValue);
         return output;
+    }
+
+    public void checkForGenericConstraints(Resources resources)
+    {
+        _genericForm.checkForConstraints(resources);
+    }
+
+    public boolean hasGenericConstraints()
+    {
+        return _genericForm.hasConstraint();
     }
 
     public boolean isValueDerivable()
@@ -149,7 +159,7 @@ public class ChunkPart
 
     public ChunkPartType getChunkPartType()
     {
-        return _header.getChunkPartType();
+        return _genericForm.getChunkPartType();
     }
 
     public void setSemanticValue(String value)
@@ -169,7 +179,7 @@ public class ChunkPart
 
     public String getId()
     {
-        String signature = _header.getChunkPartType().toString();
+        String signature = _genericForm.getChunkPartType().toString();
         if(_isValueDerivable)
         {
             signature = signature + "-VAR" + "[sem:" + getSemanticValue() + "]";
