@@ -3,14 +3,14 @@ package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.AdjForm;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
 
-public class AdjChunkHeader
-    extends ChunkHeader
+public class AdjChunkGeneric
+    extends ChunkGeneric
 {
 
     private static final long serialVersionUID = -3863899448651154362L;
     AdjForm _form;
 
-    public AdjChunkHeader()
+    public AdjChunkGeneric()
     {
         super();
         this._chunkType = ChunkType.ADJC;

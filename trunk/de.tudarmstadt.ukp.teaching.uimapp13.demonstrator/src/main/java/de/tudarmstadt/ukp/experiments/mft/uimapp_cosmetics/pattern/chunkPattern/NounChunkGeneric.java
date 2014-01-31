@@ -6,15 +6,15 @@ import java.util.List;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPart;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
 
-public class NounChunkHeader
-    extends ChunkHeader
+public class NounChunkGeneric
+    extends ChunkGeneric
 {
     private static final long serialVersionUID = 825846968453941550L;
     boolean _isThe;
     boolean _isProperNoun;
     boolean _isPerson;
 
-    public NounChunkHeader()
+    public NounChunkGeneric()
     {
         super();
         this._chunkType = ChunkType.NC;
