@@ -133,15 +133,19 @@ public class PatternGenerator
 
             System.out.println();
             System.out
-                    .print("What do you want to do ? 0 : print PatternGenerator content, 1 : generate slogans, 2: exit");
+                    .print("What do you want to do ? 0 : print PatternGenerator content, 1 : generate slogans, 2: check for constraints, 3: exit");
             final int action = Integer.parseInt(user_input.next());
             if (action == 0) {
                 System.out.println(generator.toString());
                 continue;
             }
             if (action == 2) {
+                generator.testConstraints();
+            }
+            if (action == 3) {
                 break;
             }
+
 
             System.out.println();
             System.out.println();
@@ -302,6 +306,16 @@ public class PatternGenerator
         this._resources.setSuggestedWords(Arrays.asList(suggestedWords.split(",")));
         this._resources.generateConstraints();
         this._resources.printConstraints();
+    }
+
+    public void testConstraints()
+    {
+        this._factory.checkForConstraints(this._resources);
+        System.out.println(this._factory);
+        /*
+        this._factory.releaseConstraints();
+        System.out.println(this._factory);
+        */
     }
 
     public static List<String> getSelectablePatterns()

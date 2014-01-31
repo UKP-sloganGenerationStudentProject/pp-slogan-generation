@@ -15,6 +15,7 @@ public class ChunkPartGeneric extends IndexElement
     protected boolean _isValueDerivable;
     protected final ArrayList<ChunkPart> _occurrences;
     private boolean _hasConstraint;
+    private boolean _haveConstraintsBeenChecked;
     private final List<ChunkPart> _constrainedElements;
 
 
@@ -26,6 +27,7 @@ public class ChunkPartGeneric extends IndexElement
         _occurrences = new ArrayList<ChunkPart>();
         _hasConstraint = false;
         _constrainedElements = new ArrayList<>();
+        _haveConstraintsBeenChecked = false;
 
     }
 
@@ -68,36 +70,7 @@ public class ChunkPartGeneric extends IndexElement
         return _occurrences;
     }
 
-    @Override
-    public String toString()
-    {
-        StringBuilder output = new StringBuilder();
-        output.append(_chunkPartType.toString());
-        output.append("#");
-        if(_isValueDerivable)
-        {
-            output.append("D");
-        }
-        else
-        {
-            output.append("ND");
-        }
 
-        output.append(" [ ");
-
-
-        output.append(_semanticValue);
-
-        output.append("] ");
-
-        for(ChunkPart occ : _occurrences)
-        {
-            output.append("\n\t");
-            output.append(occ.toString());
-        }
-
-        return output.toString();
-    }
 
     private void setPosType(ChunkPartType type)
     {
@@ -129,22 +102,27 @@ public class ChunkPartGeneric extends IndexElement
         _isValueDerivable = tof;
     }
 
-    public void selectElementsWithConstraint(Resources resources)
+    public void checkForConstraints(Resources resources)
     {
-        for(WordConstraint constraint : resources.getConstraints())
+        if(!_haveConstraintsBeenChecked)
         {
-            if(constraint.getChunkPartType().equals(this._chunkPartType) && constraint.getSemantic().equals(this._semanticValue))
+
+            for(WordConstraint constraint : resources.getConstraints())
             {
-                /* the constraint corresponds to this element */
-                ChunkPart part = new ChunkPart();
-                part.setDerivable(false);
-                part.setHeader(this);
-                part.setLemma(constraint.getLemma());
-                part.setSemanticValue(this._semanticValue);
-                _constrainedElements.add(part);
+                if(constraint.getChunkPartType().equals(this._chunkPartType) && constraint.getSemantic().equals(this._semanticValue))
+                {
+                    /* the constraint corresponds to this element */
+                    ChunkPart part = new ChunkPart();
+                    part.setDerivable(false);
+                    part.setHeader(this);
+                    part.setLemma(constraint.getLemma());
+                    part.setSemanticValue(this._semanticValue);
+                    _constrainedElements.add(part);
+                }
             }
+            _hasConstraint = _constrainedElements.size()>0;
+            _haveConstraintsBeenChecked = true;
         }
-        _hasConstraint = _constrainedElements.size()>0;
 
     }
 
@@ -152,6 +130,7 @@ public class ChunkPartGeneric extends IndexElement
     {
         _hasConstraint = false;
         _constrainedElements.clear();
+        _haveConstraintsBeenChecked = false;
     }
 
     public boolean hasConstraint()
@@ -174,6 +153,37 @@ public class ChunkPartGeneric extends IndexElement
         output.append(" [semantics:");
         output.append(_semanticValue);
         output.append("]");
+
+        return output.toString();
+    }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder output = new StringBuilder();
+        output.append(_chunkPartType.toString());
+        output.append(" [semantics:");
+        output.append(_semanticValue);
+        output.append("]");
+        output.append(" [hasConstraint:");
+        output.append(_hasConstraint);
+        output.append("]");
+        output.append(" [haveConstraintsBeenChecks:");
+        output.append(_haveConstraintsBeenChecked);
+        output.append("]");
+        output.append(" [constrained elements:");
+        for(ChunkPart chunkPart : _constrainedElements)
+        {
+            output.append(chunkPart.getLemma());
+            output.append(";");
+        }
+        output.append("]");
+
+        for(ChunkPart occ : _occurrences)
+        {
+            output.append("\n\t");
+            output.append(occ.toString());
+        }
 
         return output.toString();
     }

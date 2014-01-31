@@ -12,8 +12,8 @@ public class Pattern
     private final ArrayList<Chunk> _elementList;
     private final ArrayList<String> _valueOccurrences;
     private String _patternType;
-    private boolean _isSuggestedWordsCompatible;
     private boolean _hasConstraint;
+    private boolean _haveConstraintsBeenChecked;
 
 
     public Pattern()
@@ -22,8 +22,9 @@ public class Pattern
         _valueOccurrences = new ArrayList<String>();
         _patternType = "UNDEFINED";
         _hasConstraint = false;
-
+        _haveConstraintsBeenChecked = false;
     }
+
 
     public void generatePatternType()
     {
@@ -239,10 +240,14 @@ public class Pattern
 
     public void checkForConstraints(Resources resources)
     {
-        for(Chunk chunk : _elementList)
+        if(!_haveConstraintsBeenChecked)
         {
-            chunk.getHeader().selectElementsWithConstraint(resources);
-            _hasConstraint = _hasConstraint || chunk.getHeader().hasConstraint();
+            for(Chunk chunk : _elementList)
+            {
+                chunk.checkForGenericConstraints(resources);
+                _hasConstraint = _hasConstraint || chunk.hasGenericConstraint();
+            }
+            _haveConstraintsBeenChecked = true;
         }
     }
 
@@ -254,6 +259,7 @@ public class Pattern
     public void releaseConstraints()
     {
         _hasConstraint = false;
+        _haveConstraintsBeenChecked = false;
     }
 
     @Override
@@ -284,6 +290,13 @@ public class Pattern
             output.append(" _ ");
         }
 
+        output.append(" [hasConstraint:");
+        output.append(_hasConstraint);
+        output.append("]");
+        output.append(" [haveConstraintsBeenChecks:");
+        output.append(_haveConstraintsBeenChecked);
+        output.append("]");
+
         output.append("\n");
 
         for(String value : _valueOccurrences)
@@ -293,15 +306,5 @@ public class Pattern
         }
 
         return output.toString();
-    }
-
-    public boolean getSuggestedWordsCompatibility()
-    {
-        return _isSuggestedWordsCompatible;
-    }
-
-    public void setSuggestedWordsCompatibility(boolean _isSuggestedWordsCompatible)
-    {
-        this._isSuggestedWordsCompatible = _isSuggestedWordsCompatible;
     }
 }
