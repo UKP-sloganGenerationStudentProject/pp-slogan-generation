@@ -43,6 +43,12 @@ public class Web1THelper
         }
     }
 
+    public String getPrepositionAndWord(final String word)
+    {
+    	return getPreposition(word) + " " + word;
+    	
+    }
+    
     public String getPreposition(final String word)
     {
         // Reset the counters

@@ -45,8 +45,8 @@ public class Main
         config = sgc;
         final List<SloganTemplate> templates = new ArrayList<SloganTemplate>();
         templates.add(TemplateGenerator.getTemplateById(sgc.TemplateId));
-        generator = new SloganGenerator(sgc.DBUrl, sgc.DBUser, sgc.DBPassword, sgc.EmotionPath);
-        final GoodLuck goodLuck = new GoodLuck(sgc.DBUrl, sgc.DBUser, sgc.DBPassword);
+        generator = new SloganGenerator(sgc.DBUrl, sgc.DBUser, sgc.DBPassword, sgc.EmotionPath, sgc.Web1TPath);
+        
         for (final SloganTemplate t : templates) {
             for (final String word : config.WordList) {
                 for (final String synset : generator.getSynsetByWord(word)) {
@@ -54,7 +54,10 @@ public class Main
                 }
             }
         }
-        goodLuck.AddMoreVerbs(templates);
+        
+        final GoodLuck goodLuck = new GoodLuck(sgc.DBUrl, sgc.DBUser, sgc.DBPassword);
+        if(sgc.GoodLuck)
+        	goodLuck.AddMoreVerbs(templates);
         generateSlogans(templates);
 
         // displaySloganTemplates(templates);
@@ -69,6 +72,7 @@ public class Main
 
     public static List<Slogan> generateSlogans(final List<SloganTemplate> templates)
     {
+
         final List<Slogan> slogans = new ArrayList<Slogan>();
         for (final SloganTemplate template : templates) {
             slogans.addAll(generator.generateSlogans(template, config.SloganCount,

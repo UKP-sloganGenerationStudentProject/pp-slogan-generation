@@ -10,9 +10,11 @@ public class Testaufruf {
 		sgc.DBUrl = "localhost/uby_medium_0_3_0";
 		sgc.DBUser = "root";
 		sgc.DBPassword = "";
-		sgc.TemplateId = 2;
-		sgc.WordList.add("Car");
+		sgc.TemplateId = 9;
+		//sgc.WordList.add("Car");
 		sgc.SloganCount = 10;
+		sgc.Web1TPath = "C:/Users/tobias/workspace/de.tobiasloeser.slogangenerator/web1t/";
+		sgc.EmotionPath = "C:/Users/tobias/workspace/de.tobiasloeser.slogangenerator/src/main/resources/Emotionlist.sg";
 		try {
 			Main.main(sgc);
 		} catch (UbyInvalidArgumentException e) {
