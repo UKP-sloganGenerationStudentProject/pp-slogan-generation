@@ -124,7 +124,7 @@ public class Pattern
             boolean isNoBodyPartTEMPValid = false;
             boolean isWithBodyPartTEMPValid = false;
 
-            for(Chunk occ : elem.getSimilarChunkOccurrences())
+            for(Chunk occ : elem.getSimilarChunkOccurrences(resources))
             {
                 if(occ.getChunkType().equals(ChunkType.NC))
                 {

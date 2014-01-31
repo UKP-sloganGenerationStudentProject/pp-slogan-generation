@@ -18,6 +18,7 @@ public class ChunkPart
     protected String _takenValue;
     protected String _lemma;
     protected String _pos;
+    private final boolean _hasConstraint;
 
 
     public static final String NOT_DEFINED = "notDefined";
@@ -32,6 +33,7 @@ public class ChunkPart
         _takenValue = "NO_INFORMATION";
         _lemma = "";
         _containingChunk = null;
+        _hasConstraint = false;
     }
 
 
@@ -94,6 +96,7 @@ public class ChunkPart
     {
         _containingChunk = chunk;
     }
+    /*
 
     public List<ChunkPart> getSimilarOccurrences()
     {
@@ -104,12 +107,27 @@ public class ChunkPart
         }
         return output;
     }
+    */
 
-    public ArrayList<String> generate(Resources resources)
+    public List<String> generate(Resources resources)
     {
-        ArrayList<String> output = new ArrayList<String>();
-        output.add(_takenValue);
+        List<String> output = new ArrayList<String>();
+        output.add(this._lemma);
         return output;
+    }
+
+    public List<ChunkPart> getSimilarOccurrences(Resources resources)
+    {
+        List<ChunkPart> chunks = new ArrayList<>();
+        if(this.hasGenericConstraints())
+        {
+            chunks = this._genericForm.getConstrainedElements();
+        }
+        else
+        {
+            chunks.add(this);
+        }
+        return chunks;
     }
 
     public void checkForGenericConstraints(Resources resources)

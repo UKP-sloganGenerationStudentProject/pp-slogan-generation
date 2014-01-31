@@ -140,6 +140,11 @@ public class Resources
         return _suggestedWordsConstraints;
     }
 
+    public boolean hasConstraints()
+    {
+        return _suggestedWordsConstraints.size()>0;
+    }
+
     public void printConstraints()
     {
         System.out.println("Constraints :");
