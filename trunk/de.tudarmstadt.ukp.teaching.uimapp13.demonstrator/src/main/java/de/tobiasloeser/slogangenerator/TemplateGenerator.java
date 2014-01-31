@@ -27,6 +27,8 @@ public class TemplateGenerator {
 			case 5: return createTemplate_NC_VC_NC_WITHOUT_ALLITERATION();
 			case 6: return createTemplate_NC_VC_NC_WITH_ALLITERATION();
 			case 7: return createTemplate_NC_WITH_OXYMORON();
+			case 8: return createTemplate_NC_PC_NC_WITHOUT_ALLITERATION();
+			case 9: return createTemplate_NC_PC_NC_WITH_ALLITERATION();
 		}
 		return null;
 	}
@@ -183,6 +185,48 @@ public class TemplateGenerator {
 		}
 		template.addTemplatePart(part2);
 		return template;
+	}
+	
+	private static SloganTemplate createTemplate_NC_PC_NC_WITHOUT_ALLITERATION() {
+		SloganTemplate template = new SloganTemplate("7", "NC PC NC", false, false, false, "");
+		TemplatePart part1 = new TemplatePart(template, 0, "NC", false, 1);
+		//TemplatePart part2 = new TemplatePart(template, 1, "PC", false, 1);
+		TemplatePart part3 = new TemplatePart(template, 1, "PCNC", false, 1);
+		for(String synset : getNounSynsets())
+		{
+			part1.addSynset(synset);
+			part3.addSynset(synset);
+		}
+		for(String synset : getAdjectiveSynsets())
+		{
+			part1.addSynset(synset);
+			part3.addSynset(synset);
+		}
+		template.addTemplatePart(part1);
+		//template.addTemplatePart(part2);
+		template.addTemplatePart(part3);
+		return template;	
+	}
+	
+	private static SloganTemplate createTemplate_NC_PC_NC_WITH_ALLITERATION() {
+		SloganTemplate template = new SloganTemplate("8", "NC PC NC", true, false, false, "");
+		TemplatePart part1 = new TemplatePart(template, 0, "NC", false, 1);
+		//TemplatePart part2 = new TemplatePart(template, 1, "PC", false, 1);
+		TemplatePart part3 = new TemplatePart(template, 1, "PCNC", false, 1);
+		for(String synset : getNounSynsets())
+		{
+			part1.addSynset(synset);
+			part3.addSynset(synset);
+		}
+		for(String synset : getAdjectiveSynsets())
+		{
+			part1.addSynset(synset);
+			part3.addSynset(synset);
+		}
+		template.addTemplatePart(part1);
+		//template.addTemplatePart(part2);
+		template.addTemplatePart(part3);
+		return template;	
 	}
 	
 	private static List<String> getNounSynsets()

@@ -19,7 +19,8 @@ public class SGConfig
     5: NC VC NC without Alliteration
     6: NC VC NC with Alliteration
     7: NC with Oxymoron
-    8: ?
+    8: NC PC NC without Alliteration
+	9: NC PC NC with Alliteration
     */
     public int SloganCount;
     public String ProductName;

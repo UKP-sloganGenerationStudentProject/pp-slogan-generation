@@ -44,8 +44,9 @@ public class SloganGenerator
     private String web1TPath;
 
     public SloganGenerator(final String _database, final String _dbuser, final String _dbpassword,
-            final String _emotionPath)
+            final String _emotionPath, final String _web1TPath)
     {
+    	this.web1TPath = _web1TPath;
         this.emotionPath = _emotionPath;
         this.database = _database;
         this.dbuser = _dbuser;
@@ -100,10 +101,7 @@ public class SloganGenerator
             e.printStackTrace();
         }
         try {
-            if (this.web1TPath == null) {
-                this.web1TPath = System.getenv("DKPRO_HOME") + "/web1t/ENGLISH";
-            }
-            final File web1TFolder = new File(this.web1TPath);
+            final File web1TFolder = new File(this.web1TPath + "ENGLISH");
             this.web1tHelper = new Web1THelper(this.uby, web1TFolder);
         }
         catch (final IOException e) {
@@ -172,7 +170,7 @@ public class SloganGenerator
         String word;
         final boolean onlyNoun = (this.getRandom(2) < 1) ? true : false;
         do {
-            word = this.getWordByChunk(part, onlyNoun);
+            word = this.getWordByChunk(slogan, part, onlyNoun);
         }
         while (slogan.contains(word));
         slogan.addSloganPart(new SloganPart(word, this.position));
@@ -194,7 +192,7 @@ public class SloganGenerator
         int repeated = 0;
         final boolean onlyNoun = (this.getRandom(2) < 1) ? true : false;
         while (part.isRepeatable() && repeated < part.getRepeatableTimes()) {
-            word = this.getWordByChunk(part, onlyNoun);
+            word = this.getWordByChunk(slogan, part, onlyNoun);
             if (!slogan.contains(word)) {
                 slogan.addSloganPart(new SloganPart(word, this.position));
                 this.position++;
@@ -204,13 +202,22 @@ public class SloganGenerator
         return slogan;
     }
 
-    private String getWordByChunk(final TemplatePart part, final boolean onlyNoun)
+    private String getWordByChunk(final Slogan slogan, final TemplatePart part, final boolean onlyNoun)
     {
         if (part.getChunk().toLowerCase().equals("nc")) {
             return this.getNC(part, onlyNoun);
         }
         else if (part.getChunk().toLowerCase().equals("vc")) {
             return this.getWordByPos(part, EPartOfSpeech.verb);
+        }
+        else if(part.getChunk().toLowerCase().equals("pcnc"))
+        {
+        	String word;
+            do {
+                word = this.getWordByPos(part, EPartOfSpeech.noun);
+            }
+            while (slogan.contains(word));
+        	return web1tHelper.getPrepositionAndWord(word);
         }
         else {
             return "";
