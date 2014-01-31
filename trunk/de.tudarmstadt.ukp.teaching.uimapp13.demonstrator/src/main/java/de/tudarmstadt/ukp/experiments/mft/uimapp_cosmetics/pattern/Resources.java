@@ -135,4 +135,19 @@ public class Resources
         _suggestedWordsConstraints = WordConstraint.generateWordConstraints(_uby, _suggestedWords);
     }
 
+    public List<WordConstraint> getConstraints()
+    {
+        return _suggestedWordsConstraints;
+    }
+
+    public void printConstraints()
+    {
+        System.out.println("Constraints :");
+        System.out.println();
+        for(WordConstraint constraint : _suggestedWordsConstraints)
+        {
+            System.out.println(constraint.toString());
+        }
+    }
+
 }

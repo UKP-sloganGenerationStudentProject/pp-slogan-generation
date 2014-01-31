@@ -85,6 +85,11 @@ public class ChunkPart
         _header = header;
     }
 
+    public ChunkPartHeader getHeader()
+    {
+        return _header;
+    }
+
     public void setContainingChunk(Chunk chunk)
     {
         _containingChunk = chunk;

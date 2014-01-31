@@ -300,6 +300,8 @@ public class PatternGenerator
     public void setSuggestedWords(final String suggestedWords)
     {
         this._resources.setSuggestedWords(Arrays.asList(suggestedWords.split(",")));
+        this._resources.generateConstraints();
+        this._resources.printConstraints();
     }
 
     public static List<String> getSelectablePatterns()

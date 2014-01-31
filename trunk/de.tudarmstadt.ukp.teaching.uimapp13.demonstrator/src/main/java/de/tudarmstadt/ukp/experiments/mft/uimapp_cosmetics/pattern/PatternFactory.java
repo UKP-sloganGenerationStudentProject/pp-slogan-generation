@@ -225,6 +225,22 @@ public class PatternFactory
         return output;
     }
 
+    public void releaseConstraints()
+    {
+        for(Pattern pattern : _patterns.values())
+        {
+            pattern.releaseConstraints();
+        }
+        for(ChunkHeader header : _chunkIndex.getElements())
+        {
+            header.releaseConstraints();
+        }
+        for(ChunkPartHeader header : _chunkPartIndex.getElements())
+        {
+            header.releaseConstraints();
+        }
+    }
+
     public String generateSlogansTest(final Resources resources)
     {
 

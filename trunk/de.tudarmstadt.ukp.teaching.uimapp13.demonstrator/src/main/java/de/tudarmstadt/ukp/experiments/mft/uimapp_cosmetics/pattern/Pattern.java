@@ -13,12 +13,16 @@ public class Pattern
     private final ArrayList<String> _valueOccurrences;
     private String _patternType;
     private boolean _isSuggestedWordsCompatible;
+    private boolean _hasConstraint;
+
 
     public Pattern()
     {
         _elementList = new ArrayList<Chunk>();
         _valueOccurrences = new ArrayList<String>();
         _patternType = "UNDEFINED";
+        _hasConstraint = false;
+
     }
 
     public void generatePatternType()
@@ -30,9 +34,7 @@ public class Pattern
             type.append(occ.getChunkType().toString());
             type.append("_");
         }
-
         _patternType = type.toString();
-
     }
 
     public String getPatternType()
@@ -233,6 +235,25 @@ public class Pattern
         slogansSublist = Utils.getSubList(slogansSublist, numberOfSlogans);
 
         return slogansSublist;
+    }
+
+    public void checkForConstraints(Resources resources)
+    {
+        for(Chunk chunk : _elementList)
+        {
+            chunk.getHeader().selectElementsWithConstraint(resources);
+            _hasConstraint = _hasConstraint || chunk.getHeader().hasConstraint();
+        }
+    }
+
+    public boolean hasConstraint()
+    {
+        return _hasConstraint;
+    }
+
+    public void releaseConstraints()
+    {
+        _hasConstraint = false;
     }
 
     @Override

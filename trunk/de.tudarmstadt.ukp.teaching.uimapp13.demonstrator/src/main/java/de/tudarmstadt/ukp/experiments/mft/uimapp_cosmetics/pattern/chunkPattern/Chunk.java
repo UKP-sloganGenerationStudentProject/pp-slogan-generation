@@ -12,13 +12,12 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.Ch
 
 public class Chunk
 {
-
     ChunkHeader _header;
     Pattern _containingPattern;
     ArrayList<ChunkPart> _chunkParts;
     int _mainChunkInd;
     List<String> _generated;
-    private boolean _isSuggestedWordsCompatible;
+    private boolean _hasConstraint;
 
 
     public Chunk()
@@ -28,6 +27,7 @@ public class Chunk
         _header = new ChunkHeader();
         _generated = new ArrayList<>();
         _containingPattern = null;
+        _hasConstraint = false;
     }
 
     public static Chunk createChunkOccurrence(ChunkType chunkType)
@@ -52,6 +52,11 @@ public class Chunk
     public void setHeader(ChunkHeader header)
     {
         _header = header;
+    }
+
+    public ChunkHeader getHeader()
+    {
+        return _header;
     }
 
     public void setContainingPattern(Pattern pattern)
@@ -145,6 +150,25 @@ public class Chunk
     public void resetCache()
     {
         _generated = new ArrayList<>();
+    }
+
+    public void checkForConstraints(Resources resources)
+    {
+        for(ChunkPart part : _chunkParts)
+        {
+            part.getHeader().selectElementsWithConstraint(resources);
+            _hasConstraint = _hasConstraint || part.getHeader().hasConstraint();
+        }
+    }
+
+    public boolean hasConstraint()
+    {
+        return _hasConstraint;
+    }
+
+    public void releaseConstraints()
+    {
+        _hasConstraint = false;
     }
 
     @Override

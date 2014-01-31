@@ -3,6 +3,8 @@ package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.Resources;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.constraints.WordConstraint;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.index.IndexElement;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkPartType;
 
@@ -12,6 +14,8 @@ public class ChunkPartHeader extends IndexElement
     protected String _semanticValue;
     protected boolean _isValueDerivable;
     protected final ArrayList<ChunkPart> _occurrences;
+    private boolean _hasConstraint;
+    private final List<ChunkPart> _constrainedElements;
 
 
     public ChunkPartHeader()
@@ -20,6 +24,8 @@ public class ChunkPartHeader extends IndexElement
         _semanticValue = "";
         _chunkPartType = ChunkPartType.UNDEFINED;
         _occurrences = new ArrayList<ChunkPart>();
+        _hasConstraint = false;
+        _constrainedElements = new ArrayList<>();
 
     }
 
@@ -122,6 +128,42 @@ public class ChunkPartHeader extends IndexElement
     {
         _isValueDerivable = tof;
     }
+
+    public void selectElementsWithConstraint(Resources resources)
+    {
+        for(WordConstraint constraint : resources.getConstraints())
+        {
+            if(constraint.getChunkPartType().equals(this._chunkPartType) && constraint.getSemantic().equals(this._semanticValue))
+            {
+                /* the constraint corresponds to this element */
+                ChunkPart part = new ChunkPart();
+                part.setDerivable(false);
+                part.setHeader(this);
+                part.setLemma(constraint.getLemma());
+                part.setSemanticValue(this._semanticValue);
+                _constrainedElements.add(part);
+            }
+        }
+        _hasConstraint = _constrainedElements.size()>0;
+
+    }
+
+    public void releaseConstraints()
+    {
+        _hasConstraint = false;
+        _constrainedElements.clear();
+    }
+
+    public boolean hasConstraint()
+    {
+        return _hasConstraint;
+    }
+
+    public List<ChunkPart> getConstrainedElements()
+    {
+        return _constrainedElements;
+    }
+
 
     @Override
     protected String getId()
