@@ -1,5 +1,6 @@
 package de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.configuration;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -11,6 +12,8 @@ public final class DemonstratorConfig
 
     private static DemonstratorConfig instance;
     private static boolean isCachingProperties = false;
+
+    private Properties properties;
 
     private DemonstratorConfig()
     {
@@ -42,8 +45,6 @@ public final class DemonstratorConfig
     {
         return System.getenv(RESOURCES_ENVVAR);
     }
-
-    private Properties properties;
 
     public String getJdbcDriver()
     {
@@ -93,12 +94,21 @@ public final class DemonstratorConfig
 
     public String getWeb1TPath()
     {
-        return this.getPropertyChecked("web1t.pathname");
+        final String path = this.getPropertyChecked("web1t.pathname");
+        if (!new File(path).isDirectory()) {
+            throw new IllegalStateException("Web1T is not at the expected location: " + path);
+        }
+        return path;
     }
 
     public String getEmotionPath()
     {
-        return getResourcePath() + "/NRCemotionLexicon.pdf";
+        final String path = getResourcePath() + "/NRCemotionlexicon.pdf";
+        if (!new File(path).isFile()) {
+            throw new IllegalStateException("NRC emotion lexicon is not at the expected location: "
+                    + path);
+        }
+        return path;
     }
 
     public String getPropertyChecked(final String property)

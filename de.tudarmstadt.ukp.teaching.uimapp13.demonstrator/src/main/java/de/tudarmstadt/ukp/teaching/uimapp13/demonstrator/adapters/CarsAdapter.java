@@ -6,9 +6,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import de.tobiasloeser.slogangenerator.GoodLuck;
 import de.tobiasloeser.slogangenerator.SloganGenerator;
 import de.tobiasloeser.slogangenerator.SloganTemplate;
 import de.tobiasloeser.slogangenerator.TemplateGenerator;
+import de.tudarmstadt.ukp.lmf.exceptions.UbyInvalidArgumentException;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.configuration.DemonstratorConfig;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.model.ProductDomain;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.model.Slogan;
@@ -62,13 +64,42 @@ public class CarsAdapter
 
     @Override
     public List<Slogan> generateSlogans(final Map<String, Object> parameters)
+        throws UbyInvalidArgumentException
     {
+        final DemonstratorConfig config = DemonstratorConfig.getInstance();
 
-        final List<SloganTemplate> templates = new ArrayList<SloganTemplate>();
         final int templateId = ((Template) parameters.get(TEMPLATE)).getId();
-        templates.add(TemplateGenerator.getTemplateById(templateId));
+        final SloganTemplate template = TemplateGenerator.getTemplateById(templateId);
+        final List<SloganTemplate> templates = new ArrayList<SloganTemplate>();
+        templates.add(template);
 
-        return Arrays.asList(new Slogan("Testslogan for Cars"));
+        final String suggestedWords = (String) parameters.get(SUGGESTED_WORDS);
+        for (final String word : suggestedWords.split(",")) {
+            for (final String synset : this.generator.getSynsetByWord(word)) {
+                template.addSynset(synset);
+            }
+        }
+
+        final GoodLuck goodLuck = new GoodLuck(config.getUbyUrl(), config.getUbyUser(),
+                config.getUbyPassword());
+        final boolean isGoodLuck = (boolean) parameters.get(GOOD_LUCK);
+        if (isGoodLuck) {
+            goodLuck.AddMoreVerbs(templates);
+        }
+
+        final Integer sloganCount = (int) parameters.get(SLOGAN_COUNT);
+        final String productName = (String) parameters.get(PRODUCT_NAME);
+        final Boolean useProductName = (Boolean) parameters.get(USE_PRODUCT_NAME_CREATIVELY);
+        final String emotion = (String) parameters.get(EMOTION);
+        final List<de.tobiasloeser.slogangenerator.Slogan> generatedSlogans = this.generator
+                .generateSlogans(template, sloganCount, productName, useProductName, emotion);
+
+        final List<Slogan> outputSlogans = new ArrayList<>();
+        for (final de.tobiasloeser.slogangenerator.Slogan generatedSlogan : generatedSlogans) {
+            outputSlogans.add(new Slogan(generatedSlogan.toString()));
+        }
+
+        return outputSlogans;
     }
 
     public static List<Template> getAllTemplates()
