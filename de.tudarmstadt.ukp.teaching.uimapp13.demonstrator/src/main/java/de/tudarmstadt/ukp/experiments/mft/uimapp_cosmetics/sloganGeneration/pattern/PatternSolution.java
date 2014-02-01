@@ -3,6 +3,7 @@ package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.pat
 import java.util.ArrayList;
 import java.util.List;
 
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Resources;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunk.ChunkSolution;
 
 public class PatternSolution
@@ -10,37 +11,44 @@ public class PatternSolution
     private final Pattern _model;
     private final List<Integer> _constraintIds;
     private final List<ChunkSolution> _chunkSolutions;
+    private boolean _hasBodyPart;
 
     public PatternSolution(Pattern model)
     {
         _model = model;
         _constraintIds = new ArrayList<>();
         _chunkSolutions = new ArrayList<>();
-    }
+        _hasBodyPart = false;
+     }
 
     public PatternSolution (PatternSolution solution)
     {
         _model = solution.getModel();
         _constraintIds = new ArrayList<>(solution.getConstraintIds());
         _chunkSolutions = new ArrayList<>(solution.getChunkPartSolutions());
+        _hasBodyPart = solution.hasBodyPart();
     }
 
-    public PatternSolution generateNewPatternSolution(ChunkSolution part)
+    public PatternSolution generateNewPatternSolution(Resources resources,ChunkSolution part)
     {
         PatternSolution output = null;
 
         PatternSolution sol = new PatternSolution(this);
         //if the chunkpartsolution and the current chunksolution are compatible a new ChunkSolution is generated
-        if(sol.addChunkSolution(part))
+        if(sol.tryAddChunkSolution(resources,part))
         {
             output = sol;
         }
         return output;
     }
 
-    public boolean addChunkSolution(ChunkSolution part)
+    public boolean tryAddChunkSolution(Resources resources, ChunkSolution part)
     {
-        boolean output = false;
+
+        if(_hasBodyPart && part.hasBodyPart() && resources.hasBodyPartConstraint())
+        {
+            return false;
+        }
 
         //look if the _constraints ids are compatible, ie if the intersection of the constraints is empty
         List<Integer> copyOfNewConstraintIds = new ArrayList<>(part.getConstraintIds());
@@ -50,11 +58,15 @@ public class PatternSolution
         {
             this._constraintIds.addAll(part.getConstraintIds());
             this._chunkSolutions.add(part);
+            if(part.hasBodyPart())
+            {
+                this._hasBodyPart = true;
+            }
 
-            output = true;
+            return true;
         }
 
-        return output;
+        return false;
     }
 
     public Pattern getModel()
@@ -73,17 +85,20 @@ public class PatternSolution
         return _chunkSolutions;
     }
 
-    public static List<PatternSolution> concatenate(List<PatternSolution> patternSolutions, List<ChunkSolution> chunkSolutions)
+    public boolean hasBodyPart()
     {
+        return _hasBodyPart;
+    }
 
-
+    public static List<PatternSolution> concatenate(Resources resources,List<PatternSolution> patternSolutions, List<ChunkSolution> chunkSolutions)
+    {
         List<PatternSolution> newPatternSolutions= new ArrayList<PatternSolution>();
         for(PatternSolution ps : patternSolutions)
         {
             for(ChunkSolution cs: chunkSolutions)
             {
                 //try to create a new chunk solution that is the current chunk solution plus the current chunk part solution
-                PatternSolution nps = ps.generateNewPatternSolution(cs);
+                PatternSolution nps = ps.generateNewPatternSolution(resources,cs);
                 if(nps!=null)
                 {
                     //if it works (ie constraints compatible add it to the generated chunksolutions

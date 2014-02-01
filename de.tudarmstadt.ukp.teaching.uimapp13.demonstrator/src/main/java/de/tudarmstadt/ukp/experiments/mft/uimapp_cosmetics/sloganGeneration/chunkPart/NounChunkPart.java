@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.emotions.EmotionModel;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.PatternGenerator;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Resources;
 import de.tudarmstadt.ukp.lmf.model.core.LexicalEntry;
 import de.tudarmstadt.ukp.lmf.model.core.Sense;
@@ -31,21 +32,42 @@ public class NounChunkPart
         {
             basicSolution.addConstraintId(this.getConstraintId());
         }
+
+        if(resources.hasBodyPartConstraint())
+        {
+            if(resources.getSelectedBodyPart().equals(this._lemma))
+            {
+                basicSolution.setHasBodyPart(true);
+            }
+            else
+            {
+                if(PatternGenerator.getSelectablePartsOfBody().contains(this._lemma))
+                {
+                    //in this case we are not interested in this chunkPart because it is a body part that is not the one we are looking for
+                    //we return an empty list
+                    return output;
+                }
+            }
+        }
+        else
+        {
+            if(PatternGenerator.getSelectablePartsOfBody().contains(this._lemma))
+            {
+                //in this case we are not interested in this chunkPart because it is a body part and we don't want any body part
+                //we return an empty list
+                return output;
+            }
+        }
+
+
         output.add(basicSolution);
 
-        /*
-         * we don't want this because would make mix the different expression between the different part of the body
-         */
-//
-//        if(PatternGenerator.getSelectablePartsOfBody().contains(this._lemma) && !PatternGenerator.NO_BODY_PART.equals(resources.getSelectedBodyPart()))
-//        {
-//            output.add(resources.getSelectedBodyPart());
-//            return output;
-//        }
-
-
         if (!this._isValueDerivable || !resources.isUbyGernationAllowed()
-                || resources.getSelectedBodyPart().equals(this._lemma)) {
+                || basicSolution.hasBodyPart()) {
+            //we dont derive the value if
+            // - _isValueDerivable is false
+            // - it is not allowed with uby
+            // - the corresponding chunkpart corresponds to the selected part of body
             return output;
         }
 

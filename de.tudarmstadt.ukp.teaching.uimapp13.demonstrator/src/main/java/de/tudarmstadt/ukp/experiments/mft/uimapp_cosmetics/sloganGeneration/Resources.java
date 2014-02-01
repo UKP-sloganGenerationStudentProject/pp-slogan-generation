@@ -125,6 +125,11 @@ public class Resources
         this._suggestedWords = suggestedWords;
     }
 
+    public boolean hasBodyPartConstraint()
+    {
+        return !getSelectedBodyPart().equals(PatternGenerator.NO_BODY_PART) && !getSelectedBodyPart().equals("");
+    }
+
     public void generateConstraints()
     {
         if(_uby == null)

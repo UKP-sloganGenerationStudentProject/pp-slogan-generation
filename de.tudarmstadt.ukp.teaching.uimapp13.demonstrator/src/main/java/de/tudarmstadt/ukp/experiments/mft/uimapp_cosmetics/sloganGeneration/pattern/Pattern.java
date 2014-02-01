@@ -3,12 +3,9 @@ package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.pat
 import java.util.ArrayList;
 import java.util.List;
 
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.PatternGenerator;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Resources;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Utils;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunk.Chunk;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunk.NounChunk;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
 
 public class Pattern
 {
@@ -115,160 +112,44 @@ public class Pattern
 
     public List<PatternSolution> generatePatternSolutions(Resources resources,int numberOfSlogans)
     {
-        List<PatternSolution> noBodyPart = new ArrayList<>();
-        List<PatternSolution> withBodyPart = new ArrayList<>();
-        PatternSolution initPatternSolution1 = new PatternSolution(this);
-        PatternSolution initPatternSolution2 = new PatternSolution(this);
-        noBodyPart.add(initPatternSolution1);
-        withBodyPart.add(initPatternSolution2);
 
-        //tells us if the slogans have to include a specific bodypart
-        boolean mustBeBodyPart = !resources.getSelectedBodyPart().equals(PatternGenerator.NO_BODY_PART) && !resources.getSelectedBodyPart().equals("");
+        List<PatternSolution> newPatternSolutions = new ArrayList<>();
+        PatternSolution initialPatternSolution = new PatternSolution(this);
+        newPatternSolutions.add(initialPatternSolution);
 
-        boolean isNoBodyPartValid = true;
-        boolean isWithBodyPartValid = true;
-
-        boolean hasBeenBodyPartOnceUsed = false;
-
-        if(_valueOccurrences.contains("Choose the rainbow colors for your nails"))
+        for(Chunk element : _elementList)
         {
-            System.out.println("STOP HERE !");
-        }
-
-        for(Chunk elem : _elementList)
-        {
-            List<PatternSolution> noBodyPartTEMP = new ArrayList<>();
-            List<PatternSolution> withBodyPartTEMP = new ArrayList<>();
-
-            boolean isNoBodyPartTEMPValid = false;
-            boolean isWithBodyPartTEMPValid = false;
-
-            for(Chunk occ : elem.getSimilarChunkOccurrences(resources))
+            List<PatternSolution> newPatternSolutionsTemp = new ArrayList<>();
+            for(Chunk equiv : element.getSimilarChunkOccurrences(resources))
             {
-                if(occ.getChunkType().equals(ChunkType.NC))
-                {
-                    NounChunk nounOcc = (NounChunk) occ;
-                    if(nounOcc.isBodyPart())
-                    {
-                        if(mustBeBodyPart)
-                        {
-
-                            if(isNoBodyPartValid)
-                            {
-                                withBodyPartTEMP.addAll(PatternSolution.concatenate(noBodyPart, nounOcc.generateChunkSolutions(resources,elem)));
-                                isWithBodyPartTEMPValid = true;
-                                hasBeenBodyPartOnceUsed = true;
-                            }
-
-                            /*
-                            if(nounOcc.getBodyPartName().equals(resources.getSelectedBodyPart()))
-                            {
-                                //we use this occurrence because it contains exactly the bodypart we are looking for
-                                // we concatenate it to the slogan parts that don't have any body part
-                                // because we want only one slogan per bodypart
-                                if(isNoBodyPartValid)
-                                {
-                                    withBodyPartTEMP.addAll(Utils.concatenate(noBodyPart, nounOcc.generateSloganParts(resources)));
-                                    isWithBodyPartTEMPValid = true;
-                                }
-                            }
-                            else
-                            {
-                                //we don't use this occurrence because it corresponds to another part of the body
-                            }
-                            */
-                        }
-                        else
-                        {
-                            //we don't want any body part so we don't use this occurrence
-                        }
-
-                    }
-                    else
-                    {
-                        //this is not a body part so we can use it anywayocc
-                        if(isNoBodyPartValid)
-                        {
-                            noBodyPartTEMP.addAll(PatternSolution.concatenate(noBodyPart, occ.generateChunkSolutions(resources,elem)));
-                            isNoBodyPartTEMPValid = true;
-                        }
-                        if(mustBeBodyPart)
-                        {
-                            if(isWithBodyPartValid && hasBeenBodyPartOnceUsed)
-                            {
-                                //if we are looking for slogans with body parts, we update also the table
-                                // used to create the slogans with bodypart included
-                                withBodyPartTEMP.addAll(PatternSolution.concatenate(withBodyPart, occ.generateChunkSolutions(resources,elem)));
-                                isWithBodyPartTEMPValid = true;
-                            }
-                        }
-
-                    }
-                }
-                else
-                {
-                    //this is not a body part so we can use it anyway
-                    if(isNoBodyPartValid)
-                    {
-                        noBodyPartTEMP.addAll(PatternSolution.concatenate(noBodyPart, occ.generateChunkSolutions(resources,elem)));
-                        isNoBodyPartTEMPValid = true;
-                    }
-                    if(isWithBodyPartValid)
-                    {
-                        if(mustBeBodyPart && hasBeenBodyPartOnceUsed)
-                        {
-                            //if we are looking for slogans with body parts, we update also the table
-                            // used to create the slogans with bodypart included
-                            withBodyPartTEMP.addAll(PatternSolution.concatenate(withBodyPart, occ.generateChunkSolutions(resources,elem)));
-                            isWithBodyPartTEMPValid = true;
-                        }
-                    }
-                }
+                newPatternSolutionsTemp.addAll(PatternSolution.concatenate(resources,newPatternSolutions,equiv.generateChunkSolutions(resources, element)));
             }
-
-
-
-            if(isWithBodyPartTEMPValid)
-            {
-                withBodyPart = withBodyPartTEMP;
-            }
-            if(isNoBodyPartTEMPValid)
-            {
-                 noBodyPart = noBodyPartTEMP;
-            }
-
-            isWithBodyPartValid = isWithBodyPartTEMPValid;
-            isNoBodyPartValid = isNoBodyPartTEMPValid;
+            newPatternSolutions = newPatternSolutionsTemp;
         }
 
-        List<PatternSolution> withBodyPartConstraint = new ArrayList<>();
-
-        if(isWithBodyPartValid && mustBeBodyPart)
+        List<PatternSolution> solutionsWithConstraints = new ArrayList<>();
+        if(resources.hasConstraints() || resources.hasBodyPartConstraint())
         {
-            withBodyPartConstraint = withBodyPart;
-        }
-
-        if(isNoBodyPartValid && !mustBeBodyPart)
-        {
-            withBodyPartConstraint = noBodyPart;
-        }
-
-        List<PatternSolution> withConstraint = new ArrayList<>();
-        if(resources.hasConstraints()) {
-            for(PatternSolution solution : withBodyPartConstraint)
+            for(PatternSolution solution : newPatternSolutions)
             {
-                if(solution.hasConstraint())
+                if(resources.hasConstraints() && !solution.hasConstraint())
                 {
-                    withConstraint.add(solution);
+                    continue;
                 }
+
+                if(resources.hasBodyPartConstraint() && !solution.hasBodyPart())
+                {
+                    continue;
+                }
+
+                solutionsWithConstraints.add(solution);
             }
         }
         else
         {
-            withConstraint = withBodyPartConstraint;
+            solutionsWithConstraints = newPatternSolutions;
         }
-
-        return Utils.getSubList(withConstraint, numberOfSlogans);
+        return Utils.getSubList(solutionsWithConstraints, numberOfSlogans);
 
     }
 
