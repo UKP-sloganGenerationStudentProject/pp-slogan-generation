@@ -1,11 +1,11 @@
-package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart;
+package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunkPart;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.Resources;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.constraints.WordConstraint;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.index.IndexElement;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Resources;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.constraints.WordConstraint;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.index.IndexElement;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkPartType;
 
 public class ChunkPartGeneric extends IndexElement

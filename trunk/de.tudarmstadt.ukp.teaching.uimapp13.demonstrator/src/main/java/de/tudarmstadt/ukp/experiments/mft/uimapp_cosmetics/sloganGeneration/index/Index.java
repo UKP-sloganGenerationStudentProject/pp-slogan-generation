@@ -1,4 +1,4 @@
-package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.index;
+package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.index;
 
 import java.io.Serializable;
 import java.util.Collection;

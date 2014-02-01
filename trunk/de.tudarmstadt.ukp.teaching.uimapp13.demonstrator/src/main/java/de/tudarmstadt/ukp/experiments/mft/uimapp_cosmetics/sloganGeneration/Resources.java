@@ -1,4 +1,4 @@
-package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern;
+package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import com.googlecode.jweb1t.JWeb1TSearcher;
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.emotions.EmotionAnalyzer;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.constraints.WordConstraint;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.constraints.WordConstraint;
 import de.tudarmstadt.ukp.lmf.api.Uby;
 
 public class Resources

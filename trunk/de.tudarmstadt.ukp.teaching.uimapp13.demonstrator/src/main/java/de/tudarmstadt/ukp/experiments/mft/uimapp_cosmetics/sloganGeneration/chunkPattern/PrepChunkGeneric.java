@@ -1,17 +1,17 @@
-package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern;
+package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunkPattern;
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
 
-public class AdvChunkGeneric
+
+public class PrepChunkGeneric
     extends ChunkGeneric
 {
+    private static final long serialVersionUID = -4041465958122119822L;
 
-    private static final long serialVersionUID = 2167117216771551930L;
-
-    public AdvChunkGeneric()
+    public PrepChunkGeneric()
     {
         super();
-        this._chunkType = ChunkType.ADVC;
+        this._chunkType = ChunkType.PC;
     }
 
     @Override

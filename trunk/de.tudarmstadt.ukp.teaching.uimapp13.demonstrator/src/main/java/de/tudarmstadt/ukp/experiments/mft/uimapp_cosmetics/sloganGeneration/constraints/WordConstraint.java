@@ -1,4 +1,4 @@
-package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.constraints;
+package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.constraints;
 
 import java.util.ArrayList;
 import java.util.List;
