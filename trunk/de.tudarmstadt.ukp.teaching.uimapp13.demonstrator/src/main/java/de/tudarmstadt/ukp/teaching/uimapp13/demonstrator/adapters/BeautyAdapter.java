@@ -31,7 +31,7 @@ public class BeautyAdapter
 
         final DemonstratorConfig config = DemonstratorConfig.getInstance();
 
-        this.generator.setWeb1TPathname(config.getWeb1TPathname());
+        this.generator.setWeb1TPathname(config.getWeb1TPath());
         this.generator.setEmotionFilePath(DemonstratorConfig.getResourcePath()
                 + "/NRCemotionlexicon.pdf");
         this.generator.setSloganBasePath(DemonstratorConfig.getResourcePath()
