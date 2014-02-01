@@ -91,7 +91,7 @@ public final class DemonstratorConfig
         return this.getPropertyChecked("koch.db.url");
     }
 
-    public String getWeb1TPathname()
+    public String getWeb1TPath()
     {
         return this.getPropertyChecked("web1t.pathname");
     }

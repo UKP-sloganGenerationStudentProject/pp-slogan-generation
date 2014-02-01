@@ -57,7 +57,7 @@ public class CarsAdapter
     {
         final DemonstratorConfig config = DemonstratorConfig.getInstance();
         this.generator = new SloganGenerator(config.getUbyUrl(), config.getUbyUser(),
-                config.getUbyPassword(), config.getEmotionPath());
+                config.getUbyPassword(), config.getEmotionPath(), config.getWeb1TPath());
     }
 
     @Override
