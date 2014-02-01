@@ -12,7 +12,7 @@ import org.apache.wicket.markup.html.form.TextArea;
 
 import com.google.common.base.Joiner;
 
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.PatternGenerator;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.PatternGenerator;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.adapters.Adapter;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.adapters.BeautyAdapter;
 

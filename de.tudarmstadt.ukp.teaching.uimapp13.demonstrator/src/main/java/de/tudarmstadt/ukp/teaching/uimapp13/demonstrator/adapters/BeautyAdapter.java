@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.PatternGenerator;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.PatternGenerator;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.configuration.DemonstratorConfig;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.model.ProductDomain;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.model.Slogan;
