@@ -1,4 +1,4 @@
-package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern;
+package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -6,11 +6,11 @@ import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
 
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPart;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPartGeneric;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.Chunk;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.ChunkGeneric;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.index.Index;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunkPart.ChunkPart;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunkPart.ChunkPartGeneric;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunkPattern.Chunk;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunkPattern.ChunkGeneric;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.index.Index;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkPartType;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
 

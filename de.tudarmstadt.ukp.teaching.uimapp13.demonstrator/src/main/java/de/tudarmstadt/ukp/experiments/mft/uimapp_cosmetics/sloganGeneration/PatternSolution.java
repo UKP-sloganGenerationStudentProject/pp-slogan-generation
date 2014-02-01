@@ -1,9 +1,9 @@
-package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern;
+package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPattern.ChunkSolution;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunkPattern.ChunkSolution;
 
 public class PatternSolution
 {

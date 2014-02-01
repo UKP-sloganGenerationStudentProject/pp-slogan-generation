@@ -1,4 +1,4 @@
-package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart;
+package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunkPart;
 
 import java.util.ArrayList;
 import java.util.Collections;
