@@ -16,153 +16,130 @@ public class VerbChunkPart
     extends ChunkPart
 {
 
-   public VerbChunkPart()
-   {
-       super();
-       _isValueDerivable = false;
-   }
+    public VerbChunkPart()
+    {
+        super();
+        this._isValueDerivable = false;
+    }
 
+    @Override
+    public List<ChunkPartSolution> generate(final Resources resources, final ChunkPart orginialPart)
+    {
 
-   @Override
-   public List<ChunkPartSolution> generate(Resources resources,ChunkPart orginialPart)
-   {
+        final ArrayList<ChunkPartSolution> output = new ArrayList<>();
+        final ChunkPartSolution basicSolution = new ChunkPartSolution(orginialPart, null,
+                this._lemma);
+        if (this.hasConstraint()) {
+            basicSolution.addConstraintId(this.getConstraintId());
+        }
+        output.add(basicSolution);
 
-       ArrayList<ChunkPartSolution> output = new ArrayList<>();
-       ChunkPartSolution basicSolution = new ChunkPartSolution(orginialPart, null, _lemma);
-       if(hasConstraint())
-       {
-           basicSolution.addConstraintId(this.getConstraintId());
-       }
-       output.add(basicSolution);
+        if (!this._isValueDerivable || !resources.isUbyGernationAllowed()) {
+            return output;
+        }
 
+        final String ubySemantic = "verb." + this._semanticValue;
 
-       if(!_isValueDerivable || !resources.isUbyGernationAllowed())
-       {
-           return output;
-       }
+        //
+        // System.out.println("[");
+        // System.out.println(ubySemantic);
+        // System.out.println(_lemma);
+        // System.out.println("]");
+        //
 
-       String ubySemantic = "verb."+_semanticValue;
+        final List<LexicalEntry> lexicalEntries = resources.getUby().getLexicalEntries(this._lemma,
+                EPartOfSpeech.verb, null);
 
-//
-//       System.out.println("[");
-//       System.out.println(ubySemantic);
-//       System.out.println(_lemma);
-//       System.out.println("]");
-//
+        for (final LexicalEntry lexEntry : lexicalEntries) {
 
-       List<LexicalEntry> lexicalEntries = resources.getUby().getLexicalEntries(_lemma, EPartOfSpeech.verb, null);
+            for (final Sense sense : lexEntry.getSenses()) {
 
-       for (LexicalEntry lexEntry : lexicalEntries) {
+                /*
 
+                if(output.size()>5)
+                {
+                    return output;
+                }
+                */
 
-           for (Sense sense:lexEntry.getSenses())
-           {
+                final Synset synset = sense.getSynset();
 
-               /*
+                if (synset == null) {
+                    continue;
+                }
 
-               if(output.size()>5)
-               {
-                   return output;
-               }
-               */
+                for (final Sense sense2 : synset.getSenses()) {
+                    // System.out.println("\t"+sense2.getLexicalEntry().getLemmaForm());
 
-               Synset synset = sense.getSynset();
+                    for (final SemanticLabel sem : sense2.getSemanticLabels()) {
+                        // System.out.println("\t\t"+sem.getLabel());
 
-               if(synset == null)
-               {
-                   continue;
-               }
+                        if (sem.getLabel().equals(ubySemantic)) {
+                            final String word = sense2.getLexicalEntry().getLemmaForm();
+                            boolean isNegativeConnotation = false;
+                            final EmotionModel emotion = resources.getEmotionAnalizer().getEmotion(
+                                    word);
+                            if (emotion != null) {
+                                isNegativeConnotation = emotion.isNegative();
+                            }
 
-               for(Sense sense2 : synset.getSenses())
-               {
-//                   System.out.println("\t"+sense2.getLexicalEntry().getLemmaForm());
+                            if (isNegativeConnotation) {
+                                continue;
+                            }
 
-                   for(SemanticLabel sem : sense2.getSemanticLabels())
-                   {
-//                       System.out.println("\t\t"+sem.getLabel());
+                            boolean isFreqToSmall = false;
 
-                       if(sem.getLabel().equals(ubySemantic))
-                       {
-                           String word = sense2.getLexicalEntry().getLemmaForm();
-                           boolean isNegativeConnotation = false;
-                           EmotionModel emotion = resources.getEmotionAnalizer().getEmotion(word);
-                           if(emotion!=null)
-                           {
-                               isNegativeConnotation= emotion.isNegative();
-                           }
+                            final String[] subwords = word.split(" ");
+                            final List<String> subwordWfreqs = new ArrayList<String>();
 
-                           if(isNegativeConnotation)
-                           {
-                               continue;
-                           }
+                            try {
+                                for (final String subword : subwords) {
+                                    if (subword.length() == 0) {
+                                        continue;
+                                    }
+                                    final long freq = resources.getWordStatistic().getFrequency(
+                                            subword);
+                                    if (freq < 1000) {
+                                        isFreqToSmall = true;
+                                        break;
+                                    }
+                                    subwordWfreqs.add("(" + subword + ")[" + freq + "] ");
+                                }
+                            }
+                            catch (final IOException e) {
+                            }
 
-                           boolean isFreqToSmall = false;
+                            if (isFreqToSmall) {
+                                System.out.println("Too small frequency : " + word);
+                                continue;
+                            }
 
-                           String[] subwords = word.split(" ");
-                           List<String> subwordWfreqs = new ArrayList<String>();
+                            /*
+                            String wordfreq = "";
 
+                            for(String val : subwordWfreqs)
+                            {
+                                wordfreq = wordfreq + val;
+                            }
+                            */
 
+                            final ChunkPartSolution ncps = new ChunkPartSolution(this, null, word);
+                            if (this.hasConstraint()) {
+                                ncps.addConstraintId(this.getConstraintId());
+                            }
+                            if (!output.contains(ncps)) {
+                                output.add(ncps);
+                            }
 
+                        }
+                    }
 
-                           try
-                           {
-                               for(String subword : subwords)
-                               {
-                                   if(subword.length()==0)
-                                   {
-                                       continue;
-                                   }
-                                   long freq = resources.getWordStatistic().getFrequency(subword);
-                                   if(freq<1000)
-                                   {
-                                       isFreqToSmall = true;
-                                       break;
-                                   }
-                                   subwordWfreqs.add("("+subword+")["+freq+"] ");
-                               }
-                           }
-                           catch (IOException e) {
-                           }
+                }
 
-                           if(isFreqToSmall)
-                           {
-                               System.out.println("Too smal frequence : "+word);
-                               continue;
-                           }
+            }
+        }
 
-
-
-                           /*
-                           String wordfreq = "";
-
-                           for(String val : subwordWfreqs)
-                           {
-                               wordfreq = wordfreq + val;
-                           }
-                           */
-
-                           ChunkPartSolution ncps = new ChunkPartSolution(this, null, word);
-                           if(hasConstraint())
-                           {
-                               ncps.addConstraintId(this.getConstraintId());
-                           }
-                           if(!output.contains(ncps))
-                           {
-                               output.add(ncps);
-                           }
-
-                       }
-                   }
-
-               }
-
-           }
-       }
-
-
-       return output;
-   }
-
-
+        return output;
+    }
 
 }
