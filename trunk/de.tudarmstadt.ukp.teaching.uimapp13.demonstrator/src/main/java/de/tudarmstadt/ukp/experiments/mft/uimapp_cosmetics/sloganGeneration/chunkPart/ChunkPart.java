@@ -126,6 +126,7 @@ public class ChunkPart
     public List<ChunkPart> getSimilarOccurrences(Resources resources)
     {
         List<ChunkPart> chunks = new ArrayList<>();
+        /*
         if(this.hasGenericConstraints())
         {
             chunks = this._genericForm.getConstrainedElements();
@@ -134,6 +135,13 @@ public class ChunkPart
         {
             chunks.add(this);
         }
+        */
+
+        chunks.add(this);
+        chunks.addAll(this._genericForm.getConstrainedElements());
+
+
+
         return chunks;
     }
 

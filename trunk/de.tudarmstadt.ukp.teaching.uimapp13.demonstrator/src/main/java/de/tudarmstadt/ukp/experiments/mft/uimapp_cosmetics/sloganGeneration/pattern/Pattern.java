@@ -241,21 +241,35 @@ public class Pattern
             isNoBodyPartValid = isNoBodyPartTEMPValid;
         }
 
-        List<PatternSolution> slogansSublist = new ArrayList<>();
+        List<PatternSolution> withBodyPartConstraint = new ArrayList<>();
 
         if(isWithBodyPartValid && mustBeBodyPart)
         {
-            slogansSublist = withBodyPart;
+            withBodyPartConstraint = withBodyPart;
         }
 
         if(isNoBodyPartValid && !mustBeBodyPart)
         {
-            slogansSublist = noBodyPart;
+            withBodyPartConstraint = noBodyPart;
         }
 
-        slogansSublist = Utils.getSubList(slogansSublist, numberOfSlogans);
+        List<PatternSolution> withConstraint = new ArrayList<>();
+        if(resources.hasConstraints()) {
+            for(PatternSolution solution : withBodyPartConstraint)
+            {
+                if(solution.hasConstraint())
+                {
+                    withConstraint.add(solution);
+                }
+            }
+        }
+        else
+        {
+            withConstraint = withBodyPartConstraint;
+        }
 
-        return slogansSublist;
+        return Utils.getSubList(withConstraint, numberOfSlogans);
+
     }
 
     public void checkForConstraints(Resources resources)
