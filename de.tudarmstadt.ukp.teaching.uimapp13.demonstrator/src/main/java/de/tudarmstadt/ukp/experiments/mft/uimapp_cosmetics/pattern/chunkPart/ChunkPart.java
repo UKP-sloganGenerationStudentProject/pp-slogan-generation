@@ -18,7 +18,8 @@ public class ChunkPart
     protected String _takenValue;
     protected String _lemma;
     protected String _pos;
-    private final boolean _hasConstraint;
+    private boolean _hasConstraint;
+    private int _associatedConstraintId;
 
 
     public static final String NOT_DEFINED = "notDefined";
@@ -34,6 +35,7 @@ public class ChunkPart
         _lemma = "";
         _containingChunk = null;
         _hasConstraint = false;
+        _associatedConstraintId = -1;
     }
 
 
@@ -109,10 +111,15 @@ public class ChunkPart
     }
     */
 
-    public List<String> generate(Resources resources)
+    public List<ChunkPartSolution> generate(Resources resources, ChunkPart originalPart)
     {
-        List<String> output = new ArrayList<String>();
-        output.add(this._lemma);
+        List<ChunkPartSolution> output = new ArrayList<ChunkPartSolution>();
+        ChunkPartSolution solution = new ChunkPartSolution(originalPart,null,_lemma);
+        if(this._hasConstraint)
+        {
+            solution.addConstraintId(this._associatedConstraintId);
+        }
+        output.add(solution);
         return output;
     }
 
@@ -138,6 +145,22 @@ public class ChunkPart
     public boolean hasGenericConstraints()
     {
         return _genericForm.hasConstraint();
+    }
+
+    public boolean hasConstraint()
+    {
+        return _hasConstraint;
+    }
+
+    public void associateConstraint(int id)
+    {
+        _associatedConstraintId = id;
+        _hasConstraint = true;
+    }
+
+    public int getConstraintId()
+    {
+        return _associatedConstraintId;
     }
 
     public boolean isValueDerivable()

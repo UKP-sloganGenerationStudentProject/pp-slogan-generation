@@ -22,11 +22,16 @@ public class NounChunkPart
     }
 
     @Override
-    public ArrayList<String> generate(final Resources resources)
+    public ArrayList<ChunkPartSolution> generate(final Resources resources,ChunkPart orginialPart)
     {
 
-        final ArrayList<String> output = new ArrayList<String>();
-
+        ArrayList<ChunkPartSolution> output = new ArrayList<>();
+        ChunkPartSolution basicSolution = new ChunkPartSolution(orginialPart, null, _lemma);
+        if(hasConstraint())
+        {
+            basicSolution.addConstraintId(this.getConstraintId());
+        }
+        output.add(basicSolution);
 
         /*
          * we don't want this because would make mix the different expression between the different part of the body
@@ -38,7 +43,6 @@ public class NounChunkPart
 //            return output;
 //        }
 
-        output.add(this._lemma);
 
         if (!this._isValueDerivable || !resources.isUbyGernationAllowed()
                 || resources.getSelectedBodyPart().equals(this._lemma)) {
@@ -89,6 +93,11 @@ public class NounChunkPart
                                 isNegativeConnotation = emotion.isNegative();
                             }
 
+                            if(isNegativeConnotation)
+                            {
+                                continue;
+                            }
+
                             boolean isFreqToSmall = false;
 
                             final String[] subwords = word.split(" ");
@@ -116,15 +125,21 @@ public class NounChunkPart
                                 continue;
                             }
 
-                            String wordfreq = "";
+//                            String wordfreq = "";
+//
+//                            for (final String val : subwordWfreqs) {
+//                                wordfreq = wordfreq + val;
+//                            }
 
-                            for (final String val : subwordWfreqs) {
-                                wordfreq = wordfreq + val;
+
+                            ChunkPartSolution ncps = new ChunkPartSolution(this, null, word);
+                            if(hasConstraint())
+                            {
+                                ncps.addConstraintId(this.getConstraintId());
                             }
-
-                            if (!output.contains(wordfreq) && !isNegativeConnotation) {
-                                output.add(wordfreq);
-                                // System.out.println("\t\tYES");
+                            if(!output.contains(ncps))
+                            {
+                                output.add(ncps);
                             }
                         }
                     }

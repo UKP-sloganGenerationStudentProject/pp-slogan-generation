@@ -25,19 +25,7 @@ public class Utils
 
     }
 
-    public static List<String> concatenate(List<String> array1, List<String> array2)
-    {
-        List<String> newValues = new ArrayList<String>();
-        for(String val1 : array1)
-        {
-            for(String val2: array2)
-            {
-                newValues.add(val1 + " " + val2);
-            }
-        }
 
-        return newValues;
-    }
 
     public static List<Integer> getDistinctRandomIndices(int arraySize, int nbrOfIndices)
     {

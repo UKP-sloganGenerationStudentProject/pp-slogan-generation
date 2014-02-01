@@ -117,6 +117,7 @@ public class ChunkPartGeneric extends IndexElement
                     part.setHeader(this);
                     part.setLemma(constraint.getLemma());
                     part.setSemanticValue(this._semanticValue);
+                    part.associateConstraint(constraint.getId());
                     _constrainedElements.add(part);
                 }
             }
