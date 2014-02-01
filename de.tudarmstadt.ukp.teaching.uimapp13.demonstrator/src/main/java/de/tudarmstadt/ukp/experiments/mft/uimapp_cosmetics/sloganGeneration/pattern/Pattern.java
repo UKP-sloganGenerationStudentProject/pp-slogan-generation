@@ -1,10 +1,13 @@
-package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration;
+package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.pattern;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunkPattern.Chunk;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunkPattern.NounChunk;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.PatternGenerator;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Resources;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Utils;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunk.Chunk;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunk.NounChunk;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
 
 public class Pattern

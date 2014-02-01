@@ -1,4 +1,4 @@
-package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunkPattern;
+package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunk;
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.PatternGenerator;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Resources;
