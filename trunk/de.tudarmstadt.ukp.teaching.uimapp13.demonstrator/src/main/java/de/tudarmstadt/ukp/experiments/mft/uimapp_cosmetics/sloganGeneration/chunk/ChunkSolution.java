@@ -1,44 +1,45 @@
-package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration;
+package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunk;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunkPattern.ChunkSolution;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunkPart.ChunkPartSolution;
 
-public class PatternSolution
+public class ChunkSolution
 {
-    private final Pattern _model;
-    private final List<Integer> _constraintIds;
-    private final List<ChunkSolution> _chunkSolutions;
 
-    public PatternSolution(Pattern model)
+    private final Chunk _model;
+    private final List<Integer> _constraintIds;
+    private final List<ChunkPartSolution> _chunkPartSolutions;
+
+    public ChunkSolution(Chunk model)
     {
         _model = model;
         _constraintIds = new ArrayList<>();
-        _chunkSolutions = new ArrayList<>();
+        _chunkPartSolutions = new ArrayList<>();
     }
 
-    public PatternSolution (PatternSolution solution)
+    public ChunkSolution (ChunkSolution solution)
     {
         _model = solution.getModel();
         _constraintIds = new ArrayList<>(solution.getConstraintIds());
-        _chunkSolutions = new ArrayList<>(solution.getChunkPartSolutions());
+        _chunkPartSolutions = new ArrayList<>(solution.getChunkPartSolutions());
     }
 
-    public PatternSolution generateNewPatternSolution(ChunkSolution part)
+    public ChunkSolution generateNewChunkSolution(ChunkPartSolution part)
     {
-        PatternSolution output = null;
+        ChunkSolution output = null;
 
-        PatternSolution sol = new PatternSolution(this);
+        ChunkSolution sol = new ChunkSolution(this);
         //if the chunkpartsolution and the current chunksolution are compatible a new ChunkSolution is generated
-        if(sol.addChunkSolution(part))
+        if(sol.addChunkPartSolution(part))
         {
             output = sol;
         }
         return output;
     }
 
-    public boolean addChunkSolution(ChunkSolution part)
+    public boolean addChunkPartSolution(ChunkPartSolution part)
     {
         boolean output = false;
 
@@ -49,7 +50,7 @@ public class PatternSolution
         if(copyOfNewConstraintIds.size()==0)
         {
             this._constraintIds.addAll(part.getConstraintIds());
-            this._chunkSolutions.add(part);
+            this._chunkPartSolutions.add(part);
 
             output = true;
         }
@@ -57,7 +58,7 @@ public class PatternSolution
         return output;
     }
 
-    public Pattern getModel()
+    public Chunk getModel()
     {
         return _model;
     }
@@ -68,42 +69,39 @@ public class PatternSolution
     }
 
 
-    public List<ChunkSolution> getChunkPartSolutions()
+    public List<ChunkPartSolution> getChunkPartSolutions()
     {
-        return _chunkSolutions;
+        return _chunkPartSolutions;
     }
 
-    public static List<PatternSolution> concatenate(List<PatternSolution> patternSolutions, List<ChunkSolution> chunkSolutions)
+    public static List<ChunkSolution> concatenate(List<ChunkSolution> chunkSolutions, List<ChunkPartSolution> chunkPartSolutions)
     {
-
-
-        List<PatternSolution> newPatternSolutions= new ArrayList<PatternSolution>();
-        for(PatternSolution ps : patternSolutions)
+        List<ChunkSolution> newChunkSolutions= new ArrayList<ChunkSolution>();
+        for(ChunkSolution cs : chunkSolutions)
         {
-            for(ChunkSolution cs: chunkSolutions)
+            for(ChunkPartSolution cps: chunkPartSolutions)
             {
                 //try to create a new chunk solution that is the current chunk solution plus the current chunk part solution
-                PatternSolution nps = ps.generateNewPatternSolution(cs);
-                if(nps!=null)
+                ChunkSolution ncs = cs.generateNewChunkSolution(cps);
+                if(ncs!=null)
                 {
                     //if it works (ie constraints compatible add it to the generated chunksolutions
-                    newPatternSolutions.add(nps);
+                    newChunkSolutions.add(ncs);
                 }
             }
         }
-        return newPatternSolutions;
+        return newChunkSolutions;
     }
 
     public String generateText()
     {
 
         StringBuilder output = new StringBuilder();
-        for(ChunkSolution cs : _chunkSolutions)
+        for(ChunkPartSolution cps : _chunkPartSolutions)
         {
-            output.append(cs.generateText());
+            output.append(cps.generateText());
             output.append(" ");
         }
-
         return output.toString();
     }
 
@@ -112,6 +110,7 @@ public class PatternSolution
     {
         return generateText();
     }
+
 
 
 
