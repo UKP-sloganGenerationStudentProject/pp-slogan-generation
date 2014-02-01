@@ -17,7 +17,7 @@ Instructions to run the demonstrator are given on the project home page [https:/
 
 To run the generator locally you need the following:
   * Maven/Eclipse -project from [https://code.google.com/p/pp-slogan-generation/ pp-slogan-generation]
-  * An Uby database (Tested for uby_open_3_0_0) from [https://code.google.com/p/uby/ Uby]
+  * An Uby database (Tested for uby_open_0_3_0) from [https://code.google.com/p/uby/ Uby]/[http://uby.ukp.informatik.tu-darmstadt.de/uby/]
   * A custom database. An empty schema is located in the project under: "/src/main/resources/koch/sql_dumb_2014_01_29_1700_no_data"
   * (optionally) A Web1T corpus.
   * Correctly set constants in "de.koch.uim project.util.Constants"
@@ -34,7 +34,7 @@ To run the applicaton run the main method of “de.koch.uim_project.main.Main”
 
 To use the generator in another project you need:
   * Maven/Eclipse -project from [https://code.google.com/p/pp-slogan-generation/ pp-slogan-generation]
-  * An Uby database (Tested for uby_open_3_0_0) from [https://code.google.com/p/uby/ Uby]
+  * An Uby database (Tested for uby_open_0_3_0) from [https://code.google.com/p/uby/ Uby]/[http://uby.ukp.informatik.tu-darmstadt.de/uby/]
   * A custom database. An empty schema is located in the project under: "/src/main/resources/koch/sql_dumb_2014_01_29_1700_no_data"
   * (optionally) A Web1T corpus.
 
