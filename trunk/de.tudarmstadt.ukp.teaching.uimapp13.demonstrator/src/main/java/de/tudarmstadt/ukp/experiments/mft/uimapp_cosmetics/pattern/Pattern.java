@@ -98,18 +98,34 @@ public class Pattern
         return _elementList.get(ind).getHeaderId();
     }
 
-    public List<String> generateSlogans(Resources resources,int numberOfSlogans)
+    public List<String> generateSlogans(Resources resources, int numberOfSlogans)
     {
-        List<String> noBodyPart = new ArrayList<>();
-        List<String> withBodyPart = new ArrayList<>();
-        noBodyPart.add("");
-        withBodyPart.add("");
+        List<PatternSolution> patternSolutions = generatePatternSolutions(resources, numberOfSlogans);
+        List<String> slogans = new ArrayList<>();
+
+        for(PatternSolution ps : patternSolutions)
+        {
+            slogans.add(ps.generateText());
+        }
+        return slogans;
+    }
+
+    public List<PatternSolution> generatePatternSolutions(Resources resources,int numberOfSlogans)
+    {
+        List<PatternSolution> noBodyPart = new ArrayList<>();
+        List<PatternSolution> withBodyPart = new ArrayList<>();
+        PatternSolution initPatternSolution1 = new PatternSolution(this);
+        PatternSolution initPatternSolution2 = new PatternSolution(this);
+        noBodyPart.add(initPatternSolution1);
+        withBodyPart.add(initPatternSolution2);
 
         //tells us if the slogans have to include a specific bodypart
         boolean mustBeBodyPart = !resources.getSelectedBodyPart().equals(PatternGenerator.NO_BODY_PART) && !resources.getSelectedBodyPart().equals("");
 
         boolean isNoBodyPartValid = true;
         boolean isWithBodyPartValid = true;
+
+        boolean hasBeenBodyPartOnceUsed = false;
 
         if(_valueOccurrences.contains("Choose the rainbow colors for your nails"))
         {
@@ -118,8 +134,8 @@ public class Pattern
 
         for(Chunk elem : _elementList)
         {
-            List<String> noBodyPartTEMP = new ArrayList<>();
-            List<String> withBodyPartTEMP = new ArrayList<>();
+            List<PatternSolution> noBodyPartTEMP = new ArrayList<>();
+            List<PatternSolution> withBodyPartTEMP = new ArrayList<>();
 
             boolean isNoBodyPartTEMPValid = false;
             boolean isWithBodyPartTEMPValid = false;
@@ -136,8 +152,9 @@ public class Pattern
 
                             if(isNoBodyPartValid)
                             {
-                                withBodyPartTEMP.addAll(Utils.concatenate(noBodyPart, nounOcc.generateSloganParts(resources)));
+                                withBodyPartTEMP.addAll(PatternSolution.concatenate(noBodyPart, nounOcc.generateChunkSolutions(resources,elem)));
                                 isWithBodyPartTEMPValid = true;
+                                hasBeenBodyPartOnceUsed = true;
                             }
 
                             /*
@@ -169,16 +186,16 @@ public class Pattern
                         //this is not a body part so we can use it anywayocc
                         if(isNoBodyPartValid)
                         {
-                            noBodyPartTEMP.addAll(Utils.concatenate(noBodyPart, occ.generateSloganParts(resources)));
+                            noBodyPartTEMP.addAll(PatternSolution.concatenate(noBodyPart, occ.generateChunkSolutions(resources,elem)));
                             isNoBodyPartTEMPValid = true;
                         }
                         if(mustBeBodyPart)
                         {
-                            if(isWithBodyPartValid && withBodyPart.get(0).length()>0)
+                            if(isWithBodyPartValid && hasBeenBodyPartOnceUsed)
                             {
                                 //if we are looking for slogans with body parts, we update also the table
                                 // used to create the slogans with bodypart included
-                                withBodyPartTEMP.addAll(Utils.concatenate(withBodyPart, occ.generateSloganParts(resources)));
+                                withBodyPartTEMP.addAll(PatternSolution.concatenate(withBodyPart, occ.generateChunkSolutions(resources,elem)));
                                 isWithBodyPartTEMPValid = true;
                             }
                         }
@@ -190,16 +207,16 @@ public class Pattern
                     //this is not a body part so we can use it anyway
                     if(isNoBodyPartValid)
                     {
-                        noBodyPartTEMP.addAll(Utils.concatenate(noBodyPart, occ.generateSloganParts(resources)));
+                        noBodyPartTEMP.addAll(PatternSolution.concatenate(noBodyPart, occ.generateChunkSolutions(resources,elem)));
                         isNoBodyPartTEMPValid = true;
                     }
                     if(isWithBodyPartValid)
                     {
-                        if(mustBeBodyPart && withBodyPart.get(0).length()>0)
+                        if(mustBeBodyPart && hasBeenBodyPartOnceUsed)
                         {
                             //if we are looking for slogans with body parts, we update also the table
                             // used to create the slogans with bodypart included
-                            withBodyPartTEMP.addAll(Utils.concatenate(withBodyPart, occ.generateSloganParts(resources)));
+                            withBodyPartTEMP.addAll(PatternSolution.concatenate(withBodyPart, occ.generateChunkSolutions(resources,elem)));
                             isWithBodyPartTEMPValid = true;
                         }
                     }
@@ -214,14 +231,14 @@ public class Pattern
             }
             if(isNoBodyPartTEMPValid)
             {
-                noBodyPart = noBodyPartTEMP;
+                 noBodyPart = noBodyPartTEMP;
             }
 
             isWithBodyPartValid = isWithBodyPartTEMPValid;
             isNoBodyPartValid = isNoBodyPartTEMPValid;
         }
 
-        List<String> slogansSublist = new ArrayList<>();
+        List<PatternSolution> slogansSublist = new ArrayList<>();
 
         if(isWithBodyPartValid && mustBeBodyPart)
         {

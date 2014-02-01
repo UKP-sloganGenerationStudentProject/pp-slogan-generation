@@ -26,7 +26,7 @@ public class ChunkSolution
         _chunkPartSolutions = new ArrayList<>(solution.getChunkPartSolutions());
     }
 
-    public ChunkSolution generateNewsChunkSolution(ChunkPartSolution part)
+    public ChunkSolution generateNewChunkSolution(ChunkPartSolution part)
     {
         ChunkSolution output = null;
 
@@ -47,7 +47,7 @@ public class ChunkSolution
         List<Integer> copyOfNewConstraintIds = new ArrayList<>(part.getConstraintIds());
         copyOfNewConstraintIds.retainAll(this._constraintIds);
 
-        if(copyOfNewConstraintIds.size()==part.getConstraintIds().size())
+        if(copyOfNewConstraintIds.size()==0)
         {
             this._constraintIds.addAll(part.getConstraintIds());
             this._chunkPartSolutions.add(part);
@@ -73,6 +73,44 @@ public class ChunkSolution
     {
         return _chunkPartSolutions;
     }
+
+    public static List<ChunkSolution> concatenate(List<ChunkSolution> chunkSolutions, List<ChunkPartSolution> chunkPartSolutions)
+    {
+        List<ChunkSolution> newChunkSolutions= new ArrayList<ChunkSolution>();
+        for(ChunkSolution cs : chunkSolutions)
+        {
+            for(ChunkPartSolution cps: chunkPartSolutions)
+            {
+                //try to create a new chunk solution that is the current chunk solution plus the current chunk part solution
+                ChunkSolution ncs = cs.generateNewChunkSolution(cps);
+                if(ncs!=null)
+                {
+                    //if it works (ie constraints compatible add it to the generated chunksolutions
+                    newChunkSolutions.add(ncs);
+                }
+            }
+        }
+        return newChunkSolutions;
+    }
+
+    public String generateText()
+    {
+
+        StringBuilder output = new StringBuilder();
+        for(ChunkPartSolution cps : _chunkPartSolutions)
+        {
+            output.append(cps.generateText());
+            output.append(" ");
+        }
+        return output.toString();
+    }
+
+    @Override
+    public String toString()
+    {
+        return generateText();
+    }
+
 
 
 

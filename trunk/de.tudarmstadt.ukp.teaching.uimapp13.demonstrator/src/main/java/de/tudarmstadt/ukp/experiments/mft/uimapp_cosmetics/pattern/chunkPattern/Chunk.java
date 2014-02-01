@@ -5,7 +5,6 @@ import java.util.List;
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.Pattern;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.Resources;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.Utils;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart.ChunkPart;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
 
@@ -16,7 +15,7 @@ public class Chunk
     Pattern _containingPattern;
     ArrayList<ChunkPart> _chunkParts;
     int _mainChunkInd;
-    List<String> _generated;
+    List<ChunkSolution> _generated;
     private boolean _hasConstraint;
     private boolean _haveConstraintsBeenChecked;
 
@@ -112,27 +111,26 @@ public class Chunk
     }
 
 
-    public List<String> generateSloganParts(Resources resources)
+    public List<ChunkSolution> generateChunkSolutions(Resources resources, Chunk originalChunk)
     {
-
         if(_generated.size()==0)
         {
-            List<String> newPartTexts = new ArrayList<String>();
-            newPartTexts.add("");
-            ArrayList<String> space = new ArrayList<String>();
-            space.add(" ");
+
+            List<ChunkSolution> newChunkSolutions = new ArrayList<>();
+            ChunkSolution initialChunkSolution = new ChunkSolution(this);
+            newChunkSolutions.add(initialChunkSolution);
 
             for(ChunkPart occ : _chunkParts)
             {
-                List<String> newPartTextsTemp = new ArrayList<>();
+                List<ChunkSolution> newChunkSolutionsTemp = new ArrayList<>();
                 for(ChunkPart equiv : occ.getSimilarOccurrences(resources))
                 {
-                    newPartTextsTemp.addAll(Utils.concatenate(newPartTexts,equiv.generate(resources)));
+                    newChunkSolutionsTemp.addAll(ChunkSolution.concatenate(newChunkSolutions,equiv.generate(resources,occ)));
                 }
-                newPartTexts = newPartTextsTemp;
+                newChunkSolutions = newChunkSolutionsTemp;
             }
 
-            _generated = newPartTexts;
+            _generated = newChunkSolutions;
         }
 
         return _generated;

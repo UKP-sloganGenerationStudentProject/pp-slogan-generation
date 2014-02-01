@@ -24,12 +24,17 @@ public class VerbChunkPart
 
 
    @Override
-   public ArrayList<String> generate(Resources resources)
+   public List<ChunkPartSolution> generate(Resources resources,ChunkPart orginialPart)
    {
 
-       ArrayList<String> output = new ArrayList<String>();
+       ArrayList<ChunkPartSolution> output = new ArrayList<>();
+       ChunkPartSolution basicSolution = new ChunkPartSolution(orginialPart, null, _lemma);
+       if(hasConstraint())
+       {
+           basicSolution.addConstraintId(this.getConstraintId());
+       }
+       output.add(basicSolution);
 
-       output.add(_lemma);
 
        if(!_isValueDerivable || !resources.isUbyGernationAllowed())
        {
@@ -86,10 +91,17 @@ public class VerbChunkPart
                                isNegativeConnotation= emotion.isNegative();
                            }
 
+                           if(isNegativeConnotation)
+                           {
+                               continue;
+                           }
+
                            boolean isFreqToSmall = false;
 
                            String[] subwords = word.split(" ");
                            List<String> subwordWfreqs = new ArrayList<String>();
+
+
 
 
                            try
@@ -120,18 +132,24 @@ public class VerbChunkPart
 
 
 
+                           /*
                            String wordfreq = "";
 
                            for(String val : subwordWfreqs)
                            {
                                wordfreq = wordfreq + val;
                            }
+                           */
 
-                            if(!output.contains(wordfreq) && !isNegativeConnotation)
-                               {
-                                   output.add(wordfreq);
-//                               System.out.println("\t\tYES");
-                               }
+                           ChunkPartSolution ncps = new ChunkPartSolution(this, null, word);
+                           if(hasConstraint())
+                           {
+                               ncps.addConstraintId(this.getConstraintId());
+                           }
+                           if(!output.contains(ncps))
+                           {
+                               output.add(ncps);
+                           }
 
                        }
                    }

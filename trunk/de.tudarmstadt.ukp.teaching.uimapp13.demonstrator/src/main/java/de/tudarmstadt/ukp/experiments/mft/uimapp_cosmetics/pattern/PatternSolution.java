@@ -25,7 +25,7 @@ public class PatternSolution
         _chunkSolutions = new ArrayList<>(solution.getChunkPartSolutions());
     }
 
-    public PatternSolution generateNewsChunkSolution(ChunkSolution part)
+    public PatternSolution generateNewPatternSolution(ChunkSolution part)
     {
         PatternSolution output = null;
 
@@ -46,7 +46,7 @@ public class PatternSolution
         List<Integer> copyOfNewConstraintIds = new ArrayList<>(part.getConstraintIds());
         copyOfNewConstraintIds.retainAll(this._constraintIds);
 
-        if(copyOfNewConstraintIds.size()==part.getConstraintIds().size())
+        if(copyOfNewConstraintIds.size()==0)
         {
             this._constraintIds.addAll(part.getConstraintIds());
             this._chunkSolutions.add(part);
@@ -71,6 +71,46 @@ public class PatternSolution
     public List<ChunkSolution> getChunkPartSolutions()
     {
         return _chunkSolutions;
+    }
+
+    public static List<PatternSolution> concatenate(List<PatternSolution> patternSolutions, List<ChunkSolution> chunkSolutions)
+    {
+
+
+        List<PatternSolution> newPatternSolutions= new ArrayList<PatternSolution>();
+        for(PatternSolution ps : patternSolutions)
+        {
+            for(ChunkSolution cs: chunkSolutions)
+            {
+                //try to create a new chunk solution that is the current chunk solution plus the current chunk part solution
+                PatternSolution nps = ps.generateNewPatternSolution(cs);
+                if(nps!=null)
+                {
+                    //if it works (ie constraints compatible add it to the generated chunksolutions
+                    newPatternSolutions.add(nps);
+                }
+            }
+        }
+        return newPatternSolutions;
+    }
+
+    public String generateText()
+    {
+
+        StringBuilder output = new StringBuilder();
+        for(ChunkSolution cs : _chunkSolutions)
+        {
+            output.append(cs.generateText());
+            output.append(" ");
+        }
+
+        return output.toString();
+    }
+
+    @Override
+    public String toString()
+    {
+        return generateText();
     }
 
 

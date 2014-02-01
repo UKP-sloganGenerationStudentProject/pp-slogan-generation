@@ -1,6 +1,7 @@
 package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.chunkPart;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.pattern.Resources;
 
@@ -16,10 +17,15 @@ extends ChunkPart
     }
 
     @Override
-    public ArrayList<String> generate(Resources resources)
+    public List<ChunkPartSolution> generate(Resources resources,ChunkPart orginialPart)
     {
-        ArrayList<String> output = new ArrayList<String>();
-        output.add(resources.getProductName());
+        List<ChunkPartSolution> output = new ArrayList<ChunkPartSolution>();
+        ChunkPartSolution solution = new ChunkPartSolution(orginialPart,null,resources.getProductName());
+        if(this.hasConstraint())
+        {
+            solution.addConstraintId(this.getConstraintId());
+        }
+        output.add(solution);
         return output;
     }
 

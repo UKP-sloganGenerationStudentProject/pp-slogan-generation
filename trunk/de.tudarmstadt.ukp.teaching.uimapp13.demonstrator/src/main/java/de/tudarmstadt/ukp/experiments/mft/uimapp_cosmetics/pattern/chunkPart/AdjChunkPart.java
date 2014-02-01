@@ -22,14 +22,16 @@ extends ChunkPart
     }
 
     @Override
-    public ArrayList<String> generate(Resources resources)
+    public ArrayList<ChunkPartSolution> generate(Resources resources, ChunkPart orginialPart)
     {
 
-        ArrayList<String> output = new ArrayList<String>();
-
-
-
-        output.add(_lemma);
+        ArrayList<ChunkPartSolution> output = new ArrayList<>();
+        ChunkPartSolution basicSolution = new ChunkPartSolution(orginialPart, null, _lemma);
+        if(hasConstraint())
+        {
+            basicSolution.addConstraintId(this.getConstraintId());
+        }
+        output.add(basicSolution);
 
         if(!_isValueDerivable || !resources.isUbyGernationAllowed())
         {
@@ -52,14 +54,6 @@ extends ChunkPart
 
             for (Sense sense:lexEntry.getSenses())
             {
-
-                /*
-
-                if(output.size()>5)
-                {
-                    return output;
-                }
-                */
 
                 Synset synset = sense.getSynset();
 
@@ -85,12 +79,18 @@ extends ChunkPart
                             {
                                 isNegativeConnotation= emotion.isNegative();
                             }
-                            if(!output.contains(word) && !isNegativeConnotation)
+                            if(!isNegativeConnotation)
                             {
-                                output.add(word);
-
-//                                System.out.println("\t\tYES");
-                            }
+                                ChunkPartSolution ncps = new ChunkPartSolution(this, null, word);
+                                if(hasConstraint())
+                                {
+                                    ncps.addConstraintId(this.getConstraintId());
+                                }
+                                if(!output.contains(ncps))
+                                {
+                                    output.add(ncps);
+                                }
+                             }
                         }
                     }
 

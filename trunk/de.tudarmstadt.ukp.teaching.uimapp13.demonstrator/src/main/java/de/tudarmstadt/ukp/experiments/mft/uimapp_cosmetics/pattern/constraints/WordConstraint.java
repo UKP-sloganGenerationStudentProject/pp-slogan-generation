@@ -18,21 +18,23 @@ public class WordConstraint
     String _lemma;
     ChunkPartType _chunkPartType;
     String _semantic;
+    int _id;
 
 
-    public WordConstraint()
+    public WordConstraint(int id)
     {
         this._takenValue = "";
         this._lemma = "";
         this._chunkPartType = ChunkPartType.UNDEFINED;
         this._semantic = "";
+        this._id=id;
     }
 
 
-    public WordConstraint(String takenValue, String lemma, ChunkPartType chunkPartType,
+    public WordConstraint(int id,String takenValue, String lemma, ChunkPartType chunkPartType,
             String semantic)
     {
-        super();
+        this(id);
         this._takenValue = takenValue;
         this._lemma = lemma;
         this._chunkPartType = chunkPartType;
@@ -54,8 +56,11 @@ public class WordConstraint
             return output;
         }
 
+        int id = -1;
+
         for(String word : suggestedWords)
         {
+            id = id + 1;
             for(LexicalEntry entry : uby.getLexicalEntries(word, null, null))//lex))
             {
                 String lemma = entry.getLemmaForm();
@@ -89,7 +94,7 @@ public class WordConstraint
 
                 for(String sem : sems)
                 {
-                   WordConstraint constraint = new WordConstraint(word,lemma,type,sem);
+                   WordConstraint constraint = new WordConstraint(id,word,lemma,type,sem);
                    output.add(constraint);
                 }
             }
@@ -132,10 +137,14 @@ public class WordConstraint
         this._chunkPartType = chunkPartType;
     }
 
+    public int getId()
+    {
+        return this._id;
+    }
+
     @Override
     public String toString()
     {
-        return "WordConstraint : "+_takenValue+" "+_lemma+" "+_chunkPartType.toString()+" "+_semantic;
+        return "WordConstraint : "+_id+" "+_takenValue+" "+_lemma+" "+_chunkPartType.toString()+" "+_semantic;
     }
-
 }
