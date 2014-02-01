@@ -80,6 +80,8 @@ public class ChunkGeneric
 
         List<Chunk> chunks = null;
 
+        /*
+
         if(resources.hasConstraints() && this._hasConstraint)
         {
             chunks = this._constrainedElements;
@@ -88,6 +90,10 @@ public class ChunkGeneric
         {
             chunks = this._occurrences;
         }
+
+        */
+
+        chunks = this._occurrences;
 
         return chunks;
     }

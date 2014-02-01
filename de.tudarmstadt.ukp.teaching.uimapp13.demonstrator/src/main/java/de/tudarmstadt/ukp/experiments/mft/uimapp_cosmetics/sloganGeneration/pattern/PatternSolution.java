@@ -94,6 +94,11 @@ public class PatternSolution
         return newPatternSolutions;
     }
 
+    public boolean hasConstraint()
+    {
+        return this._constraintIds.size()>0;
+    }
+
     public String generateText()
     {
 

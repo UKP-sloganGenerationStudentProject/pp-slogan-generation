@@ -193,11 +193,13 @@ public class PatternFactory
         /*
          * generate the patterns
          */
+        int nbrPatterns = 0;
         for (final Pattern pattern : filteredPatterns)
         {
+            nbrPatterns = nbrPatterns + 1;
 
             output.addAll(pattern.generateSlogans(resources, nbrOfSlogans));
-            if(output.size()>nbrOfSlogans*nbrOfSlogans/2+1)
+            if(output.size()>nbrOfSlogans*nbrOfSlogans/1.3)
             {
                 break;
             }
