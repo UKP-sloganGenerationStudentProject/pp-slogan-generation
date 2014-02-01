@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -123,7 +124,7 @@ public class PatternGenerator
 
         // PARTS OF THE BODY
         // set the suggested words (a string containing all the words separated with a coma"
-        generator.setSuggestedWords("beauty,woman,colour");
+        //generator.setSuggestedWords("hope,woman,love");
 
         final Scanner user_input = new Scanner(System.in);
 
@@ -171,6 +172,14 @@ public class PatternGenerator
             final int selectedBodyPartNumber = Integer.parseInt(user_input.next());
             generator.selectPartOfBody(selectablePartsOfBody.get(selectedBodyPartNumber));
 
+            System.out.println();
+            System.out.print("Suggested words (must be separated with a comma) :");
+            final String suggestedWords = user_input.next();
+            generator.setSuggestedWords(suggestedWords);
+
+
+            System.out.println();
+            System.out.println();
             for (final String slogan : generator.generateSlogans(10)) {
                 System.out.println("\t" + slogan);
             }
@@ -303,7 +312,16 @@ public class PatternGenerator
 
     public void setSuggestedWords(final String suggestedWords)
     {
-        this._resources.setSuggestedWords(Arrays.asList(suggestedWords.split(",")));
+        List<String> suggestedWordList = new ArrayList<>();
+        for(String sugWord : Arrays.asList(suggestedWords.split(",")))
+        {
+            String trimmed = sugWord.trim();
+            if(!trimmed.equals(""))
+            {
+                suggestedWordList.add(trimmed);
+            }
+        }
+        this._resources.setSuggestedWords(suggestedWordList);
         this._resources.generateConstraints();
         this._resources.printConstraints();
     }

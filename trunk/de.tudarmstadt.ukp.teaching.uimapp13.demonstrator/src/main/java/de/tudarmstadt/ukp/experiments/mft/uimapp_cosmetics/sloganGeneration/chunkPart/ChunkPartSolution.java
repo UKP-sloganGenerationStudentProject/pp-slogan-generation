@@ -9,16 +9,27 @@ public class ChunkPartSolution
     private final ChunkPart _model;
     private List<Integer> _constraintIds;
     private final String _lemmaSolution;
+    private boolean _hasBodyPart;
 
     public ChunkPartSolution(ChunkPart model,List<Integer> constraintIds, String solutionLemma)
     {
         _model = model;
         _lemmaSolution = solutionLemma;
         _constraintIds = constraintIds;
+        _hasBodyPart = false;
         if(_constraintIds == null)
         {
             _constraintIds = new ArrayList<>();
         }
+    }
+
+    public void setHasBodyPart(boolean tof)
+    {
+        _hasBodyPart = tof;
+    }
+    public boolean hasBodyPart()
+    {
+        return _hasBodyPart;
     }
 
     public ChunkPart getModel()

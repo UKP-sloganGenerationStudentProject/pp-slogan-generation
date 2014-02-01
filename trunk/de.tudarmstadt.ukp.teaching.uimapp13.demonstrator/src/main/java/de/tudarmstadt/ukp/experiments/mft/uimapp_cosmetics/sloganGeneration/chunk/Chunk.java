@@ -5,6 +5,7 @@ import java.util.List;
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Resources;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunkPart.ChunkPart;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunkPart.ChunkPartSolution;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.pattern.Pattern;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
 
@@ -125,7 +126,11 @@ public class Chunk
                 List<ChunkSolution> newChunkSolutionsTemp = new ArrayList<>();
                 for(ChunkPart equiv : occ.getSimilarOccurrences(resources))
                 {
-                    newChunkSolutionsTemp.addAll(ChunkSolution.concatenate(newChunkSolutions,equiv.generate(resources,occ)));
+                    List<ChunkPartSolution> generatedParts = equiv.generate(resources,occ);
+                    if(generatedParts.size()>0)
+                    {
+                        newChunkSolutionsTemp.addAll(ChunkSolution.concatenate(resources,newChunkSolutions,equiv.generate(resources,occ)));
+                    }
                 }
                 newChunkSolutions = newChunkSolutionsTemp;
             }

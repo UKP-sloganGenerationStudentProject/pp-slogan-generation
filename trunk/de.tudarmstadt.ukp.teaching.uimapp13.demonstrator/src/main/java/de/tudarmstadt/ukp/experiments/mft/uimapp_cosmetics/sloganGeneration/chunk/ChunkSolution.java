@@ -3,6 +3,7 @@ package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chu
 import java.util.ArrayList;
 import java.util.List;
 
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Resources;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunkPart.ChunkPartSolution;
 
 public class ChunkSolution
@@ -11,6 +12,7 @@ public class ChunkSolution
     private final Chunk _model;
     private final List<Integer> _constraintIds;
     private final List<ChunkPartSolution> _chunkPartSolutions;
+    private boolean _hasBodyPart;
 
     public ChunkSolution(Chunk model)
     {
@@ -24,24 +26,36 @@ public class ChunkSolution
         _model = solution.getModel();
         _constraintIds = new ArrayList<>(solution.getConstraintIds());
         _chunkPartSolutions = new ArrayList<>(solution.getChunkPartSolutions());
+        _hasBodyPart = solution.hasBodyPart();
     }
 
-    public ChunkSolution generateNewChunkSolution(ChunkPartSolution part)
+    public boolean hasBodyPart()
+    {
+        return _hasBodyPart;
+    }
+
+
+    public ChunkSolution generateNewChunkSolution(Resources resources,ChunkPartSolution part)
     {
         ChunkSolution output = null;
 
         ChunkSolution sol = new ChunkSolution(this);
         //if the chunkpartsolution and the current chunksolution are compatible a new ChunkSolution is generated
-        if(sol.addChunkPartSolution(part))
+        if(sol.tryAddChunkPartSolution(resources,part))
         {
             output = sol;
         }
         return output;
     }
 
-    public boolean addChunkPartSolution(ChunkPartSolution part)
+    public boolean tryAddChunkPartSolution(Resources resources, ChunkPartSolution part)
     {
         boolean output = false;
+
+        if(_hasBodyPart && part.hasBodyPart() && resources.hasBodyPartConstraint())
+        {
+            return false;
+        }
 
         //look if the _constraints ids are compatible, ie if the intersection of the constraints is empty
         List<Integer> copyOfNewConstraintIds = new ArrayList<>(part.getConstraintIds());
@@ -51,11 +65,12 @@ public class ChunkSolution
         {
             this._constraintIds.addAll(part.getConstraintIds());
             this._chunkPartSolutions.add(part);
+            this._hasBodyPart = part.hasBodyPart();
 
-            output = true;
+            return true;
         }
 
-        return output;
+        return false;
     }
 
     public Chunk getModel()
@@ -74,7 +89,7 @@ public class ChunkSolution
         return _chunkPartSolutions;
     }
 
-    public static List<ChunkSolution> concatenate(List<ChunkSolution> chunkSolutions, List<ChunkPartSolution> chunkPartSolutions)
+    public static List<ChunkSolution> concatenate(Resources resources,List<ChunkSolution> chunkSolutions, List<ChunkPartSolution> chunkPartSolutions)
     {
         List<ChunkSolution> newChunkSolutions= new ArrayList<ChunkSolution>();
         for(ChunkSolution cs : chunkSolutions)
@@ -82,7 +97,7 @@ public class ChunkSolution
             for(ChunkPartSolution cps: chunkPartSolutions)
             {
                 //try to create a new chunk solution that is the current chunk solution plus the current chunk part solution
-                ChunkSolution ncs = cs.generateNewChunkSolution(cps);
+                ChunkSolution ncs = cs.generateNewChunkSolution(resources,cps);
                 if(ncs!=null)
                 {
                     //if it works (ie constraints compatible add it to the generated chunksolutions
