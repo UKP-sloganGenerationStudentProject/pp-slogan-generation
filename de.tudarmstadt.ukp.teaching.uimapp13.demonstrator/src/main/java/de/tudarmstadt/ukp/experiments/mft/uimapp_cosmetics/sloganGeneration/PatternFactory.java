@@ -117,7 +117,7 @@ public class PatternFactory
         this._isCurrentPattern = false;
     }
 
-    public void setSlogan(final String value)
+    public void setSloganToCurrentPattern(final String value)
     {
         //set the value of the slogan that leaded to the current pattern
         this._currentSloganValue = value;

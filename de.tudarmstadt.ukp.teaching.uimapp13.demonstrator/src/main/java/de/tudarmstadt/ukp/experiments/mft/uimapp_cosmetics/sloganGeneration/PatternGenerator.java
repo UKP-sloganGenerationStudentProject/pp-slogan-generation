@@ -66,7 +66,7 @@ public class PatternGenerator
 
     Resources _resources;
     private String _web1TPathname;
-    private String _allowedWordsPath;
+    private final String _allowedWordsPath;
     private String _rejectedWordsPath;
 
 
@@ -96,31 +96,7 @@ public class PatternGenerator
         final List<String> selectablePatterns = Parameters.getSelectablePatterns();
         final List<String> selectablePartsOfBody = Parameters.getSelectablePartsOfBody();
 
-        /*Example :*/
-        // final String pattern0 = selectablePatterns.get(6);
-        /* when the associated checkbox gets checked*/
-        // generator.selectPattern(pattern0);
-        /* when the associated checkbox gets unchecked */
-        // generator.unselectPattern(pattern0);
-
-        // PART OF BODYye
-        // retrieve the list of selectable part of the body
-
-        /*Example :*/
-        // final String partOfBody0 = selectablePartsOfBody.get(3);
-        /* when the associated checkbox gets checked*/
-        // generator.selectPartOfBody(partOfBody0);
-        /* when the associated checkbox gets unchecked */
-        // generator.unselectPartOfBodyn(partOfBody0);
-
-        // PRODUCT NAME
-        // set the product name
         generator.setProductName("myProductName");
-
-
-        // PARTS OF THE BODY
-        // set the suggested words (a string containing all the words separated with a coma"
-        //generator.setSuggestedWords("hope,woman,love");
 
         final Scanner user_input = new Scanner(System.in);
 
@@ -184,11 +160,6 @@ public class PatternGenerator
 
         user_input.close();
 
-
-        // generator.generateSlogansToFile("/media/Storage/TUD/WS13-14/UIMA/Data/generatedSlogans.txt");
-
-        // System.out.println(generator.toString());
-
     }
 
     public PatternGenerator()
@@ -202,9 +173,6 @@ public class PatternGenerator
         this._ubyDBPassword = "";
         this._allowedWordsPath = "";
         this._resources = new Resources();
-
-
-
     }
 
     public void init()
@@ -213,6 +181,9 @@ public class PatternGenerator
 
         this._factory = new PatternFactory();
 
+        /*
+         * connect uby
+         */
         Uby uby = null;
         final DBConfig db = new DBConfig(this._ubyDBURL, this._ubyDBDriver, this._ubyDBDriverName,
                 this._ubyDBUserName, this._ubyDBPassword, false);
@@ -222,9 +193,11 @@ public class PatternGenerator
         catch (final UbyInvalidArgumentException e) {
             e.printStackTrace();
         }
-
         this._resources.setUby(uby);
 
+        /*
+         * setup web1t
+         */
         final String dkproHome = System.getenv("DKPRO_HOME");
         String web1tPathname = dkproHome + "/web1t/ENGLISH/";
         if (this._web1TPathname != null) {
@@ -233,30 +206,37 @@ public class PatternGenerator
         final JWeb1TSearcher lookup = new JWeb1TSearcher(new File(web1tPathname), 1, 1);
         this._resources.setWordStatistic(lookup);
 
-        String allowedWordsPath = "";
-        if (this._allowedWordsPath != null) {
-            allowedWordsPath = this._allowedWordsPath;
-        }
+//
+//        String allowedWordsPath = "";
+//        if (this._allowedWordsPath != null) {
+//            allowedWordsPath = this._allowedWordsPath;
+//        }
+//
+//        String rejectedWordsPath = "";
+//        if (this._rejectedWordsPath != null) {
+//            rejectedWordsPath = this._rejectedWordsPath;
+//        }
+//
+//
+//        JWeb1TSearcher allowedWordsSearcher = null;
+//        if(!allowedWordsPath.equals(""))
+//        {
+//            allowedWordsSearcher = new JWeb1TSearcher(new File(allowedWordsPath), 1, 1);
+//        }
+//
+//        File rejWordsFile = new File(rejectedWordsPath);
 
-        String rejectedWordsPath = "";
-        if (this._rejectedWordsPath != null) {
-            rejectedWordsPath = this._rejectedWordsPath;
-        }
+//        this._resources.setAllowedWordSearcher(allowedWordsSearcher, rejWordsFile);
 
-
-        JWeb1TSearcher allowedWordsSearcher = null;
-        if(!allowedWordsPath.equals(""))
-        {
-            allowedWordsSearcher = new JWeb1TSearcher(new File(allowedWordsPath), 1, 1);
-        }
-
-        File rejWordsFile = new File(rejectedWordsPath);
-
-        this._resources.setAllowedWordSearcher(allowedWordsSearcher, rejWordsFile);
-
+        /*
+         * Emotion analyzer
+         */
         final EmotionAnalyzer emotionAnalizer = new EmotionAnalyzer(this._emotionFilePath);
         this._resources.setEmotionAnalizer(emotionAnalizer);
 
+        /*
+         * set the pipe for the creation of the patterns
+         */
         final CollectionReaderDescription reader = createReaderDescription(TextReader.class,
                 TextReader.PARAM_SOURCE_LOCATION, this._sloganBasePath, TextReader.PARAM_LANGUAGE,
                 "en");
@@ -289,6 +269,9 @@ public class PatternGenerator
                 posLemmaAnnotator, chunkAnnotator, semanticFieldAnnotator, chunkPatternAnnotator,
                 emotionAnnotator);
 
+        /*
+         * run the pipeline and extract the results to create the patterns
+         */
         for (final JCas jcas : pipeline) {
             this.extractPatterns(jcas);
         }
@@ -345,6 +328,26 @@ public class PatternGenerator
         this._resources.printConstraints();
     }
 
+    public void selectPattern(final String chunkPatternAsString)
+    {
+        this._resources.setPatternToGenerate(chunkPatternAsString);
+    }
+
+    public void selectPartOfBody(final String part)
+    {
+        this._resources.setSelectedPartOfBody(part);
+    }
+
+    public void useUbyForNewWords(final boolean tof)
+    {
+        this._resources.useUbyForNewWords(tof);
+    }
+
+
+
+    /*
+     * test
+     */
     public void testConstraints()
     {
         this._factory.checkForConstraints(this._resources);
@@ -357,28 +360,21 @@ public class PatternGenerator
 
 
 
-    public void selectPattern(final String chunkPatternAsString)
-    {
-        this._resources.setPatternToGenerate(chunkPatternAsString);
-    }
 
-
-
-    public void selectPartOfBody(final String part)
-    {
-        this._resources.setSelectedPartOfBody(part);
-    }
+    /*
+     * generation of the logans
+     */
 
     public List<String> generateSlogans(final int nbrOfSlogans)
     {
         return this._factory.generateSlogans(this._resources, nbrOfSlogans);
     }
 
-    public void useUbyForNewWords(final boolean tof)
-    {
-        this._resources.useUbyForNewWords(tof);
-    }
 
+
+    /*
+     * generation of the patterns
+     */
     public void extractPatterns(final JCas aJCas)
         throws AnalysisEngineProcessException
     {
@@ -405,14 +401,19 @@ public class PatternGenerator
                     ChunkPatternAnnotation.class, chunk);
             if (patterns.size() > 0) {
                 if (prevPatternAnnot == null) {
+                    //there was no previous pattern
+                    //we start a new one
                     isNewPattern = true;
                 }
                 else {
                     if (prevPatternAnnot.getBegin() != patterns.get(0).getBegin()) {
+                        //we finish the previous pattern and start a new one
                         this._factory.finishPattern();
                         isNewPattern = true;
                     }
                     else {
+                        //we don't start any new pattern
+                        //we keep working on the previous one
                         isNewPattern = false;
                     }
 
@@ -422,6 +423,7 @@ public class PatternGenerator
             }
             else {
                 if (prevPatternAnnot != null) {
+                    // if the chunk correspond to no pattern, we terminate the previous one
                     this._factory.finishPattern();
                 }
                 prevPatternAnnot = null;
@@ -443,7 +445,7 @@ public class PatternGenerator
 
                 if (!isNegative) {
                     this._factory.startNewPattern();
-                    this._factory.setSlogan(pattern.getCoveredText());
+                    this._factory.setSloganToCurrentPattern(pattern.getCoveredText());
                 }
 
             }
@@ -457,6 +459,7 @@ public class PatternGenerator
             ChunkType chunkType = null;
 
             try {
+                //map the chunkvalue from annotation to our ChunkType enumeration
                 chunkType = ChunkType.valueOf(chunk.getChunkValue());
             }
             catch (final IllegalArgumentException e) {
@@ -468,21 +471,27 @@ public class PatternGenerator
 
             this._factory.startNewChunk(chunkType);
 
+            // go through every token of the chunk
             for (final Token token : JCasUtil.selectCovered(Token.class, chunk)) {
                 final List<POS> poss = JCasUtil.selectCovered(POS.class, token);
+
+                //get the part of speech
                 POS pos = new POS(aJCas);
                 if (poss.size() > 0) {
                     pos = poss.get(0);
                 }
 
+                //map the pos type to our ChunkPartType enumeration
                 ChunkPartType chunkPartType = ChunkPartType.getTypeOf(pos.getType().getShortName());
 
+                //get the corresponding lemma
                 final List<Lemma> lemmas = JCasUtil.selectCovered(Lemma.class, token);
                 String lemma = "";
                 if (lemmas.size() > 0) {
                     lemma = lemmas.get(0).getValue();
                 }
 
+                //get the corresponding semantics
                 final List<SemanticField> sems = JCasUtil
                         .selectCovering(SemanticField.class, token);
                 String sem = "";
@@ -490,36 +499,41 @@ public class PatternGenerator
                     sem = sems.get(0).getValue();
                 }
 
+                //look if the token corresponds to the place of a productname
                 if (token.getCoveredText().equals(ChunkPartType.PRODUCT_NAME.toString())) {
                     chunkPartType = ChunkPartType.PRODUCT_NAME;
                 }
 
+                //create a chunkpart with the previous pieces of information
                 final ChunkPart chunkPart = ChunkPart.createChunkPart(chunkPartType,
                         token.getCoveredText(), lemma, sem, pos.getPosValue());
 
+                //add the new chunkpart to the current chunk
                 this._factory.addPartToChunk(chunkPartType,chunkPart);
 
             }
 
+            //finish the chunk
             this._factory.finishChunk(this._resources);
         }
 
         if (prevPatternAnnot != null) {
+            //if a pattern has been started, finish it
             this._factory.finishPattern();
         }
 
     }
 
-    public void setAllowedWordSearcher(String allowedWordSearcherPath)
-    {
-        _allowedWordsPath = allowedWordSearcherPath;
-    }
-
-    public void setAllowedWordSearcher(String allowedWordSearcherPath,String rejectedWordsOutputPath)
-    {
-        _allowedWordsPath = allowedWordSearcherPath;
-        _rejectedWordsPath = rejectedWordsOutputPath;
-    }
+//    public void setAllowedWordSearcher(String allowedWordSearcherPath)
+//    {
+//        _allowedWordsPath = allowedWordSearcherPath;
+//    }
+//
+//    public void setAllowedWordSearcher(String allowedWordSearcherPath,String rejectedWordsOutputPath)
+//    {
+//        _allowedWordsPath = allowedWordSearcherPath;
+//        _rejectedWordsPath = rejectedWordsOutputPath;
+//    }
 
     @Override
     public String toString()
