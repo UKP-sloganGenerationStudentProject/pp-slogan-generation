@@ -5,10 +5,7 @@ import static org.apache.uima.fit.factory.CollectionReaderFactory.createReaderDe
 import static org.apache.uima.fit.factory.ExternalResourceFactory.createExternalResourceDescription;
 import static org.apache.uima.fit.util.JCasUtil.select;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,18 +62,13 @@ public class PatternGenerator
     String _ubyDBUserName;
     String _ubyDBPassword;
 
-    public static final String DONT_CARE = "don't care";
-    public static final String NO_BODY_PART = "no body part";
-
-    private static List<String> _patternsToAnnotate = Arrays.asList(DONT_CARE, "NC_", "NC_PC_NC_",
-            "VC_NC_", "VC_NC_PC_NC_", "VC_", "NC_VC_", "NC_VC_ADJC_", "NC_VC_NC_");;
-    private static List<String> _partsOfBodyToSelect = Arrays.asList(NO_BODY_PART, "eye", "skin",
-            "lip", "nail", "hair", "lash","hand");
-
     PatternFactory _factory;
 
     Resources _resources;
     private String _web1TPathname;
+    private String _allowedWordsPath;
+    private String _rejectedWordsPath;
+
 
     public static void main(final String[] args)
         throws Exception
@@ -90,6 +82,9 @@ public class PatternGenerator
         generator.setSloganBasePath("src/main/resources/beautySlogans.txt");
         generator.setUbyDBData("localhost/uby_medium_0_3_0", "com.mysql.jdbc.Driver", "mysql",
                 "root", "pass");
+
+        //generator.setAllowedWordSearcher("/home/matthieuft/Documents/cosmeticsNgrams", "/home/matthieuft/Documents/rejectedWords.txt");
+
         generator.init();
 
         /*
@@ -98,8 +93,8 @@ public class PatternGenerator
         // PATTERN
         // retrieve the list of selectable patterns (add a chekckbox with each element of the list
         // as label)
-        final List<String> selectablePatterns = PatternGenerator.getSelectablePatterns();
-        final List<String> selectablePartsOfBody = PatternGenerator.getSelectablePartsOfBody();
+        final List<String> selectablePatterns = Parameters.getSelectablePatterns();
+        final List<String> selectablePartsOfBody = Parameters.getSelectablePartsOfBody();
 
         /*Example :*/
         // final String pattern0 = selectablePatterns.get(6);
@@ -121,6 +116,7 @@ public class PatternGenerator
         // PRODUCT NAME
         // set the product name
         generator.setProductName("myProductName");
+
 
         // PARTS OF THE BODY
         // set the suggested words (a string containing all the words separated with a coma"
@@ -188,6 +184,7 @@ public class PatternGenerator
 
         user_input.close();
 
+
         // generator.generateSlogansToFile("/media/Storage/TUD/WS13-14/UIMA/Data/generatedSlogans.txt");
 
         // System.out.println(generator.toString());
@@ -203,8 +200,10 @@ public class PatternGenerator
         this._ubyDBDriverName = "";
         this._ubyDBUserName = "";
         this._ubyDBPassword = "";
-
+        this._allowedWordsPath = "";
         this._resources = new Resources();
+
+
 
     }
 
@@ -232,8 +231,28 @@ public class PatternGenerator
             web1tPathname = this._web1TPathname;
         }
         final JWeb1TSearcher lookup = new JWeb1TSearcher(new File(web1tPathname), 1, 1);
-
         this._resources.setWordStatistic(lookup);
+
+        String allowedWordsPath = "";
+        if (this._allowedWordsPath != null) {
+            allowedWordsPath = this._allowedWordsPath;
+        }
+
+        String rejectedWordsPath = "";
+        if (this._rejectedWordsPath != null) {
+            rejectedWordsPath = this._rejectedWordsPath;
+        }
+
+
+        JWeb1TSearcher allowedWordsSearcher = null;
+        if(!allowedWordsPath.equals(""))
+        {
+            allowedWordsSearcher = new JWeb1TSearcher(new File(allowedWordsPath), 1, 1);
+        }
+
+        File rejWordsFile = new File(rejectedWordsPath);
+
+        this._resources.setAllowedWordSearcher(allowedWordsSearcher, rejWordsFile);
 
         final EmotionAnalyzer emotionAnalizer = new EmotionAnalyzer(this._emotionFilePath);
         this._resources.setEmotionAnalizer(emotionAnalizer);
@@ -261,7 +280,7 @@ public class PatternGenerator
 
         final AnalysisEngineDescription chunkPatternAnnotator = createEngineDescription(
                 ChunkPatternAnnotator.class, ChunkPatternAnnotator.PARAM_PATTERN_LIST,
-                getSelectablePatterns());
+                Parameters.getSelectablePatterns());
         final AnalysisEngineDescription emotionAnnotator = createEngineDescription(
                 EmotionAnnotator.class, EmotionAnnotator.PARAM_EMOTIONS_LEXICON_PATH,
                 this._emotionFilePath);
@@ -336,20 +355,14 @@ public class PatternGenerator
         */
     }
 
-    public static List<String> getSelectablePatterns()
-    {
-        return _patternsToAnnotate;
-    }
+
 
     public void selectPattern(final String chunkPatternAsString)
     {
         this._resources.setPatternToGenerate(chunkPatternAsString);
     }
 
-    public static List<String> getSelectablePartsOfBody()
-    {
-        return _partsOfBodyToSelect;
-    }
+
 
     public void selectPartOfBody(final String part)
     {
@@ -364,48 +377,6 @@ public class PatternGenerator
     public void useUbyForNewWords(final boolean tof)
     {
         this._resources.useUbyForNewWords(tof);
-    }
-
-    public void generateSlogansToFile(final String path)
-    {
-
-        try {
-
-            BufferedWriter writer = null;
-            File file = null;
-
-            file = new File(path);
-
-            file.createNewFile();
-
-            writer = new BufferedWriter(new FileWriter(file, false));
-
-            writer.write("***********************Generated Slogans");
-            writer.newLine();
-            writer.newLine();
-
-            writer.write(this._factory.getChunkIndex().toString());
-
-            writer.newLine();
-            writer.newLine();
-
-            // write all the generated patterns into a file
-            System.out.println("Write all the generated patterns into the file.");
-
-            writer.write("***********************Pattern Generation");
-            writer.newLine();
-            writer.newLine();
-
-            writer.write(this._factory.generateSlogansTest(this._resources));
-
-            writer.close();
-
-        }
-
-        catch (final IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
     public void extractPatterns(final JCas aJCas)
@@ -472,7 +443,7 @@ public class PatternGenerator
 
                 if (!isNegative) {
                     this._factory.startNewPattern();
-                    this._factory.setPatternValue(pattern.getCoveredText());
+                    this._factory.setSlogan(pattern.getCoveredText());
                 }
 
             }
@@ -537,6 +508,17 @@ public class PatternGenerator
             this._factory.finishPattern();
         }
 
+    }
+
+    public void setAllowedWordSearcher(String allowedWordSearcherPath)
+    {
+        _allowedWordsPath = allowedWordSearcherPath;
+    }
+
+    public void setAllowedWordSearcher(String allowedWordSearcherPath,String rejectedWordsOutputPath)
+    {
+        _allowedWordsPath = allowedWordSearcherPath;
+        _rejectedWordsPath = rejectedWordsOutputPath;
     }
 
     @Override

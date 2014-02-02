@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.emotions.EmotionModel;
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.PatternGenerator;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Parameters;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Resources;
 import de.tudarmstadt.ukp.lmf.model.core.LexicalEntry;
 import de.tudarmstadt.ukp.lmf.model.core.Sense;
@@ -23,7 +23,13 @@ public class NounChunkPart
     }
 
     @Override
-    public ArrayList<ChunkPartSolution> generate(final Resources resources,ChunkPart orginialPart)
+    public void generateInformation()
+    {
+
+    }
+
+    @Override
+    public ArrayList<ChunkPartSolution> generateChunkPartSolution(final Resources resources,ChunkPart orginialPart)
     {
 
         ArrayList<ChunkPartSolution> output = new ArrayList<>();
@@ -41,7 +47,7 @@ public class NounChunkPart
             }
             else
             {
-                if(PatternGenerator.getSelectablePartsOfBody().contains(this._lemma))
+                if(Parameters.getSelectablePartsOfBody().contains(this._lemma))
                 {
                     //in this case we are not interested in this chunkPart because it is a body part that is not the one we are looking for
                     //we return an empty list
@@ -51,7 +57,7 @@ public class NounChunkPart
         }
         else
         {
-            if(PatternGenerator.getSelectablePartsOfBody().contains(this._lemma))
+            if(Parameters.getSelectablePartsOfBody().contains(this._lemma))
             {
                 //in this case we are not interested in this chunkPart because it is a body part and we don't want any body part
                 //we return an empty list
@@ -120,32 +126,46 @@ public class NounChunkPart
                                 continue;
                             }
 
-                            boolean isFreqToSmall = false;
+                            boolean isFreqToSmall = true;
 
                             final String[] subwords = word.split(" ");
-                            final List<String> subwordWfreqs = new ArrayList<String>();
 
-                            try {
-                                for (final String subword : subwords) {
-                                    if (subword.length() == 0) {
-                                        continue;
+//                            for(String subword : subwords)
+//                            {
+//                                if (subword.length() == 0) {
+//                                  continue;
+//                              }
+
+//                                if(!resources.checkLemmaInCosmeticsCorpus(subword))
+//                                {
+//                                    isLemmaAllowed = false;
+//                                    break;
+//                                }
+//                            }
+
+                                final List<String> subwordWfreqs = new ArrayList<String>();
+
+                                try {
+                                    for (final String subword : subwords) {
+                                        if (subword.length() == 0) {
+                                            continue;
+                                        }
+                                        final long freq = resources.getWordStatistic().getFrequency(
+                                                subword);
+                                        if (freq < 1000) {
+                                            isFreqToSmall = true;
+                                            break;
+                                        }
+                                        subwordWfreqs.add("(" + subword + ")[" + freq + "] ");
                                     }
-                                    final long freq = resources.getWordStatistic().getFrequency(
-                                            subword);
-                                    if (freq < 1000) {
-                                        isFreqToSmall = true;
-                                        break;
-                                    }
-                                    subwordWfreqs.add("(" + subword + ")[" + freq + "] ");
                                 }
-                            }
-                            catch (final IOException e) {
-                            }
+                                catch (final IOException e) {
+                                }
 
-                            if (isFreqToSmall) {
-                                System.out.println("Too small frequence : " + word);
-                                continue;
-                            }
+                                if (isFreqToSmall) {
+                                    System.out.println("Too small frequence : " + word);
+                                    continue;
+                                }
 
 //                            String wordfreq = "";
 //
@@ -170,5 +190,7 @@ public class NounChunkPart
         }
         return output;
     }
+
+
 
 }

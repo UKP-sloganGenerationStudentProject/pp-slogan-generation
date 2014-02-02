@@ -12,7 +12,7 @@ import org.apache.wicket.markup.html.form.TextArea;
 
 import com.google.common.base.Joiner;
 
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.PatternGenerator;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Parameters;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.adapters.Adapter;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.adapters.BeautyAdapter;
 
@@ -37,8 +37,8 @@ public class BeautyForm
         super(id);
 
         this.add(new Button("beauty-submit"));
-        final List<String> selectablePartsOfBody = PatternGenerator.getSelectablePartsOfBody();
-        final List<String> selectablePatterns = PatternGenerator.getSelectablePatterns();
+        final List<String> selectablePartsOfBody = Parameters.getSelectablePartsOfBody();
+        final List<String> selectablePatterns = Parameters.getSelectablePatterns();
 
         this.add(new RequiredTextField<Integer>("beauty-numSlogans", this
                 .createIntProperty("sloganCount")));

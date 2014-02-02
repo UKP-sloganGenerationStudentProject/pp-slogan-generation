@@ -22,7 +22,7 @@ extends ChunkPart
     }
 
     @Override
-    public ArrayList<ChunkPartSolution> generate(Resources resources, ChunkPart orginialPart)
+    public ArrayList<ChunkPartSolution> generateChunkPartSolution(Resources resources, ChunkPart orginialPart)
     {
 
         ArrayList<ChunkPartSolution> output = new ArrayList<>();

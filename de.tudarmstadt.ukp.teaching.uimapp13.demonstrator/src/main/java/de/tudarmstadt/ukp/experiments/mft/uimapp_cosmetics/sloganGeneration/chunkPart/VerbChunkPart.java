@@ -16,130 +16,187 @@ public class VerbChunkPart
     extends ChunkPart
 {
 
-    public VerbChunkPart()
-    {
-        super();
-        this._isValueDerivable = false;
-    }
+   public VerbChunkPart()
+   {
+       super();
+       _isValueDerivable = false;
+   }
 
-    @Override
-    public List<ChunkPartSolution> generate(final Resources resources, final ChunkPart orginialPart)
-    {
 
-        final ArrayList<ChunkPartSolution> output = new ArrayList<>();
-        final ChunkPartSolution basicSolution = new ChunkPartSolution(orginialPart, null,
-                this._lemma);
-        if (this.hasConstraint()) {
-            basicSolution.addConstraintId(this.getConstraintId());
-        }
-        output.add(basicSolution);
 
-        if (!this._isValueDerivable || !resources.isUbyGernationAllowed()) {
-            return output;
-        }
 
-        final String ubySemantic = "verb." + this._semanticValue;
+   @Override
+   public List<ChunkPartSolution> generateChunkPartSolution(Resources resources,ChunkPart orginialPart)
+   {
 
-        //
-        // System.out.println("[");
-        // System.out.println(ubySemantic);
-        // System.out.println(_lemma);
-        // System.out.println("]");
-        //
+       ArrayList<ChunkPartSolution> output = new ArrayList<>();
+       ChunkPartSolution basicSolution = new ChunkPartSolution(orginialPart, null, _lemma);
+       if(hasConstraint())
+       {
+           basicSolution.addConstraintId(this.getConstraintId());
+       }
+       output.add(basicSolution);
 
-        final List<LexicalEntry> lexicalEntries = resources.getUby().getLexicalEntries(this._lemma,
-                EPartOfSpeech.verb, null);
 
-        for (final LexicalEntry lexEntry : lexicalEntries) {
+       if(!_isValueDerivable || !resources.isUbyGernationAllowed())
+       {
+           return output;
+       }
 
-            for (final Sense sense : lexEntry.getSenses()) {
+       String ubySemantic = "verb."+_semanticValue;
 
-                /*
+//
+//       System.out.println("[");
+//       System.out.println(ubySemantic);
+//       System.out.println(_lemma);
+//       System.out.println("]");
+//
 
-                if(output.size()>5)
-                {
-                    return output;
-                }
-                */
+       List<LexicalEntry> lexicalEntries = resources.getUby().getLexicalEntries(_lemma, EPartOfSpeech.verb, null);
 
-                final Synset synset = sense.getSynset();
+       for (LexicalEntry lexEntry : lexicalEntries) {
 
-                if (synset == null) {
-                    continue;
-                }
 
-                for (final Sense sense2 : synset.getSenses()) {
-                    // System.out.println("\t"+sense2.getLexicalEntry().getLemmaForm());
+           for (Sense sense:lexEntry.getSenses())
+           {
 
-                    for (final SemanticLabel sem : sense2.getSemanticLabels()) {
-                        // System.out.println("\t\t"+sem.getLabel());
+               /*
 
-                        if (sem.getLabel().equals(ubySemantic)) {
-                            final String word = sense2.getLexicalEntry().getLemmaForm();
-                            boolean isNegativeConnotation = false;
-                            final EmotionModel emotion = resources.getEmotionAnalizer().getEmotion(
-                                    word);
-                            if (emotion != null) {
-                                isNegativeConnotation = emotion.isNegative();
-                            }
+               if(output.size()>5)
+               {
+                   return output;
+               }
+               */
 
-                            if (isNegativeConnotation) {
-                                continue;
-                            }
+               Synset synset = sense.getSynset();
 
-                            boolean isFreqToSmall = false;
+               if(synset == null)
+               {
+                   continue;
+               }
 
-                            final String[] subwords = word.split(" ");
-                            final List<String> subwordWfreqs = new ArrayList<String>();
+               for(Sense sense2 : synset.getSenses())
+               {
+//                   System.out.println("\t"+sense2.getLexicalEntry().getLemmaForm());
 
-                            try {
-                                for (final String subword : subwords) {
-                                    if (subword.length() == 0) {
-                                        continue;
-                                    }
-                                    final long freq = resources.getWordStatistic().getFrequency(
-                                            subword);
-                                    if (freq < 1000) {
-                                        isFreqToSmall = true;
-                                        break;
-                                    }
-                                    subwordWfreqs.add("(" + subword + ")[" + freq + "] ");
-                                }
-                            }
-                            catch (final IOException e) {
-                            }
+                   for(SemanticLabel sem : sense2.getSemanticLabels())
+                   {
+//                       System.out.println("\t\t"+sem.getLabel());
 
-                            if (isFreqToSmall) {
-                                System.out.println("Too small frequency : " + word);
-                                continue;
-                            }
+                       if(sem.getLabel().equals(ubySemantic))
+                       {
+                           String word = sense2.getLexicalEntry().getLemmaForm();
+                           boolean isNegativeConnotation = false;
+                           EmotionModel emotion = resources.getEmotionAnalizer().getEmotion(word);
+                           if(emotion!=null)
+                           {
+                               isNegativeConnotation= emotion.isNegative();
+                           }
 
-                            /*
-                            String wordfreq = "";
+                           if(isNegativeConnotation)
+                           {
+                               continue;
+                           }
 
-                            for(String val : subwordWfreqs)
-                            {
-                                wordfreq = wordfreq + val;
-                            }
-                            */
+                           boolean isFreqToSmall = false;
 
-                            final ChunkPartSolution ncps = new ChunkPartSolution(this, null, word);
-                            if (this.hasConstraint()) {
-                                ncps.addConstraintId(this.getConstraintId());
-                            }
-                            if (!output.contains(ncps)) {
-                                output.add(ncps);
-                            }
+                           String[] subwords = word.split(" ");
+                           List<String> subwordWfreqs = new ArrayList<String>();
 
-                        }
-                    }
 
-                }
 
-            }
-        }
 
-        return output;
-    }
+                           try
+                           {
+                               for(String subword : subwords)
+                               {
+                                   if(subword.length()==0)
+                                   {
+                                       continue;
+                                   }
+                                   long freq = resources.getWordStatistic().getFrequency(subword);
+                                   if(freq<1000)
+                                   {
+                                       isFreqToSmall = true;
+                                       break;
+                                   }
+                                   subwordWfreqs.add("("+subword+")["+freq+"] ");
+                               }
+                           }
+                           catch (IOException e) {
+                           }
 
+                           if(isFreqToSmall)
+                           {
+                               System.out.println("Too smal frequence : "+word);
+                               continue;
+                           }
+
+
+
+                           /*
+                           String wordfreq = "";
+
+                           for(String val : subwordWfreqs)
+                           {
+                               wordfreq = wordfreq + val;
+                           }
+                           */
+
+                           ChunkPartSolution ncps = new ChunkPartSolution(this, null, word);
+                           if(hasConstraint())
+                           {
+                               ncps.addConstraintId(this.getConstraintId());
+                           }
+                           if(!output.contains(ncps))
+                           {
+                               output.add(ncps);
+                           }
+
+                       }
+                   }
+
+               }
+
+           }
+       }
+
+
+       return output;
+   }
+
+   @Override
+public String deriveFromLemmaForm(String lemma)
+{
+       if (_pos.equals("VB") || _pos.equals("VV")) {
+           return lemma;
+       }
+
+       if (_pos.equals("VBD") || _pos.equals("VBN") || _pos.equals("VVD") || _pos.equals("VVN")) {
+           // verb is past tense or past participle
+           if(lemma.endsWith("e"))
+           {
+               return lemma+"d";
+           }
+           else
+           {
+               return lemma+"ed";
+           }
+       }
+
+       if (_pos.equals("VVG")) {
+           String optimizedLemma = lemma;
+           if(lemma.endsWith("e") && lemma.length()>1)
+           {
+               optimizedLemma = lemma.substring(0, lemma.length()-1);
+           }
+           return optimizedLemma+"ing";
+       }
+
+       if (_pos.equals("VBP") || _pos.equals("VBZ") || _pos.equals("VVP") || _pos.equals("VVZ")) {
+           return lemma;
+       }
+
+       return lemma;
+   }
 }

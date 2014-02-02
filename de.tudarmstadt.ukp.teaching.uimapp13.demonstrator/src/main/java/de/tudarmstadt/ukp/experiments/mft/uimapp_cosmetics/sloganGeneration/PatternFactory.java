@@ -25,55 +25,65 @@ public class PatternFactory
      * pattern information
      */
     Hashtable<String, Pattern> _patterns;
-    Index<ChunkGeneric> _chunkIndex;
-    Index<ChunkPartGeneric> _chunkPartIndex;
+    Index<ChunkGeneric> _chunkGenericIndex;
+    Index<ChunkPartGeneric> _chunkPartGenericIndex;
     Pattern _currentPattern;
-    Chunk _currentChunkOccurrence;
+    Chunk _currentChunk;
     ChunkType _currentChunkType;
-    String _currentPatternValue;
+    String _currentSloganValue;
     boolean _isCurrentPattern;
 
     public PatternFactory()
     {
         this._patterns = new Hashtable<String, Pattern>();
-        this._chunkIndex = new Index<ChunkGeneric>();
-        this._chunkPartIndex = new Index<ChunkPartGeneric>();
+        this._chunkGenericIndex = new Index<ChunkGeneric>();
+        this._chunkPartGenericIndex = new Index<ChunkPartGeneric>();
         this._currentPattern = new Pattern();
-        this._currentChunkOccurrence = new Chunk();
-        this._currentPatternValue = "";
+        this._currentChunk = new Chunk();
+        this._currentSloganValue = "";
         this._isCurrentPattern = false;
     }
 
     public void startNewChunk(final ChunkType type)
     {
-        this._currentChunkOccurrence = Chunk.createChunkOccurrence(type);
+        //create a new instance of chunk in which we are going to add the different chunkParts
+        this._currentChunk = Chunk.createChunkOccurrence(type);
         this._currentChunkType = type;
     }
 
     public void addPartToChunk(ChunkPartType type,final ChunkPart chunkPart)
     {
-        // get or add the corresponding part from/to the chunk part index
-        final ChunkPartGeneric header = ChunkPartGeneric.createChunkHeader(type, chunkPart.getSemanticValue());
-        final ChunkPartGeneric headerInIndex = _chunkPartIndex.addElement(header);
-        headerInIndex.addOccurrence(chunkPart);
-        chunkPart.setHeader(headerInIndex);
-        chunkPart.setContainingChunk(_currentChunkOccurrence);
-        this._currentChunkOccurrence.addChunkPart(chunkPart);
+        // create the corresponding ChunkPartGeneric instance
+        final ChunkPartGeneric generic = ChunkPartGeneric.createChunkPartGeneric(type, chunkPart.getSemanticValue());
+        // add the generic instance to the index. If a similar instance already exist we return
+        // this one.
+        final ChunkPartGeneric genericInIndex = _chunkPartGenericIndex.addElement(generic);
+        //we link the generic to the occurrence and the occurrence to the generic.
+        genericInIndex.addOccurrence(chunkPart);
+        chunkPart.setGeneric(genericInIndex);
+        //we add the newly created chunkpart to the current chunk (and link in both directions)
+        chunkPart.setContainingChunk(_currentChunk);
+        this._currentChunk.addChunkPart(chunkPart);
     }
 
     public void finishChunk(final Resources resources)
     {
-        this._currentChunkOccurrence.generateInformation(resources);
+        //once the chunk is finished, it can generate some information to describe itself
+        this._currentChunk.generateInformation(resources);
+        // create the corresponding ChunkGeneric instance
+        final ChunkGeneric generic = ChunkGeneric.createChunkGeneric(this._currentChunkType);
+        // update it to represent the currentChunk
+        generic.generateGeneric(this._currentChunk);
+        //add the generic to the index of chunk generics.
+        final ChunkGeneric headerInIndex = this._chunkGenericIndex.addElement(generic);
+        //link the occurrence and its genric form
+        headerInIndex.addOccurrence(this._currentChunk);
+        this._currentChunk.setGeneric(headerInIndex);
 
-        // generate the ChunkHeader
-        final ChunkGeneric header = ChunkGeneric.createChunkHeader(this._currentChunkType);
-        header.generateHeader(this._currentChunkOccurrence);
-        final ChunkGeneric headerInIndex = this._chunkIndex.addElement(header);
-        headerInIndex.addOccurrence(this._currentChunkOccurrence);
-        this._currentChunkOccurrence.setHeader(headerInIndex);
+        //if the current chunk is a part of a pattern, add it to this patterns
         if (this._isCurrentPattern) {
-            this._currentPattern.addElement(this._currentChunkOccurrence);
-            this._currentChunkOccurrence.setContainingPattern(this._currentPattern);
+            this._currentPattern.addElement(this._currentChunk);
+            this._currentChunk.setContainingPattern(this._currentPattern);
         }
     }
 
@@ -86,16 +96,18 @@ public class PatternFactory
     public void finishPattern()
     {
 
-        this._currentPattern.addValueOccurrence(this._currentPatternValue);
+        //we store the value of the slogan that leaded to this pattern, just to be able to track things.
+        this._currentPattern.addValueOccurrence(this._currentSloganValue);
 
         // retrieve the id of the pattern
         final String patternId = this._currentPattern.getId();
 
+        //look if a similar pattern already exists
         final Pattern simiPattern = this._patterns.get(patternId);
 
         if (simiPattern != null) {
             simiPattern.addOccurrence(this._currentPattern);
-            simiPattern.generateInformations();
+            //simiPattern.generateInformations();
         }
         else {
             this._currentPattern.generateInformations();
@@ -103,17 +115,19 @@ public class PatternFactory
         }
 
         this._isCurrentPattern = false;
-
     }
 
-    public void setPatternValue(final String value)
+    public void setSlogan(final String value)
     {
-        this._currentPatternValue = value;
+        //set the value of the slogan that leaded to the current pattern
+        this._currentSloganValue = value;
     }
 
     public void resetTheCacheData()
     {
-        for (final ChunkGeneric header : this._chunkIndex.getElements()) {
+        //during the generation some data has been stored inside the different objects
+        //this is what we delete here. The cache will be automatically reset on chunks, chunkParts, chunkPartGenerics
+        for (final ChunkGeneric header : this._chunkGenericIndex.getElements()) {
             header.resetCache();
         }
     }
@@ -123,76 +137,58 @@ public class PatternFactory
 
         this.resetTheCacheData();
 
+        //look where the constraints that have been set affect all the patterns, and take it into account
         this.checkForConstraints(resources);
 
         // output all the parameters
         System.out.println("Pattern Generation STARTS... ");
         System.out.println("\nParameters :");
-
         System.out.println("\tproductName : " + resources.getProductName());
-
         System.out.print("\tSelectionned Patterns: "+ resources.getPatternToGenerate());
         System.out.println();
-
-        System.out.println();
-
         System.out.print("\tSelectionned part of body : " + resources.getSelectedBodyPart());
         System.out.println();
-
         System.out.print("\tSuggested words : ");
         for (final String word : resources.getSuggestedWords()) {
             System.out.print(word);
             System.out.print(" ; ");
         }
-
         System.out.println();
-        System.out
-                .println("WARNING : the parameters for the generation are not taken into account yet");
+
 
         final List<Pattern> filteredPatterns = new ArrayList<>();
 
-        // filter the patterns and keep just those who correspond to the creteria
+        // filter the patterns and keep just those who correspond to the different creteria
 
         for (final Pattern pattern : this._patterns.values())
         {
 
-
-            if(resources.hasConstraints() && !pattern.hasConstraint())
+            //we look only for the pattern that can potentially include at least one suggested word
+            if(resources.hasSuggestedWordConstraints() && !pattern.hasSuggestedWordConstraint())
             {
                 //this pattern doens't include one of the constraints
                 continue;
             }
 
-            if (!resources.getPatternToGenerate().equals("") && !resources.getPatternToGenerate().equals(PatternGenerator.DONT_CARE) ) {
-                if (!resources.getPatternToGenerate().equals(pattern.getPatternType())) {
-                    // if the pattern types to generate are precised and if the current pattern
-                    // doesn't correspond to one of those types, don't generate the slogans
-                    // associated to this pattern
+            //we keep only the patterns which type respects the requested one
+            if (resources.hasPatternTypeConstraint() && !resources.getPatternToGenerate().equals(pattern.getPatternType()))
+            {
                     continue;
-                }
             }
-
-            System.out.println("Selected patterns : ");
-            System.out.println(pattern.toString());
 
             filteredPatterns.add(pattern);
         }
 
-
-        /*
-         * filter the pattern that can produce constraints over the selected words
-         * and produce those constraints
-         */
-
-
-
+        //randomize those patterns
         Collections.shuffle(filteredPatterns);
+
 
         List<String> output = new ArrayList<>();
 
         /*
          * generate the patterns
          */
+
         int nbrPatterns = 0;
         for (final Pattern pattern : filteredPatterns)
         {
@@ -201,13 +197,18 @@ public class PatternFactory
             output.addAll(pattern.generateSlogans(resources, nbrOfSlogans));
             if(output.size()>nbrOfSlogans*nbrOfSlogans/1.3)
             {
+                //we don't need to do the generation for all the patterns if the amount of generated slogans is already sufficient
+                //sufficient = big enough so that when we pick randomly among these slogans, we don't have too many slogans looking
+                // the same.
                 break;
             }
-
         }
 
+        //constraints were set regarding the suggested words on all the patterns and their subparts.
+        //we erase these constraints
         this.releaseConstraints();
 
+        //we only select a subset of the generated slogans
         output = Utils.getSubList(output, nbrOfSlogans);
 
         return output;
@@ -215,15 +216,17 @@ public class PatternFactory
 
     public void releaseConstraints()
     {
+        //we release the constraints at all level of the modelization : Pattern, ChunkGeneric, and ChunkPartGeneric
+        //the release is automatically transmitted to Chunk and ChunkPart
         for(Pattern pattern : _patterns.values())
         {
             pattern.releaseConstraints();
         }
-        for(ChunkGeneric header : _chunkIndex.getElements())
+        for(ChunkGeneric header : _chunkGenericIndex.getElements())
         {
             header.releaseConstraints();
         }
-        for(ChunkPartGeneric header : _chunkPartIndex.getElements())
+        for(ChunkPartGeneric header : _chunkPartGenericIndex.getElements())
         {
             header.releaseConstraints();
         }
@@ -231,7 +234,9 @@ public class PatternFactory
 
     public void checkForConstraints(Resources resources)
     {
-        if(resources.hasConstraints())
+        //look where the constraints that have been set affect all the patterns, and take it into account
+        //the check will be automatically done at all the levels : Chunk,ChunkPart,ChunkGeneric,ChunkPartGeneric
+        if(resources.hasSuggestedWordConstraints())
         {
             for(Pattern pattern : _patterns.values())
             {
@@ -240,80 +245,9 @@ public class PatternFactory
         }
     }
 
-    public String generateSlogansTest(final Resources resources)
-    {
-
-        final StringBuilder output = new StringBuilder();
-
-        // output all the parameters
-        System.out.println("Pattern Generation STARTS... ");
-        System.out.println("\nParameters :");
-
-        System.out.println("\tproductName : " + resources.getProductName());
-
-        System.out.print("\tSelectionned Patterns: "+ resources.getPatternToGenerate());
-        System.out.println();
-
-        System.out.println();
-
-        System.out.print("\tSelectionned part of body : " + resources.getSelectedBodyPart());
-        System.out.println();
-
-        System.out.print("\tSuggested words : ");
-        for (final String word : resources.getSuggestedWords()) {
-            System.out.print(word);
-            System.out.print(" ; ");
-        }
-
-        System.out.println();
-        System.out
-                .println("WARNING : the parameters for the generation are not taken into account yet");
-
-        for (final Pattern pattern : this._patterns.values())
-        {
-            if (!resources.getPatternToGenerate().equals("") && !resources.getPatternToGenerate().equals(PatternGenerator.DONT_CARE) ) {
-                if (!resources.getPatternToGenerate().equals(pattern.getPatternType())) {
-                    // if the pattern types to generate are precised and if the current pattern
-                    // doesn't correspond to one of those types, don't generate the slogans
-                    // associated to this pattern
-                    continue;
-                }
-            }
-
-            /* NOW THE BODYPART FILTERING IS DONE IN THE PATTERN CLASS
-
-            if(!resources.getSelectedBodyPart().equals(""))
-            {
-                if(!pattern.isBodyPart())
-                {
-                    //if a body part has been precised we don't generate the slogans for the
-                    //patterns that don't have body parts inside
-                    continue;
-                }
-            }
-            */
-
-            final StringBuilder partialOutput = new StringBuilder();
-
-            partialOutput.append(pattern.toString() + "\n");
-
-            partialOutput.append("****generated :\n");
-
-            for (final String slogan : pattern.generateSlogans(resources, -1)) {
-                partialOutput.append("\t" + slogan);
-                partialOutput.append("\n");
-            }
-
-            output.append(partialOutput.toString());
-        }
-
-        return output.toString();
-
-    }
-
     public Object getChunkIndex()
     {
-        return this._chunkIndex;
+        return this._chunkGenericIndex;
     }
 
     public int getNbrOfPatterns()
@@ -332,10 +266,10 @@ public class PatternFactory
         }
 
         output.append("\n\n##################ChunkIndex###############\n\n");
-        output.append(this._chunkIndex.toString());
+        output.append(this._chunkGenericIndex.toString());
 
         output.append("\n\n##################ChunkPartIndex###############\n\n");
-        output.append(this._chunkPartIndex.toString());
+        output.append(this._chunkPartGenericIndex.toString());
 
 
 

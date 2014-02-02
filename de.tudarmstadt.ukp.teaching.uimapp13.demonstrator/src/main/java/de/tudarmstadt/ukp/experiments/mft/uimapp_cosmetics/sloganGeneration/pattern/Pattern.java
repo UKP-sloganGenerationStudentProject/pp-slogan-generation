@@ -128,11 +128,11 @@ public class Pattern
         }
 
         List<PatternSolution> solutionsWithConstraints = new ArrayList<>();
-        if(resources.hasConstraints() || resources.hasBodyPartConstraint())
+        if(resources.hasSuggestedWordConstraints() || resources.hasBodyPartConstraint())
         {
             for(PatternSolution solution : newPatternSolutions)
             {
-                if(resources.hasConstraints() && !solution.hasConstraint())
+                if(resources.hasSuggestedWordConstraints() && !solution.hasConstraint())
                 {
                     continue;
                 }
@@ -166,7 +166,7 @@ public class Pattern
         }
     }
 
-    public boolean hasConstraint()
+    public boolean hasSuggestedWordConstraint()
     {
         return _hasConstraint;
     }

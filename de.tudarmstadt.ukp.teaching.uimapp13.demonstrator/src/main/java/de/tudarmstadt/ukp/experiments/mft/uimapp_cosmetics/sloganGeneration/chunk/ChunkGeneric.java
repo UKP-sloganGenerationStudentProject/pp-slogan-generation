@@ -38,7 +38,7 @@ public class ChunkGeneric
         _haveConstraintsBeenChecked = false;
     }
 
-    public static ChunkGeneric createChunkHeader(final ChunkType chunkType)
+    public static ChunkGeneric createChunkGeneric(final ChunkType chunkType)
     {
         ChunkGeneric output = new ChunkGeneric();
 
@@ -137,7 +137,7 @@ public class ChunkGeneric
         return signature;
     }
 
-    public void generateHeader(final Chunk occurrence)
+    public void generateGeneric(final Chunk occurrence)
     {
         // general operation
         this._takenValue = occurrence.toString();
