@@ -94,8 +94,7 @@ public class ChunkPartSolution
 
     public String generateText()
     {
-
-        return _lemmaSolution;
+        return _model.deriveFromLemmaForm(_lemmaSolution);
     }
 
     @Override

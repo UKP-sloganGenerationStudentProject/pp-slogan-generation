@@ -49,7 +49,7 @@ public class Chunk
         this._chunkParts.add(part);
     }
 
-    public void setHeader(final ChunkGeneric header)
+    public void setGeneric(ChunkGeneric header)
     {
         this._genericForm = header;
     }
@@ -118,10 +118,10 @@ public class Chunk
             for (final ChunkPart occ : this._chunkParts) {
                 final List<ChunkSolution> newChunkSolutionsTemp = new ArrayList<>();
                 for (final ChunkPart equiv : occ.getSimilarOccurrences(resources)) {
-                    final List<ChunkPartSolution> generatedParts = equiv.generate(resources, occ);
-                    if (generatedParts.size() > 0) {
-                        newChunkSolutionsTemp.addAll(ChunkSolution.concatenate(resources,
-                                newChunkSolutions, equiv.generate(resources, occ)));
+                    final List<ChunkPartSolution> generatedParts = equiv.generateChunkPartSolution(resources,occ);
+                    if(generatedParts.size()>0)
+                    {
+                        newChunkSolutionsTemp.addAll(ChunkSolution.concatenate(resources,newChunkSolutions,equiv.generateChunkPartSolution(resources,occ)));
                     }
                 }
                 newChunkSolutions = newChunkSolutionsTemp;

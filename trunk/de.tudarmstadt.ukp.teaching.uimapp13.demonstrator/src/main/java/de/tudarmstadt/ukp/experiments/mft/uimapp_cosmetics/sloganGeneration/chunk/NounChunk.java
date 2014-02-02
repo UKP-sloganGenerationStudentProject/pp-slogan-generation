@@ -1,6 +1,6 @@
 package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunk;
 
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.PatternGenerator;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Parameters;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Resources;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunkPart.ChunkPart;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkPartType;
@@ -25,11 +25,11 @@ public class NounChunk
 
         super.generateInformation(resources);
 
-        for (final ChunkPart occPart : this._chunkParts) {
+        for (final ChunkPart occPart : _chunkParts) {
             if (occPart.getChunkPartType().equals(ChunkPartType.N)
-                    && occPart.getSemanticValue().equals("body")
-                    && PatternGenerator.getSelectablePartsOfBody().contains(occPart.getLemma())
-                    && PatternGenerator.getSelectablePartsOfBody().contains(occPart.getLemma())) {
+           		&& occPart.getSemanticValue().equals("body")
+           		&& Parameters.getSelectablePartsOfBody().contains(occPart.getLemma())
+           		&& Parameters.getSelectablePartsOfBody().contains(occPart.getLemma())){
                 this._isBodyPart = true;
                 this._bodyPartName = occPart.getLemma();
             }

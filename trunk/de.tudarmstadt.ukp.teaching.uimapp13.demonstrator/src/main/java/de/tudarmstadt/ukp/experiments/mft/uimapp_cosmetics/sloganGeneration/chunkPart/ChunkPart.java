@@ -80,11 +80,17 @@ public class ChunkPart
         output.setTakenValue(fixedValue);
         output.setPos(pos);
         output.setLemma(lemma);
+        output.generateInformation();
 
         return output;
     }
 
-    public void setHeader(ChunkPartGeneric header)
+    public void generateInformation()
+    {
+
+    }
+
+    public void setGeneric(ChunkPartGeneric header)
     {
         _genericForm = header;
     }
@@ -111,7 +117,7 @@ public class ChunkPart
     }
     */
 
-    public List<ChunkPartSolution> generate(Resources resources, ChunkPart originalPart)
+    public List<ChunkPartSolution> generateChunkPartSolution(Resources resources, ChunkPart originalPart)
     {
         List<ChunkPartSolution> output = new ArrayList<ChunkPartSolution>();
         ChunkPartSolution solution = new ChunkPartSolution(originalPart,null,_lemma);
@@ -224,6 +230,11 @@ public class ChunkPart
     public String getLemma()
     {
         return _lemma;
+    }
+
+    public String deriveFromLemmaForm(String lemma)
+    {
+        return lemma;
     }
 
     public String getId()

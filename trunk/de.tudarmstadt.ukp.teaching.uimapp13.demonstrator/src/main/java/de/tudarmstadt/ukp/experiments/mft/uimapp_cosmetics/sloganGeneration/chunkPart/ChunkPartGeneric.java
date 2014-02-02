@@ -31,7 +31,7 @@ public class ChunkPartGeneric extends IndexElement
 
     }
 
-    public static ChunkPartGeneric createChunkHeader(ChunkPartType type,String semantic)
+    public static ChunkPartGeneric createChunkPartGeneric(ChunkPartType type,String semantic)
     {
         ChunkPartGeneric output = new ChunkPartGeneric();
         output.setPosType(type);
@@ -114,7 +114,7 @@ public class ChunkPartGeneric extends IndexElement
                     /* the constraint corresponds to this element */
                     ChunkPart part = ChunkPart.createChunkPart(this._chunkPartType);
                     part.setDerivable(false);
-                    part.setHeader(this);
+                    part.setGeneric(this);
                     part.setLemma(constraint.getLemma());
                     part.setSemanticValue(this._semanticValue);
                     part.associateConstraint(constraint.getId());

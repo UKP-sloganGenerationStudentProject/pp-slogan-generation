@@ -1,5 +1,10 @@
 package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +16,14 @@ import de.tudarmstadt.ukp.lmf.api.Uby;
 
 public class Resources
 {
+
+
+
     Uby _uby;
     EmotionAnalyzer _emotionAnalizer;
     JWeb1TSearcher _web1tWordStatistic;
+    JWeb1TSearcher _allowedWordsSearcher;
+    File _rejectedWordsOutput;
 
     String _productName;
     String _patternToGenerate;
@@ -23,11 +33,16 @@ public class Resources
 
     boolean _useUbyGeneration;
 
+
+
+
     public Resources()
     {
         this._uby = null;
         this._emotionAnalizer = null;
         this._web1tWordStatistic = null;
+        this._allowedWordsSearcher = null;
+        this._rejectedWordsOutput = null;
         this._productName = "productName";
         this._patternToGenerate = "";
         this._selectedPartOfBody = "";
@@ -105,6 +120,11 @@ public class Resources
         this._patternToGenerate = patternToGenerate;
     }
 
+    public boolean hasPatternTypeConstraint()
+    {
+        return !getPatternToGenerate().equals("") && !getPatternToGenerate().equals(Parameters.DONT_CARE);
+    }
+
     public String getSelectedBodyPart()
     {
         return this._selectedPartOfBody;
@@ -127,7 +147,7 @@ public class Resources
 
     public boolean hasBodyPartConstraint()
     {
-        return !getSelectedBodyPart().equals(PatternGenerator.NO_BODY_PART) && !getSelectedBodyPart().equals("");
+        return !getSelectedBodyPart().equals(Parameters.NO_BODY_PART) && !getSelectedBodyPart().equals("");
     }
 
     public void generateConstraints()
@@ -145,7 +165,7 @@ public class Resources
         return _suggestedWordsConstraints;
     }
 
-    public boolean hasConstraints()
+    public boolean hasSuggestedWordConstraints()
     {
         return _suggestedWordsConstraints.size()>0;
     }
@@ -158,6 +178,58 @@ public class Resources
         {
             System.out.println(constraint.toString());
         }
+    }
+
+    public void setAllowedWordSearcher(JWeb1TSearcher allowedWordsSearcher)
+    {
+
+        _allowedWordsSearcher = allowedWordsSearcher;
+    }
+
+    public void setAllowedWordSearcher(JWeb1TSearcher allowedWordsSearcher,File rejectedWordsOutput)
+    {
+        _allowedWordsSearcher = allowedWordsSearcher;
+        _rejectedWordsOutput = rejectedWordsOutput;
+    }
+
+
+    public boolean checkLemmaInCosmeticsCorpus(String lemma)
+    {
+        //by default, everything is allowed
+        if(_allowedWordsSearcher == null)
+        {
+            System.out.println("allowed word searcher is null");
+            return true;
+        }
+
+        try {
+
+
+            long frequency = _allowedWordsSearcher.getFrequency(lemma);
+            if(frequency>0)
+            {
+                return true;
+            }
+            else
+            {
+                if(_rejectedWordsOutput!= null)
+                {
+                    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(_rejectedWordsOutput,true)));
+                    out.println(lemma);
+                    out.close();
+                }
+                else
+                {
+                    System.out.println("The lemma "+lemma+" has been rejected but the rejectedWordWriter doesn't exist.");
+                }
+                return false;
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return true;
     }
 
 }

@@ -17,7 +17,7 @@ extends ChunkPart
     }
 
     @Override
-    public List<ChunkPartSolution> generate(Resources resources,ChunkPart orginialPart)
+    public List<ChunkPartSolution> generateChunkPartSolution(Resources resources,ChunkPart orginialPart)
     {
         List<ChunkPartSolution> output = new ArrayList<ChunkPartSolution>();
         ChunkPartSolution solution = new ChunkPartSolution(orginialPart,null,resources.getProductName());
