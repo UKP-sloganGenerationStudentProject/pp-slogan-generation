@@ -7,39 +7,10 @@ import de.tudarmstadt.ukp.lmf.exceptions.UbyInvalidArgumentException;
 
 public class Main
 {
-
-    /**
-     * Requirements
-     *  
-     * 	4 Templates:	- NC PC NC
-     * 					- NC +			CHECK
-     * 					- VC NC			CHECK
-     * 					- NC VC NC		CHECK
-     * 
-     * 	Optional product name 			CHECK
-     * 
-     * 	Creative use of product name 	CHECK
-     * 
-     * 	Possibility to choose emotion	CHECK
-     * 
-     * 	More verbs with semantic label
-     * 
-     *  Oxymoron/Antonym with synsetRelation	CHECK (next word is antonym)
-     *  
-     *  More Synsets through words from User	CHECK
-     *  
-     *  More Synsets from analyse
-     *  
-     *  Config-Objekt + Pfad zu Web1T �bergeben lassen
-     *      
-     * @param args
-     * @throws UbyInvalidArgumentException 
-     */
-
     private static SGConfig config;
     private static SloganGenerator generator;
 
-    public static void main(final SGConfig sgc)
+    public static List<Slogan> main(final SGConfig sgc)
         throws UbyInvalidArgumentException
     {
         config = sgc;
@@ -58,7 +29,7 @@ public class Main
         final GoodLuck goodLuck = new GoodLuck(sgc.DBUrl, sgc.DBUser, sgc.DBPassword);
         if(sgc.GoodLuck)
         	goodLuck.AddMoreVerbs(templates);
-        generateSlogans(templates);
+        return generateSlogans(templates);
 
         // displaySloganTemplates(templates);
     }
