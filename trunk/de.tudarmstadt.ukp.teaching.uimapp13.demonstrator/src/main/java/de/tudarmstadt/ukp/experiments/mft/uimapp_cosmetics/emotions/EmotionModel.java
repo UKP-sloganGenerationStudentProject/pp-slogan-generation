@@ -1,5 +1,9 @@
 package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.emotions;
 
+/*
+ * Modelizes the emotion associated to a word
+ * Written by Felix Rieger
+ */
 
 public class EmotionModel {
 

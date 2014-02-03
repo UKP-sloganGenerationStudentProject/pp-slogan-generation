@@ -8,8 +8,14 @@ import java.util.HashMap;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
 
+/*
+ * responsible for reading the emotion information from a specific pdf document.
+ * Written by Felix Rieger
+ */
+
 public class EmotionAnalyzer
 {
+
     String _path;
     HashMap<String, EmotionModel> _emotions;
 
