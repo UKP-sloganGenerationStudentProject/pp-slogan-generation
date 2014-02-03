@@ -221,6 +221,7 @@ public class Config
 
     private static Set<String> getDefaultFeatureList()
     {
+    
         final Set<String> result = new HashSet<String>();
         result.add("battle");
         result.add("build");
