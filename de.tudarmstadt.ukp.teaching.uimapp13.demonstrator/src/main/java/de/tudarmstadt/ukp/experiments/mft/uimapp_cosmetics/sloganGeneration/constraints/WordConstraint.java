@@ -14,6 +14,17 @@ import de.tudarmstadt.ukp.lmf.model.meta.SemanticLabel;
 
 public class WordConstraint
 {
+    /*
+     * a word constraint represents  a constraint derived from a suggested word for the slogan
+     * generation.
+     * A constraint is defined by : the string value it was derived from, the corresponding lemma,
+     * the corresponding ChunkPartType, the associated semantic and finally the id associated to the
+     * suggested word this constraint was derived from.
+     * The id depends on the suggested word because several constraints are derived from a same
+     * suggested word (it can have several ChunkPartType (ie POS) or several semantics. But we
+     * don't want to have several times the same suggested word in the same slogan.
+     */
+
     String _takenValue;
     String _lemma;
     ChunkPartType _chunkPartType;
@@ -44,6 +55,8 @@ public class WordConstraint
 
     public static List<WordConstraint> generateWordConstraints(Uby uby, List<String> suggestedWords)
     {
+        //generate all the WordCosntraints that can be derivated from the list of suggersted words
+
         List<WordConstraint> output = new ArrayList<>();
 
         Lexicon lex;
