@@ -18,6 +18,11 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.Ch
 public class PatternFactory
     implements Serializable
 {
+    /*
+     * Use this class to create patterns and then to extract new slogans out of them.
+     * The pattern creation with this class is not trivial... The way to use this class
+     * is implemented in PatternGenerator.
+     */
 
     private static final long serialVersionUID = -7074314512406365028L;
 
@@ -97,7 +102,7 @@ public class PatternFactory
     {
 
         //we store the value of the slogan that leaded to this pattern, just to be able to track things.
-        this._currentPattern.addValueOccurrence(this._currentSloganValue);
+        this._currentPattern.addSloganOccurrence(this._currentSloganValue);
 
         // retrieve the id of the pattern
         final String patternId = this._currentPattern.getId();
