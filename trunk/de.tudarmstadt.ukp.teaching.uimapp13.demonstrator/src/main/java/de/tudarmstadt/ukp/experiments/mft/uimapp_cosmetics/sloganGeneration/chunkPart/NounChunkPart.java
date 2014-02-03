@@ -81,10 +81,6 @@ public class NounChunkPart
 
         final String ubySemantic = "noun." + this._semanticValue;
 
-        // System.out.println("[");
-        // System.out.println(ubySemantic);
-        // System.out.println(_lemma);
-        // System.out.println("]");
 
         final List<LexicalEntry> lexicalEntries = resources.getUby().getLexicalEntries(this._lemma,
                 EPartOfSpeech.noun, null);
@@ -93,12 +89,6 @@ public class NounChunkPart
 
             for (final Sense sense : lexEntry.getSenses()) {
 
-                /*
-                if(output.size()>5)
-                {
-                    return output;
-                }
-                */
 
                 final Synset synset = sense.getSynset();
 
@@ -107,11 +97,7 @@ public class NounChunkPart
                 }
 
                 for (final Sense sense2 : synset.getSenses()) {
-                    // System.out.println("\t"+sense2.getLexicalEntry().getLemmaForm());
-
                     for (final SemanticLabel sem : sense2.getSemanticLabels()) {
-                        // System.out.println("\t\t"+sem.getLabel());
-
                         if (sem.getLabel().equals(ubySemantic)) {
                             final String word = sense2.getLexicalEntry().getLemmaForm();
                             boolean isNegativeConnotation = false;

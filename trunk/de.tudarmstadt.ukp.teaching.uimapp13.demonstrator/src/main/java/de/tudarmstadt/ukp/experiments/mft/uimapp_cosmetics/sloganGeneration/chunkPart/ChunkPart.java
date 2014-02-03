@@ -32,6 +32,7 @@ public class ChunkPart
     protected ChunkPartGeneric _genericForm;
     protected Chunk _containingChunk;
 
+    //say if the given chunkPart has a constraint on itself
     private boolean _hasConstraint;
     private int _associatedConstraintId;
 
@@ -102,12 +103,12 @@ public class ChunkPart
 
     }
 
-    public void setGeneric(ChunkPartGeneric header)
+    public void setGeneric(ChunkPartGeneric generic)
     {
-        _genericForm = header;
+        _genericForm = generic;
     }
 
-    public ChunkPartGeneric getHeader()
+    public ChunkPartGeneric getGeneric()
     {
         return _genericForm;
     }
@@ -117,8 +118,18 @@ public class ChunkPart
         _containingChunk = chunk;
     }
 
+    /*
+     * this method is overwritten by the child classes
+     */
     public List<ChunkPartSolution> generateChunkPartSolution(Resources resources, ChunkPart originalPart)
     {
+        //generate the ChunkPartSolution solutions list for this instance.
+        //if this instance has constraints then the generated solutions also have constsraints.
+        //the last parameter : original part, corresponds to the ChunkPart instance in the pattern  which place
+        //the generated Chunkpartsolutions are going to take. In some cases (for instance for VerbChunkPart)
+        //we use the information from the originalPart to adapt the ChunkPartSolution to its context
+        //(for instance to conjugate it). This will be done automatically. We just have to transmit
+        //the originalPart to the ChunkPartSolutions
         List<ChunkPartSolution> output = new ArrayList<ChunkPartSolution>();
         ChunkPartSolution solution = new ChunkPartSolution(originalPart,null,_lemma);
         if(this._hasConstraint)
@@ -225,6 +236,10 @@ public class ChunkPart
 
     public String deriveFromLemmaForm(String lemma)
     {
+        /*
+         * this method is used to derive the given lemma in the form of the current chunk part.
+         * It is implemented by subclasses.
+         */
         return lemma;
     }
 
