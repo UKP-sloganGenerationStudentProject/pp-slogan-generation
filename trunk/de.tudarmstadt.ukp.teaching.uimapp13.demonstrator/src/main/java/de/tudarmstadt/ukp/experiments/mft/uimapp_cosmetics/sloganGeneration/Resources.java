@@ -1,10 +1,5 @@
 package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,13 +12,16 @@ import de.tudarmstadt.ukp.lmf.api.Uby;
 public class Resources
 {
 
-
+    /*
+     * This class encapsulates all the resources that are required at the different
+     * steps of the pattern generation
+     */
 
     Uby _uby;
     EmotionAnalyzer _emotionAnalizer;
     JWeb1TSearcher _web1tWordStatistic;
-    JWeb1TSearcher _allowedWordsSearcher;
-    File _rejectedWordsOutput;
+//    JWeb1TSearcher _allowedWordsSearcher;
+//    File _rejectedWordsOutput;
 
     String _productName;
     String _patternToGenerate;
@@ -41,8 +39,8 @@ public class Resources
         this._uby = null;
         this._emotionAnalizer = null;
         this._web1tWordStatistic = null;
-        this._allowedWordsSearcher = null;
-        this._rejectedWordsOutput = null;
+//        this._allowedWordsSearcher = null;
+//        this._rejectedWordsOutput = null;
         this._productName = "productName";
         this._patternToGenerate = "";
         this._selectedPartOfBody = "";
@@ -150,8 +148,9 @@ public class Resources
         return !getSelectedBodyPart().equals(Parameters.NO_BODY_PART) && !getSelectedBodyPart().equals("");
     }
 
-    public void generateConstraints()
+    public void generateSuggestedWordsConstraints()
     {
+        //convert the suggested words into WordConstraints
         if(_uby == null)
         {
             System.out.println("class Resources : Uby have not been defined. We can't generate the constraints yet.");
@@ -180,56 +179,56 @@ public class Resources
         }
     }
 
-    public void setAllowedWordSearcher(JWeb1TSearcher allowedWordsSearcher)
-    {
-
-        _allowedWordsSearcher = allowedWordsSearcher;
-    }
-
-    public void setAllowedWordSearcher(JWeb1TSearcher allowedWordsSearcher,File rejectedWordsOutput)
-    {
-        _allowedWordsSearcher = allowedWordsSearcher;
-        _rejectedWordsOutput = rejectedWordsOutput;
-    }
-
-
-    public boolean checkLemmaInCosmeticsCorpus(String lemma)
-    {
-        //by default, everything is allowed
-        if(_allowedWordsSearcher == null)
-        {
-            System.out.println("allowed word searcher is null");
-            return true;
-        }
-
-        try {
+//    public void setAllowedWordSearcher(JWeb1TSearcher allowedWordsSearcher)
+//    {
+//
+//        _allowedWordsSearcher = allowedWordsSearcher;
+//    }
+//
+//    public void setAllowedWordSearcher(JWeb1TSearcher allowedWordsSearcher,File rejectedWordsOutput)
+//    {
+//        _allowedWordsSearcher = allowedWordsSearcher;
+//        _rejectedWordsOutput = rejectedWordsOutput;
+//    }
 
 
-            long frequency = _allowedWordsSearcher.getFrequency(lemma);
-            if(frequency>0)
-            {
-                return true;
-            }
-            else
-            {
-                if(_rejectedWordsOutput!= null)
-                {
-                    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(_rejectedWordsOutput,true)));
-                    out.println(lemma);
-                    out.close();
-                }
-                else
-                {
-                    System.out.println("The lemma "+lemma+" has been rejected but the rejectedWordWriter doesn't exist.");
-                }
-                return false;
-            }
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return true;
-    }
+//    public boolean checkLemmaInCosmeticsCorpus(String lemma)
+//    {
+//        //by default, everything is allowed
+//        if(_allowedWordsSearcher == null)
+//        {
+//            System.out.println("allowed word searcher is null");
+//            return true;
+//        }
+//
+//        try {
+//
+//
+//            long frequency = _allowedWordsSearcher.getFrequency(lemma);
+//            if(frequency>0)
+//            {
+//                return true;
+//            }
+//            else
+//            {
+//                if(_rejectedWordsOutput!= null)
+//                {
+//                    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(_rejectedWordsOutput,true)));
+//                    out.println(lemma);
+//                    out.close();
+//                }
+//                else
+//                {
+//                    System.out.println("The lemma "+lemma+" has been rejected but the rejectedWordWriter doesn't exist.");
+//                }
+//                return false;
+//            }
+//        }
+//        catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return true;
+//    }
 
 }

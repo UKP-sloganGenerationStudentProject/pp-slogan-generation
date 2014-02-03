@@ -49,6 +49,13 @@ public class PatternGenerator
     implements Serializable
 {
 
+    /*
+     * This class enables to create the patterns and generate slogans
+     * in an easy way. As input, it requires the path of the different resources
+     * and also some parameters for the slogan generation.
+     * An example of how to use this class is given in main().
+     */
+
     private static final long serialVersionUID = 8409089998966336600L;
     /*
      * resources
@@ -90,9 +97,6 @@ public class PatternGenerator
         /*
          * Generation parameters
          */
-        // PATTERN
-        // retrieve the list of selectable patterns (add a chekckbox with each element of the list
-        // as label)
         final List<String> selectablePatterns = Parameters.getSelectablePatterns();
         final List<String> selectablePartsOfBody = Parameters.getSelectablePartsOfBody();
 
@@ -100,7 +104,6 @@ public class PatternGenerator
 
         final Scanner user_input = new Scanner(System.in);
 
-        // System.out.println(generator.toString());
 
         while (true) {
 
@@ -324,8 +327,6 @@ public class PatternGenerator
             }
         }
         this._resources.setSuggestedWords(suggestedWordList);
-        this._resources.generateConstraints();
-        this._resources.printConstraints();
     }
 
     public void selectPattern(final String chunkPatternAsString)

@@ -9,7 +9,7 @@ public class Parameters
     public static final String NO_BODY_PART = "no body part";
 
     private static List<String> _patternsToAnnotate = Arrays.asList(DONT_CARE, "NC_", "NC_PC_NC_",
-            "VC_NC_", "VC_NC_PC_NC_", "VC_", "NC_VC_", "NC_VC_ADJC_", "NC_VC_NC_");;
+            "VC_NC_", "VC_NC_PC_NC_",  "NC_VC_", "NC_VC_ADJC_", "NC_VC_NC_"); //"VC_"
     private static List<String> _partsOfBodyToSelect = Arrays.asList(NO_BODY_PART, "eye", "skin",
             "lip", "nail", "hair", "lash","hand");
 

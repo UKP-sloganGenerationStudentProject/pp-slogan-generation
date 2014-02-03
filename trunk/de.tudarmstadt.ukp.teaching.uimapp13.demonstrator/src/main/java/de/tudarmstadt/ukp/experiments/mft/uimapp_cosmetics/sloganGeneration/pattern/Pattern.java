@@ -6,12 +6,18 @@ import java.util.List;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Resources;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Utils;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunk.Chunk;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunk.ChunkSolution;
 
 public class Pattern
 {
+    //elements this pattern are made of
     private final ArrayList<Chunk> _elementList;
-    private final ArrayList<String> _valueOccurrences;
+    //all the slogan from the slogan source file that correspond to this pattern
+    private final ArrayList<String> _sloganOccurrences;
+
     private String _patternType;
+
+    //indicates if the pattern is able to generate a slogan that includes one of the suggested words
     private boolean _hasConstraint;
     private boolean _haveConstraintsBeenChecked;
 
@@ -19,7 +25,7 @@ public class Pattern
     public Pattern()
     {
         _elementList = new ArrayList<Chunk>();
-        _valueOccurrences = new ArrayList<String>();
+        _sloganOccurrences = new ArrayList<String>();
         _patternType = "UNDEFINED";
         _hasConstraint = false;
         _haveConstraintsBeenChecked = false;
@@ -28,6 +34,8 @@ public class Pattern
 
     public void generatePatternType()
     {
+        //the type of a pattern is the concatenation of the types of its chunks
+       //the pattern type is the type that is selected by the users ex : NC_VC_NC_
         StringBuilder type = new StringBuilder();
 
         for(Chunk occ : _elementList)
@@ -51,21 +59,27 @@ public class Pattern
 
     public void addElement(Chunk el)
     {
+        //add an element add the end of the pattern
         _elementList.add(el);
     }
 
-    public void addValueOccurrence(String value)
+    public void addSloganOccurrence(String value)
     {
-        _valueOccurrences.add(value);
+        //add a slogan that respects this pattern (from which this pattern was derived)
+        //this has nothing to do with slogan generation
+        _sloganOccurrences.add(value);
     }
 
-    public ArrayList<String> getValueOccurrences()
+    public ArrayList<String> getSloganOccurrences()
     {
-        return _valueOccurrences;
+        return _sloganOccurrences;
     }
 
     public String getId()
     {
+        //the id identifies its pattern
+        //if 2 patterns have the same id they have to be merged
+        //as they can generate the same slogans
         String id = "";
 
         for(Chunk elem: _elementList)
@@ -78,18 +92,21 @@ public class Pattern
 
     public List<Chunk> getPatternElementList()
     {
+        //get the list of the chunk which the pattern is made of
         return _elementList;
     }
 
 
     public void addOccurrence(Pattern other)
     {
+        //merge 2 patterns that have the same id
+        //ie they have their chunnks have the same ids
         if(!getId().equals(other.getId()))
         {
             return;
         }
 
-        _valueOccurrences.addAll(other.getValueOccurrences());
+        _sloganOccurrences.addAll(other.getSloganOccurrences());
     }
 
 
@@ -100,9 +117,12 @@ public class Pattern
 
     public List<String> generateSlogans(Resources resources, int numberOfSlogans)
     {
+        //generate slogans
+        //retrievew the PatternSolution objects that encapsulate slogan solutions for this pattern
         List<PatternSolution> patternSolutions = generatePatternSolutions(resources, numberOfSlogans);
         List<String> slogans = new ArrayList<>();
 
+        //convert these solutions into Strings
         for(PatternSolution ps : patternSolutions)
         {
             slogans.add(ps.generateText());
@@ -113,7 +133,12 @@ public class Pattern
     public List<PatternSolution> generatePatternSolutions(Resources resources,int numberOfSlogans)
     {
 
+        //generate the slogans in the form of PatternSolution
+
         List<PatternSolution> newPatternSolutions = new ArrayList<>();
+
+        //we initialize the list of solution with an empty solution (because the solutions will
+        //be incrementally constructed by a sort of a concatenation
         PatternSolution initialPatternSolution = new PatternSolution(this);
         newPatternSolutions.add(initialPatternSolution);
 
@@ -122,26 +147,39 @@ public class Pattern
             List<PatternSolution> newPatternSolutionsTemp = new ArrayList<>();
             for(Chunk equiv : element.getSimilarChunkOccurrences(resources))
             {
-                newPatternSolutionsTemp.addAll(PatternSolution.concatenate(resources,newPatternSolutions,equiv.generateChunkSolutions(resources, element)));
+                //for each chunk the pattern is made of, we extract all the chunk solutions and concatenate it to
+                //the partial solutions that have been constructed so far
+                List<ChunkSolution> chunkSolutions = equiv.generateChunkSolutions(resources, element);
+                newPatternSolutionsTemp.addAll(PatternSolution.concatenate(resources,newPatternSolutions,chunkSolutions));
             }
             newPatternSolutions = newPatternSolutionsTemp;
         }
 
+        //check if the generated slogans respect the requirements
+        //nb : the pattern type requirement is necessarily respected by the pattern itself
+        //(other there would have been no generation)
+
         List<PatternSolution> solutionsWithConstraints = new ArrayList<>();
         if(resources.hasSuggestedWordConstraints() || resources.hasBodyPartConstraint())
         {
+            //if no requirement has to be respected, we don't do anything
             for(PatternSolution solution : newPatternSolutions)
             {
                 if(resources.hasSuggestedWordConstraints() && !solution.hasConstraint())
                 {
+                    //if there is a constraint over the suggested words and that this constraint
+                    //is not respected, we don't keep this solution
                     continue;
                 }
 
                 if(resources.hasBodyPartConstraint() && !solution.hasBodyPart())
                 {
+                    //if there is a constraint over the body part and that it is not respected by
+                    //the solution, we don't keep it
                     continue;
                 }
 
+                //otherwise we keep the solution
                 solutionsWithConstraints.add(solution);
             }
         }
@@ -149,12 +187,13 @@ public class Pattern
         {
             solutionsWithConstraints = newPatternSolutions;
         }
-        return Utils.getSubList(solutionsWithConstraints, numberOfSlogans);
 
+        return Utils.getSubList(solutionsWithConstraints, numberOfSlogans);
     }
 
     public void checkForConstraints(Resources resources)
     {
+        //a pattern can generate constraints if at least one of his chunks can generate a constraint
         if(!_haveConstraintsBeenChecked)
         {
             for(Chunk chunk : _elementList)
@@ -180,6 +219,9 @@ public class Pattern
     @Override
     public boolean equals(Object obj)
     {
+        // two Pattern object are said equal if they have the same id, which mean to say if they have
+        //chunks that have the same chunkGeneric which is to say if thay can generate the same slogans
+
         if(this == obj)
         {
             return true;
@@ -214,7 +256,7 @@ public class Pattern
 
         output.append("\n");
 
-        for(String value : _valueOccurrences)
+        for(String value : _sloganOccurrences)
         {
             output.append(value);
             output.append("\n");
