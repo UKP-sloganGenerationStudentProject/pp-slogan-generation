@@ -8,14 +8,32 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.cons
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.index.IndexElement;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkPartType;
 
+/*
+ * a ChunkPartGeneric instance builds an equivalence class of ChunkParts.
+ * We don't use it in the same way like ChunkGeneric.. we don't say that all the elements from a
+ * same equivalence class can be permuted, but we say that if there is a suggested word that fits
+ * into an equivalence class, then it can replace every element of this class during the slogan
+ * generation.
+ */
 public class ChunkPartGeneric extends IndexElement
 {
+    /*
+     * parameters that define all the ChunkParts contained in this ChunkPratGeneric instance
+     */
     protected ChunkPartType _chunkPartType;
     protected String _semanticValue;
     protected boolean _isValueDerivable;
-    protected final ArrayList<ChunkPart> _occurrences;
     private boolean _hasConstraint;
     private boolean _haveConstraintsBeenChecked;
+
+    /*
+     * ChunkPart members
+     */
+    protected final ArrayList<ChunkPart> _occurrences;
+
+    /*
+     * ChunkParts derived from the sugggested words that apply to this ChunkPartGeneric instance
+     */
     private final List<ChunkPart> _constrainedElements;
 
 
@@ -112,6 +130,7 @@ public class ChunkPartGeneric extends IndexElement
                 if(constraint.getChunkPartType().equals(this._chunkPartType) && constraint.getSemantic().equals(this._semanticValue))
                 {
                     /* the constraint corresponds to this element */
+                    /* create a chunkpart deriving from this constraint */
                     ChunkPart part = ChunkPart.createChunkPart(this._chunkPartType);
                     part.setDerivable(false);
                     part.setGeneric(this);

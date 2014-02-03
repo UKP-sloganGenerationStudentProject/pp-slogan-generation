@@ -45,12 +45,6 @@ public class VerbChunkPart
 
        String ubySemantic = "verb."+_semanticValue;
 
-//
-//       System.out.println("[");
-//       System.out.println(ubySemantic);
-//       System.out.println(_lemma);
-//       System.out.println("]");
-//
 
        List<LexicalEntry> lexicalEntries = resources.getUby().getLexicalEntries(_lemma, EPartOfSpeech.verb, null);
 
@@ -59,14 +53,6 @@ public class VerbChunkPart
 
            for (Sense sense:lexEntry.getSenses())
            {
-
-               /*
-
-               if(output.size()>5)
-               {
-                   return output;
-               }
-               */
 
                Synset synset = sense.getSynset();
 
@@ -77,12 +63,8 @@ public class VerbChunkPart
 
                for(Sense sense2 : synset.getSenses())
                {
-//                   System.out.println("\t"+sense2.getLexicalEntry().getLemmaForm());
-
                    for(SemanticLabel sem : sense2.getSemanticLabels())
                    {
-//                       System.out.println("\t\t"+sem.getLabel());
-
                        if(sem.getLabel().equals(ubySemantic))
                        {
                            String word = sense2.getLexicalEntry().getLemmaForm();

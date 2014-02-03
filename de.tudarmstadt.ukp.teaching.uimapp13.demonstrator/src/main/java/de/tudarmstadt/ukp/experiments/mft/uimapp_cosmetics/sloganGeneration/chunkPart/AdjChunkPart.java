@@ -27,6 +27,7 @@ extends ChunkPart
 
         ArrayList<ChunkPartSolution> output = new ArrayList<>();
         ChunkPartSolution basicSolution = new ChunkPartSolution(orginialPart, null, _lemma);
+
         if(hasConstraint())
         {
             basicSolution.addConstraintId(this.getConstraintId());
@@ -39,13 +40,6 @@ extends ChunkPart
         }
 
         String ubySemantic = "adj."+_semanticValue;
-
-        /*
-        System.out.println("[");
-        System.out.println(ubySemantic);
-        System.out.println(_lemma);
-        System.out.println("]");
-        */
 
         List<LexicalEntry> lexicalEntries = resources.getUby().getLexicalEntries(_lemma, EPartOfSpeech.adjective, null);
 
@@ -64,12 +58,9 @@ extends ChunkPart
 
                 for(Sense sense2 : synset.getSenses())
                 {
-//                    System.out.println("\t"+sense2.getLexicalEntry().getLemmaForm());
 
                     for(SemanticLabel sem : sense2.getSemanticLabels())
                     {
-//                        System.out.println("\t\t"+sem.getLabel());
-
                         if(sem.getLabel().equals(ubySemantic))
                         {
                             String word = sense2.getLexicalEntry().getLemmaForm();
