@@ -55,3 +55,7 @@ To generate the analysis files used to develop this generator you need:
   * Correctly set constants in “de.koch.uim project.util.Constants” Please see class “de.koch.uim project.util.Constants”. Edit the constants accordingly. The Javadoc gives examples. 
 
 To generate the analysis files run the main method of: “de.koch.uim project.analyse.AnalyseMain”
+
+=Fill the Database=
+
+In the package "de.koch.uim_project.database.importdb" you find classes to help you with importing data to the database. Please take a look at DbWriter and its main method. The JavaDoc gives further information.
