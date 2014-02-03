@@ -140,7 +140,10 @@ public class PatternFactory
     public List<String> generateSlogans(final Resources resources, final int nbrOfSlogans)
     {
 
+
         this.resetTheCacheData();
+
+        resources.generateSuggestedWordsConstraints();
 
         //look where the constraints that have been set affect all the patterns, and take it into account
         this.checkForConstraints(resources);

@@ -5,7 +5,13 @@ import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Set;
 
-
+/*
+ *
+ * This class modelizes an index of element of  type IndexElement.
+ * By adding a new element, checks if it already contains an element with the same id.
+ * If there is such an element, it returns it.
+ *
+ */
 
 public class Index<Element extends IndexElement>
     implements Serializable
@@ -21,19 +27,19 @@ public class Index<Element extends IndexElement>
         this._elementsIndex = new Hashtable<String, Element>();
     }
 
-    public Element addElement(final Element header)
+    public Element addElement(final Element generic)
     {
 
         Element output;
 
-        final String patternElementId = header.getId();
-        final Element assocHeader = this._elementsIndex.get(patternElementId);
-        if (assocHeader == null) {
-            output = header;
-            this._elementsIndex.put(patternElementId, header);
+        final String patternElementId = generic.getId();
+        final Element assocGeneric = this._elementsIndex.get(patternElementId);
+        if (assocGeneric == null) {
+            output = generic;
+            this._elementsIndex.put(patternElementId, generic);
         }
         else {
-            output = assocHeader;
+            output = assocGeneric;
         }
 
         return output;

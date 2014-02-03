@@ -11,20 +11,32 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.Ch
 public class ChunkPart
 {
 
-    protected ChunkPartGeneric _genericForm;
-    protected Chunk _containingChunk;
+    /*
+     * A ChunkPart is equivalent to a token generator.
+     * It is defined by several parameters (see below).
+     *
+     * It is linked two other objects that play a role in the pattern representation.
+     * - the Chunk that encapsulates this ChunkPart in the slogan it was derived from.
+     * - the generic form of this ChunkPart (like an equivalence class that this instance is part of)
+     */
+
+    //indicate if the value generated has to be the original value or if it can be deerived from it
     protected boolean _isValueDerivable;
+
     protected String _semanticValue;
     protected String _takenValue;
     protected String _lemma;
     protected String _pos;
+
+
+    protected ChunkPartGeneric _genericForm;
+    protected Chunk _containingChunk;
+
     private boolean _hasConstraint;
     private int _associatedConstraintId;
 
 
     public static final String NOT_DEFINED = "notDefined";
-
-
 
 
     public ChunkPart()
@@ -104,18 +116,6 @@ public class ChunkPart
     {
         _containingChunk = chunk;
     }
-    /*
-
-    public List<ChunkPart> getSimilarOccurrences()
-    {
-        List<ChunkPart> output =  _genericForm.getOccurrences();
-        if(output.size()==0)
-        {
-            output.add(this);
-        }
-        return output;
-    }
-    */
 
     public List<ChunkPartSolution> generateChunkPartSolution(Resources resources, ChunkPart originalPart)
     {
@@ -131,24 +131,15 @@ public class ChunkPart
 
     public List<ChunkPart> getSimilarOccurrences(Resources resources)
     {
-        List<ChunkPart> chunks = new ArrayList<>();
-        /*
-        if(this.hasGenericConstraints())
-        {
-            chunks = this._genericForm.getConstrainedElements();
-        }
-        else
-        {
-            chunks.add(this);
-        }
-        */
+        List<ChunkPart> chunkParts = new ArrayList<>();
 
-        chunks.add(this);
-        chunks.addAll(this._genericForm.getConstrainedElements());
+        //unlike for Chunk, here we just return the current chunkPart and the chunkParts derived
+        //from the constraints of the
+        //chunkPartGeneric this instance is associated to
+        chunkParts.add(this);
+        chunkParts.addAll(this._genericForm.getConstrainedElements());
 
-
-
-        return chunks;
+        return chunkParts;
     }
 
     public void checkForGenericConstraints(Resources resources)
