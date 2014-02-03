@@ -10,6 +10,14 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chun
 
 public class Pattern
 {
+    /*
+     * this class represents a pattern. It is identified by its id that depend on the chunkGenerics
+     * of the chunks it is made of.
+     * A pattern is made of chunks, each chunk is like a generator of a part of the slogan (from
+     * the left to the right).
+     */
+
+
     //elements this pattern are made of
     private final ArrayList<Chunk> _elementList;
     //all the slogan from the slogan source file that correspond to this pattern
@@ -165,7 +173,7 @@ public class Pattern
             //if no requirement has to be respected, we don't do anything
             for(PatternSolution solution : newPatternSolutions)
             {
-                if(resources.hasSuggestedWordConstraints() && !solution.hasConstraint())
+                if(resources.hasSuggestedWordConstraints() && !solution.hasSuggestedWordConstraint())
                 {
                     //if there is a constraint over the suggested words and that this constraint
                     //is not respected, we don't keep this solution
