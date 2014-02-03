@@ -7,6 +7,10 @@ import java.util.HashMap;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
 
+/*
+ * example for the use of the EmotionAnalizer  class
+ * Written by Felix Rieger
+ */
 
 public class textextraction {
 
