@@ -92,7 +92,7 @@ public class Pattern
 
         for(Chunk elem: _elementList)
         {
-            id = id + elem.getHeaderId() + "_";
+            id = id + elem.getGenericId() + "_";
         }
 
         return id;
@@ -120,7 +120,7 @@ public class Pattern
 
     public String getElementIdAt(int ind)
     {
-        return _elementList.get(ind).getHeaderId();
+        return _elementList.get(ind).getGenericId();
     }
 
     public List<String> generateSlogans(Resources resources, int numberOfSlogans)
@@ -251,7 +251,7 @@ public class Pattern
 
         for(Chunk elem: _elementList)
         {
-            output.append(elem.getHeaderId());
+            output.append(elem.getGenericId());
             output.append(" _ ");
         }
 

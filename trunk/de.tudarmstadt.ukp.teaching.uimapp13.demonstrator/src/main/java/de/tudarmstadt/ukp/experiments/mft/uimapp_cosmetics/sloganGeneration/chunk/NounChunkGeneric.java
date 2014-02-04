@@ -74,7 +74,7 @@ public class NounChunkGeneric
     }
 
     @Override
-    public void specializedHeaderGeneration(final Chunk occurrence)
+    public void specializedGenericGeneration(final Chunk occurrence)
     {
         this._isValueDerivable = true;
         this._semanticValue = occurrence.getAt(occurrence.getPartsNbr() - 1).getSemanticValue();

@@ -8,20 +8,42 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Reso
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.index.IndexElement;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
 
+/**
+ * A ChunkGeneric instance represents an equivalence class for Chunk instances.
+ *  The chunk elements that are parts of this equivalence class are listed in this._occurrences
+ *
+ *  its parameters caracterize all the members if the equivalence class except :
+ *      * _hasConstraint indicates if at least one member of the class respect a suggested words constraint
+ *      * _haveConstraintsBeenChecked indicates if the constraints have been processed over
+ *          all the members of the equivalence class
+ *      * _takenValue... ???
+ *
+ * @author Matthieu Fraissinet-Tachet
+ */
+
 public class ChunkGeneric
     extends IndexElement
     implements Serializable
 {
 
     private static final long serialVersionUID = 1325933957546266085L;
+
+    /*
+     * parameters that define all the chunks contained in this ChunkGeneric instance
+     */
     protected ChunkType _chunkType;
     protected boolean _isValueDerivable;
     protected String _semanticValue;
-    protected String _takenValue;
+
+    /*
+     * Chunk members
+     */
     private final ArrayList<Chunk> _occurrences;
+
     private boolean _hasConstraint;
-    private final List<Chunk> _constrainedElements;
     private boolean _haveConstraintsBeenChecked;
+
+    protected String _takenValue;
 
     public static final String NOT_DEFINED = "notDefined";
 
@@ -34,7 +56,6 @@ public class ChunkGeneric
         this._takenValue = "NO_INFORMATION";
         this._chunkType = ChunkType.UNDEFINED;
         this._occurrences = new ArrayList<Chunk>();
-        _constrainedElements = new ArrayList<>();
         _haveConstraintsBeenChecked = false;
     }
 
@@ -65,8 +86,13 @@ public class ChunkGeneric
         return output;
     }
 
+    /**
+     * add a new Chunk to the equivalence class
+     * @param occ
+     */
     public void addOccurrence(final Chunk occ)
     {
+
         for (final Chunk occ2 : this._occurrences) {
             if (occ.toString().toLowerCase().equals(occ2.toString().toLowerCase())) {
                 return;
@@ -75,24 +101,15 @@ public class ChunkGeneric
         this._occurrences.add(occ);
     }
 
+    /**
+     * retrieve the list of chunks from this equivalence class
+     * @param resources
+     * @return
+     */
     public List<Chunk> getOccurrences(Resources resources)
     {
 
         List<Chunk> chunks = null;
-
-        /*
-
-        if(resources.hasConstraints() && this._hasConstraint)
-        {
-            chunks = this._constrainedElements;
-        }
-        else
-        {
-            chunks = this._occurrences;
-        }
-
-        */
-
         chunks = this._occurrences;
 
         return chunks;
@@ -137,20 +154,33 @@ public class ChunkGeneric
         return signature;
     }
 
+    /**
+     * initialize this ChunkGeneric to contain all Chunk equivalent to the one given as parameter
+     * @param occurrence
+     */
     public void generateGeneric(final Chunk occurrence)
     {
         // general operation
         this._takenValue = occurrence.toString();
 
         // generation specialized to the header type
-        this.specializedHeaderGeneration(occurrence);
+        this.specializedGenericGeneration(occurrence);
     }
 
-    public void specializedHeaderGeneration(final Chunk occurrence)
+    /**
+     * This method is to be overwritten by the subclasses. It is used  in generateGeneric()
+     * @param occurrence
+     */
+    public void specializedGenericGeneration(final Chunk occurrence)
     {
         // to be implemented by the subclasses
     }
 
+    /**
+     * process the constraints over the current chunkGeneric (ie. check if at least one element
+     * of the current chunk can generate chunks containing at least one suggested word).
+     * @param resources
+     */
     public void checkForConstraints (Resources resources)
     {
         if(!_haveConstraintsBeenChecked)
@@ -160,28 +190,28 @@ public class ChunkGeneric
                 chunk.checkForConstraints(resources);
                 if(chunk.hasConstraint())
                 {
-                    _constrainedElements.add(chunk);
+                    _hasConstraint = true;
                 }
             }
-            _hasConstraint = _constrainedElements.size()>0;
             _haveConstraintsBeenChecked = true;
         }
 
     }
 
-    public List<Chunk> getConstrainedElements()
-    {
-        return _constrainedElements;
-    }
-
+    /**
+     * return true if this object has constraints
+     * @return
+     */
     public boolean hasConstraint()
     {
         return _hasConstraint;
     }
 
+    /**
+     * reset the chunkGeneric as if the constraints hadn't been processed (undo checkForConstraints())
+     */
     public void releaseConstraints()
     {
-        _constrainedElements.clear();
         _hasConstraint = false;
         _haveConstraintsBeenChecked = false;
         for(Chunk chunk : _occurrences)
@@ -190,7 +220,10 @@ public class ChunkGeneric
         }
     }
 
-
+    /**
+     * erase all the partial solutions that has been stored during the process
+     *  of the slogan generation.
+     */
     public void resetCache()
     {
         for (final Chunk occ : this._occurrences) {
@@ -214,13 +247,6 @@ public class ChunkGeneric
         output.append("]");
         output.append(" [haveConstraintsBeenChecked:");
         output.append(_haveConstraintsBeenChecked);
-        output.append("]");
-        output.append(" [constrained elements:");
-        for(Chunk chunk : _constrainedElements)
-        {
-            output.append(chunk.getId());
-            output.append(";");
-        }
         output.append("]");
         output.append(this.getSpecificInformation());
 

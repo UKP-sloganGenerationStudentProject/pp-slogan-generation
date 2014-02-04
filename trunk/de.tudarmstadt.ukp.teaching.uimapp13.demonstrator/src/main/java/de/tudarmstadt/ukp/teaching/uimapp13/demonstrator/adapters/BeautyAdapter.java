@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.PatternGenerator;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.SloganGenerator;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.configuration.DemonstratorConfig;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.model.ProductDomain;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.model.Slogan;
@@ -15,7 +15,7 @@ public class BeautyAdapter
 {
     private static final long serialVersionUID = -5583328894154375145L;
 
-    PatternGenerator generator;
+    SloganGenerator generator;
     public static final String PRODUCT_NAME = "PRODUCT_NAME";
     public static final String SUGGESTED_WORDS = "SUGGESTED_WORDS";
     public static final String BODY_PART = "BODY_PART";
@@ -27,7 +27,7 @@ public class BeautyAdapter
     public void initialize(final Map<String, Object> parameters)
         throws Exception
     {
-        this.generator = new PatternGenerator();
+        this.generator = new SloganGenerator();
 
         final DemonstratorConfig config = DemonstratorConfig.getInstance();
 

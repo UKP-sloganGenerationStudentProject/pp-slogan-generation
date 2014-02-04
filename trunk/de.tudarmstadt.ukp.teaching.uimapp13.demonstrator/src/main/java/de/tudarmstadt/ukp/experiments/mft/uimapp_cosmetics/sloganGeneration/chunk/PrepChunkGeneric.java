@@ -15,7 +15,7 @@ public class PrepChunkGeneric
     }
 
     @Override
-    public void specializedHeaderGeneration(final Chunk occurrence)
+    public void specializedGenericGeneration(final Chunk occurrence)
     {
         this._isValueDerivable = false;
     }
