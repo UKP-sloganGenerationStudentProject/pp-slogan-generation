@@ -249,6 +249,14 @@ public class TemplateGenerator {
 		synsets.add("WN_Synset_27341"); // manner, mode, style, fashion, way
 		synsets.add("WN_Synset_31662"); // dream, dreaming
 		synsets.add("WN_Synset_81926"); // beginning, showtime, start, outset, get-go, kickoff, commencement, offset, first, starting time
+		synsets.add("WN_Synset_27728"); // build
+		synsets.add("WN_Synset_26090"); // shape, form
+		synsets.add("WN_Synset_31309"); // confidence, self-confidence, sureness, self-assurance
+		synsets.add("WN_Synset_55"); // accomplishment, achievement
+		synsets.add("WN_Synset_74600"); // confidence, trust
+		synsets.add("WN_Synset_74133"); // first, number one
+		synsets.add("WN_Synset_43514"); // people
+		synsets.add("WN_Synset_31614"); // experience
 		return synsets;
 	}
 	
@@ -262,6 +270,13 @@ public class TemplateGenerator {
 		synsets.add("WN_Synset_96816"); // expectant, heavy, enceinte, large, big, gravid, with child, great
 		synsets.add("WN_Synset_98639"); // different
 		synsets.add("WN_Synset_109542"); // dependable, honest, true, reliable
+		synsets.add("WN_Synset_100612"); //pure
+		synsets.add("WN_Synset_104421"); // more
+		synsets.add("WN_Synset_104405"); // some
+		synsets.add("WN_Synset_105487"); // consummate, complete
+		synsets.add("WN_Synset_108187"); // accomplished, complete
+		synsets.add("WN_Synset_100022"); // serious
+		synsets.add("WN_Synset_106178"); // forwand-moving, advancing, forward
 		return synsets;
 	}
 	
@@ -285,6 +300,15 @@ public class TemplateGenerator {
 		synsets.add("WN_Synset_85241");	// suppose, opine, think, imagine, guess, reckon
 		synsets.add("WN_Synset_85498");	// believe, consider, think, conceive
 		synsets.add("WN_Synset_90932"); // experience, feel
+		synsets.add("WN_Synset_85261"); // build
+		synsets.add("WN_Synset_90348"); // establish
+		synsets.add("WN_Synset_95236"); // merit, deserve
+		synsets.add("WN_Synset_95264"); // keep
+		synsets.add("WN_Synset_85136"); // call up, think, recall, retrieve, remember, call back, recollect
+		synsets.add("WN_Synset_87871"); // fulfill, fill, satisfy, fulfil, meet
+		synsets.add("WN_Synset_91143"); // gratify, satisfy
+		synsets.add("WN_Synset_87045"); // touch, advert
+		synsets.add("WN_Synset_90928"); // stir, touch
 		return synsets;
 	}
 	
