@@ -2,6 +2,7 @@ package de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.web.components;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ import de.koch.uim_project.util.Pattern;
 import de.koch.uim_project.util.StylisticDevice;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.adapters.Adapter;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.adapters.GamesAdapter;
+import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.utils.DemonstratorUtils;
 
 public class GamesForm
     extends DomainSpecificForm
@@ -54,8 +56,8 @@ public class GamesForm
     {
         super(id);
         this.add(new Button("games-submit"));
-        final List<String> emotions = new ArrayList<>(Collections2.transform(
-                Arrays.asList(Emotion.values()), Functions.toStringFunction()));
+        final List<String> emotions = Emotion.valuesAsString();
+
         this.add(new DropDownChoice<String>("games-emotion", this
                 .createStringProperty("selectedEmotion"), emotions));
 
@@ -80,6 +82,7 @@ public class GamesForm
         /*
          * Pattern weights
          */
+        // TODO rkluge : this is extremely ugly...
         final Pattern[] patterns = Pattern.values();
         this.add(new Label("games-pattern0", patterns[0].toString()));
         this.add(new Label("games-pattern1", patterns[1].toString()));
@@ -127,49 +130,89 @@ public class GamesForm
         alienWordsTextArea.setModel(this.createStringProperty("alienWords"));
         this.add(alienWordsTextArea);
 
-        /*
-         * Set default values
-         */
+    }
+
+    @Override
+    protected void initializeDefaultValues()
+    {
         final Config defaultConfig = Config.getDefaultConfig();
-        this.selectedEmotion = emotions.get(0);
-        this.numSlogans = defaultConfig.getSloganCount();
-        this.gameName = defaultConfig.getGameName();
-        this.minWordsForGeneration = defaultConfig.getMinWordlistForGeneration();
-        this.maxSynsetDepth = defaultConfig.getMaxSynsetDepth();
-        this.maxWordList = 1500;
-        this.randomSeed = defaultConfig.getRandomSeed();
-        this.alienWords = Joiner.on("\n").join(defaultConfig.getAlienFeatureList());
-        this.featureWords = Joiner.on("\n").join(defaultConfig.getFeatureList());
 
-        final Map<Pattern, Double> defaultPatternWeights = defaultConfig.getPatternweights();
-        this.patternWeight0 = defaultPatternWeights.get(patterns[0]);
-        this.patternWeight1 = defaultPatternWeights.get(patterns[1]);
-        this.patternWeight2 = defaultPatternWeights.get(patterns[2]);
-        this.patternWeight3 = defaultPatternWeights.get(patterns[3]);
+        this.gameName = this.getParam(GamesAdapter.GAME_NAME, defaultConfig.getGameName());
+        this.randomSeed = this.getParam(GamesAdapter.RANDOM_SEED, defaultConfig.getRandomSeed());
+        this.numSlogans = this.getParam(GamesAdapter.SLOGAN_COUNT, defaultConfig.getSloganCount());
+        this.selectedEmotion = this.getParam(GamesAdapter.EMOTION, defaultConfig.getEmotion()
+                .toString());
+        this.minWordsForGeneration = this.getParam(GamesAdapter.MIN_WORD_LIST_FOR_GENERATION,
+                defaultConfig.getMinWordlistForGeneration());
+        this.maxSynsetDepth = this.getParam(GamesAdapter.MAX_SYNSET_DEPTH,
+                defaultConfig.getMaxSynsetDepth());
+        this.maxWordList = this.getParam(GamesAdapter.MAX_WORD_LIST_LENGTH,
+                defaultConfig.getMaxWordListLength());
 
-        final Map<StylisticDevice, Double> defaultStyleDevWeights = defaultConfig.getSdweights();
-        this.styleDevWeight0 = defaultStyleDevWeights.get(stylisticDevices[0]);
-        this.styleDevWeight1 = defaultStyleDevWeights.get(stylisticDevices[1]);
-        this.styleDevWeight2 = defaultStyleDevWeights.get(stylisticDevices[2]);
-        this.styleDevWeight3 = defaultStyleDevWeights.get(stylisticDevices[3]);
-        this.styleDevWeight4 = defaultStyleDevWeights.get(stylisticDevices[4]);
+        final String defaultAlienWords = Joiner.on(",").join(defaultConfig.getAlienFeatureList());
+        final String commaSeparatedAlienWords = this.getParam(GamesAdapter.ALIEN_FEATURES,
+                defaultAlienWords);
+        this.alienWords = DemonstratorUtils
+                .convertSeparatorFromCommaToHtmlTextarea(commaSeparatedAlienWords);
+
+        final String defaultFeatureWords = Joiner.on(",").join(defaultConfig.getFeatureList());
+        final String commaSeparatedFeatureWords = this.getParam(GamesAdapter.FEATURES,
+                defaultFeatureWords);
+        this.featureWords = DemonstratorUtils
+                .convertSeparatorFromCommaToHtmlTextarea(commaSeparatedFeatureWords);
+
+        final List<Pattern> patterns = Pattern.getAll();
+        final Map<Pattern, Double> defaultPatternToWeight = defaultConfig.getPatternweights();
+
+        final List<Double> patternWeights = this.getParam(GamesAdapter.PATTERN_WEIGHTS,
+                this.getValues(defaultPatternToWeight, patterns));
+        this.patternWeight0 = patternWeights.get(0);
+        this.patternWeight1 = patternWeights.get(1);
+        this.patternWeight2 = patternWeights.get(2);
+        this.patternWeight3 = patternWeights.get(3);
+
+        final List<StylisticDevice> stylisticDevices = StylisticDevice.getAll();
+        final Map<StylisticDevice, Double> defaultStyleDevToWeight = defaultConfig.getSdweights();
+
+        final List<Double> styleDevWeights = this.getParam(GamesAdapter.STYLISTIC_DEV_WEIGHTS,
+                this.getValues(defaultStyleDevToWeight, stylisticDevices));
+        this.styleDevWeight0 = styleDevWeights.get(0);
+        this.styleDevWeight1 = styleDevWeights.get(1);
+        this.styleDevWeight2 = styleDevWeights.get(2);
+        this.styleDevWeight3 = styleDevWeights.get(3);
+        this.styleDevWeight4 = styleDevWeights.get(4);
+    }
+
+    private <S, T> List<T> getValues(final Map<S, T> mapping, final Collection<S> keys)
+    {
+        return new ArrayList<>(Collections2.transform(keys, Functions.forMap(mapping)));
     }
 
     @Override
     protected HashMap<String, Object> createGenerationParameters()
     {
+        final List<Double> patternWeights = Arrays.asList(this.patternWeight0, this.patternWeight1,
+                this.patternWeight2, this.patternWeight3);
+
+        final List<Double> styleDevWeights = Arrays.asList(this.styleDevWeight0,
+                this.styleDevWeight1, this.styleDevWeight2, this.styleDevWeight3,
+                this.styleDevWeight4);
+
+        final String commaSepFeatures = DemonstratorUtils
+                .convertSeparatorFromHtmlTextareaToComma(this.featureWords);
+
+        final String commaSepAlienWords = DemonstratorUtils
+                .convertSeparatorFromHtmlTextareaToComma(this.alienWords);
+
         final HashMap<String, Object> parameters = new HashMap<String, Object>();
         parameters.put(GamesAdapter.GAME_NAME, this.gameName);
         parameters.put(GamesAdapter.RANDOM_SEED, this.randomSeed);
         parameters.put(GamesAdapter.SLOGAN_COUNT, this.numSlogans);
-        parameters.put(GamesAdapter.EMOTION, Emotion.valueOf(this.selectedEmotion));
-        parameters.put(GamesAdapter.PATTERN_WEIGHTS, Arrays.asList(this.patternWeight0,
-                this.patternWeight1, this.patternWeight2, this.patternWeight3));
-        parameters.put(GamesAdapter.STYLISTIC_DEV_WEIGHTS, Arrays.asList(this.styleDevWeight0,
-                this.styleDevWeight1, this.styleDevWeight2, this.styleDevWeight3,
-                this.styleDevWeight4));
-        parameters.put(GamesAdapter.FEATURES, this.featureWords);
-        parameters.put(GamesAdapter.ALIEN_FEATURES, this.alienWords);
+        parameters.put(GamesAdapter.EMOTION, this.selectedEmotion);
+        parameters.put(GamesAdapter.PATTERN_WEIGHTS, patternWeights);
+        parameters.put(GamesAdapter.STYLISTIC_DEV_WEIGHTS, styleDevWeights);
+        parameters.put(GamesAdapter.FEATURES, commaSepFeatures);
+        parameters.put(GamesAdapter.ALIEN_FEATURES, commaSepAlienWords);
         parameters.put(GamesAdapter.MAX_SYNSET_DEPTH, this.maxSynsetDepth);
         parameters.put(GamesAdapter.MIN_WORD_LIST_FOR_GENERATION, this.minWordsForGeneration);
         parameters.put(GamesAdapter.MAX_WORD_LIST_LENGTH, this.maxWordList);

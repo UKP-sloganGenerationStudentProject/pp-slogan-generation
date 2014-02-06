@@ -27,6 +27,7 @@ public abstract class DomainSpecificForm
     protected Logger logger;
 
     private static final long serialVersionUID = -2244336369430716569L;
+
     private Adapter adapter;
 
     public DomainSpecificForm(final String id)
@@ -43,6 +44,8 @@ public abstract class DomainSpecificForm
             final HashMap<String, Object> cachedConfig = (HashMap<String, Object>) sessionGenerationConfig;
             this.previousConfiguration.putAll(cachedConfig);
         }
+
+        this.initializeDefaultValues();
 
         if (this.loadAdapterEagerly()) {
             this.initializeAdapter();
@@ -98,6 +101,11 @@ public abstract class DomainSpecificForm
     }
 
     /**
+     * Within this method, the default settings are initialized
+     */
+    protected abstract void initializeDefaultValues();
+
+    /**
      * Returns an instance of the adapter to be used.
      * The adapter need not be initialized.
      * 
@@ -105,22 +113,12 @@ public abstract class DomainSpecificForm
      */
     protected abstract Adapter createAdapter();
 
-    protected boolean loadAdapterEagerly()
-    {
-        return this.isInitializeAdapterOnLoad();
-    }
-
-    protected boolean loadAdapterLazily()
-    {
-        return !this.loadAdapterEagerly();
-    }
-
     /**
      * Always re-initializes the adapter for each query
      * 
      * @return whether the adapter is re-initialized every time
      */
-    protected boolean isInitializeAdapterOnLoad()
+    protected boolean loadAdapterEagerly()
     {
         return false;
     }
@@ -158,5 +156,30 @@ public abstract class DomainSpecificForm
     protected HashMap<String, Object> createGenerationParameters()
     {
         return new HashMap<String, Object>();
+    }
+
+    @SuppressWarnings("unchecked")
+    protected <T> T getParam(final String key, final T defaultValue)
+    {
+        T result = defaultValue;
+        if (this.previousConfiguration.containsKey(key)) {
+            final Object value = this.previousConfiguration.get(key);
+            try {
+                result = (T) value;
+            }
+            catch (final ClassCastException ex) {
+                this.logger
+                        .warn(String
+                                .format("Value for parameter %s has not the expected type %s, instead: '%s'. Using default value %s instead.",
+                                        key, defaultValue.getClass().getSimpleName(), value,
+                                        defaultValue.toString()));
+            }
+        }
+        return result;
+    }
+
+    private boolean loadAdapterLazily()
+    {
+        return !this.loadAdapterEagerly();
     }
 }

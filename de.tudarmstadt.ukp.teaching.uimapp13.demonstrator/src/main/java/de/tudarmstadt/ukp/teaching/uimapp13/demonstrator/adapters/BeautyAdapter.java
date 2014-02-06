@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Parameters;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.SloganGenerator;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.configuration.DemonstratorConfig;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.model.ProductDomain;
@@ -16,12 +17,24 @@ public class BeautyAdapter
     private static final long serialVersionUID = -5583328894154375145L;
 
     SloganGenerator generator;
+
+    public static final String DEFAULT_PRODUCT_NAME = "MyBeauty";
+
+    public static final int DEFAULT_SLOGAN_COUNT = 20;
     public static final String PRODUCT_NAME = "PRODUCT_NAME";
     public static final String SUGGESTED_WORDS = "SUGGESTED_WORDS";
     public static final String BODY_PART = "BODY_PART";
     public static final String PATTERN = "PATTERN";
     public static final String SLOGAN_COUNT = "SLOGAN_COUNT";
     public static final String USE_UBY_FOR_NEW_WORDS = "USE_UBY_FOR_NEW_WORDS";
+
+    public static final Boolean DEFAULT_USE_UBY_FOR_NEW_WORDS = false;
+
+    public static final String DEFAULT_SUGGESTED_WORDS = "women,color,life";
+
+    public static final String DEFAULT_PART_OF_BODY = Parameters.getSelectablePartsOfBody().get(0);
+
+    public static final String DEFAULT_PATTERN = Parameters.getSelectablePatterns().get(0);
 
     @Override
     public void initialize(final Map<String, Object> parameters)

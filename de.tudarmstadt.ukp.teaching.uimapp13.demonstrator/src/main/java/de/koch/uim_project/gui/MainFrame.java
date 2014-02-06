@@ -154,7 +154,7 @@ public class MainFrame
                 .setText(config.getSdweights().get(StylisticDevice.Metaphor).toString());
         this.getConfigPanel().getStylisticDeviceWeightPanel().getSdNone().getTextField()
                 .setText(config.getSdweights().get(StylisticDevice.None).toString());
-        this.getConfigPanel().getStylisticDeviceWeightPanel().getSdOxymeron().getTextField()
+        this.getConfigPanel().getStylisticDeviceWeightPanel().getSdOxymoron().getTextField()
                 .setText(config.getSdweights().get(StylisticDevice.Oxymoron).toString());
         this.getConfigPanel().getStylisticDeviceWeightPanel().getSdParallelism().getTextField()
                 .setText(config.getSdweights().get(StylisticDevice.Parallelism).toString());
@@ -196,7 +196,7 @@ public class MainFrame
         sdWeights.put(
                 StylisticDevice.Oxymoron,
                 Double.parseDouble(this.getConfigPanel().getStylisticDeviceWeightPanel()
-                        .getSdOxymeron().getTextField().getText()));
+                        .getSdOxymoron().getTextField().getText()));
         sdWeights.put(
                 StylisticDevice.Parallelism,
                 Double.parseDouble(this.getConfigPanel().getStylisticDeviceWeightPanel()
