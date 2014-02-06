@@ -30,12 +30,12 @@ public class TestUbyAnalyser {
 		List<ERelTypeSemantics> relTypes = new ArrayList<ERelTypeSemantics>();
 		relNames.add("antonym");
 		relTypes.add(ERelTypeSemantics.complementary);
-		Set<Word> oxymerons = UbyAnalyser.getInstance().getRelatedWordsSense(
+		Set<Word> oxymorons = UbyAnalyser.getInstance().getRelatedWordsSense(
 				hot,
 				relNames,
 				relTypes,
 				UbyConnect.getUbyInstance(defaultConfig));
-		assertTrue(oxymerons.size() > 0);
+		assertTrue(oxymorons.size() > 0);
 	}
 	
 	

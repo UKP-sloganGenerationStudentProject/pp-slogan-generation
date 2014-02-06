@@ -61,15 +61,15 @@ public class GamesAdapter
         final String gameName = (String) parameters.get(GAME_NAME);
         final Long randomSeed = (Long) parameters.get(RANDOM_SEED);
         final Integer sloganCount = (Integer) parameters.get(SLOGAN_COUNT);
-        final Emotion emotion = (Emotion) parameters.get(EMOTION);
+        final Emotion emotion = Emotion.valueOf((String) parameters.get(EMOTION));
 
         final Map<Pattern, Double> patternWeights = this.parsePatternWeights(parameters
                 .get(PATTERN_WEIGHTS));
         final Map<StylisticDevice, Double> styleDevWeights = this.parseStyleDevWeights(parameters
                 .get(STYLISTIC_DEV_WEIGHTS));
 
-        final Set<String> features = this.parseSetFromLines((String) parameters.get(FEATURES));
-        final Set<String> alienFeatures = this.parseSetFromLines((String) parameters
+        final Set<String> features = this.parseSet((String) parameters.get(FEATURES));
+        final Set<String> alienFeatures = this.parseSet((String) parameters
                 .get(ALIEN_FEATURES));
 
         final Integer minWordsForGeneration = (Integer) parameters
@@ -123,9 +123,9 @@ public class GamesAdapter
         return map;
     }
 
-    private Set<String> parseSetFromLines(final String string)
+    private Set<String> parseSet(final String string)
     {
-        final String[] split = string.split("\n");
+        final String[] split = string.split(",");
         return new HashSet<String>(Arrays.asList(split));
     }
 
@@ -134,4 +134,5 @@ public class GamesAdapter
     {
         return ProductDomain.GAMES;
     }
+
 }

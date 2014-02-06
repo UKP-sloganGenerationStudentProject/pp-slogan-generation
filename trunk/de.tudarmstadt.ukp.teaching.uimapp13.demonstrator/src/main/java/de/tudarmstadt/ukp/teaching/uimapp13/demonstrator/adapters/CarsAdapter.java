@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.base.Joiner;
+
 import de.tobiasloeser.slogangenerator.GoodLuck;
 import de.tobiasloeser.slogangenerator.SloganGenerator;
 import de.tobiasloeser.slogangenerator.SloganTemplate;
@@ -23,11 +25,26 @@ public class CarsAdapter
     public static final String PRODUCT_NAME = "PRODUCT_NAME";
     public static final String SLOGAN_COUNT = "SLOGAN_COUNT";
     public static final String EMOTION = "EMOTION";
-    public static final String TEMPLATE = "TEMPLATE";
+    public static final String TEMPLATE_ID = "TEMPLATE";
     public static final String GOOD_LUCK = "GOOD_LUCK";
     public static final String USE_PRODUCT_NAME_CREATIVELY = "USE_PRODUCT_NAME_CREATIVELY";
     public static final String SUGGESTED_WORDS = "SUGGESTED_WORDS";
     private SloganGenerator generator;
+
+    public static final boolean DEFAULT_GOOD_LUCK = false;
+
+    public static final boolean DEFAULT_USE_PRODUCT_NAME_CREATIVELY = true;
+
+    public static final String DEFAULT_EMOTION = getAllEmotions().get(0);
+
+    public static final Template DEFAULT_TEMPLATE = getAllTemplates().get(0);
+
+    public static final String DEFAULT_SUGGESTED_WORDS = Joiner.on(",").join(
+            Arrays.asList("fun", "speed", "family"));
+
+    public static final String DEFAULT_PRODUCT_NAME = "MyCar";
+
+    public static final int DEFAULT_SLOGAN_COUNT = 20;
 
     public static class Template
         implements Serializable
@@ -52,6 +69,7 @@ public class CarsAdapter
         {
             return this.name;
         }
+
     }
 
     @Override
@@ -68,7 +86,7 @@ public class CarsAdapter
     {
         final DemonstratorConfig config = DemonstratorConfig.getInstance();
 
-        final int templateId = ((Template) parameters.get(TEMPLATE)).getId();
+        final int templateId = (Integer) parameters.get(TEMPLATE_ID);
         final SloganTemplate template = TemplateGenerator.getTemplateById(templateId);
         final List<SloganTemplate> templates = new ArrayList<SloganTemplate>();
         templates.add(template);
@@ -104,14 +122,26 @@ public class CarsAdapter
 
     public static List<Template> getAllTemplates()
     {
-        return Arrays.asList(new Template(1, "NC with Alliteration"), //
+        return Arrays.asList(//
+                new Template(1, "NC with Alliteration"), //
                 new Template(2, "NC without Alliteration"), //
                 new Template(3, "VC NC without Alliteration"), //
                 new Template(4, "VC NC with Alliteration"), //
                 new Template(5, "NC VC NC without Alliteration"), //
                 new Template(6, "NC VC NC with Alliteration"), //
                 new Template(7, "NC with Oxymoron"), //
-                new Template(8, "?"));
+                new Template(8, "NC PC NC without Alliteration"), //
+                new Template(9, "NC PC NC with Alliteration"));
+    }
+
+    public static Template getTemplateById(final int templateId)
+    {
+        for (final Template template : getAllTemplates()) {
+            if (templateId == template.getId()) {
+                return template;
+            }
+        }
+        return null;
     }
 
     public static List<String> getAllEmotions()
@@ -125,4 +155,5 @@ public class CarsAdapter
     {
         return ProductDomain.CARS;
     }
+
 }

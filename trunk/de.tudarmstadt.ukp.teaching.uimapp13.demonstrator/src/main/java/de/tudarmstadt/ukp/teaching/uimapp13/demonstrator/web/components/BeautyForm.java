@@ -1,6 +1,5 @@
 package de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.web.components;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,27 +9,22 @@ import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.form.TextArea;
 
-import com.google.common.base.Joiner;
-
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Parameters;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.adapters.Adapter;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.adapters.BeautyAdapter;
+import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.utils.DemonstratorUtils;
 
 public class BeautyForm
     extends DomainSpecificForm
 {
-    private static final int DEFAULT_SLOGAN_COUNT = 20;
-
     private static final long serialVersionUID = -4506870702347552736L;
 
-    private static final String DEFAULT_PRODUCT_NAME = "MyBeauty";
-
-    private final String productName;
-    private final String suggestedWords;
-    private final String pattern;
-    private final String partOfBody;
-    private final int sloganCount;
-    private final boolean isUseUbyForNewWords;
+    private String productName;
+    private String suggestedWords;
+    private String pattern;
+    private String partOfBody;
+    private int sloganCount;
+    private boolean isUseUbyForNewWords;
 
     public BeautyForm(final String id)
     {
@@ -52,20 +46,43 @@ public class BeautyForm
         this.add(new DropDownChoice<String>("beauty-pattern", this.createStringProperty("pattern"),
                 selectablePatterns));
 
-        this.add(new CheckBox("beauty-useUbyForNewWords", this.createBooleanProperty("isUseUbyForNewWords")));
+        this.add(new CheckBox("beauty-useUbyForNewWords", this
+                .createBooleanProperty("isUseUbyForNewWords")));
 
         final TextArea<String> suggestedWordsTextArea = new TextArea<String>(
                 "beauty-suggestedWords");
         suggestedWordsTextArea.setModel(this.createStringProperty("suggestedWords"));
         this.add(suggestedWordsTextArea);
 
-        this.sloganCount = DEFAULT_SLOGAN_COUNT;
-        this.productName = DEFAULT_PRODUCT_NAME;
-        this.suggestedWords = Joiner.on("\n").join(Arrays.asList("women", "color", "life"));
-        this.partOfBody = selectablePartsOfBody.get(0);
-        this.pattern = selectablePatterns.get(0);
-        this.isUseUbyForNewWords = true;
+    }
 
+    @Override
+    protected boolean loadAdapterEagerly()
+    {
+        return false;
+    }
+
+    @Override
+    protected void initializeDefaultValues()
+    {
+        this.sloganCount = this.getParam(BeautyAdapter.SLOGAN_COUNT,
+                BeautyAdapter.DEFAULT_SLOGAN_COUNT);
+
+        this.productName = this.getParam(BeautyAdapter.PRODUCT_NAME,
+                BeautyAdapter.DEFAULT_PRODUCT_NAME);
+
+        final String commaSeparatedSuggestedWords = this.getParam(BeautyAdapter.SUGGESTED_WORDS,
+                BeautyAdapter.DEFAULT_SUGGESTED_WORDS);
+        this.suggestedWords = DemonstratorUtils
+                .convertSeparatorFromCommaToHtmlTextarea(commaSeparatedSuggestedWords);
+
+        this.partOfBody = this
+                .getParam(BeautyAdapter.BODY_PART, BeautyAdapter.DEFAULT_PART_OF_BODY);
+
+        this.pattern = this.getParam(BeautyAdapter.PATTERN, BeautyAdapter.DEFAULT_PATTERN);
+
+        this.isUseUbyForNewWords = this.getParam(BeautyAdapter.USE_UBY_FOR_NEW_WORDS,
+                BeautyAdapter.DEFAULT_USE_UBY_FOR_NEW_WORDS);
     }
 
     @Override
@@ -77,8 +94,8 @@ public class BeautyForm
     @Override
     protected HashMap<String, Object> createGenerationParameters()
     {
-        final String[] suggestedWordsList = this.suggestedWords.split("\\n");
-        final String commaSeparatedSuggestedWords = Joiner.on(",").join(suggestedWordsList);
+        final String commaSeparatedSuggestedWords = DemonstratorUtils
+                .convertSeparatorFromHtmlTextareaToComma(this.suggestedWords);
 
         final HashMap<String, Object> parameters = new HashMap<>();
         parameters.put(BeautyAdapter.PRODUCT_NAME, this.productName);
