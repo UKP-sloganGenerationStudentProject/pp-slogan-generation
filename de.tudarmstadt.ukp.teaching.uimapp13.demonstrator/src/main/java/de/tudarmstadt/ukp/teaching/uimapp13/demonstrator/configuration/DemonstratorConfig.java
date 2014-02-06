@@ -120,4 +120,14 @@ public final class DemonstratorConfig
         return value;
     }
 
+    public String getSerializedEmotionssPath()
+    {
+        final String path = getResourcePath() + "/loeser/Emotionlist.sg";
+        if (!new File(path).isFile()) {
+            throw new IllegalStateException(
+                    "Serialized NRC emotion lexicon is not at the expected location: " + path);
+        }
+        return path;
+    }
+
 }

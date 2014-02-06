@@ -46,7 +46,7 @@ public class SloganGenerator
     public SloganGenerator(final String _database, final String _dbuser, final String _dbpassword,
             final String _emotionPath, final String _web1TPath)
     {
-    	this.web1TPath = _web1TPath;
+        this.web1TPath = _web1TPath;
         this.emotionPath = _emotionPath;
         this.database = _database;
         this.dbuser = _dbuser;
@@ -101,7 +101,7 @@ public class SloganGenerator
             e.printStackTrace();
         }
         try {
-            final File web1TFolder = new File(this.web1TPath + "ENGLISH");
+            final File web1TFolder = new File(this.web1TPath);
             this.web1tHelper = new Web1THelper(this.uby, web1TFolder);
         }
         catch (final IOException e) {
@@ -202,7 +202,8 @@ public class SloganGenerator
         return slogan;
     }
 
-    private String getWordByChunk(final Slogan slogan, final TemplatePart part, final boolean onlyNoun)
+    private String getWordByChunk(final Slogan slogan, final TemplatePart part,
+            final boolean onlyNoun)
     {
         if (part.getChunk().toLowerCase().equals("nc")) {
             return this.getNC(part, onlyNoun);
@@ -210,14 +211,13 @@ public class SloganGenerator
         else if (part.getChunk().toLowerCase().equals("vc")) {
             return this.getWordByPos(part, EPartOfSpeech.verb);
         }
-        else if(part.getChunk().toLowerCase().equals("pcnc"))
-        {
-        	String word;
+        else if (part.getChunk().toLowerCase().equals("pcnc")) {
+            String word;
             do {
                 word = this.getWordByPos(part, EPartOfSpeech.noun);
             }
             while (slogan.contains(word));
-        	return web1tHelper.getPrepositionAndWord(word);
+            return this.web1tHelper.getPrepositionAndWord(word);
         }
         else {
             return "";
