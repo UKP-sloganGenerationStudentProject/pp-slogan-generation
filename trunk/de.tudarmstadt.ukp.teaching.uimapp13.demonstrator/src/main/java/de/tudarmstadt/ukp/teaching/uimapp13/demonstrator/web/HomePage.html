@@ -48,10 +48,11 @@
 							wicket:id="beauty-partOfBody"></select>
 					</div>
 					<div class="formRow">
-						<label for="beauty-useUbyForNewWords">Use Uby for looking for new words:</label><br />
+						<label for="beauty-useUbyForNewWords">Use Uby for looking
+							for new words:</label><br />
 						<!--  -->
-						<input wicket:id="beauty-useUbyForNewWords" name="beauty-useUbyForNewWords"
-							type="checkbox">
+						<input wicket:id="beauty-useUbyForNewWords"
+							name="beauty-useUbyForNewWords" type="checkbox">
 					</div>
 				</div>
 				<div class="column">
@@ -257,10 +258,12 @@
 				<button wicket:id="games-submit">Generate slogans</button>
 			</form>
 		</div>
-		<div id="results">
+		<div wicked:id="results" id="results">
 			<h2>Generatd Slogans</h2>
-			<ul wicket:id="slogans">
-				<li><span wicket:id="sloganText"></span></li>
+			<ul wicket:id="slogans" class="slogans">
+				<li><div class="slogan">
+						<span wicket:id="sloganText"></span>
+					</div></li>
 			</ul>
 		</div>
 		<div id="acknowledgements">

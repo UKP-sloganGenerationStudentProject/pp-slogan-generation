@@ -79,6 +79,18 @@ textarea {
 	clear: both;
 }
 
+.slogans {
+	list-style: none;
+	padding-left: 0px;
+}
+
+.slogan {
+	font-size: 150%;
+	color: #444444;
+	font-style: italic;
+	font-weight: bold;
+}
+
 #header,
 #footer {
 	width: 100%;
