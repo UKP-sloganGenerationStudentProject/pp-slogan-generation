@@ -87,8 +87,8 @@ public class CarsForm
 
         this.isGoodLuck = this.getParam(CarsAdapter.GOOD_LUCK, false);
 
-        this.useProductNameCreatively = this.getParam(CarsAdapter.USE_PRODUCT_NAME_CREATIVELY,
-                true);
+        this.useProductNameCreatively = this
+                .getParam(CarsAdapter.USE_PRODUCT_NAME_CREATIVELY, true);
 
         final String firstEmotion = CarsAdapter.getAllEmotions().get(0);
         this.selectedEmotion = this.getParam(CarsAdapter.EMOTION, firstEmotion);
@@ -118,7 +118,6 @@ public class CarsForm
                                 .format("Value for parameter %s has not the expected type %s, instead: '%s'. Using default value %s instead.",
                                         key, defaultValue.getClass().getSimpleName(), value,
                                         defaultValue.toString()));
-
             }
         }
         return result;
