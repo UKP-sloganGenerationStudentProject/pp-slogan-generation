@@ -114,6 +114,11 @@ public class WordConstraint
 
         }
 
+        for(WordConstraint contr : output)
+        {
+            System.out.println(contr);
+        }
+
         return output;
     }
 
