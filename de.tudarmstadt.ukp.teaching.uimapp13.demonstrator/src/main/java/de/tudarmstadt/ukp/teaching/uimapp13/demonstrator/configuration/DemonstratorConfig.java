@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+import de.koch.uim_project.util.DbConfig;
+
 public final class DemonstratorConfig
 {
 
@@ -43,7 +45,12 @@ public final class DemonstratorConfig
 
     public static String getResourcePath()
     {
-        return System.getenv(RESOURCES_ENVVAR);
+        final String resourcePath = System.getenv(RESOURCES_ENVVAR);
+        if (null == resourcePath) {
+            throw new IllegalStateException("Need to set environment variable " + RESOURCES_ENVVAR
+                    + " to the absolute path of the resources directory.");
+        }
+        return resourcePath;
     }
 
     public String getJdbcDriver()
@@ -77,12 +84,12 @@ public final class DemonstratorConfig
         return this.getPropertyChecked("uby.url.jdbc");
     }
 
-    public String getCustomDbUser()
+    public String getKochDbUser()
     {
         return this.getPropertyChecked("custom.db.user");
     }
 
-    public String getCustomDbPassword()
+    public String getKochDbPassword()
     {
         return this.getPropertyChecked("custom.db.password");
     }
@@ -128,6 +135,16 @@ public final class DemonstratorConfig
                     "Serialized NRC emotion lexicon is not at the expected location: " + path);
         }
         return path;
+    }
+
+    public DbConfig createUbyDbConfig()
+    {
+        return new DbConfig(this.getUbyUrl(), this.getUbyUser(), this.getUbyPassword());
+    }
+
+    public DbConfig createKochsCustomDbConfig()
+    {
+        return new DbConfig(this.getKochDbUrl(), this.getKochDbUser(), this.getKochDbPassword());
     }
 
 }

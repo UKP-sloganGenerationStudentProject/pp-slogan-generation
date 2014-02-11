@@ -56,7 +56,7 @@ public class GamesAdapter
         final DbConfig ubyConfig = new DbConfig(config.getUbyUrl(), config.getUbyUser(),
                 config.getUbyPassword());
         final DbConfig customDbConfig = new DbConfig(config.getKochDbUrl(),
-                config.getCustomDbUser(), config.getCustomDbPassword());
+                config.getKochDbUser(), config.getKochDbPassword());
 
         final String gameName = (String) parameters.get(GAME_NAME);
         final Long randomSeed = (Long) parameters.get(RANDOM_SEED);

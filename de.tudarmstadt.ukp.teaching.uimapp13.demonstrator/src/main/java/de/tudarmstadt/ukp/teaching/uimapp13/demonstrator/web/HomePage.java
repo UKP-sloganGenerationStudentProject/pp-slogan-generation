@@ -3,7 +3,6 @@ package de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.web;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -38,17 +37,15 @@ public class HomePage
         this.add(new CarsForm("cars-form"));
         this.add(new GamesForm("games-form"));
 
-        final WebMarkupContainer resultsContainer = new WebMarkupContainer("results");
-        if (slogans.isEmpty()) {
-            resultsContainer.setVisible(false);
-        }
-        this.add(resultsContainer);
+        // final WebMarkupContainer resultsContainer = new WebMarkupContainer("results");
+        // if (slogans.isEmpty()) {
+        // resultsContainer.setVisible(false);
+        // }
+        // this.add(resultsContainer);
 
-        slogans.add(new Slogan("Life is Life, na na nanana."));
-        slogans.add(new Slogan("Creative automobile"));
-        slogans.add(new Slogan("Nothing is impossible"));
-
-        previousSlogans.add(slogans);
+        // slogans.add(new Slogan("Life is Life, na na nanana."));
+        // slogans.add(new Slogan("Creative automobile"));
+        // slogans.add(new Slogan("Nothing is impossible"));
 
         this.add(createSlogansList(slogans));
 
@@ -123,7 +120,8 @@ public class HomePage
             protected void populateItem(final ListItem<Slogan> item)
             {
                 final String text = item.getModel().getObject().getText();
-                item.add(new Label("sloganText", String.format("#%d - %s", item.getIndex(), text)));
+                item.add(new Label("sloganText", String.format("#%d - %s", item.getIndex() + 1,
+                        text)));
             }
         };
     }

@@ -20,7 +20,10 @@ import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.model.Slogan;
 public class CarsAdapter
     implements Adapter, Serializable
 {
+
     private static final long serialVersionUID = -2271555874935381594L;
+
+    public static final String NO_EMOTION_PLACEHOLDER = "none";
 
     public static final String PRODUCT_NAME = "PRODUCT_NAME";
     public static final String SLOGAN_COUNT = "SLOGAN_COUNT";
@@ -92,9 +95,11 @@ public class CarsAdapter
         templates.add(template);
 
         final String suggestedWords = (String) parameters.get(SUGGESTED_WORDS);
-        for (final String word : suggestedWords.split(",")) {
-            for (final String synset : this.generator.getSynsetByWord(word)) {
-                template.addSynset(synset);
+        if (suggestedWords != null) {
+            for (final String word : suggestedWords.split(",")) {
+                for (final String synset : this.generator.getSynsetByWord(word)) {
+                    template.addSynset(synset);
+                }
             }
         }
 
@@ -108,7 +113,8 @@ public class CarsAdapter
         final Integer sloganCount = (int) parameters.get(SLOGAN_COUNT);
         final String productName = (String) parameters.get(PRODUCT_NAME);
         final Boolean useProductName = (Boolean) parameters.get(USE_PRODUCT_NAME_CREATIVELY);
-        final String emotion = (String) parameters.get(EMOTION);
+        final String inputEmotion = (String) parameters.get(EMOTION);
+        final String emotion = NO_EMOTION_PLACEHOLDER.equals(inputEmotion) ? null : inputEmotion;
         final List<de.tobiasloeser.slogangenerator.Slogan> generatedSlogans = this.generator
                 .generateSlogans(template, sloganCount, productName, useProductName, emotion);
 
@@ -146,8 +152,8 @@ public class CarsAdapter
 
     public static List<String> getAllEmotions()
     {
-        return Arrays.asList("positive", "negative", "anger", "anticipation", "disgust", "fear",
-                "joy", "sadness", "surprise", "trust");
+        return Arrays.asList(NO_EMOTION_PLACEHOLDER, "positive", "negative", "anger",
+                "anticipation", "disgust", "fear", "joy", "sadness", "surprise", "trust");
     }
 
     @Override
