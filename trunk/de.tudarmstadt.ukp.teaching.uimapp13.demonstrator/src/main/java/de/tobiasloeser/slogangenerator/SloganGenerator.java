@@ -92,7 +92,11 @@ public class SloganGenerator
             e.printStackTrace();
         }
         final ImportExport ie = new ImportExport();
-        this.emotionList = ie.importEmotions(this.emotionPath);
+
+        if(this.emotionPath != null && this.emotionPath != "")
+        {
+        	this.emotionList = ie.importEmotions(this.emotionPath);
+        }
         try {
             this.antonym = new Antonym(this.uby);
         }
