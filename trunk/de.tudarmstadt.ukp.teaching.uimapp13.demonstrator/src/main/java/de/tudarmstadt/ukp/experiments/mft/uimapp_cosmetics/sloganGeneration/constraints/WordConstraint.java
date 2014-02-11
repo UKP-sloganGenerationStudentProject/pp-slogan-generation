@@ -1,5 +1,6 @@
 package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.constraints;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import de.tudarmstadt.ukp.lmf.model.enums.EPartOfSpeech;
 import de.tudarmstadt.ukp.lmf.model.meta.SemanticLabel;
 
 public class WordConstraint
+implements Serializable
 {
     /*
      * a word constraint represents  a constraint derived from a suggested word for the slogan
@@ -25,6 +27,10 @@ public class WordConstraint
      * don't want to have several times the same suggested word in the same slogan.
      */
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7061909894105299962L;
     String _takenValue;
     String _lemma;
     ChunkPartType _chunkPartType;

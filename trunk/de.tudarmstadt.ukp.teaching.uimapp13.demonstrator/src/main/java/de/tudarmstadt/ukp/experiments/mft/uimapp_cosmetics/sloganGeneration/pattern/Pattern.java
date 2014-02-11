@@ -1,5 +1,6 @@
 package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.pattern;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chun
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunk.ChunkSolution;
 
 public class Pattern
+implements Serializable
 {
     /*
      * this class represents a pattern. It is identified by its id that depend on the chunkGenerics
@@ -18,6 +20,10 @@ public class Pattern
      */
 
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6075369273605316813L;
     //elements this pattern are made of
     private final ArrayList<Chunk> _elementList;
     //all the slogan from the slogan source file that correspond to this pattern

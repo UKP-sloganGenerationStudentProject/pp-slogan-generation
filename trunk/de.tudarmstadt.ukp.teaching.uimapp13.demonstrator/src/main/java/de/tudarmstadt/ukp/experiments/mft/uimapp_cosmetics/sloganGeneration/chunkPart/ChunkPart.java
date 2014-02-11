@@ -1,5 +1,6 @@
 package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunkPart;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chun
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkPartType;
 
 
-public class ChunkPart
+public class ChunkPart implements Serializable
 {
 
     /*
@@ -19,6 +20,11 @@ public class ChunkPart
      * - the Chunk that encapsulates this ChunkPart in the slogan it was derived from.
      * - the generic form of this ChunkPart (like an equivalence class that this instance is part of)
      */
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5552300315457638822L;
 
     //indicate if the value generated has to be the original value or if it can be deerived from it
     protected boolean _isValueDerivable;

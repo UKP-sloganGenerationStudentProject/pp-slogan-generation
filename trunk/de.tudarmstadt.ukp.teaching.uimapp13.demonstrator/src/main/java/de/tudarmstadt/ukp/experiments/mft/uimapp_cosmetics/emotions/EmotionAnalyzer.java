@@ -2,6 +2,7 @@ package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.emotions;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,8 +16,13 @@ import org.apache.pdfbox.util.PDFTextStripper;
  */
 
 public class EmotionAnalyzer
+implements Serializable
 {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -8429365874800772897L;
     String _path;
     HashMap<String, EmotionModel> _emotions;
 

@@ -1,5 +1,6 @@
 package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunk;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,8 +8,13 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Reso
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunkPart.ChunkPartSolution;
 
 public class ChunkSolution
+implements Serializable
 {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4071788481380397984L;
     private final Chunk _model;
     private final List<Integer> _constraintIds;
     private final List<ChunkPartSolution> _chunkPartSolutions;

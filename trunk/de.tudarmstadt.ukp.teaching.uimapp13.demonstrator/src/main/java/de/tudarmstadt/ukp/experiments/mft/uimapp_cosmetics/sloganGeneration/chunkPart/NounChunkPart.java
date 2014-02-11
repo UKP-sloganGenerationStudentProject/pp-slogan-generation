@@ -16,6 +16,11 @@ import de.tudarmstadt.ukp.lmf.model.semantics.Synset;
 public class NounChunkPart
     extends ChunkPart
 {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 9147130913729196541L;
+
     public NounChunkPart()
     {
         super();
