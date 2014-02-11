@@ -1,5 +1,6 @@
 package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunkPart;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,12 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.Ch
  * into an equivalence class, then it can replace every element of this class during the slogan
  * generation.
  */
-public class ChunkPartGeneric extends IndexElement
+public class ChunkPartGeneric extends IndexElement implements Serializable
 {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1507232787235496603L;
     /*
      * parameters that define all the ChunkParts contained in this ChunkPratGeneric instance
      */

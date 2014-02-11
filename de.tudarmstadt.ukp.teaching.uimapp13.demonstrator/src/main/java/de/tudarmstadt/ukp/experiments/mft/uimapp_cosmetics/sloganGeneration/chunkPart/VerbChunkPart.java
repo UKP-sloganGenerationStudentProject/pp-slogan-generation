@@ -16,7 +16,12 @@ public class VerbChunkPart
     extends ChunkPart
 {
 
-   public VerbChunkPart()
+   /**
+     *
+     */
+    private static final long serialVersionUID = 3501353623729320517L;
+
+public VerbChunkPart()
    {
        super();
        _isValueDerivable = false;

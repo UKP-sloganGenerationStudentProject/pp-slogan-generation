@@ -6,12 +6,16 @@ import static org.apache.uima.fit.factory.ExternalResourceFactory.createExternal
 import static org.apache.uima.fit.util.JCasUtil.select;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import org.apache.commons.lang.SerializationUtils;
 import org.apache.uima.analysis_engine.AnalysisEngineDescription;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.collection.CollectionReaderDescription;
@@ -69,9 +73,15 @@ public class SloganGenerator
     String _ubyDBUserName;
     String _ubyDBPassword;
 
+    String _productName;
+    String _patternToGenerate;
+    String _selectedPartOfBody;
+    List<String> _suggestedWords;
+    boolean _useUbyGeneration;
+
     PatternFactory _factory;
 
-    Resources _resources;
+    //Resources _resources;
     private String _web1TPathname;
     private final String _allowedWordsPath;
     private String _rejectedWordsPath;
@@ -81,7 +91,7 @@ public class SloganGenerator
         throws Exception
     {
 
-        final SloganGenerator generator = new SloganGenerator();
+        final SloganGenerator generator = SloganGenerator.restoreFromSerialized("src/main/resources/sloganGeneratorSerialized.txt");
 
         generator.useUbyForNewWords(true);
 
@@ -92,7 +102,11 @@ public class SloganGenerator
 
         //generator.setAllowedWordSearcher("/home/matthieuft/Documents/cosmeticsNgrams", "/home/matthieuft/Documents/rejectedWords.txt");
 
-        generator.init();
+//        generator.init();
+//
+//        // New file output stream for the file
+//        FileOutputStream fos = new FileOutputStream("src/main/resources/sloganGeneratorSerialized.txt");
+//        SerializationUtils.serialize(generator, fos);
 
         /*
          * Generation parameters
@@ -175,7 +189,12 @@ public class SloganGenerator
         this._ubyDBUserName = "";
         this._ubyDBPassword = "";
         this._allowedWordsPath = "";
-        this._resources = new Resources();
+        this._productName = "productName";
+        this._patternToGenerate = "";
+        this._selectedPartOfBody = "";
+        this._suggestedWords = new ArrayList<String>();
+        this._useUbyGeneration = true;
+        //this._resources = new Resources();
     }
 
     public void init()
@@ -196,18 +215,19 @@ public class SloganGenerator
         catch (final UbyInvalidArgumentException e) {
             e.printStackTrace();
         }
-        this._resources.setUby(uby);
+        //this._resources.setUby(uby);
 
         /*
          * setup web1t
          */
+
         final String dkproHome = System.getenv("DKPRO_HOME");
         String web1tPathname = dkproHome + "/web1t/ENGLISH/";
         if (this._web1TPathname != null) {
             web1tPathname = this._web1TPathname;
         }
         final JWeb1TSearcher lookup = new JWeb1TSearcher(new File(web1tPathname), 1, 1);
-        this._resources.setWordStatistic(lookup);
+//        this._resources.setWordStatistic(lookup);
 
 //
 //        String allowedWordsPath = "";
@@ -235,7 +255,7 @@ public class SloganGenerator
          * Emotion analyzer
          */
         final EmotionAnalyzer emotionAnalizer = new EmotionAnalyzer(this._emotionFilePath);
-        this._resources.setEmotionAnalizer(emotionAnalizer);
+//        this._resources.setEmotionAnalizer(emotionAnalizer);
 
         /*
          * set the pipe for the creation of the patterns
@@ -281,6 +301,32 @@ public class SloganGenerator
 
     }
 
+    public static SloganGenerator restoreFromSerialized(String serializedFile)
+    {
+        // New file output stream for the file
+     // Open FileInputStream to the file
+        FileInputStream fis=null;
+        SloganGenerator output = null;
+        try {
+            fis = new FileInputStream(serializedFile);
+            output = (SloganGenerator) SerializationUtils.deserialize(fis);
+            try {
+                fis.close();
+            }
+            catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return output;
+
+    }
+
     /*
      * Setters necessary to use before init();
      */
@@ -307,7 +353,7 @@ public class SloganGenerator
 
     public void setProductName(final String name)
     {
-        this._resources.setProductName(name);
+        this._productName=name;
     }
 
     public void setWeb1TPathname(final String web1tPathname)
@@ -326,22 +372,22 @@ public class SloganGenerator
                 suggestedWordList.add(trimmed);
             }
         }
-        this._resources.setSuggestedWords(suggestedWordList);
+        this._suggestedWords=suggestedWordList;
     }
 
     public void selectPattern(final String chunkPatternAsString)
     {
-        this._resources.setPatternToGenerate(chunkPatternAsString);
+        this._patternToGenerate=chunkPatternAsString;
     }
 
     public void selectPartOfBody(final String part)
     {
-        this._resources.setSelectedPartOfBody(part);
+        this._selectedPartOfBody = part;
     }
 
     public void useUbyForNewWords(final boolean tof)
     {
-        this._resources.useUbyForNewWords(tof);
+        this._useUbyGeneration = tof;
     }
 
 
@@ -351,7 +397,44 @@ public class SloganGenerator
      */
     public void testConstraints()
     {
-        this._factory.checkForConstraints(this._resources);
+
+        Uby uby = null;
+        final DBConfig db = new DBConfig(this._ubyDBURL, this._ubyDBDriver, this._ubyDBDriverName,
+                this._ubyDBUserName, this._ubyDBPassword, false);
+        try {
+            uby = new Uby(db);
+        }
+        catch (final UbyInvalidArgumentException e) {
+            e.printStackTrace();
+        }
+        /*
+         * setup web1t
+         */
+
+        final String dkproHome = System.getenv("DKPRO_HOME");
+        String web1tPathname = dkproHome + "/web1t/ENGLISH/";
+        if (this._web1TPathname != null) {
+            web1tPathname = this._web1TPathname;
+        }
+        JWeb1TSearcher lookup=null;
+        try {
+            lookup = new JWeb1TSearcher(new File(web1tPathname), 1, 1);
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        /*
+         * Emotion analyzer
+         */
+        final EmotionAnalyzer emotionAnalizer = new EmotionAnalyzer(this._emotionFilePath);
+
+        Resources resources = new Resources(uby, emotionAnalizer, lookup);
+        resources.setGenerationInformation(_productName, _patternToGenerate, _selectedPartOfBody, _suggestedWords, _useUbyGeneration);
+
+
+
+        this._factory.checkForConstraints(resources);
         System.out.println(this._factory);
         /*
         this._factory.releaseConstraints();
@@ -368,7 +451,40 @@ public class SloganGenerator
 
     public List<String> generateSlogans(final int nbrOfSlogans)
     {
-        return this._factory.generateSlogans(this._resources, nbrOfSlogans);
+        Uby uby = null;
+        final DBConfig db = new DBConfig(this._ubyDBURL, this._ubyDBDriver, this._ubyDBDriverName,
+                this._ubyDBUserName, this._ubyDBPassword, false);
+        try {
+            uby = new Uby(db);
+        }
+        catch (final UbyInvalidArgumentException e) {
+            e.printStackTrace();
+        }
+        /*
+         * setup web1t
+         */
+
+        final String dkproHome = System.getenv("DKPRO_HOME");
+        String web1tPathname = dkproHome + "/web1t/ENGLISH/";
+        if (this._web1TPathname != null) {
+            web1tPathname = this._web1TPathname;
+        }
+        JWeb1TSearcher lookup=null;
+        try {
+            lookup = new JWeb1TSearcher(new File(web1tPathname), 1, 1);
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        /*
+         * Emotion analyzer
+         */
+        final EmotionAnalyzer emotionAnalizer = new EmotionAnalyzer(this._emotionFilePath);
+
+        Resources resources = new Resources(uby, emotionAnalizer, lookup);
+        resources.setGenerationInformation(_productName, _patternToGenerate, _selectedPartOfBody, _suggestedWords, _useUbyGeneration);
+        return this._factory.generateSlogans(resources, nbrOfSlogans);
     }
 
 
@@ -379,6 +495,40 @@ public class SloganGenerator
     public void extractPatterns(final JCas aJCas)
         throws AnalysisEngineProcessException
     {
+
+        Uby uby = null;
+        final DBConfig db = new DBConfig(this._ubyDBURL, this._ubyDBDriver, this._ubyDBDriverName,
+                this._ubyDBUserName, this._ubyDBPassword, false);
+        try {
+            uby = new Uby(db);
+        }
+        catch (final UbyInvalidArgumentException e) {
+            e.printStackTrace();
+        }
+        /*
+         * setup web1t
+         */
+
+        final String dkproHome = System.getenv("DKPRO_HOME");
+        String web1tPathname = dkproHome + "/web1t/ENGLISH/";
+        if (this._web1TPathname != null) {
+            web1tPathname = this._web1TPathname;
+        }
+        JWeb1TSearcher lookup=null;
+        try {
+            lookup = new JWeb1TSearcher(new File(web1tPathname), 1, 1);
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        /*
+         * Emotion analyzer
+         */
+        final EmotionAnalyzer emotionAnalizer = new EmotionAnalyzer(this._emotionFilePath);
+
+        Resources resources = new Resources(uby, emotionAnalizer, lookup);
+        resources.setGenerationInformation(_productName, _patternToGenerate, _selectedPartOfBody, _suggestedWords, _useUbyGeneration);
 
         ChunkPatternAnnotation prevPatternAnnot = null;
         boolean isNewPattern = false;
@@ -515,7 +665,7 @@ public class SloganGenerator
             }
 
             //finish the chunk
-            this._factory.finishChunk(this._resources);
+            this._factory.finishChunk(resources);
         }
 
         if (prevPatternAnnot != null) {

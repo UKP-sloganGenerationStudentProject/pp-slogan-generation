@@ -11,6 +11,11 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Reso
 public class ProductNameChunkPart
 extends ChunkPart
 {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4553356923866259712L;
+
     public ProductNameChunkPart()
     {
         super();

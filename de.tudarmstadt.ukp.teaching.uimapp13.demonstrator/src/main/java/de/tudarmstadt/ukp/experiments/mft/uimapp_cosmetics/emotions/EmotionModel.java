@@ -1,16 +1,23 @@
 package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.emotions;
 
+import java.io.Serializable;
+
 /**
  *Modelizes the emotion associated to a word
  * @author Felix Rieger
  *
  */
 
-public class EmotionModel {
+public class EmotionModel
+implements Serializable {
 
 	// abandon positive:0 negative:1 anger:0 anticipation:0 disgust:0 fear:1 joy:0 sadness:1 surprise:0 trust:0
 
-	String word;
+	/**
+     *
+     */
+    private static final long serialVersionUID = -8630481852073754753L;
+    String word;
 	boolean positive;
 	boolean negative;
 	boolean anger;

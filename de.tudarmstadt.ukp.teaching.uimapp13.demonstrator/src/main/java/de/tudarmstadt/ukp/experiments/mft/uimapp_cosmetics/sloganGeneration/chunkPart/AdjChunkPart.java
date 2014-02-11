@@ -15,6 +15,11 @@ import de.tudarmstadt.ukp.lmf.model.semantics.Synset;
 public class AdjChunkPart
 extends ChunkPart
 {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5829729871414277169L;
+
     public AdjChunkPart()
     {
         super();

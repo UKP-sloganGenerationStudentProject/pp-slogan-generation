@@ -12,14 +12,11 @@ import de.tudarmstadt.ukp.lmf.api.Uby;
 public class Resources
 {
 
-    /*
-     * This class encapsulates all the resources that are required at the different
-     * steps of the pattern generation
-     */
 
     Uby _uby;
     EmotionAnalyzer _emotionAnalizer;
     JWeb1TSearcher _web1tWordStatistic;
+    List<WordConstraint> _suggestedWordsConstraints;
 //    JWeb1TSearcher _allowedWordsSearcher;
 //    File _rejectedWordsOutput;
 
@@ -27,7 +24,6 @@ public class Resources
     String _patternToGenerate;
     String _selectedPartOfBody;
     List<String> _suggestedWords;
-    List<WordConstraint> _suggestedWordsConstraints;
 
     boolean _useUbyGeneration;
 
@@ -39,6 +35,7 @@ public class Resources
         this._uby = null;
         this._emotionAnalizer = null;
         this._web1tWordStatistic = null;
+        this._suggestedWordsConstraints = new ArrayList<>();
 //        this._allowedWordsSearcher = null;
 //        this._rejectedWordsOutput = null;
         this._productName = "productName";
@@ -46,7 +43,6 @@ public class Resources
         this._selectedPartOfBody = "";
         this._suggestedWords = new ArrayList<String>();
         this._useUbyGeneration = true;
-        this._suggestedWordsConstraints = new ArrayList<>();
     }
 
     public Resources(final Uby uby, final EmotionAnalyzer emotionAnalizer,
@@ -56,6 +52,17 @@ public class Resources
         this._uby = uby;
         this._emotionAnalizer = emotionAnalizer;
         this._web1tWordStatistic = web1tSearcher;
+    }
+
+    public void setGenerationInformation(String productName, String patternToGenerate, String selectedPartOfBody, List<String> suggestedWords, boolean useUbyGeneration)
+    {
+        _productName = productName;
+        _patternToGenerate = patternToGenerate;
+        _selectedPartOfBody = selectedPartOfBody;
+        _suggestedWords = suggestedWords;
+        _useUbyGeneration = useUbyGeneration;
+
+        generateSuggestedWordsConstraints();
     }
 
     public Uby getUby()
