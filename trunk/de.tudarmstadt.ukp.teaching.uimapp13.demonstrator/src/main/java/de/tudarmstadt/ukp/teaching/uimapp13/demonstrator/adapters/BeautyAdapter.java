@@ -40,7 +40,8 @@ public class BeautyAdapter
     public void initialize(final Map<String, Object> parameters)
         throws Exception
     {
-        this.generator = new SloganGenerator();
+        //we restore from the serialized so that it doesn't need to be initialized
+        this.generator = SloganGenerator.restoreFromSerialized("src/main/resources/sloganGeneratorSerialized.txt");
 
         final DemonstratorConfig config = DemonstratorConfig.getInstance();
 
@@ -52,7 +53,7 @@ public class BeautyAdapter
         this.generator.setUbyDBData(config.getUbyUrl(), config.getJdbcDriver(),
                 config.getJdbcDriverName(), config.getUbyUser(), config.getUbyPassword());
 
-        this.generator.init();
+        //this.generator.init();
 
     }
 
