@@ -267,7 +267,8 @@ public class TemplateGenerator {
 		synsets.add("WN_Synset_100395"); // new, modern
 		synsets.add("WN_Synset_101016"); // raw, new
 		synsets.add("WN_Synset_105120"); // fresh, novel, new
-		synsets.add("WN_Synset_96816"); // expectant, heavy, enceinte, large, big, gravid, with child, great
+		//synsets.add("WN_Synset_96816"); // expectant, heavy, enceinte, large, big, gravid, with child, great
+		synsets.add("WN_Synset_103411"); // large, big
 		synsets.add("WN_Synset_98639"); // different
 		synsets.add("WN_Synset_109542"); // dependable, honest, true, reliable
 		synsets.add("WN_Synset_100612"); //pure
