@@ -40,10 +40,11 @@ public class BeautyAdapter
     public void initialize(final Map<String, Object> parameters)
         throws Exception
     {
-        //we restore from the serialized so that it doesn't need to be initialized
-        this.generator = SloganGenerator.restoreFromSerialized("src/main/resources/sloganGeneratorSerialized.txt");
-
         final DemonstratorConfig config = DemonstratorConfig.getInstance();
+
+        // we restore from the serialized so that it doesn't need to be initialized
+        this.generator = SloganGenerator.restoreFromSerialized(DemonstratorConfig.getResourcePath()
+                + "/sloganGeneratorSerialized.txt");
 
         this.generator.setWeb1TPathname(config.getWeb1TPath());
         this.generator.setEmotionFilePath(DemonstratorConfig.getResourcePath()
@@ -53,7 +54,7 @@ public class BeautyAdapter
         this.generator.setUbyDBData(config.getUbyUrl(), config.getJdbcDriver(),
                 config.getJdbcDriverName(), config.getUbyUser(), config.getUbyPassword());
 
-        //this.generator.init();
+        // this.generator.init();
 
     }
 

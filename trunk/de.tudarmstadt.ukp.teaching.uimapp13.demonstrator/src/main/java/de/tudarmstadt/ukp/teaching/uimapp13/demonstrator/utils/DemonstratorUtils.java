@@ -10,6 +10,9 @@ public class DemonstratorUtils
     public static String convertSeparator(final String wordsSeparatedBySepFrom,
             final String sepFrom, final String sepTo)
     {
+        if (null == wordsSeparatedBySepFrom) {
+            return null;
+        }
         return Joiner.on(sepTo).join(Arrays.asList(wordsSeparatedBySepFrom.split(sepFrom)));
     }
 
