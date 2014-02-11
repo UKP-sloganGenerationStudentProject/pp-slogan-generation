@@ -21,7 +21,7 @@ public class Web1THelper
 
     public Web1THelper(final Uby uby, final File web1TFolder)
         throws IOException
-    {
+    {    	
         this.web1TSearcher = new JWeb1TSearcher(web1TFolder, 1, 3);
 
         this.prepositionCount = new HashMap<String, Long>();

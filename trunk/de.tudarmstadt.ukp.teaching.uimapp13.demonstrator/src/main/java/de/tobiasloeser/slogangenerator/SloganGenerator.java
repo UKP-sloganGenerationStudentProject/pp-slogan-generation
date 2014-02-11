@@ -34,14 +34,14 @@ public class SloganGenerator
     private String emotion;
     private int emotionChances = 30;
     private List<Emotion> emotionList;
-    private String database = "localhost/uby_medium_0_3_0";
-    private String dbuser = "root";
-    private String dbpassword = "";
+    public String database = "localhost/uby_medium_0_3_0";
+    public String dbuser = "root";
+    public String dbpassword = "";
     private Antonym antonym;
     private String oxymoronSynset;
     private Web1THelper web1tHelper;
-    private String emotionPath;
-    private String web1TPath;
+    public String emotionPath;
+    public String web1TPath;
 
     public SloganGenerator(final String _database, final String _dbuser, final String _dbpassword,
             final String _emotionPath, final String _web1TPath)
@@ -104,13 +104,16 @@ public class SloganGenerator
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        try {
-            final File web1TFolder = new File(this.web1TPath);
-            this.web1tHelper = new Web1THelper(this.uby, web1TFolder);
-        }
-        catch (final IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        if(this.web1TPath != null && this.web1TPath != "")
+        {
+	        try {
+	            final File web1TFolder = new File(this.web1TPath);
+	            this.web1tHelper = new Web1THelper(this.uby, web1TFolder);
+	        }
+	        catch (final IOException e) {
+	            // TODO Auto-generated catch block
+	            e.printStackTrace();
+	        }
         }
     }
 
@@ -146,6 +149,8 @@ public class SloganGenerator
      */
     public Slogan generateSlogan(final SloganTemplate template)
     {
+    	if(template == null)
+    		return null;
         Slogan slogan = new Slogan(template.isListing(), template.getSeparator());
         this.position = 0;
         this.firstWord = true;
@@ -221,7 +226,9 @@ public class SloganGenerator
                 word = this.getWordByPos(part, EPartOfSpeech.noun);
             }
             while (slogan.contains(word));
-            return this.web1tHelper.getPrepositionAndWord(word);
+            if(web1tHelper != null)
+            	return this.web1tHelper.getPrepositionAndWord(word);
+            return word;
         }
         else {
             return "";
