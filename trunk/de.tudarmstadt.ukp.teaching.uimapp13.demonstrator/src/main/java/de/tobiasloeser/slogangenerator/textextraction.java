@@ -11,10 +11,15 @@ import org.apache.pdfbox.util.PDFTextStripper;
 
 public class textextraction {
 
-	public List<Emotion> getEmotions() {
+	public List<Emotion> getEmotions()
+	{
+		return getEmotionsByPath("input/NRCemotionlexicon.pdf");
+	}
+	
+	public List<Emotion> getEmotionsByPath(String path) {
 
 		try {
-        File input = new File("input/NRCemotionlexicon.pdf");
+        File input = new File(path);
         PDDocument pd = PDDocument.load(input);
         PDFTextStripper stripper = new PDFTextStripper();
 
