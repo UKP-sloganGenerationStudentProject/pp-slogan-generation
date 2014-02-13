@@ -10,7 +10,14 @@ import de.koch.uim_project.util.DbConfig;
 public final class DemonstratorConfig
 {
 
+    /**
+     * This resource path should work for development setup.
+     * When running on a server, an absolute value for this 
+     * environment variable is necessary.
+     */
     public static final String RESOURCES_ENVVAR = "DEMO_RES";
+
+    private static final String DEFAULT_RESOURCES_ENVVAR = "./src/main/resources";
 
     private static DemonstratorConfig instance;
     private static boolean isCachingProperties = false;
@@ -40,15 +47,20 @@ public final class DemonstratorConfig
     private void loadConfig()
         throws IOException
     {
-        this.properties.load(new FileInputStream(getResourcePath() + "/config.properties"));
+        this.properties.load(new FileInputStream(getConfigFile()));
     }
 
     public static String getResourcePath()
     {
-        final String resourcePath = System.getenv(RESOURCES_ENVVAR);
-        if (null == resourcePath) {
-            throw new IllegalStateException("Need to set environment variable " + RESOURCES_ENVVAR
-                    + " to the absolute path of the resources directory.");
+        final String resourcePath;
+        if (null == System.getenv(RESOURCES_ENVVAR)) {
+            resourcePath = DEFAULT_RESOURCES_ENVVAR;
+            // throw new IllegalStateException("Need to set environment variable " +
+            // RESOURCES_ENVVAR
+            // + " to the absolute path of the resources directory.");
+        }
+        else {
+            resourcePath = System.getenv(RESOURCES_ENVVAR);
         }
         return resourcePath;
     }
@@ -147,4 +159,13 @@ public final class DemonstratorConfig
         return new DbConfig(this.getKochDbUrl(), this.getKochDbUser(), this.getKochDbPassword());
     }
 
+    public static boolean canGenerateInstance()
+    {
+        return getConfigFile().exists();
+    }
+
+    private static File getConfigFile()
+    {
+        return new File(getResourcePath() + "/config.properties");
+    }
 }
