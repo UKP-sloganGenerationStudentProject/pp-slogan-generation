@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.adapters.Adapter;
+import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.model.ProductDomain;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.model.Slogan;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.web.HomePage;
 import de.tudarmstadt.ukp.teaching.uimapp13.demonstrator.web.SessionAttributes;
@@ -39,10 +40,16 @@ public abstract class DomainSpecificForm
         final Serializable sessionGenerationConfig = this.getSession().getAttribute(
                 SessionAttributes.CONFIG);
         this.previousConfiguration = new HashMap<>();
-        if (sessionGenerationConfig != null) {
-            @SuppressWarnings("unchecked")
-            final HashMap<String, Object> cachedConfig = (HashMap<String, Object>) sessionGenerationConfig;
-            this.previousConfiguration.putAll(cachedConfig);
+
+        final Adapter tmpAdapter = this.createAdapter();
+        final ProductDomain adapterDomain = tmpAdapter.getDomain();
+        final Serializable sessionDomain = this.getSession().getAttribute(SessionAttributes.DOMAIN);
+        if (adapterDomain.equals(sessionDomain)) {
+            if (sessionGenerationConfig != null) {
+                @SuppressWarnings("unchecked")
+                final HashMap<String, Object> cachedConfig = (HashMap<String, Object>) sessionGenerationConfig;
+                this.previousConfiguration.putAll(cachedConfig);
+            }
         }
 
         this.initializeDefaultValues();
