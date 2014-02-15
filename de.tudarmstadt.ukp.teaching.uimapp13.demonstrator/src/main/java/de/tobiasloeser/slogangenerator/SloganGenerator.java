@@ -20,7 +20,6 @@ public class SloganGenerator
     implements Serializable
 {
     private static final long serialVersionUID = 8708478297667499513L;
-
     private int alliterationChances = 30;
     private int resetchances = 30;
     private Random random;
@@ -43,6 +42,14 @@ public class SloganGenerator
     public String emotionPath;
     public String web1TPath;
 
+    /**
+     * Possible Constructor for manual settings
+     * @param _database url of the database
+     * @param _dbuser user of the database
+     * @param _dbpassword password for the database
+     * @param _emotionPath path to the emotion list
+     * @param _web1TPath path to Web1T
+     */
     public SloganGenerator(final String _database, final String _dbuser, final String _dbpassword,
             final String _emotionPath, final String _web1TPath)
     {
@@ -54,6 +61,20 @@ public class SloganGenerator
         this.Init();
     }
 
+    /**
+     * Constructor for the use of the config object
+     * @param config SGConfig object
+     */
+    public SloganGenerator(SGConfig config)
+    {
+        this.web1TPath = config.Web1TPath;
+        this.emotionPath = config.EmotionPath;
+        this.database = config.DBUrl;
+        this.dbuser = config.DBUser;
+        this.dbpassword = config.DBPassword;
+        this.Init();    	
+    }
+    
     public SloganGenerator()
     {
         this.Init();
@@ -78,6 +99,9 @@ public class SloganGenerator
         return synsets;
     }
 
+    /**
+     * Initializes the slogan generator, lists and Uby. 
+     */
     public void Init()
     {
         this.oxymoronSynset = null;
@@ -117,6 +141,12 @@ public class SloganGenerator
         }
     }
 
+    /**
+     * another possible start point to generate slogans, but without any settings except the template and the count
+     * @param template the slogan template
+     * @param count the count of slogans to be generated
+     * @return
+     */
     public List<Slogan> generateSlogans(final SloganTemplate template, final int count)
     {
         final List<Slogan> slogans = new ArrayList<Slogan>();
@@ -129,8 +159,41 @@ public class SloganGenerator
         return slogans;
     }
 
-    public List<Slogan> generateSlogans(final SloganTemplate template, final int count,
-            final String _productname, final boolean _useProductnameCreative, final String _emotion)
+    /**
+     * The same like generateSlogans, but for the use of the config object. 
+     * @param config the SGConfig object
+     * @return a list of slogans
+     */
+    public List<Slogan> generateSlogans(SGConfig config)
+    {
+    	SloganTemplate template = TemplateGenerator.getTemplateById(config.TemplateId);
+        for (final String word : config.WordList) {
+            try {
+				for (final String synset : this.getSynsetByWord(word)) {
+				    template.addSynset(synset);
+				}
+			} catch (UbyInvalidArgumentException e) {
+				e.printStackTrace();
+			}
+        }
+    	
+    	return generateSlogans(TemplateGenerator.getTemplateById(config.TemplateId), 
+    			config.SloganCount, config.ProductName, 
+    			config.UseProductNameCreative, config.Emotion, config.GoodLuck);    	
+    }
+    
+    /**
+     *  start point for the generation process. 
+     *  
+     * @param template the slogan template
+     * @param count the count of slogans to be generated
+     * @param _productname a product name
+     * @param _useProductnameCreative true, if product name can be used creatively
+     * @param _emotion an emotion
+     * @return a list of slogans
+     */
+    public List<Slogan> generateSlogans(SloganTemplate template, final int count,
+            final String _productname, final boolean _useProductnameCreative, final String _emotion, boolean goodLuck)
     {
         this.useProductnameCreative = _useProductnameCreative;
         if (_productname != null) {
@@ -138,6 +201,16 @@ public class SloganGenerator
         }
         this.productname = _productname;
         this.emotion = _emotion;
+        if(goodLuck)
+        {
+        	final GoodLuck gl = new GoodLuck(this.database, this.dbuser, this.dbpassword);
+        	try {
+				template = gl.AddMoreVerbs(template);
+			} catch (UbyInvalidArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
         return this.generateSlogans(template, count);
     }
 
@@ -211,6 +284,14 @@ public class SloganGenerator
         return slogan;
     }
 
+    /**
+     * Splits the chunk in part of speeches
+     * 
+     * @param slogan current slogan to generate
+     * @param part current part of the template
+     * @param onlyNoun if nc chunk and only noun, then true, else false and adjective plus noun
+     * @return the word, which represents the part of the slogan
+     */
     private String getWordByChunk(final Slogan slogan, final TemplatePart part,
             final boolean onlyNoun)
     {
@@ -247,14 +328,18 @@ public class SloganGenerator
             return this.getWordByPos(part, EPartOfSpeech.adjective) + " "
                     + this.getWordByPos(part, EPartOfSpeech.noun);
         }
-        else {
-            if (this.hasProductname && this.getRandom(2) < 1) {
-                return this.productname;
-            }
-            return this.getWordByPos(part, EPartOfSpeech.noun);
+        if (this.hasProductname && this.getRandom(2) < 1) {
+            return this.productname;
         }
+        return this.getWordByPos(part, EPartOfSpeech.noun);
     }
 
+    /**
+     * Searches for a possible word for a given part of speech, but with conditions like alliteration, oxymoron and so on
+     * @param part current template part
+     * @param pos needed part of speech
+     * @return possible word as string
+     */
     private String getWordByPos(final TemplatePart part, final EPartOfSpeech pos)
     {
         // if product name shall be used as a POS and it is possible to use it as the searched POS
@@ -306,6 +391,13 @@ public class SloganGenerator
         return result;
     }
 
+    /**
+     * Simple method to get a word which is a given part of speech
+     * 
+     * @param part current template part
+     * @param pos needed part of speech
+     * @return found word as string
+     */
     private String getWordAsString(final TemplatePart part, final EPartOfSpeech pos)
     {
         Synset synset = new Synset();
@@ -330,6 +422,11 @@ public class SloganGenerator
                 .getLemmaForm();
     }
 
+    /**
+     * Simple method to get a random integer, with 0 <= x < max.
+     * @param max integer under which the result has to be
+     * @return random integer
+     */
     private int getRandom(final int max)
     {
         return this.random.nextInt(max);
@@ -356,6 +453,12 @@ public class SloganGenerator
         return false;
     }
 
+    /**
+     * Checks, whether a given word is a given part of speech
+     * @param word given word
+     * @param pos given part of speech
+     * @return true, if word is part of speech
+     */
     private boolean isWordPos(final String word, final EPartOfSpeech pos)
     {
         try {

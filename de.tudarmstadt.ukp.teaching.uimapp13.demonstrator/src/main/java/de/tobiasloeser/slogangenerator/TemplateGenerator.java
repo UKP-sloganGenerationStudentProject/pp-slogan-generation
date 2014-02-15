@@ -3,8 +3,18 @@ package de.tobiasloeser.slogangenerator;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class generates the templates for the slogans. 
+ * 
+ * @author tobias
+ *
+ */
 public class TemplateGenerator {
 	
+	/**
+	 * returns all possible templates
+	 * @return list of slogan templates
+	 */
 	public static List<SloganTemplate> getAllTemplates()
 	{
 		List<SloganTemplate> templates = new ArrayList<SloganTemplate>();
@@ -16,6 +26,11 @@ public class TemplateGenerator {
 		return templates;
 	}
 	
+	/**
+	 * returns the slogan template with the given id
+	 * @param id id of the template
+	 * @return slogan template with given id
+	 */
 	public static SloganTemplate getTemplateById(int id)
 	{
 		switch(id)
@@ -33,6 +48,10 @@ public class TemplateGenerator {
 		return null;
 	}
 
+	/**
+	 * Creates the slogan template NC with Oxymoron
+	 * @return slogan template with id 2
+	 */
 	private static SloganTemplate createTemplate_NC_WITH_OXYMORON() {
 		SloganTemplate template = new SloganTemplate("2", "NC", false, true, true, ",");
 		TemplatePart part = new TemplatePart(template, 0, "NC", false, 3);
@@ -48,6 +67,10 @@ public class TemplateGenerator {
 		return template;	
 	}
 
+	/**
+	 * Creates the slogan template NC VC NC
+	 * @return slogan template with id 5
+	 */
 	private static SloganTemplate createTemplate_NC_VC_NC_WITHOUT_ALLITERATION()
 	{
 		SloganTemplate template = new SloganTemplate("5", "VC NC", false, false, false, "");
@@ -80,6 +103,10 @@ public class TemplateGenerator {
 		return template;
 	}
 	
+	/**
+	 * Creates the slogan template NC VC NC with alliteration
+	 * @return slogan template with id 6
+	 */
 	private static SloganTemplate createTemplate_NC_VC_NC_WITH_ALLITERATION()
 	{
 		SloganTemplate template = new SloganTemplate("6", "VC NC", true, false, false, "");
@@ -112,6 +139,10 @@ public class TemplateGenerator {
 		return template;
 	}
 	
+	/**
+	 * Creates the slogan template NC with alliteration
+	 * @return slogan template with id 1
+	 */
 	private static SloganTemplate createTemplate_NC_WITH_ALLITERATION()
 	{
 		SloganTemplate template = new SloganTemplate("1", "NC", true, false, true, ",");
@@ -128,6 +159,10 @@ public class TemplateGenerator {
 		return template;
 	}
 	
+	/**
+	 * Creates the slogan template NC
+	 * @return slogan template with id 2
+	 */
 	private static SloganTemplate createTemplate_NC_WITHOUT_ALLITERATION()
 	{
 		SloganTemplate template = new SloganTemplate("2", "NC", false, false, true, ",");
@@ -144,6 +179,10 @@ public class TemplateGenerator {
 		return template;		
 	}
 	
+	/**
+	 * Creates the slogan template NC VC
+	 * @return slogan template with id 3
+	 */
 	private static SloganTemplate createTemplate_VC_NC_WITHOUT_ALLITERATION()
 	{
 		SloganTemplate template = new SloganTemplate("3", "VC NC", false, false, false, "");
@@ -166,6 +205,10 @@ public class TemplateGenerator {
 		return template;
 	}
 	
+	/**
+	 * Creates the slogan template VC NC with alliteration
+	 * @return slogan template with id 4
+	 */
 	private static SloganTemplate createTemplate_VC_NC_WITH_ALLITERATION() {
 		SloganTemplate template = new SloganTemplate("4", "VC NC", true, false, false, "");
 		TemplatePart part1 = new TemplatePart(template, 0, "VC", false, 1);
@@ -187,6 +230,10 @@ public class TemplateGenerator {
 		return template;
 	}
 	
+	/**
+	 * Creates the slogan template NC PC NC
+	 * @return slogan template with id 7
+	 */
 	private static SloganTemplate createTemplate_NC_PC_NC_WITHOUT_ALLITERATION() {
 		SloganTemplate template = new SloganTemplate("7", "NC PC NC", false, false, false, "");
 		TemplatePart part1 = new TemplatePart(template, 0, "NC", false, 1);
@@ -208,6 +255,10 @@ public class TemplateGenerator {
 		return template;	
 	}
 	
+	/**
+	 * Creates the slogan template NC PC NC with alliteration
+	 * @return slogan template with id 8
+	 */
 	private static SloganTemplate createTemplate_NC_PC_NC_WITH_ALLITERATION() {
 		SloganTemplate template = new SloganTemplate("8", "NC PC NC", true, false, false, "");
 		TemplatePart part1 = new TemplatePart(template, 0, "NC", false, 1);
@@ -229,6 +280,10 @@ public class TemplateGenerator {
 		return template;	
 	}
 	
+	/**
+	 * generates a list of string with synsets of nouns
+	 * @return list of string with synsets
+	 */
 	private static List<String> getNounSynsets()
 	{
 		List<String> synsets = new ArrayList<String>();
@@ -260,6 +315,10 @@ public class TemplateGenerator {
 		return synsets;
 	}
 	
+	/**
+	 * generates a list of string with synsets of adjectives
+	 * @return list of string with synsets
+	 */
 	private static List<String> getAdjectiveSynsets()
 	{
 		List<String> synsets = new ArrayList<String>();
@@ -281,6 +340,10 @@ public class TemplateGenerator {
 		return synsets;
 	}
 	
+	/**
+	 * generates a list of string with synsets of verbs
+	 * @return list of string with synsets
+	 */
 	private static List<String> getVerbSynsets()
 	{
 		List<String> synsets = new ArrayList<String>();

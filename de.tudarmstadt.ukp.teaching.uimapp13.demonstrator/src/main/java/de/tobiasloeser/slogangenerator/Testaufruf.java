@@ -1,6 +1,6 @@
 package de.tobiasloeser.slogangenerator;
 
-import de.tudarmstadt.ukp.lmf.exceptions.UbyInvalidArgumentException;
+import java.util.List;
 
 public class Testaufruf
 {
@@ -12,16 +12,14 @@ public class Testaufruf
         sgc.DBUser = "root";
         sgc.DBPassword = "";
         sgc.TemplateId = 9;
-        // sgc.WordList.add("Car");
         sgc.SloganCount = 10;
         sgc.Web1TPath = "C:/Users/tobias/workspace/de.tobiasloeser.slogangenerator/web1t/ENGLISH";
         sgc.EmotionPath = "C:/Users/tobias/workspace/de.tobiasloeser.slogangenerator/src/main/resources/Emotionlist.sg";
-        try {
-            Main.main(sgc);
-        }
-        catch (final UbyInvalidArgumentException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        SloganGenerator generator = new SloganGenerator(sgc);
+		List<Slogan> slogans = generator.generateSlogans(sgc);
+		for(Slogan slogan : slogans)
+		{
+			System.out.println(slogan.toString());
+		}
     }
 }

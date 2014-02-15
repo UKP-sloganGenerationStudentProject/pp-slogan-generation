@@ -2,9 +2,19 @@ package de.tobiasloeser.slogangenerator;
 
 import java.util.List;
 
+/**
+ * A simple class for generating the emotion list.
+ * 
+ * @author tobias
+ *
+ */
 public class EmotionListGenerator {
 	
-	// Input: Path to Emotion Lexicon, Path to store Emotion List
+	/**
+	 * The methodm which generates the emotion list.
+	 * 
+	 * @param args Array of string which needs the path to the NRC Emotion Lexicon in index1 and the path to store the emotion list in index 2
+	 */
 	public static void main(final String[] args)
     {
 		String emotionLexiconPath = args[0];

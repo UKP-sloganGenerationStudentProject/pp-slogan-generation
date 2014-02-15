@@ -19,6 +19,12 @@ public class Antonym
     private Uby uby;
     private Lexicon lex;
 
+    /**
+     * Constructor stets UBY and the needed Lexicon (OmegaWikieng).
+     * 
+     * @param _uby The UBY instance
+     * @throws UbyInvalidArgumentException
+     */
     public Antonym(final Uby _uby)
         throws UbyInvalidArgumentException
     {
@@ -26,6 +32,12 @@ public class Antonym
         this.lex = this.uby.getLexiconByName("OmegaWikieng");
     }
 
+    /**
+     * Checks whether there is an antonym for the given word.
+     * 
+     * @param word word, for which an antonym is needed
+     * @return
+     */
     public boolean HasAntonym(final String word)
     {
         final List<LexicalEntry> entries = this.uby.getLexicalEntries(word, this.lex);
@@ -43,6 +55,12 @@ public class Antonym
         return false;
     }
 
+    /**
+     * Searches the Synset for the given word.
+     * 
+     * @param word word, for which the synset is needed
+     * @return
+     */
     public String GetAntonymAsSynset(final String word)
     {
         final List<LexicalEntry> entries = this.uby.getLexicalEntries(word, this.lex);

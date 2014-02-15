@@ -19,16 +19,27 @@ import de.tudarmstadt.ukp.lmf.model.semantics.Synset;
 import de.tudarmstadt.ukp.lmf.transform.DBConfig;
 
 
-// This class tries to add more synsets to the Slogan Template
+/**
+ *  This class tries to add more synsets of verbs to the Slogan Templates.
+ * 
+ * @author tobias
+ *
+ */
 
 public class GoodLuck {
 	
 	private Uby uby;
 	Lexicon lexVerbNet;
 	Lexicon lexWordNet;
-	
 	private Connection connection;
 
+	/**
+	 * Constructor which initializes UBY and the lexicons VerbNet and WordNet
+	 * 
+	 * @param database URL to the database
+	 * @param dbuser database user
+	 * @param dbpassword database password
+	 */
 	public GoodLuck(String database, String dbuser, String dbpassword)
 	{
 		{
@@ -50,6 +61,14 @@ public class GoodLuck {
 		}
 	}
 	
+	/**
+	 * This function goes through all templates, all template parts and all synsets. 
+	 * If it is a verb, it tries to find more verbs with the same semantic label and adds them to the template part.
+	 * 
+	 * @param templates a list of templates, to add more verb synsets
+	 * @return templates list of templates with new verb synsets 
+	 * @throws UbyInvalidArgumentException
+	 */
 	public List<SloganTemplate> AddMoreVerbs(List<SloganTemplate> templates) throws UbyInvalidArgumentException
 	{
 		// For every Template
@@ -96,6 +115,27 @@ public class GoodLuck {
 		return templates;
 	}
 	
+	/**
+	 * Same as AddMoreVerbs with a list but needed for only one template
+	 * @param template the template
+	 * @return the template with more verbs
+	 * @throws UbyInvalidArgumentException
+	 */
+	public SloganTemplate AddMoreVerbs(SloganTemplate template) throws UbyInvalidArgumentException
+	{
+		List<SloganTemplate> templates = new ArrayList<SloganTemplate>();
+		templates = this.AddMoreVerbs(templates);
+		for(SloganTemplate templateWithMoreVerbs : templates)
+			return templateWithMoreVerbs;
+		return template;
+	}
+	
+	/**
+	 * This function searches synsets with the given semantic label
+	 * 
+	 * @param semanticLabel the semantic label
+	 * @return a list with synsets as string
+	 */
 	private List<String> getSynsetsBySemanticLabel(String semanticLabel)
 	{
 		List<String> senses = new ArrayList<String>();
