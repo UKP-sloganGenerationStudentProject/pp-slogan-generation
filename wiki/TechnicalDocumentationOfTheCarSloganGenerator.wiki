@@ -58,6 +58,10 @@ Settings:
     * Web1TPath: Path to Web1T
     * EmotionPath: Path to Emotionlist.sg (generation possible with NRC Emotion Lexicon)
 
+=== de.tobiasloeser.slogangenerator.SloganGenerator ===
+
+Use the constructor with an object of SGConfig and then use the generateSlogans method (also with SGConfig) to generate slogans the simplest way.
+
 == Creation of Emotionlist.sg ==
 
 To create the Emotionlist.sg file use the class EmotionListGenerator. You need the path to the NRC Emotion Lexicon and the path where you want to save the Emotionlist.sg file. 
