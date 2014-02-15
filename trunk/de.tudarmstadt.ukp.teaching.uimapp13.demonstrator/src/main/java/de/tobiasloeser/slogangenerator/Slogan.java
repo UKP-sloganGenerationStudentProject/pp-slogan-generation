@@ -3,12 +3,23 @@ package de.tobiasloeser.slogangenerator;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents a generated slogan. 
+ * 
+ * @author tobias
+ *
+ */
 public class Slogan {
 	
 	private List<SloganPart> parts;
 	private boolean listing;
 	private String separator;
 	
+	/**
+	 * Constructor, which initializes the part list
+	 * @param _listing defines, whether the slogan is a listing
+	 * @param _separator defines, whether there is a separator for the listing
+	 */
 	public Slogan(boolean _listing, String _separator)
 	{
 		parts = new ArrayList<SloganPart>();
@@ -16,16 +27,31 @@ public class Slogan {
 		separator = _separator;
 	}
 	
+	/**
+	 * Returns all slogan parts as a list. 
+	 * @return a list of slogan parts
+	 */
 	public List<SloganPart> getSloganParts()
 	{
 		return parts;
 	}
 	
+	/**
+	 * Adds a slogan part to the slogan
+	 * 
+	 * @param part the part to be added
+	 */
 	public void addSloganPart(SloganPart part)
 	{
 		parts.add(part);
 	}
 	
+	/**
+	 * Returns true, if there is already a slogan part like word in the part list. 
+	 * 
+	 * @param word the word, which is searched for in the list
+	 * @return true, if word has been found
+	 */
 	public boolean contains(String word)
 	{
 		for(SloganPart part : parts)
@@ -36,18 +62,22 @@ public class Slogan {
 		return false;
 	}
 	
+	/**
+	 * Getter for the separator
+	 * @return the separator
+	 */
 	public String getSeparator()
 	{
 		if(listing)
 		{
 			return separator;
 		}
-		else
-		{
-			return "";
-		}
+		return "";
 	}
 	
+	/**
+	 * Overrides the toString method 
+	 */
 	@Override public String toString()
 	{
 		String slogan = "";
@@ -66,6 +96,9 @@ public class Slogan {
 		return slogan;
 	}
 	
+	/**
+	 * Overrides the equals method
+	 */
 	@Override public boolean equals(Object obj)
 	{
 		try

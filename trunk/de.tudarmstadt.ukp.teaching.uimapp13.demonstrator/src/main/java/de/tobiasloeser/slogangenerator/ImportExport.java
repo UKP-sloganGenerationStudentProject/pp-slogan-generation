@@ -11,6 +11,12 @@ import java.util.List;
 
 public class ImportExport {
 
+	/**
+	 * This method exports a list of templates to a given path.
+	 * 
+	 * @param templates a list of templates
+	 * @param target the path to store the templates
+	 */
 	public void exportTemplates(List<SloganTemplate> templates, String target)
 	{
 		OutputStream fos = null;
@@ -27,6 +33,12 @@ public class ImportExport {
 		}
 	}
 	
+	/**
+	 * This method imports a list of templates from a given path. 
+	 * 
+	 * @param source the path where the list of templates is
+	 * @return the imported list of templates
+	 */
 	@SuppressWarnings("unchecked")
 	public List<SloganTemplate> importTemplates(String source)
 	{
@@ -46,6 +58,12 @@ public class ImportExport {
 		return templates;
 	}
 	
+	/**
+	 * This method exports a list of emotions to a given path.
+	 * 
+	 * @param emotions a list of emotions
+	 * @param target the path to store the emotions
+	 */
 	public void exportEmotions(List<Emotion> emotions, String target)
 	{
 		OutputStream fos = null;
@@ -62,6 +80,12 @@ public class ImportExport {
 		}	
 	}
 	
+	/**
+	 * This method imports a list of emotions from a given path. 
+	 * 
+	 * @param source the path where the list of emotions is
+	 * @return the imported list of emotions
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Emotion> importEmotions(String source)
 	{

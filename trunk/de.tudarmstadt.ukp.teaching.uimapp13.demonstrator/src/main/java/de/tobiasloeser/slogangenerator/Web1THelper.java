@@ -13,12 +13,25 @@ import de.tudarmstadt.ukp.lmf.model.core.LexicalEntry;
 import de.tudarmstadt.ukp.lmf.model.core.Lexicon;
 import de.tudarmstadt.ukp.lmf.model.enums.EPartOfSpeech;
 
+/**
+ * This class helps to work with Web1T. 
+ * 
+ * @author tobias
+ *
+ */
+
 public class Web1THelper
 {
 
     private HashMap<String, Long> prepositionCount;
     private JWeb1TSearcher web1TSearcher;
 
+    /**
+     * Constructor, which initializes the JWeb1TSearcher, Uby and a HashMap used find the best preposition.
+     * @param uby Uby instance
+     * @param web1TFolder folder with Web1T
+     * @throws IOException
+     */
     public Web1THelper(final Uby uby, final File web1TFolder)
         throws IOException
     {    	
@@ -43,12 +56,24 @@ public class Web1THelper
         }
     }
 
+    /**
+     * adds the word to the found preposition. 
+     * 
+     * @param word word for which a preposition is searched
+     * @return preposition and given word as string 
+     */
     public String getPrepositionAndWord(final String word)
     {
     	return getPreposition(word) + " " + word;
     	
     }
     
+    /**
+     * Searches for every combination of given word and preposition in Web1T, saves the frequency and returns the best preposition. 
+     * 
+     * @param word word for which a preposition is searched.
+     * @return the preposition with the highest frequency
+     */
     public String getPreposition(final String word)
     {
         // Reset the counters

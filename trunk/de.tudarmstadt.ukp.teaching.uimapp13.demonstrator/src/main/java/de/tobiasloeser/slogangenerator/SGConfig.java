@@ -4,6 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * An object of this class represents a config object for the slogan generator.  
+ * @author tobias
+ *
+ */
 public class SGConfig
     implements Serializable
 {
@@ -39,6 +44,9 @@ public class SGConfig
     public String DBPassword;
     public String DBUrl;
 
+    /**
+     * Constructor , which initializes the the word list. 
+     */
     public SGConfig()
     {
         this.WordList = new ArrayList<String>();

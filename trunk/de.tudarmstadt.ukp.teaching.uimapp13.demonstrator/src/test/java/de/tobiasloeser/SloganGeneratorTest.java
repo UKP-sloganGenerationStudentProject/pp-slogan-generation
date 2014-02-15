@@ -46,6 +46,9 @@ public class SloganGeneratorTest
                 this.config[3], this.config[4]);
     }
 
+	/**
+	 * tests the initialization of the slogan generator
+	 */
     @Test
     public void testSloganGenerator()
     {
@@ -57,6 +60,9 @@ public class SloganGeneratorTest
         assertEquals("Web1TPath has not been saved", this.config[4], this.sg.web1TPath);
     }
 
+	/**
+	 * tests the method, which searches synsets for given words
+	 */
     @Test
     public void testGetSynsetByWord()
     {
@@ -93,6 +99,9 @@ public class SloganGeneratorTest
         }
     }
 
+	/**
+	 * tests the slogan generation with the constructor, which takes just the needed settings.
+	 */
     @Test
     public void testGenerateSlogansSloganTemplateInt()
     {
@@ -107,11 +116,14 @@ public class SloganGeneratorTest
         }
     }
 
+	/**
+	 * tests slogan generation with the constructor, which takes manual settings.
+	 */
     @Test
     public void testGenerateSlogansSloganTemplateIntStringBooleanString()
     {
         final List<Slogan> slogans = this.sg.generateSlogans(TemplateGenerator.getTemplateById(2),
-                5, "Toyota", true, "positive");
+                5, "Toyota", true, "positive", false);
         assertNotNull("No slogans were generated", slogans);
         assertEquals("Not the expected count of generated slogans", slogans.size(), 5);
         for (final Slogan slogan : slogans) {
@@ -122,6 +134,9 @@ public class SloganGeneratorTest
         }
     }
 
+	/**
+	 * tests a simple slogan generation
+	 */
     @Test
     public void testGenerateSlogan()
     {
@@ -132,6 +147,9 @@ public class SloganGeneratorTest
         assertTrue("Slogan as String is empty", slogan.toString().length() > 0);
     }
 
+	/**
+	 * tests all templates
+	 */
     @Test
     public void testAllTemplates()
     {
@@ -143,5 +161,37 @@ public class SloganGeneratorTest
             assertTrue("Slogan as String is empty", slogan.toString().length() > 0);
         }
     }
+    
+	/**
+	 * This is a test for the use of the new constructor and generateSlogans method which takes the SGConfig object
+	 */
+	@Test
+	public void testSGConfig()
+	{
+        SGConfig sgc = new SGConfig();
+        sgc.DBUrl = "localhost/uby_medium_0_3_0";
+        sgc.DBUser = "root";
+        sgc.DBPassword = "";
+        sgc.TemplateId = 9;
+        sgc.SloganCount = 10;
+        sgc.Web1TPath = "";
+        sgc.EmotionPath = "";
+        SloganGenerator sg = new SloganGenerator(sgc);
+        assertNotNull("SloganGenerator Instance is null", sg);
+        assertNotNull("SloganGenerator Instance is null", sg);
+		assertEquals("Database has not been saved", sgc.DBUrl, sg.database);
+		assertEquals("DB User has not been saved", sgc.DBUser, sg.dbuser);
+		assertEquals("DB Password has not been saved", sgc.DBPassword, sg.dbpassword);
+		assertEquals("EmotionPath has not been saved", sgc.EmotionPath, sg.emotionPath);
+		assertEquals("Web1TPath has not been saved", sgc.Web1TPath, sg.web1TPath);
+		List<Slogan> slogans = sg.generateSlogans(sgc);
+		for(Slogan slogan : slogans)
+		{
+			assertNotNull("Slogan is null", slogan);
+			assertTrue("Slogan has no parts", slogan.getSloganParts().size() > 0);
+			assertNotNull("Slogan as String is null", slogan.toString());
+			assertTrue("Slogan as String is empty", slogan.toString().length() > 0);
+		}
+	}
 
 }
