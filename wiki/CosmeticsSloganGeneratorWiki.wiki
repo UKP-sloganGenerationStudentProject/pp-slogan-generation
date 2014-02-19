@@ -1,0 +1,28 @@
+#This wikipage provides instructions for the use of the Cosmetics Slogan Generator.
+
+= Introduction =
+This wikipage provides instructions for the use of the Cosmetics Slogan Generator.
+
+
+= Use Cases =
+  
+  * Use the generator via the web demonstrator
+  * Run the generator locally or in another project
+
+
+= Use the generator via demonstrator =
+
+Instructions to run the demonstrator are given on the project home page [https://code.google.com/p/pp-slogan-generation/ pp-slogan-generation].
+Please also read next section, it contains the instructions how to give the good parameters to the generator.
+
+= Run the generator locally or in another project =
+
+To use the slogan generator, you need the following :
+  * Maven/Eclipse -project from [https://code.google.com/p/pp-slogan-generation/ pp-slogan-generation]
+  * A Uby database (Tested for uby_medium_0_3_0) from [http://uby.ukp.informatik.tu-darmstadt.de/uby/]
+  * (optionally) A Web1T corpus (for rejecting too rare words during slogan generation).
+  * (optionally)  The NRC Emotion Lexicon (for rejecting words with negative connotation)
+
+The only class you have to consider is de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.SloganGenerator.
+
+
