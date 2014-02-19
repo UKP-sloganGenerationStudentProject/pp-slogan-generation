@@ -1,5 +1,3 @@
-#This wikipage provides instructions for the use of the Cosmetics Slogan Generator.
-
 = Introduction =
 This wikipage provides instructions for the use of the Cosmetics Slogan Generator.
 
