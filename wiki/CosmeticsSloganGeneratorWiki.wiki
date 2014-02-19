@@ -24,5 +24,6 @@ To use the slogan generator, you need the following :
   * (optionally)  The NRC Emotion Lexicon (for rejecting words with negative connotation)
 
 The only class you have to consider is de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.SloganGenerator.
+This class contains a method main() that shows how to use this class. It is important to know that the generator uses a slogan corpus (already included in the project) to generate slogan patterns and then generate slogans. The generation of the slogan patterns take place when calling init() of this class. This step can be skipped by using the serialization of an already initialized SloganGenerator instance. Before the initialization, the following information must be precised to the SloganGenerator : NRC Emotion Lexicon path, Slogan Corpus Path, Web1T corpus path, and uby database access information.
 
-
+Once the SloganGenerator has been initialized, the method main provides a interface in the console so that the user can give his preferences for the slogan generation.
