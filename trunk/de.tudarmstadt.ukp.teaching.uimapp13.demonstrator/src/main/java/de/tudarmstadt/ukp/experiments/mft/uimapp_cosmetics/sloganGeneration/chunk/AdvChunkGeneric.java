@@ -2,6 +2,19 @@ package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chu
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
 
+
+/**
+*
+* AdvChunkGeneric inherits from {@link ChunkGeneric}
+*
+* It can contain exclusively Chunks of type adverb. It specifies also that it can contain at most
+* one adverb, because we don't want Chunks of type adverb to have equivalents.
+*
+* @author Matthieu Fraissinet-Tachet
+*
+*/
+
+
 public class AdvChunkGeneric
     extends ChunkGeneric
 {

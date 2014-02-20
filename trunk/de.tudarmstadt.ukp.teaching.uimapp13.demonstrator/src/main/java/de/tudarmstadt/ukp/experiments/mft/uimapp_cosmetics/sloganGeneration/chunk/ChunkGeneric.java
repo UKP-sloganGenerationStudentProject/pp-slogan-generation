@@ -9,17 +9,25 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.inde
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
 
 /**
- * A ChunkGeneric instance represents an equivalence class for Chunk instances.
- *  The chunk elements that are parts of this equivalence class are listed in this._occurrences
+ * A ChunkGeneric instance represents an equivalence class for Chunk instances. It contains
+ * equivalent chunks.
  *
- *  its parameters caracterize all the members if the equivalence class except :
- *      * _hasConstraint indicates if at least one member of the class respect a suggested words constraint
- *      * _haveConstraintsBeenChecked indicates if the constraints have been processed over
- *          all the members of the equivalence class
- *      * _takenValue... ???
+ * A ChunkGeneric instance is defined by its {@link ChunkType}, its associated semantics value and
+ * also another parameter "isDerivable" that says if the equivalent class accepts other equivalents.
  *
  * @author Matthieu Fraissinet-Tachet
  */
+
+/*
+ * The chunk elements that are parts of this equivalence class are listed in this._occurrences
+*  its parameters caracterize all the members if the equivalence class, except :
+*      * _hasConstraint indicates if at least one member of the class respect a suggested words constraint
+*      * _haveConstraintsBeenChecked indicates if the constraints have been processed over
+*          all the members of the equivalence class
+*      * _takenValue is used for Chunks that shouldn't have other equivalent than themselves. It
+*          stores the text value (from the slogan) of the chunk. Those cases are characterized
+*          by _isValueDerivable = false; ex : PrepChunkGeneric
+*/
 
 public class ChunkGeneric
     extends IndexElement

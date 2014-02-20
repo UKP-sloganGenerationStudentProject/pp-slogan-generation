@@ -5,6 +5,16 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Reso
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunkPart.ChunkPart;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkPartType;
 
+/**
+ *
+ * NounChunk is a child class from {@link Chunk}.
+ *
+ * It defines two more properties : if the chunk is about a body part and what this body part is.
+ *
+ * @author Matthieu Fraissinet-Tachet
+ *
+ */
+
 public class NounChunk
     extends Chunk
 {
