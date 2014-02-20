@@ -2,6 +2,16 @@ package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chu
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
 
+/**
+*
+* PrepChunkGeneric inherits from {@link ChunkGeneric}
+*
+* It can contain exclusively Chunks of type preposition. It specifies also that it can contain at most
+* one preposition, because we don't want Chunks of type preoosition to have equivalents.
+*
+* @author Matthieu Fraissinet-Tachet
+*
+*/
 
 public class PrepChunkGeneric
     extends ChunkGeneric

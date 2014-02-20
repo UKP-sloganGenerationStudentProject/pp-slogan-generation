@@ -3,6 +3,16 @@ package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chu
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.AdjForm;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
 
+/**
+ *
+ * AdjChunkGeneric inherits from {@link ChunkGeneric}
+ *
+ * It adds one property : the adjective form {@link AdjForm}.
+ *
+ * @author Matthieu Fraissinet-Tachet
+ *
+ */
+
 public class AdjChunkGeneric
     extends ChunkGeneric
 {

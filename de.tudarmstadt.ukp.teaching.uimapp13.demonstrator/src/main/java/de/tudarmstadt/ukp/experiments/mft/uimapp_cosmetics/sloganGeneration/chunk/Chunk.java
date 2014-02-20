@@ -15,19 +15,20 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.Ch
  * It is defined by several parameters (see below).
  *
  * It is linked two other objects that play a role in the pattern representation.
- * - the Pattern that encapsulates this Chunk in the slogan it was derived from.
- * - the generic form of this Chunk (like an equivalence class that this instance is part of)
+ * - the {@link Pattern} that encapsulates this Chunk in the slogan it was derived from.
+ * - the generic form {@link ChunkGeneric} of this Chunk (like an equivalence class that this instance is part of)
  *
- * A chunk is made of chunkParts (_chunkParts) that play the roles of token generators.
- *
- * _generated stores the slogans that have been once generated so that when a chunk is used several
- * times during slogan generation, we can use the chunkSolutions already generated to save time.
- * It is possible to reset _generated with resetCache().
+ * A chunk is  also made of {@link ChunkPart} that play the role of token generators.
  *
  * @author Matthieu Fraissinet-Tachet
  */
-
-
+/*
+* A chunk is made of chunkParts (_chunkParts) that play the roles of token generators.
+*
+* _generated stores the slogans that have been once generated so that when a chunk is used several
+* times during slogan generation, we can use the chunkSolutions already generated to save time.
+* It is possible to reset _generated with resetCache().
+*/
 public class Chunk
     implements Serializable
 {

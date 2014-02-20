@@ -4,6 +4,17 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chun
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.VerbForm;
 
+/**
+*
+* VerbChunkGeneric from {@link ChunkGeneric}
+*
+* It can contain exclusively Chunks of type {@link ChunkType}.verb.
+* It defines one new porperty : the verb form {@link VerbForm}.
+*
+* @author Matthieu Fraissinet-Tachet
+*
+*/
+
 public class VerbChunkGeneric
     extends ChunkGeneric
 {
