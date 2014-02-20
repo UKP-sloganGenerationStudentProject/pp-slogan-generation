@@ -13,7 +13,16 @@ import org.apache.uima.resource.ResourceInitializationException;
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.annotation.SloganAnnotation;
 
-
+/**
+ *
+ * This annotator annotates slogans starts and ends in the slogan corpus.
+ * It says that at a slogan starts at the beginning of a line and ends at the end of the line, and
+ * that each new line is a new slogan. So obviously the slogans have to be written in the same way
+ * in the slogan corpus.
+ *
+ * @author Matthieu Fraissinet-Tachet
+ *
+ */
 
 public class SloganAnnotator extends JCasAnnotator_ImplBase
 {

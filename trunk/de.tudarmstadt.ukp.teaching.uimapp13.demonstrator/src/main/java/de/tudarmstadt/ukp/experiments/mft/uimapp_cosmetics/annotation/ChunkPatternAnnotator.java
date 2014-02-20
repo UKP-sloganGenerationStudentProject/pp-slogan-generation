@@ -16,6 +16,17 @@ import de.tudarmstadt.ukp.dkpro.core.api.syntax.type.chunk.Chunk;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.annotation.ChunkPatternAnnotation;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.annotation.SloganAnnotation;
 
+/**
+ *
+ * This annotator annotates predefined combination of chunks.
+ * These predifined combinations are extracted from PARAM_PATTERN_LIST.
+ * Each combination is define in the following way : NC_VC_NC_, which is to say
+ * the name of the chunk and followed by "_".
+ * A detected combination of chunks is annoated with the corresponding value.
+ *
+ * @author matthieu Fraissinet-Tachet
+ *
+ */
 public class ChunkPatternAnnotator extends JCasAnnotator_ImplBase
 {
     public static final String PARAM_PATTERN_LIST = "patternList";

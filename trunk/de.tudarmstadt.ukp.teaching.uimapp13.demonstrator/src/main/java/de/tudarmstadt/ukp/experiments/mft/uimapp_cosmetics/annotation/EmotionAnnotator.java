@@ -12,6 +12,17 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.emotions.EmotionAnaly
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.emotions.EmotionModel;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.annotation.EmotionAnnotation;
 
+/**
+ *This annotator annotates the emotion associated to a token. It uses the NRC Emotion Lexicon version 0.92
+
+ *(Saif M. Mohammad and Peter D. Turney, NRC Technical Report,
+ *December 2013, Ottawa, Canada.). You have to give the path to the pdf document in PARAM_EMOTIONS_LEXICON_PATH.
+ *
+ * @author Matthieu Fraissinet-Tachet
+ *
+ */
+
+
 public class EmotionAnnotator
     extends JCasAnnotator_ImplBase
 {
