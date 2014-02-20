@@ -10,9 +10,11 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
 
 /**
- *responsible for reading the emotion information from a specific pdf document.
- * @author Felix Rieger
+ *reads the emotion information from the pdf document NRC Emotion Lexicon version 0.92
+ *(Saif M. Mohammad and Peter D. Turney, NRC Technical Report,
+ *December 2013, Ottawa, Canada.).
  *
+ * @author Felix Rieger
  */
 
 public class EmotionAnalyzer
