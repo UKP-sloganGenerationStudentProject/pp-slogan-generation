@@ -7,6 +7,14 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Reso
 
 
 
+/**
+ *
+ * Inherits from {@link ChunkPart}.
+ * For product name. Will be replacsed by the product name during the slogan generation
+ *
+ * @author Matthieu Fraissinet-Tachet
+ *
+ */
 
 public class ProductNameChunkPart
 extends ChunkPart

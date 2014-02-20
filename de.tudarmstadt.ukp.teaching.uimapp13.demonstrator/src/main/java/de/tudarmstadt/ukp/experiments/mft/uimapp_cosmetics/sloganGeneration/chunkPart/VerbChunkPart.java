@@ -12,13 +12,19 @@ import de.tudarmstadt.ukp.lmf.model.enums.EPartOfSpeech;
 import de.tudarmstadt.ukp.lmf.model.meta.SemanticLabel;
 import de.tudarmstadt.ukp.lmf.model.semantics.Synset;
 
+/**
+*
+* Inherits from {@link ChunkPart}.
+* For verbs.
+*
+* @author Matthieu Fraissinet-Tachet
+*
+*/
+
+
 public class VerbChunkPart
     extends ChunkPart
 {
-
-   /**
-     *
-     */
     private static final long serialVersionUID = 3501353623729320517L;
 
 public VerbChunkPart()

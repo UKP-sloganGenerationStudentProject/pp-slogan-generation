@@ -11,13 +11,17 @@ import de.tudarmstadt.ukp.lmf.model.enums.EPartOfSpeech;
 import de.tudarmstadt.ukp.lmf.model.meta.SemanticLabel;
 import de.tudarmstadt.ukp.lmf.model.semantics.Synset;
 
-
+/**
+ *
+ * Inherits from {@link ChunkPart}.
+ * For adjectives.
+ *
+ * @author Matthieu Fraissinet-Tachet
+ *
+ */
 public class AdjChunkPart
 extends ChunkPart
 {
-    /**
-     *
-     */
     private static final long serialVersionUID = -5829729871414277169L;
 
     public AdjChunkPart()

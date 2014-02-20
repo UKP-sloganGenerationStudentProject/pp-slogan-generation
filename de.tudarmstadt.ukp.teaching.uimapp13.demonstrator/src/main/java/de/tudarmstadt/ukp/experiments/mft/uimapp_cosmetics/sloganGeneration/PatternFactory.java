@@ -15,14 +15,18 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.patt
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkPartType;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkType;
 
+/**
+ * Use this class to create {@link Pattern}s and then to extract new slogans out of them.
+ * The pattern creation with this class is not trivial... The way to use this class
+ * is implemented in {@link SloganGenerator}.
+ *
+ * @author Matthieu Fraissinet-Tachet
+ *
+ */
+
 public class PatternFactory
     implements Serializable
 {
-    /*
-     * Use this class to create patterns and then to extract new slogans out of them.
-     * The pattern creation with this class is not trivial... The way to use this class
-     * is implemented in PatternGenerator.
-     */
 
     private static final long serialVersionUID = -7074314512406365028L;
 
@@ -49,6 +53,10 @@ public class PatternFactory
         this._isCurrentPattern = false;
     }
 
+    /**
+     * start a new chunk, that is going to be filled with {@link ChunkPart}s through addPartToChunk()
+     * @param type
+     */
     public void startNewChunk(final ChunkType type)
     {
         //create a new instance of chunk in which we are going to add the different chunkParts
@@ -56,6 +64,11 @@ public class PatternFactory
         this._currentChunkType = type;
     }
 
+    /**
+     * add a {@link ChunkPart} element to the current chunk
+     * @param type
+     * @param chunkPart
+     */
     public void addPartToChunk(ChunkPartType type,final ChunkPart chunkPart)
     {
         // create the corresponding ChunkPartGeneric instance
@@ -71,6 +84,10 @@ public class PatternFactory
         this._currentChunk.addChunkPart(chunkPart);
     }
 
+    /**
+     * finish the current chunk and add it to the index and to the current pattern if there is one
+     * @param resources
+     */
     public void finishChunk(final Resources resources)
     {
         //once the chunk is finished, it can generate some information to describe itself
@@ -92,12 +109,18 @@ public class PatternFactory
         }
     }
 
+    /**
+     * start a new pattern
+     */
     public void startNewPattern()
     {
         this._currentPattern = new Pattern();
         this._isCurrentPattern = true;
     }
 
+    /**
+     * finish the current pattern and add it/merge it to the list of patterns
+     */
     public void finishPattern()
     {
 
@@ -122,25 +145,35 @@ public class PatternFactory
         this._isCurrentPattern = false;
     }
 
+    /**
+     * set the text of the slogan from which the current {@link Pattern} instance is derived from
+     * @param value
+     */
     public void setSloganToCurrentPattern(final String value)
     {
         //set the value of the slogan that leaded to the current pattern
         this._currentSloganValue = value;
     }
 
+    /**
+     * during the generation some data has been stored inside the different objects
+     * this is what we delete here. The cache will be automatically reset on chunks, chunkParts, chunkPartGenerics
+     */
     public void resetTheCacheData()
     {
-        //during the generation some data has been stored inside the different objects
-        //this is what we delete here. The cache will be automatically reset on chunks, chunkParts, chunkPartGenerics
         for (final ChunkGeneric header : this._chunkGenericIndex.getElements()) {
             header.resetCache();
         }
     }
 
+    /**
+     * generate and return the slogans. The parameters of the generation are defined in resources
+     * @param resources
+     * @param nbrOfSlogans
+     * @return
+     */
     public List<String> generateSlogans(final Resources resources, final int nbrOfSlogans)
     {
-
-
         this.resetTheCacheData();
 
         resources.generateSuggestedWordsConstraints();
@@ -222,6 +255,9 @@ public class PatternFactory
         return output;
     }
 
+    /**
+     * reset the {@link PatternFactory} as if the constraints hadn't been processed (undo checkForConstraints())
+     */
     public void releaseConstraints()
     {
         //we release the constraints at all level of the modelization : Pattern, ChunkGeneric, and ChunkPartGeneric
@@ -240,6 +276,11 @@ public class PatternFactory
         }
     }
 
+    /**
+     * process the constraints over the current {@link PatternFactory}, ie in each {@link Pattern}
+     * elements.
+     * @param resources
+     */
     public void checkForConstraints(Resources resources)
     {
         //look where the constraints that have been set affect all the patterns, and take it into account
