@@ -5,12 +5,15 @@ import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Set;
 
-/*
+/**
  *
  * This class modelizes an index of element of  type IndexElement.
  * By adding a new element, checks if it already contains an element with the same id.
  * If there is such an element, it returns it.
  *
+ * @author Matthieu Fraissinet-Tachet
+ *
+ * @param <Element>
  */
 
 public class Index<Element extends IndexElement>

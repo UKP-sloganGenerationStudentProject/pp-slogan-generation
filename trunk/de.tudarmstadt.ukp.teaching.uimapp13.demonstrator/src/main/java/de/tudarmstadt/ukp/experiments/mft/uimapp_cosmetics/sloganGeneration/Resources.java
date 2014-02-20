@@ -7,8 +7,16 @@ import com.googlecode.jweb1t.JWeb1TSearcher;
 
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.emotions.EmotionAnalyzer;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.constraints.WordConstraint;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.pattern.Pattern;
 import de.tudarmstadt.ukp.lmf.api.Uby;
 
+/**
+ * This is used during the generation of {@link Pattern}s and during the generation of slogans
+ * to give access to lexical resources and also to the preferences (what the user selected for the
+ * slogan generation)
+ * @author matthieuft
+ *
+ */
 public class Resources
 {
 

@@ -1,5 +1,11 @@
 package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations;
 
+/**
+*
+* @author Matthieu Fraissinet-Tachet
+*
+*/
+
 public enum ChunkType
 {
     NC("NC"), VC("VC"), ADJC("ADJC"), PC("PC"), ADVC("ADVC"), UNDEFINED("UNDEFINED");

@@ -1,5 +1,11 @@
 package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations;
 
+/**
+*
+* @author Matthieu Fraissinet-Tachet
+*
+*/
+
 public enum VerbForm
 {
     LEMMA("VerbForm.LEMMA"),  //imperative ?

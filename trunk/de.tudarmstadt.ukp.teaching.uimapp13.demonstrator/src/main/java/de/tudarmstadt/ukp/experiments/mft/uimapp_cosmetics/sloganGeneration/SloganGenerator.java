@@ -49,16 +49,17 @@ import de.tudarmstadt.ukp.lmf.transform.DBConfig;
 import de.tudarmstadt.ukp.uby.resource.UbySemanticFieldResource;
 import de.tudarmstadt.ukp.uby.uima.annotator.UbySemanticFieldAnnotator;
 
+/**
+ * This class enables to create the patterns and generate slogans
+ * in an easy way. As input, it requires the path of the different resources
+ * and also some parameters for the slogan generation.
+ * An example of how to use this class is given in main().
+ */
+
+
 public class SloganGenerator
     implements Serializable
 {
-
-    /*
-     * This class enables to create the patterns and generate slogans
-     * in an easy way. As input, it requires the path of the different resources
-     * and also some parameters for the slogan generation.
-     * An example of how to use this class is given in main().
-     */
 
     private static final long serialVersionUID = 8409089998966336600L;
     /*
@@ -100,17 +101,17 @@ public class SloganGenerator
         generator.setUbyDBData("localhost/uby_medium_0_3_0", "com.mysql.jdbc.Driver", "mysql",
                 "root", "pass");
 
-        //generator.setAllowedWordSearcher("/home/matthieuft/Documents/cosmeticsNgrams", "/home/matthieuft/Documents/rejectedWords.txt");
 
 //        generator.init();
-//
-//        // New file output stream for the file
+
+      // New file output stream for the file
 //        FileOutputStream fos = new FileOutputStream("src/main/resources/sloganGeneratorSerialized.txt");
 //        SerializationUtils.serialize(generator, fos);
 
         /*
          * Generation parameters
          */
+
         final List<String> selectablePatterns = Parameters.getSelectablePatterns();
         final List<String> selectablePartsOfBody = Parameters.getSelectablePartsOfBody();
 
@@ -123,16 +124,13 @@ public class SloganGenerator
 
             System.out.println();
             System.out
-                    .print("What do you want to do ? 0 : print PatternGenerator content, 1 : generate slogans, 2: check for constraints, 3: exit");
+                    .print("What do you want to do ? 0 : print PatternGenerator content, 1 : generate slogans, 2: exit");
             final int action = Integer.parseInt(user_input.next());
             if (action == 0) {
                 System.out.println(generator.toString());
                 continue;
             }
             if (action == 2) {
-                generator.testConstraints();
-            }
-            if (action == 3) {
                 break;
             }
 
@@ -197,6 +195,18 @@ public class SloganGenerator
         //this._resources = new Resources();
     }
 
+    /**
+     * during init,
+     * resources are initialized (so all the path to the resources have to be set before, we the corresponding
+     * setters)
+     *
+     * it generates the patterns from the slogan corpus. The slogan corpus must contain one slogan
+     * per line.
+     *
+     * In the class {@link Parameters} are some parameters that are used for the pattern generation.
+     * Those parameters can't be modified by the user.
+     * @throws Exception
+     */
     public void init()
         throws Exception
     {
@@ -392,8 +402,9 @@ public class SloganGenerator
 
 
 
-    /*
-     * test
+    /**
+     * this function is used to check, once the patterns have been generated (ie during init)
+     * where the constraints have been set in the patterns
      */
     public void testConstraints()
     {
@@ -445,8 +456,11 @@ public class SloganGenerator
 
 
 
-    /*
-     * generation of the logans
+    /**
+     * Generates the slogans
+     *
+     * @param nbrOfSlogans
+     * @return
      */
 
     public List<String> generateSlogans(final int nbrOfSlogans)
@@ -489,10 +503,13 @@ public class SloganGenerator
 
 
 
-    /*
-     * generation of the patterns
+    /**
+     * Element of the pipeline used during init() to extract the patterns from the slogan corpus
+     *
+     * @param aJCas
+     * @throws AnalysisEngineProcessException
      */
-    public void extractPatterns(final JCas aJCas)
+    private void extractPatterns(final JCas aJCas)
         throws AnalysisEngineProcessException
     {
 
@@ -674,17 +691,6 @@ public class SloganGenerator
         }
 
     }
-
-//    public void setAllowedWordSearcher(String allowedWordSearcherPath)
-//    {
-//        _allowedWordsPath = allowedWordSearcherPath;
-//    }
-//
-//    public void setAllowedWordSearcher(String allowedWordSearcherPath,String rejectedWordsOutputPath)
-//    {
-//        _allowedWordsPath = allowedWordSearcherPath;
-//        _rejectedWordsPath = rejectedWordsOutputPath;
-//    }
 
     @Override
     public String toString()

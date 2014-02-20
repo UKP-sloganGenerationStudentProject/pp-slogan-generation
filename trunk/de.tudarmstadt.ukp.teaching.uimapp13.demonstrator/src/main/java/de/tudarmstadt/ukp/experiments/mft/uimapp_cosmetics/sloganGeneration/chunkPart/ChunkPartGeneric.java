@@ -9,12 +9,16 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.cons
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.index.IndexElement;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkPartType;
 
-/*
- * a ChunkPartGeneric instance builds an equivalence class of ChunkParts.
- * We don't use it in the same way like ChunkGeneric.. we don't say that all the elements from a
+
+/**
+ * a ChunkPartGeneric instance builds an equivalence class of {@link ChunkPart}.
+ * We don't use it in the same way like ChunkGeneric .. we don't say that all the elements from a
  * same equivalence class can be permuted, but we say that if there is a suggested word that fits
  * into an equivalence class, then it can replace every element of this class during the slogan
  * generation.
+ *
+ * @author Matthieu Fraissinet-Tachet
+ *
  */
 public class ChunkPartGeneric extends IndexElement implements Serializable
 {
@@ -71,6 +75,11 @@ public class ChunkPartGeneric extends IndexElement implements Serializable
         return output;
     }
 
+
+    /**
+     * add a new {@link ChunkPart} to the equivalence class
+     * @param occ
+     */
     public void addOccurrence(ChunkPart occ)
     {
         for(ChunkPart occ2 : _occurrences)
@@ -83,6 +92,11 @@ public class ChunkPartGeneric extends IndexElement implements Serializable
         _occurrences.add(occ);
     }
 
+    /**
+     * retrieve the list of chunkparts from this equivalence class
+     * @param resources
+     * @return
+     */
     public List<ChunkPart> getOccurrences()
     {
         List<ChunkPart> output = new ArrayList<>();
@@ -125,6 +139,12 @@ public class ChunkPartGeneric extends IndexElement implements Serializable
         _isValueDerivable = tof;
     }
 
+    /**
+     * process the constraints over the current chunkPartGeneric.
+     * If a {@link WordConstraint} element is compatible wiht the current equivalence class,
+     * then create ChunkPart instance associated to it and add it to the equivalence class.
+     * @param resources
+     */
     public void checkForConstraints(Resources resources)
     {
         if(!_haveConstraintsBeenChecked)
@@ -150,14 +170,19 @@ public class ChunkPartGeneric extends IndexElement implements Serializable
         }
 
     }
-
+    /**
+     * reset the chunkPartGeneric as if the constraints hadn't been processed (undo checkForConstraints())
+     */
     public void releaseConstraints()
     {
         _hasConstraint = false;
         _constrainedElements.clear();
         _haveConstraintsBeenChecked = false;
     }
-
+    /**
+     * return true if this object has constraints
+     * @return
+     */
     public boolean hasConstraint()
     {
         return _hasConstraint;

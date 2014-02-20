@@ -8,22 +8,22 @@ import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Reso
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunk.Chunk;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations.ChunkPartType;
 
+/**
+ * A ChunkPart is equivalent to a token generator.
+ * It is defined by several parameters (see below).
+ *
+ * It is linked two other objects that play a role in the pattern representation.
+ * - the {@link Chunk} that encapsulates this ChunkPart in the slogan it was derived from.
+ * - the generic form {@link ChunkPartGeneric} of this ChunkPart (like an equivalence class that this instance is part of)
+ *
+ *  @author Matthieu Fraissinet-Tachet
+ */
+
 
 public class ChunkPart implements Serializable
 {
 
-    /*
-     * A ChunkPart is equivalent to a token generator.
-     * It is defined by several parameters (see below).
-     *
-     * It is linked two other objects that play a role in the pattern representation.
-     * - the Chunk that encapsulates this ChunkPart in the slogan it was derived from.
-     * - the generic form of this ChunkPart (like an equivalence class that this instance is part of)
-     */
 
-    /**
-     *
-     */
     private static final long serialVersionUID = -5552300315457638822L;
 
     //indicate if the value generated has to be the original value or if it can be deerived from it
@@ -124,8 +124,17 @@ public class ChunkPart implements Serializable
         _containingChunk = chunk;
     }
 
-    /*
-     * this method is overwritten by the child classes
+    /**
+     * generate the ChunkPartSolution solutions list for this instance.
+     *if this instance has constraints then the generated solutions also have constsraints.
+     * this method is overwritten by the child classes.
+     * @param resources
+     * @param originalPart : ChunkPart instance from which started the generation process. This is in
+     * the pattern associated to this original ChunkPart that the generated ChunkPartSolutions are
+     * going to be inserted.  In some cases (for instance for VerbChunkPart)
+     *we use the information from the originalPart to adapt the ChunkPartSolution to its context
+     *(for instance to conjugate it)
+     * @return
      */
     public List<ChunkPartSolution> generateChunkPartSolution(Resources resources, ChunkPart originalPart)
     {
@@ -240,12 +249,14 @@ public class ChunkPart implements Serializable
         return _lemma;
     }
 
+    /**
+     * this method is used to derive the given lemma in the form of the current chunk part.
+     * It is implemented by subclasses.
+     * @param lemma
+     * @return
+     */
     public String deriveFromLemmaForm(String lemma)
     {
-        /*
-         * this method is used to derive the given lemma in the form of the current chunk part.
-         * It is implemented by subclasses.
-         */
         return lemma;
     }
 

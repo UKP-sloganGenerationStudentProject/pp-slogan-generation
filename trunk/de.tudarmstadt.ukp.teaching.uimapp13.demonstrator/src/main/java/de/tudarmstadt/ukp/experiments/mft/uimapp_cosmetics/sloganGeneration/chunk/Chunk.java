@@ -183,7 +183,9 @@ public class Chunk
     /**
      * generate possible solutions to this chunk for the creation of new slogans
      * @param resources
-     * @param originalChunk
+     * @param originalChunk :  Chunk instance from which started the generation process. This is in
+     * the pattern associated to this original Chunk that the generated ChunkSolutions are
+     * going to be inserted.
      * @return list of ChunkSolution
      */
     public List<ChunkSolution> generateChunkSolutions(final Resources resources,

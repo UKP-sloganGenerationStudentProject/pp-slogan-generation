@@ -7,22 +7,22 @@ import java.util.List;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Resources;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.Utils;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunk.Chunk;
+import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunk.ChunkGeneric;
 import de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.sloganGeneration.chunk.ChunkSolution;
 
+/**
+ *
+ * this class represents a pattern. It is identified by its id that depend on the {@link ChunkGeneric}
+ * instances associated to the {@link Chunk} instances it is made of.
+ * A pattern is made of chunks, each {@link Chunk} is like a generator of a part of the slogan (from
+ * the left to the right).
+ *
+ * @author Matthieu Fraissinet-Tachet
+ *
+ */
 public class Pattern
 implements Serializable
 {
-    /*
-     * this class represents a pattern. It is identified by its id that depend on the chunkGenerics
-     * of the chunks it is made of.
-     * A pattern is made of chunks, each chunk is like a generator of a part of the slogan (from
-     * the left to the right).
-     */
-
-
-    /**
-     *
-     */
     private static final long serialVersionUID = -6075369273605316813L;
     //elements this pattern are made of
     private final ArrayList<Chunk> _elementList;
@@ -46,10 +46,13 @@ implements Serializable
     }
 
 
+    /**
+     * the type of a pattern is the concatenation of the types of its chunks
+     * the pattern type is the type that is selected by the users ex : NC_VC_NC_
+     */
     public void generatePatternType()
     {
-        //the type of a pattern is the concatenation of the types of its chunks
-       //the pattern type is the type that is selected by the users ex : NC_VC_NC_
+
         StringBuilder type = new StringBuilder();
 
         for(Chunk occ : _elementList)
@@ -71,16 +74,22 @@ implements Serializable
         generatePatternType();
     }
 
+    /**
+     * add an element at the end of the pattern
+     * @param el
+     */
     public void addElement(Chunk el)
     {
-        //add an element add the end of the pattern
         _elementList.add(el);
     }
 
+    /**
+     * add a slogan that respects this pattern (from which this pattern was derived)
+     * this belongs to the pattern generation phase
+     * @param value
+     */
     public void addSloganOccurrence(String value)
     {
-        //add a slogan that respects this pattern (from which this pattern was derived)
-        //this has nothing to do with slogan generation
         _sloganOccurrences.add(value);
     }
 
@@ -89,11 +98,15 @@ implements Serializable
         return _sloganOccurrences;
     }
 
+    /**
+     * the id identifies its pattern
+     *  if 2 patterns have the same id they have to be merged
+     *  as they can generate the same slogans
+     * @return
+     */
     public String getId()
     {
-        //the id identifies its pattern
-        //if 2 patterns have the same id they have to be merged
-        //as they can generate the same slogans
+
         String id = "";
 
         for(Chunk elem: _elementList)
@@ -104,17 +117,24 @@ implements Serializable
         return id;
     }
 
+    /**
+     * get the list of the chunk which the pattern is made of
+     * @return
+     */
     public List<Chunk> getPatternElementList()
     {
-        //get the list of the chunk which the pattern is made of
         return _elementList;
     }
 
 
+    /**
+     * merge 2 patterns that have the same id
+     * ie they have their chunnks have the same ids
+     * @param other
+     */
     public void addOccurrence(Pattern other)
     {
-        //merge 2 patterns that have the same id
-        //ie they have their chunnks have the same ids
+
         if(!getId().equals(other.getId()))
         {
             return;
@@ -129,6 +149,12 @@ implements Serializable
         return _elementList.get(ind).getGenericId();
     }
 
+    /**
+     * generate slogans
+     * @param resources
+     * @param numberOfSlogans
+     * @return
+     */
     public List<String> generateSlogans(Resources resources, int numberOfSlogans)
     {
         //generate slogans
@@ -144,6 +170,13 @@ implements Serializable
         return slogans;
     }
 
+    /**
+     * generate the slogans in the for of {@link PatternSolution}. A slogan can be derictly derived
+     * from a {@link PatternSolution} instance.
+     * @param resources
+     * @param numberOfSlogans
+     * @return
+     */
     public List<PatternSolution> generatePatternSolutions(Resources resources,int numberOfSlogans)
     {
 
@@ -205,6 +238,12 @@ implements Serializable
         return Utils.getSubList(solutionsWithConstraints, numberOfSlogans);
     }
 
+
+    /**
+     * process the constraints over the current pattern (ie. check if at least one element
+     * of the contained chunks can generate chunks containing at least one suggested word).
+     * @param resources
+     */
     public void checkForConstraints(Resources resources)
     {
         //a pattern can generate constraints if at least one of his chunks can generate a constraint
@@ -219,11 +258,19 @@ implements Serializable
         }
     }
 
+    /**
+     * return true if this object has constraints
+     * call checkForConstraints() before using this.
+     * @return
+     */
     public boolean hasSuggestedWordConstraint()
     {
         return _hasConstraint;
     }
 
+    /**
+     * reset the chunkGeneric as if the constraints hadn't been processed (undo checkForConstraints())
+     */
     public void releaseConstraints()
     {
         _hasConstraint = false;

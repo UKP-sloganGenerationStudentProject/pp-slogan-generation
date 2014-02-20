@@ -13,12 +13,18 @@ import de.tudarmstadt.ukp.lmf.model.enums.EPartOfSpeech;
 import de.tudarmstadt.ukp.lmf.model.meta.SemanticLabel;
 import de.tudarmstadt.ukp.lmf.model.semantics.Synset;
 
+/**
+*
+*Inherits from {@link ChunkPart}.
+ * For nouns.
+ *
+ * @author Matthieu Fraissinet-Tachet
+*/
+
 public class NounChunkPart
     extends ChunkPart
 {
-    /**
-     *
-     */
+
     private static final long serialVersionUID = 9147130913729196541L;
 
     public NounChunkPart()

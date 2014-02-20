@@ -2,6 +2,12 @@ package de.tudarmstadt.ukp.experiments.mft.uimapp_cosmetics.types.enumerations;
 
 import de.tudarmstadt.ukp.lmf.model.enums.EPartOfSpeech;
 
+/**
+*
+* @author Matthieu Fraissinet-Tachet
+*
+*/
+
 public enum ChunkPartType
 {
     N("N"),
