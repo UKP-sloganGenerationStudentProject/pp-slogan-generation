@@ -100,6 +100,7 @@ public class SloganGenerator
         generator.setSloganBasePath("src/main/resources/beautySlogans.txt");
         generator.setUbyDBData("localhost/uby_medium_0_3_0", "com.mysql.jdbc.Driver", "mysql",
                 "root", "pass");
+        generator.setWeb1TPathname(System.getenv("DKPRO_HOME") + "/web1t/ENGLISH/");
 
 
 //        generator.init();
@@ -337,20 +338,35 @@ public class SloganGenerator
 
     }
 
-    /*
-     * Setters necessary to use before init();
-     */
 
+    /**
+     * set the path of the pdf containing word - emotion associations (Saif M. Mohammad and Peter D. Turney. NRC Emotion Lexicon. NRC Technical Report,
+      *  Ottawa, Canada, December 2013) v0.92
+     * @param emotionFilePath
+     */
     public void setEmotionFilePath(final String emotionFilePath)
     {
         this._emotionFilePath = emotionFilePath;
     }
 
+    /**
+     * set the path to the slogan corpus text. In this corpus, each line contains a slogan, and
+     * each product name is replaced by 'productname'.
+     * @param sloganBasePath
+     */
     public void setSloganBasePath(final String sloganBasePath)
     {
         this._sloganBasePath = sloganBasePath;
     }
 
+    /**
+     * set the information to access to uby database (Tested for uby_medium_0_3_0) from http://uby.ukp.informatik.tu-darmstadt.de/uby/
+     * @param ubyDBURL
+     * @param ubyDBDriver
+     * @param ubyDBDriverName
+     * @param ubyDBUserName
+     * @param ubyDBPassword
+     */
     public void setUbyDBData(final String ubyDBURL, final String ubyDBDriver,
             final String ubyDBDriverName, final String ubyDBUserName, final String ubyDBPassword)
     {
@@ -361,16 +377,42 @@ public class SloganGenerator
         this._ubyDBPassword = ubyDBPassword;
     }
 
-    public void setProductName(final String name)
-    {
-        this._productName=name;
-    }
-
+    /**
+     * the the path to the Web1t corpus containing ngrams
+     * @param web1tPathname
+     */
     public void setWeb1TPathname(final String web1tPathname)
     {
         this._web1TPathname = web1tPathname;
     }
 
+
+    /**
+     * allow (or not) the program to use uby for looking for synonyms of word during the generation
+     * of new slogans
+     * @param tof
+     */
+    public void useUbyForNewWords(final boolean tof)
+    {
+        this._useUbyGeneration = tof;
+    }
+
+
+    /**
+     * set the product name given by the user
+     * @param name
+     */
+    public void setProductName(final String name)
+    {
+        this._productName=name;
+    }
+
+
+
+    /**
+     * the the word suggested by the users. The words must be separated by a coma
+     * @param suggestedWords
+     */
     public void setSuggestedWords(final String suggestedWords)
     {
         List<String> suggestedWordList = new ArrayList<>();
@@ -385,21 +427,25 @@ public class SloganGenerator
         this._suggestedWords=suggestedWordList;
     }
 
+    /**
+     * set the pattern selected by the user. The possible values are given by getSelectablePatterns()
+     * from {@link Parameters}.
+     * @param chunkPatternAsString
+     */
     public void selectPattern(final String chunkPatternAsString)
     {
         this._patternToGenerate=chunkPatternAsString;
     }
 
+    /**
+     * set the body part selected by the user. The possible values are given by getSelectablePartsOfBody()
+     * from {@link Parameters}.
+     * @param part
+     */
     public void selectPartOfBody(final String part)
     {
         this._selectedPartOfBody = part;
     }
-
-    public void useUbyForNewWords(final boolean tof)
-    {
-        this._useUbyGeneration = tof;
-    }
-
 
 
     /**
