@@ -92,7 +92,11 @@ public class SloganGenerator
         throws Exception
     {
 
+        /*
+         * we decide to use the serialized version of the slogan generator so that we don't have to use init(), because it takes around 10s
+         */
         final SloganGenerator generator = SloganGenerator.restoreFromSerialized("src/main/resources/sloganGeneratorSerialized.txt");
+//        final generator = new SloganGenerator();
 
         generator.useUbyForNewWords(true);
 
@@ -103,9 +107,14 @@ public class SloganGenerator
         generator.setWeb1TPathname(System.getenv("DKPRO_HOME") + "/web1t/ENGLISH/");
 
 
-//        generator.init();
+        /*
+         * we don't need to use init() if the slogan generator has been loaded from a serialized version
+         */
+        //generator.init();
 
-      // New file output stream for the file
+        /*
+         * Use this to store a new serialized version (do init() before !)
+         */
 //        FileOutputStream fos = new FileOutputStream("src/main/resources/sloganGeneratorSerialized.txt");
 //        SerializationUtils.serialize(generator, fos);
 
@@ -226,7 +235,6 @@ public class SloganGenerator
         catch (final UbyInvalidArgumentException e) {
             e.printStackTrace();
         }
-        //this._resources.setUby(uby);
 
         /*
          * setup web1t
@@ -238,35 +246,12 @@ public class SloganGenerator
             web1tPathname = this._web1TPathname;
         }
         final JWeb1TSearcher lookup = new JWeb1TSearcher(new File(web1tPathname), 1, 1);
-//        this._resources.setWordStatistic(lookup);
 
-//
-//        String allowedWordsPath = "";
-//        if (this._allowedWordsPath != null) {
-//            allowedWordsPath = this._allowedWordsPath;
-//        }
-//
-//        String rejectedWordsPath = "";
-//        if (this._rejectedWordsPath != null) {
-//            rejectedWordsPath = this._rejectedWordsPath;
-//        }
-//
-//
-//        JWeb1TSearcher allowedWordsSearcher = null;
-//        if(!allowedWordsPath.equals(""))
-//        {
-//            allowedWordsSearcher = new JWeb1TSearcher(new File(allowedWordsPath), 1, 1);
-//        }
-//
-//        File rejWordsFile = new File(rejectedWordsPath);
-
-//        this._resources.setAllowedWordSearcher(allowedWordsSearcher, rejWordsFile);
 
         /*
          * Emotion analyzer
          */
         final EmotionAnalyzer emotionAnalizer = new EmotionAnalyzer(this._emotionFilePath);
-//        this._resources.setEmotionAnalizer(emotionAnalizer);
 
         /*
          * set the pipe for the creation of the patterns
